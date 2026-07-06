@@ -1,6 +1,6 @@
 ---
-title: "kakarrot.com — AI 教育产品经理个人品牌网站"
-description: "从老 Hexo 博客迁移到 Astro 的个人品牌站点：Content Collections 管理文章/项目/实验，Shell 容器布局，酸绿色强调，纯静态零 JS 构建"
+title: "kakarrot.com — AI 产品经理品牌网站"
+description: "从老 Hexo 博客迁移到 Astro 的品牌站点：Content Collections 管理文章/项目/实验，Shell 容器布局，酸绿色强调，纯静态零 JS 构建"
 publishedAt: 2026-07-06
 topics:
   - "Astro"
@@ -11,7 +11,7 @@ featured: true
 draft: false
 ---
 
-AI 教育产品经理的个人品牌网站。从运行十年的 Hexo 博客迁移而来，定位从"博客归档"转变为"个人品牌入口"。
+AI 产品经理的品牌网站。从运行十年的 Hexo 博客迁移而来，定位从"博客归档"转变为"个人品牌入口"。
 
 ### 技术栈
 
