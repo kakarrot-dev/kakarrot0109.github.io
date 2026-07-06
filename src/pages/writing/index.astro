@@ -1,0 +1,22 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import ArticleCard from "@/components/ArticleCard.astro";
+import { getCollection } from "astro:content";
+
+const articles = (await getCollection("writing"))
+  .filter((a) => !a.data.draft)
+  .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
+---
+
+<BaseLayout title="文章" description="关于 AI 产品、方法论与实践的思考">
+  <h1 class="text-4xl font-black tracking-tighter uppercase mb-12">文章</h1>
+  {articles.map((a) => (
+    <ArticleCard
+      title={a.data.title}
+      description={a.data.description}
+      tags={a.data.tags}
+      slug={a.slug}
+      publishedAt={a.data.publishedAt}
+    />
+  ))}
+</BaseLayout>
