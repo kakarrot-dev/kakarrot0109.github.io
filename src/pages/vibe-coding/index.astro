@@ -9,9 +9,12 @@ const items = (await getCollection("vibe-coding"))
 ---
 
 <BaseLayout title="Vibe Coding" description="AI 协作构建的产品与实验" shell>
-  <div style={{padding: "38px 30px", borderBottom: "2px solid var(--color-border-strong)"}}>
-    <h1 style={{fontSize: "clamp(50px,7vw,100px)", letterSpacing: "-.07em", lineHeight: .9, fontWeight: 900, margin: "0 0 8px"}}>Vibe Coding</h1>
-    <p style={{font: "700 13px/1.5 ui-monospace,monospace", color: "var(--color-text-muted)", margin: 0}}>AI 协作构建的产品与实验</p>
+  <div style={{padding: "38px 30px", borderBottom: "2px solid var(--color-border-strong)", display: "flex", justifyContent: "space-between", alignItems: "flex-end"}}>
+    <div>
+      <h1 style={{fontSize: "clamp(50px,7vw,100px)", letterSpacing: "-.07em", lineHeight: .9, fontWeight: 900, margin: "0 0 8px"}}>Vibe Coding</h1>
+      <p style={{font: "700 13px/1.5 ui-monospace,monospace", color: "var(--color-text-muted)", margin: 0}}>AI 协作构建的产品与实验</p>
+    </div>
+    <p style={{font: "400 14px/1.4 serif", color: "var(--color-text-muted)", margin: 0, whiteSpace: "nowrap"}}>想法的快速原型是最高效的学习</p>
   </div>
   <div style={{display: "grid", gridTemplateColumns: "1fr 1fr"}}>
     {items.map((p, i) => (

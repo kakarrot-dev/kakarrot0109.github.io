@@ -9,9 +9,12 @@ const dateOpts = { year: "numeric" as const, month: "2-digit" as const, day: "2-
 ---
 
 <BaseLayout title="Writing" description="关于 AI 产品、方法论与实践的思考" shell>
-  <div style={{padding: "38px 30px", borderBottom: "2px solid var(--color-border-strong)"}}>
-    <h1 style={{fontSize: "clamp(50px,7vw,100px)", letterSpacing: "-.07em", lineHeight: .9, fontWeight: 900, margin: "0 0 8px"}}>文章</h1>
-    <p style={{font: "700 13px/1.5 ui-monospace,monospace", color: "var(--color-text-muted)", margin: 0}}>关于 AI 产品、方法论与实践的思考</p>
+  <div style={{padding: "38px 30px", borderBottom: "2px solid var(--color-border-strong)", display: "flex", justifyContent: "space-between", alignItems: "flex-end"}}>
+    <div>
+      <h1 style={{fontSize: "clamp(50px,7vw,100px)", letterSpacing: "-.07em", lineHeight: .9, fontWeight: 900, margin: "0 0 8px"}}>文章</h1>
+      <p style={{font: "700 13px/1.5 ui-monospace,monospace", color: "var(--color-text-muted)", margin: 0}}>关于 AI 产品、方法论与实践的思考</p>
+    </div>
+    <p style={{font: "400 14px/1.4 serif", color: "var(--color-text-muted)", margin: 0, whiteSpace: "nowrap"}}>写下来的思考才真正属于自己</p>
   </div>
   {articles.map((a, i) => (
     <a href={`/writing/${a.slug}/`} style={{display: "block", textDecoration: "none", color: "inherit", padding: "28px 30px", borderBottom: i < articles.length - 1 ? "1px solid var(--color-border-subtle)" : "none", transition: "background .15s"}}
