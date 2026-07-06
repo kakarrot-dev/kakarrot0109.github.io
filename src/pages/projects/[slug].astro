@@ -1,0 +1,27 @@
+---
+import ProseLayout from "@/layouts/ProseLayout.astro";
+import { getCollection } from "astro:content";
+
+export async function getStaticPaths() {
+  const projects = await getCollection("projects");
+  return projects
+    .filter((p) => !p.data.draft)
+    .map((p) => ({
+      params: { slug: p.slug },
+      props: { project: p },
+    }));
+}
+
+const { project } = Astro.props;
+const { Content } = await project.render();
+---
+
+<ProseLayout title={project.data.title} description={project.data.description}>
+  <p class="text-xs text-[var(--color-text-muted)] font-mono">
+    发布时间：{project.data.publishedAt.toLocaleDateString("zh-CN")}
+  </p>
+  <p class="text-xs text-[var(--color-text-muted)] font-mono mb-4">
+    公开级别：{project.data.disclosureLevel}
+  </p>
+  <Content />
+</ProseLayout>

@@ -1,0 +1,24 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import ProjectCard from "@/components/ProjectCard.astro";
+import { getCollection } from "astro:content";
+
+const projects = (await getCollection("projects"))
+  .filter((p) => !p.data.draft)
+  .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
+---
+
+<BaseLayout title="项目" description="项目案例 — AI 产品实践">
+  <h1 class="text-4xl font-black tracking-tighter uppercase mb-2">项目</h1>
+  <p class="text-[var(--color-text-secondary)] mb-12">项目案例 — AI 产品实践</p>
+  <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+    {projects.map((p) => (
+      <ProjectCard
+        title={p.data.title}
+        description={p.data.description}
+        topics={p.data.topics}
+        slug={p.slug}
+      />
+    ))}
+  </div>
+</BaseLayout>
