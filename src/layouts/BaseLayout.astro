@@ -36,5 +36,23 @@ const { title, description, canonical, shell } = Astro.props;
       </main>
     )}
     <Footer />
+    <script>
+      // 滚动进入视口时显示元素
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.15 }
+      );
+
+      document.querySelectorAll(".reveal, .hero-line, .hero-fade").forEach((el) =>
+        observer.observe(el)
+      );
+    </script>
   </body>
 </html>

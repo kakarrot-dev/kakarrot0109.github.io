@@ -1,6 +1,5 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import MethodSection from "@/components/MethodSection.astro";
 import ProjectCard from "@/components/ProjectCard.astro";
 import ArticleCard from "@/components/ArticleCard.astro";
 import { getCollection } from "astro:content";
@@ -16,22 +15,29 @@ const featuredArticles = (await getCollection("writing"))
 ---
 
 <BaseLayout title="Kakarrot" description="AI 产品经理 — 从第一性原理拆解复杂业务，用 AI 原生方式做成可落地的产品系统。">
-  <!-- Hero: 全宽突破 -->
+  <!-- Hero -->
   <div class="full-bleed" style="border-bottom:2px solid var(--color-border-strong)">
     <div class="full-bleed-inner" style="display:grid;grid-template-columns:1.45fr .55fr;min-height:660px">
       <div style="padding:64px 36px 44px;display:flex;flex-direction:column;justify-content:space-between;border-right:2px solid var(--color-border-strong)">
         <div>
-          <div style={{marginBottom: "28px"}}>
+          <div style={{marginBottom: "28px"}} class="hero-fade">
             <span style={{display: "inline-block", background: "var(--color-accent)", padding: "5px 8px", font: "700 13px/1.4 ui-monospace,monospace", textTransform: "uppercase", letterSpacing: ".04em", color: "var(--color-text-primary)"}}>Product &times; Business &times; AI</span>
           </div>
-          <h1 style={{fontSize: "clamp(60px,9vw,120px)", lineHeight: ".88", letterSpacing: "-.075em", margin: "0 0 36px", fontWeight: 900, maxWidth: "1050px"}}>拆掉假设，<br />重构业务。</h1>
-          <p style={{fontSize: "clamp(18px,2vw,28px)", lineHeight: 1.4, maxWidth: "820px", margin: 0, color: "var(--color-text-primary)"}}>从第一性原理出发，识别业务真正的问题，用 AI 原生方式重新设计产品与增长系统。</p>
+          <h1>
+            <span class="hero-line"><span>拆掉假设，</span></span>
+            <span class="hero-line" style="transition-delay:0.15s"><span>重构业务。</span></span>
+          </h1>
+          <p class="hero-fade" style="transition-delay:0.35s;font-size:clamp(18px,2vw,28px);line-height:1.4;max-width:820px;margin:36px 0 0;color:var(--color-text-primary)">从第一性原理出发，识别业务真正的问题，用 AI 原生方式重新设计产品与增长系统。</p>
+          <div class="hero-fade" style="transition-delay:0.45s;margin-top:40px;padding-top:32px;border-top:1px solid var(--color-border)">
+            <p style="font-size:clamp(14px,1.2vw,17px);line-height:1.7;margin:0 0 12px;color:var(--color-text-secondary)">我是 AI 产品经理，不限行业。技术翻篇快，但业务场景不会变。我所做的事，是在每个具体的场景里找到 AI 真正能用起来的位置。</p>
+            <p style="font-size:clamp(14px,1.2vw,17px);line-height:1.7;margin:0;color:var(--color-text-secondary)">别人问我擅长什么，我说就两件：一是看到场景就知道"AI 在这里能干嘛"，二是能把它做成用户真愿意用的产品。</p>
+          </div>
         </div>
-        <div style={{font: "700 13px/1.5 ui-monospace,monospace", color: "var(--color-text-muted)"}}>KAKARROT / 产品经理与 AI 实践者<br />写作 &middot; 案例 &middot; 独立研究</div>
+        <div class="hero-fade" style="transition-delay:0.5s;font:700 13px/1.5 ui-monospace,monospace;color:var(--color-text-muted)">KAKARROT / 产品经理与 AI 实践者<br />写作 &middot; 案例 &middot; 独立研究</div>
       </div>
       <aside style={{display: "flex", flexDirection: "column"}}>
-        <div style={{padding: "28px", font: "700 13px/1 ui-monospace,monospace", borderBottom: "2px solid var(--color-border-strong)"}}>INDEX / 001</div>
-        <div style={{flex: 1, background: "var(--color-text-primary)", color: "var(--color-bg-warm)", display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "30px"}}>
+        <div class="hero-fade" style="padding:28px;font:700 13px/1 ui-monospace,monospace;border-bottom:2px solid var(--color-border-strong)">INDEX / 001</div>
+        <div class="hero-fade" style="transition-delay:0.2s;flex:1;background:var(--color-text-primary);color:var(--color-bg-warm);display:flex;align-items:center;justify-content:center;text-align:center;padding:30px">
           <div>
             <img src="/avatar.jpeg" alt="Kakarrot" style={{width: "clamp(100px,12vw,180px)", height: "clamp(100px,12vw,180px)", borderRadius: "50%", objectFit: "cover", display: "block", margin: "0 auto"}} />
             <small style={{display: "block", font: "700 14px/1.7 ui-monospace,monospace", letterSpacing: ".08em", marginTop: "14px"}}>THINK FROM ZERO<br />BUILD FOR REALITY</small>
@@ -41,8 +47,8 @@ const featuredArticles = (await getCollection("writing"))
     </div>
   </div>
 
-  <!-- 方法区: 全宽突破 -->
-  <div class="full-bleed" style="border-bottom:2px solid var(--color-border-strong)">
+  <!-- 方法论 -->
+  <div class="full-bleed reveal" style="border-bottom:2px solid var(--color-border-strong)">
     <div style="display:grid;grid-template-columns:.55fr 1.45fr">
       <div style={{padding: "38px 30px", borderRight: "2px solid var(--color-border-strong)"}}>
         <div style={{font: "700 13px/1.5 ui-monospace,monospace", color: "var(--color-text-muted)", marginBottom: "14px"}}>METHOD / 方法论</div>
@@ -51,7 +57,7 @@ const featuredArticles = (await getCollection("writing"))
       </div>
       <div style={{display: "grid", gridTemplateColumns: "repeat(3, 1fr)"}}>
         {[{step:"01",title:"找到本质问题",desc:"去掉行业惯例和历史包袱，确认用户真正要完成的任务。"},{step:"02",title:"拆解业务系统",desc:"把用户、价值、流程、成本与增长放回同一张地图。"},{step:"03",title:"AI 原生重构",desc:"重新分配人与机器的职责，设计新的产品形态与反馈闭环。"}].map(({step,title,desc},i)=>(
-          <article key={step} style={{minHeight: "400px", padding: "34px 28px", display: "flex", flexDirection: "column", justifyContent: "space-between", borderRight: i < 2 ? "2px solid var(--color-border-strong)" : "none", background: i === 1 ? "var(--color-accent)" : "transparent"}}>
+          <article key={step} class={"reveal reveal-delay-" + (i+1)} style={{minHeight: "400px", padding: "34px 28px", display: "flex", flexDirection: "column", justifyContent: "space-between", borderRight: i < 2 ? "2px solid var(--color-border-strong)" : "none", background: i === 1 ? "var(--color-accent)" : "transparent"}}>
             <span style={{font: "700 16px/1 ui-monospace,monospace", color: i === 1 ? "var(--color-text-primary)" : "var(--color-text-muted)"}}>{step}</span>
             <div>
               <h3 style={{fontSize: "clamp(28px,2.5vw,36px)", lineHeight: 1.05, margin: "0 0 16px", fontWeight: 700}}>{title}</h3>
@@ -63,38 +69,41 @@ const featuredArticles = (await getCollection("writing"))
     </div>
   </div>
 
-  <!-- 跑马条: 全宽突破 -->
+  <!-- 跑马条 -->
   <div class="full-bleed" style={{overflow: "hidden", background: "var(--color-accent)", borderBottom: "2px solid var(--color-border-strong)"}}>
-    <div style={{fontSize: "clamp(36px,4vw,52px)", fontWeight: 900, letterSpacing: "-.04em", whiteSpace: "nowrap", padding: "14px 0", transform: "translateX(-4%)"}}>
-      <span>PROJECTS &middot; BUSINESS SYSTEMS &middot; AI NATIVE &middot; FIRST PRINCIPLES &middot; </span>
-      <span>PROJECTS &middot; BUSINESS SYSTEMS &middot; AI NATIVE &middot; FIRST PRINCIPLES &middot; </span>
+    <div style={{fontSize: "clamp(36px,4vw,52px)", fontWeight: 900, letterSpacing: "-.04em", whiteSpace: "nowrap", overflow: "hidden"}}>
+      <div class="marquee-track" style={{gap: 0}}>
+        <span style={{padding: "14px 0"}}>PROJECTS &middot; BUSINESS SYSTEMS &middot; AI NATIVE &middot; FIRST PRINCIPLES &middot; </span>
+        <span style={{padding: "14px 0"}}>PROJECTS &middot; BUSINESS SYSTEMS &middot; AI NATIVE &middot; FIRST PRINCIPLES &middot; </span>
+        <span style={{padding: "14px 0"}}>PROJECTS &middot; BUSINESS SYSTEMS &middot; AI NATIVE &middot; FIRST PRINCIPLES &middot; </span>
+      </div>
     </div>
   </div>
 
-  <!-- 项目区: 在 shell 内 -->
-  <div class="shell" style="border-top:none">
+  <!-- 项目区 -->
+  <div class="shell reveal" style="border-top:none">
     <div style={{padding: "38px 30px", display: "flex", justifyContent: "space-between", alignItems: "end", borderBottom: "2px solid var(--color-border-strong)"}}>
       <h2 style={{fontSize: "clamp(50px,7vw,100px)", letterSpacing: "-.07em", lineHeight: .9, fontWeight: 900, margin: 0}}>项目案例</h2>
       <span style={{font: "700 13px/1.5 ui-monospace,monospace", color: "var(--color-text-muted)"}}>SELECTED WORK / 02</span>
     </div>
     <div style={{display: "grid", gridTemplateColumns: "1fr 1fr"}}>
       {featuredProjects.map((p, i) => (
-        <div key={p.slug} style={{borderRight: i % 2 === 0 ? "2px solid var(--color-border-strong)" : "none"}}>
+        <div key={p.slug} class={"reveal reveal-delay-" + (i+1)} style={{borderRight: i % 2 === 0 ? "2px solid var(--color-border-strong)" : "none"}}>
           <ProjectCard title={p.data.title} description={p.data.description} topics={p.data.topics} slug={p.slug} />
         </div>
       ))}
     </div>
   </div>
 
-  <!-- 文章区: 在 shell 内 -->
-  <div class="shell" style="border-top:none;border-bottom:2px solid var(--color-border-strong);background:#fff">
+  <!-- 文章区 -->
+  <div class="shell reveal" style="border-top:none;border-bottom:2px solid var(--color-border-strong);background:#fff">
     <div style={{padding: "38px 30px", display: "flex", justifyContent: "space-between", alignItems: "end", borderBottom: "1px solid #bbb"}}>
       <h2 style={{fontSize: "clamp(50px,7vw,100px)", letterSpacing: "-.07em", lineHeight: .9, fontWeight: 900, margin: 0}}>最近写作</h2>
       <span style={{font: "700 13px/1.5 ui-monospace,monospace", color: "var(--color-text-muted)"}}>WRITING / NOTES</span>
     </div>
     <div style={{display: "grid", gridTemplateColumns: "repeat(3, 1fr)"}}>
       {featuredArticles.map((a, i) => (
-        <div key={a.slug} style={{borderRight: i < featuredArticles.length - 1 ? "1px solid #bbb" : "none"}}>
+        <div key={a.slug} class={"reveal reveal-delay-" + (i+1)} style={{borderRight: i < featuredArticles.length - 1 ? "1px solid #bbb" : "none"}}>
           <ArticleCard title={a.data.title} description={a.data.description} tags={a.data.tags} slug={a.slug} publishedAt={a.data.publishedAt} />
         </div>
       ))}

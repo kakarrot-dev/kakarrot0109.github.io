@@ -35,15 +35,13 @@ a:hover { color: var(--color-accent-dim); }
   * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
 }
 
-/* shell 容器 — 固定宽度主体 */
+/* shell 容器 */
 .shell {
   max-width: 1340px;
   margin: 0 auto;
   border-left: var(--border-thick);
   border-right: var(--border-thick);
 }
-
-/* 突破容器 — 让子元素撑满视口宽度 */
 .full-bleed {
   width: 100vw;
   margin-left: calc(-50vw + 50%);
@@ -53,4 +51,71 @@ a:hover { color: var(--color-accent-dim); }
   margin: 0 auto;
   border-left: var(--border-thick);
   border-right: var(--border-thick);
+}
+
+/* ——— 动效 ——— */
+
+/* 基础：隐藏状态（供 reveal 使用） */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 延迟阶梯 */
+.reveal-delay-1 { transition-delay: 0s; }
+.reveal-delay-2 { transition-delay: 0.1s; }
+.reveal-delay-3 { transition-delay: 0.2s; }
+
+/* Hero 标题逐字 - 页面加载即播放 */
+@keyframes heroLineIn {
+  0% { transform: translateY(100%); }
+  100% { transform: translateY(0); }
+}
+.hero-line {
+  display: block;
+  overflow: hidden;
+}
+.hero-line span {
+  display: block;
+  animation: heroLineIn 0.8s 0.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.hero-line:nth-child(2) span {
+  animation-delay: 0.35s;
+}
+
+/* Hero 辅助元素淡入 - 加载即播放 */
+@keyframes heroFadeIn {
+  0% { opacity: 0; transform: translateY(8px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+.hero-fade {
+  animation: heroFadeIn 0.6s ease both;
+}
+.hero-fade:nth-child(1) { animation-delay: 0.15s; }
+.hero-fade:nth-child(2) { animation-delay: 0.35s; }
+.hero-fade:nth-child(3) { animation-delay: 0.35s; }
+
+/* 卡片 hover 微动 */
+.hover-lift {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.3s ease;
+}
+.hover-lift:hover {
+  transform: translateY(-4px);
+}
+
+/* 跑马条滚动 */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.marquee-track {
+  display: flex;
+  animation: marquee 30s linear infinite;
 }
