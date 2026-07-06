@@ -1,6 +1,6 @@
 ---
 title: "魔兽世界WotLK备份"
-description: "留个备份。"
+description: "巫妖王之怒版本的个人配置备份：按键设置、插件列表、角色数据，以防哪天想回去看看。"
 publishedAt: 2024-08-28
 tags:
   - "游戏"

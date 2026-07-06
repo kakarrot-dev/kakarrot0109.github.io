@@ -1,13 +1,13 @@
 ---
 title: "macOS 系统配置+软件"
-description: ""
+description: "Mac 新机到手后的完整配置清单：系统设置、Homebrew、开发环境、日常软件一站到位。"
 publishedAt: 2026-03-30
 tags:
   - "技术"
   - "macOS"
   - "开发环境"
   - "Homebrew"
-featured: false
+featured: true
 draft: false
 ---
 

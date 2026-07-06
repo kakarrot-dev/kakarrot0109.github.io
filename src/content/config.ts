@@ -26,4 +26,16 @@ const writing = defineCollection({
   }),
 });
 
-export const collections = { projects, writing };
+const vibeCoding = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    publishedAt: z.date(),
+    topics: z.array(z.string()),
+    featured: z.boolean().default(false),
+    draft: z.boolean().default(false),
+  }),
+});
+
+export const collections = { projects, writing, 'vibe-coding': vibeCoding };

@@ -3,14 +3,16 @@ export interface Props {
   title: string;
   description: string;
   topics: string[];
-  slug: string;
+  href: string;
+  variant?: "default" | "uniform";
 }
 
-const { title, description, topics, slug } = Astro.props;
+const { title, description, topics, href, variant = "default" } = Astro.props;
+const isUniform = variant === "uniform";
 ---
 
 <article style={{
-  minHeight: "440px",
+  minHeight: isUniform ? "360px" : "440px",
   padding: "28px",
   display: "flex",
   flexDirection: "column",
@@ -20,10 +22,36 @@ const { title, description, topics, slug } = Astro.props;
 onmouseover="this.style.background='color-mix(in oklab, var(--color-accent) 10%, transparent)'"
 onmouseout="this.style.background='transparent'"
 >
-  <span style={{font: "700 13px/1 ui-monospace,monospace", color: "var(--color-text-muted)"}}>{topics[0] ? `01 / ${topics[0].toUpperCase()}` : ""}</span>
-  <a href={`/projects/${slug}/`} style={{textDecoration: "none", color: "inherit"}}>
-    <h3 style={{fontSize: "clamp(28px,4vw,48px)", lineHeight: 1, letterSpacing: "-.05em", fontWeight: 900, margin: "0 0 12px"}}>{title}</h3>
-    <p style={{fontSize: "17px", lineHeight: 1.55, maxWidth: "560px", margin: 0, color: "var(--color-text-secondary)"}}>{description}</p>
+  <span style={{font: "700 13px/1 ui-monospace,monospace", color: "var(--color-text-muted)"}}>{topics[0] || ""}</span>
+  <a href={href} style={{textDecoration: "none", color: "inherit", display: "flex", flexDirection: "column", height: isUniform ? "260px" : "auto"}}>
+    <div style={{display: "flex", flexDirection: "column", justifyContent: "center", minHeight: isUniform ? "100px" : "auto", marginBottom: isUniform ? "20px" : "12px"}}>
+      <h3 style={{
+        fontSize: isUniform ? "clamp(22px,2.5vw,30px)" : "clamp(28px,4vw,48px)",
+        lineHeight: 1.15,
+        letterSpacing: isUniform ? "-.03em" : "-.05em",
+        fontWeight: 900,
+        margin: 0,
+        overflow: "hidden",
+        textOverflow: "ellipsis",
+        display: "-webkit-box",
+        WebkitLineClamp: 2,
+        WebkitBoxOrient: "vertical",
+      }}>{title}</h3>
+    </div>
+    <div style={{flex: 1, display: "flex", flexDirection: "column", justifyContent: "center", minHeight: isUniform ? "80px" : "auto"}}>
+      <p style={{
+        fontSize: isUniform ? "15px" : "17px",
+        lineHeight: 1.55,
+        maxWidth: "560px",
+        margin: 0,
+        color: "var(--color-text-secondary)",
+        overflow: "hidden",
+        textOverflow: "ellipsis",
+        display: "-webkit-box",
+        WebkitLineClamp: isUniform ? 3 : 6,
+        WebkitBoxOrient: "vertical",
+      }}>{description}</p>
+    </div>
   </a>
-  <a href={`/projects/${slug}/`} style={{font: "700 13px/1 ui-monospace,monospace", textDecoration: "none", color: "var(--color-text-primary)"}}>查看案例 &rarr;</a>
+  <a href={href} style={{font: isUniform ? "400 12px/1 ui-monospace,monospace" : "700 13px/1 ui-monospace,monospace", textDecoration: "none", color: "var(--color-text-primary)"}}>{isUniform ? "阅读 →" : "查看案例 →"}</a>
 </article>

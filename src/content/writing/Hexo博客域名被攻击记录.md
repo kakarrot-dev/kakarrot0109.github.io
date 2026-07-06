@@ -1,6 +1,6 @@
 ---
 title: "GitHub Pages 自定义域名被劫持与恢复记录"
-description: ""
+description: "GitHub Pages 自定义域名被劫持的完整复盘：发现、定位、恢复、预防——一次安全事件的全程记录。"
 publishedAt: 2025-12-29
 tags:
   - "Hexo"

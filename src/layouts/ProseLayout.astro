@@ -10,7 +10,7 @@ const { title, description } = Astro.props;
 ---
 
 <BaseLayout {title} {description}>
-  <article class="max-w-[820px] mx-auto prose">
+  <article class="max-w-[820px] mx-auto prose pt-16 md:pt-20">
     <header class="mb-12">
       <h1 class="text-3xl md:text-4xl font-black tracking-tighter uppercase">{title}</h1>
       <p class="text-[var(--color-text-secondary)] mt-2">{description}</p>
@@ -20,62 +20,287 @@ const { title, description } = Astro.props;
 </BaseLayout>
 
 <style is:global>
+  /* ——— 基础排版 ——— */
+  .prose {
+    font-size: 1.0625rem;
+    line-height: 1.8;
+    color: var(--color-text-primary);
+  }
+
   .prose h2 {
-    font-size: 1.5rem;
+    font-size: 1.65rem;
     font-weight: 700;
-    margin-top: 2.5rem;
+    margin-top: 3rem;
     margin-bottom: 0.75rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid var(--color-border);
+    letter-spacing: -.02em;
   }
   .prose h3 {
-    font-size: 1.25rem;
+    font-size: 1.35rem;
+    font-weight: 600;
+    margin-top: 2.5rem;
+    margin-bottom: 0.5rem;
+  }
+  .prose h4 {
+    font-size: 1.1rem;
     font-weight: 600;
     margin-top: 2rem;
     margin-bottom: 0.5rem;
   }
+
+  /* ——— 段落与列表 ——— */
   .prose p {
     margin-bottom: 1.25rem;
-    line-height: 1.75;
-    color: var(--color-text-primary);
+    line-height: 1.85;
   }
   .prose ul, .prose ol {
     margin-bottom: 1.25rem;
-    padding-left: 1.5rem;
+    padding-left: 1.75rem;
   }
+  .prose ul { list-style: disc; }
+  .prose ol { list-style: decimal; }
   .prose li {
-    margin-bottom: 0.25rem;
-    line-height: 1.75;
+    margin-bottom: 0.35rem;
+    line-height: 1.8;
   }
-  .prose strong {
-    font-weight: 700;
+  .prose li > ul, .prose li > ol {
+    margin-top: 0.3rem;
+    margin-bottom: 0.3rem;
   }
+
+  /* ——— 行内代码 ——— */
+  .prose code:not(pre code) {
+    font-size: 0.85em;
+    padding: 0.2em 0.45em;
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    font-family: "SF Mono", "Fira Code", "Cascadia Code", Consolas, monospace;
+  }
+
+  /* ——— 代码块：容器 ——— */
+  .prose .code-block-wrap {
+    margin: 1.5rem 0;
+    border: 1px solid #2a2a4a;
+    border-radius: 0;
+    overflow: hidden;
+  }
+
+  .code-block-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.45rem 1rem;
+    background: #12121e;
+    border-bottom: 1px solid #2a2a4a;
+    font-size: 0.75rem;
+    font-family: "SF Mono", "Fira Code", Consolas, monospace;
+  }
+
+  .code-block-header .code-lang {
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-weight: 500;
+    font-size: 0.7rem;
+  }
+
+  .code-block-header .copy-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    border: none;
+    background: transparent;
+    color: #666;
+    cursor: pointer;
+    font-size: 0.7rem;
+    font-family: inherit;
+    padding: 0.15rem 0.4rem;
+    transition: color 0.15s;
+  }
+  .code-block-header .copy-btn:hover {
+    color: #ccc;
+  }
+  .code-block-header .copy-btn.copied {
+    color: #4CAF50;
+  }
+
+  .code-block-header .copy-btn svg {
+    width: 13px;
+    height: 13px;
+  }
+
+  .prose .astro-code {
+    margin: 0;
+    padding: 1.25rem 1.5rem;
+    border: none;
+    border-radius: 0;
+  }
+
+  /* ——— 引用 ——— */
+  .prose blockquote {
+    margin: 1.75rem 0;
+    padding: 0.75rem 1.25rem;
+    border-left: 4px solid var(--color-accent);
+    background: color-mix(in oklab, var(--color-accent) 6%, transparent);
+    color: var(--color-text-primary);
+    font-style: normal;
+  }
+  .prose blockquote p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* ——— 表格 ——— */
+  .prose table {
+    width: 100%;
+    margin: 1.5rem 0;
+    border-collapse: collapse;
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    overflow-x: auto;
+    display: block;
+  }
+  .prose thead {
+    background: var(--color-text-primary);
+    color: var(--color-bg-warm);
+  }
+  .prose th {
+    font-weight: 600;
+    text-align: left;
+    padding: 0.6rem 0.8rem;
+    border: 1px solid var(--color-text-primary);
+    white-space: nowrap;
+  }
+  .prose td {
+    padding: 0.5rem 0.8rem;
+    border: 1px solid var(--color-border);
+  }
+  .prose tbody tr:nth-child(even) {
+    background: var(--color-bg-card);
+  }
+  .prose tbody tr:hover {
+    background: color-mix(in oklab, var(--color-accent) 8%, transparent);
+  }
+
+  /* ——— 图片 ——— */
+  .prose img {
+    max-width: 100%;
+    height: auto;
+    margin: 1.5rem 0;
+    border: 1px solid var(--color-border);
+  }
+
+  /* ——— 链接 ——— */
+  .prose a {
+    color: var(--color-accent);
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+  }
+  .prose a:hover {
+    color: var(--color-accent-dim);
+  }
+
+  /* ——— 分割线 ——— */
   .prose hr {
     border: none;
     border-top: 1px solid var(--color-border);
     margin: 2.5rem 0;
   }
-  .prose a {
+
+  /* ——— 粗体/斜体 ——— */
+  .prose strong { font-weight: 700; }
+  .prose em { font-style: italic; }
+
+  /* ——— 嵌套引用缩进 ——— */
+  .prose blockquote blockquote {
+    margin-left: 0.5rem;
+    font-size: 0.95em;
+  }
+
+  /* ——— 标题锚点悬停 ——— */
+  .prose h2:hover::before,
+  .prose h3:hover::before,
+  .prose h4:hover::before {
+    content: "#";
+    position: absolute;
+    margin-left: -1.2em;
     color: var(--color-accent);
-    text-underline-offset: 2px;
+    font-weight: 400;
+    opacity: 0.5;
   }
-  .prose a:hover {
-    color: var(--color-accent-dim);
+  .prose h2, .prose h3, .prose h4 {
+    position: relative;
   }
-  .prose img {
-    max-width: 100%;
-    height: auto;
-    margin: 1.5rem 0;
-  }
-  .prose code {
-    font-size: 0.875em;
-    padding: 0.2em 0.4em;
-    background: var(--color-bg-card);
-    border-radius: 0;
-  }
-  .prose blockquote {
-    border-left: 3px solid var(--color-accent);
-    padding-left: 1rem;
-    margin: 1.5rem 0;
-    color: var(--color-text-secondary);
-    font-style: italic;
+
+  /* ——— 响应式 ——— */
+  @media (max-width: 640px) {
+    .prose { font-size: 1rem; }
+    .prose h2 { font-size: 1.4rem; }
+    .prose h3 { font-size: 1.2rem; }
+    .prose pre { padding: 1rem; font-size: 0.8125rem; }
+    .prose table { font-size: 0.8125rem; }
   }
 </style>
+
+<script>
+  // 代码块：语言标签 + 复制按钮
+  document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll(".prose .astro-code").forEach((pre) => {
+      // 跳过已处理的
+      if (pre.parentElement?.classList.contains("code-block-wrap")) return;
+
+      const lang = pre.getAttribute("data-language") || "";
+      const langLabel = lang
+        ? lang.toUpperCase()
+        : "TEXT";
+
+      const wrap = document.createElement("div");
+      wrap.className = "code-block-wrap";
+
+      const header = document.createElement("div");
+      header.className = "code-block-header";
+
+      const langSpan = document.createElement("span");
+      langSpan.className = "code-lang";
+      langSpan.textContent = langLabel;
+
+      const copyBtn = document.createElement("button");
+      copyBtn.className = "copy-btn";
+      copyBtn.innerHTML = `<svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" stroke-width="2" fill="none"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> 复制`;
+
+      copyBtn.addEventListener("click", async () => {
+        const code = pre.querySelector("code")?.innerText || pre.innerText;
+        try {
+          if (navigator.clipboard && window.isSecureContext) {
+            await navigator.clipboard.writeText(code);
+          } else {
+            const ta = document.createElement("textarea");
+            ta.value = code;
+            ta.style.position = "fixed";
+            ta.style.left = "-999999px";
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand("copy");
+            document.body.removeChild(ta);
+          }
+          copyBtn.innerHTML = `<svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" stroke-width="2" fill="none"><polyline points="20 6 9 17 4 12"></polyline></svg> 已复制`;
+          copyBtn.classList.add("copied");
+          setTimeout(() => {
+            copyBtn.innerHTML = `<svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" stroke-width="2" fill="none"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> 复制`;
+            copyBtn.classList.remove("copied");
+          }, 2000);
+        } catch (err) {
+          console.error("复制失败", err);
+        }
+      });
+
+      header.appendChild(langSpan);
+      header.appendChild(copyBtn);
+      wrap.appendChild(header);
+
+      // 将 pre 移到 wrap 内
+      pre.parentNode.insertBefore(wrap, pre);
+      wrap.appendChild(pre);
+    });
+  });
+</script>

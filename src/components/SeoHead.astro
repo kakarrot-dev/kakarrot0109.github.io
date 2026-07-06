@@ -11,7 +11,7 @@ const site = "https://kakarrot.com";
 const fullCanonical = canonical ? `${site}${canonical}` : undefined;
 ---
 
-<title>{title} — Kakarrot</title>
+<title>{title === "Kakarrot" ? "KAKARROT'S BLOG" : `${title} | KAKARROT'S BLOG`}</title>
 <meta name="description" content={description} />
 <link rel="canonical" href={fullCanonical || site} />
 <meta property="og:title" content={title} />
