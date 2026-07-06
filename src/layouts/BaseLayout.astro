@@ -8,9 +8,10 @@ export interface Props {
   title: string;
   description: string;
   canonical?: string;
+  wide?: boolean;
 }
 
-const { title, description, canonical } = Astro.props;
+const { title, description, canonical, wide } = Astro.props;
 ---
 
 <!doctype html>
@@ -23,8 +24,14 @@ const { title, description, canonical } = Astro.props;
   </head>
   <body>
     <Nav />
-    <main class="max-w-5xl mx-auto px-6 py-12">
-      <slot />
+    <main class:list={{ "max-w-5xl mx-auto px-6 py-12": !wide }}>
+      {wide ? (
+        <div style="max-width:1440px;margin:0 auto;border-left:2px solid var(--color-border-strong);border-right:2px solid var(--color-border-strong)">
+          <slot />
+        </div>
+      ) : (
+        <slot />
+      )}
     </main>
     <Footer />
   </body>

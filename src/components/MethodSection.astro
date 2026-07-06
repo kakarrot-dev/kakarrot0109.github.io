@@ -2,33 +2,41 @@
 const methods = [
   {
     step: "01",
-    title: "定位问题本质",
-    desc: "不急着想方案，先搞清楚真正要解决什么。用户的 Task 是什么，约束条件是什么。",
+    title: "找到本质问题",
+    desc: "去掉行业惯例和历史包袱，确认用户真正要完成的任务。",
   },
   {
     step: "02",
     title: "拆解业务系统",
-    desc: "角色、输入、决策、执行、反馈。关注点：Agent 工作流、AI 原生产品架构、教育场景等。",
+    desc: "把用户、价值、流程、成本与增长放回同一张地图。",
   },
   {
     step: "03",
     title: "AI 原生重构",
-    desc: "不用 AI 打补丁，而是重新设计流程——让 AI 承担重复判断，让人专注在决策和例外处理上。",
+    desc: "重新分配人与机器的职责，设计新的产品形态与反馈闭环。",
   },
 ];
 ---
 
-<section class="py-16">
-  <h2 class="text-xs uppercase tracking-widest text-[var(--color-text-muted)] mb-8">
-    方法
-  </h2>
-  <div class="grid gap-8 md:grid-cols-3">
-    {methods.map(({ step, title, desc }) => (
-      <div class="border-t border-[var(--color-border-strong)] pt-4">
-        <span class="text-sm font-mono text-[var(--color-text-muted)]">{step}</span>
-        <h3 class="text-lg font-bold mt-1 mb-2">{title}</h3>
-        <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed">{desc}</p>
-      </div>
+<section style={{display: "grid", gridTemplateColumns: ".55fr 1.45fr", borderBottom: "2px solid var(--color-border-strong)"}}>
+  <div style={{padding: "38px 30px", borderRight: "2px solid var(--color-border-strong)"}}>
+    <div style={{font: "700 13px/1.5 ui-monospace,monospace", color: "var(--color-text-muted)", marginBottom: "14px"}}>METHOD / 方法论</div>
+    <h2 style={{fontSize: "clamp(44px,6vw,88px)", lineHeight: ".92", letterSpacing: "-.06em", fontWeight: 900, margin: "120px 0 14px"}}>
+      不是给旧流程<br />加一个 AI。
+    </h2>
+    <p style={{font: "14px/1.6 ui-monospace,monospace", color: "var(--color-text-secondary)", marginTop: "14px"}}>
+      从问题和约束重新推导产品，而不是从功能列表出发。
+    </p>
+  </div>
+  <div style={{display: "grid", gridTemplateColumns: "repeat(3, 1fr)"}}>
+    {methods.map(({ step, title, desc }, i) => (
+      <article style={{minHeight: "400px", padding: "34px 28px", display: "flex", flexDirection: "column", justifyContent: "space-between", borderRight: i < 2 ? "2px solid var(--color-border-strong)" : "none", background: i === 1 ? "var(--color-accent)" : "transparent"}}>
+        <span style={{font: "700 16px/1 ui-monospace,monospace", color: i === 1 ? "var(--color-text-primary)" : "var(--color-text-muted)"}}>{step}</span>
+        <div>
+          <h3 style={{fontSize: "clamp(28px,2.5vw,36px)", lineHeight: 1.05, margin: "0 0 16px", fontWeight: 700, color: i === 1 ? "var(--color-text-primary)" : "var(--color-text-primary)"}}>{title}</h3>
+          <p style={{fontSize: "17px", lineHeight: 1.6, margin: 0, color: i === 1 ? "var(--color-text-primary)" : "var(--color-text-secondary)"}}>{desc}</p>
+        </div>
+      </article>
     ))}
   </div>
 </section>

@@ -12,6 +12,7 @@
   --color-accent-dim: #2ccc10;     /* 悬停态 */
   --color-border: oklch(85% 0.01 260);
   --color-border-strong: oklch(60% 0.02 260);
+  --border-thick: 2px solid var(--color-border-strong);
 }
 
 /* 全局默认 */

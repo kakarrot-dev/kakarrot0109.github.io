@@ -2,9 +2,9 @@
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import HomeHero from "@/components/HomeHero.astro";
 import MethodSection from "@/components/MethodSection.astro";
+import MarqueeBar from "@/components/MarqueeBar.astro";
 import ProjectCard from "@/components/ProjectCard.astro";
 import ArticleCard from "@/components/ArticleCard.astro";
-import EvidenceList from "@/components/EvidenceList.astro";
 import { getCollection } from "astro:content";
 
 const featuredProjects = (await getCollection("projects"))
@@ -15,30 +15,19 @@ const featuredArticles = (await getCollection("writing"))
   .filter((p) => !p.data.draft && p.data.featured)
   .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf())
   .slice(0, 3);
-
-const evidenceItems = [
-  {
-    label: "悟空 — AI 教育智能体",
-    description: "脱敏案例详情，展示从问题拆解到 Agent 方案的全过程。",
-    url: "/projects/wukong/",
-  },
-  {
-    label: "产品文档与架构图",
-    description: "脱敏后的业务流程图和决策树示意。",
-  },
-];
 ---
 
-<BaseLayout title="Kakarrot" description="AI 产品经理 — 从第一性原理拆解复杂业务，用 AI 原生方式做成可落地的产品系统。">
+<BaseLayout title="Kakarrot" description="AI 产品经理 — 从第一性原理拆解复杂业务，用 AI 原生方式做成可落地的产品系统。" wide>
   <HomeHero />
   <MethodSection />
+  <MarqueeBar />
 
-  <!-- 精选项目 -->
-  <section class="py-16">
-    <h2 class="text-xs uppercase tracking-widest text-[var(--color-text-muted)] mb-8">
-      项目
-    </h2>
-    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+  <section style={{borderBottom: "2px solid var(--color-border-strong)"}}>
+    <div style={{padding: "38px 30px", display: "flex", justifyContent: "space-between", alignItems: "end", borderBottom: "2px solid var(--color-border-strong)"}}>
+      <h2 style={{fontSize: "clamp(50px,7vw,100px)", letterSpacing: "-.07em", lineHeight: .9, fontWeight: 900, margin: 0}}>项目案例</h2>
+      <span style={{font: "700 13px/1.5 ui-monospace,monospace", color: "var(--color-text-muted)"}}>SELECTED WORK / 02</span>
+    </div>
+    <div style={{display: "grid", gridTemplateColumns: "1fr 1fr"}}>
       {featuredProjects.map((p) => (
         <ProjectCard
           title={p.data.title}
@@ -50,21 +39,21 @@ const evidenceItems = [
     </div>
   </section>
 
-  <!-- 精选文章 -->
-  <section class="py-16">
-    <h2 class="text-xs uppercase tracking-widest text-[var(--color-text-muted)] mb-8">
-      文章
-    </h2>
-    {featuredArticles.map((a) => (
-      <ArticleCard
-        title={a.data.title}
-        description={a.data.description}
-        tags={a.data.tags}
-        slug={a.slug}
-        publishedAt={a.data.publishedAt}
-      />
-    ))}
+  <section style={{background: "#fff"}}>
+    <div style={{padding: "38px 30px", display: "flex", justifyContent: "space-between", alignItems: "end", borderBottom: "1px solid #bbb"}}>
+      <h2 style={{fontSize: "clamp(50px,7vw,100px)", letterSpacing: "-.07em", lineHeight: .9, fontWeight: 900, margin: 0}}>最近写作</h2>
+      <span style={{font: "700 13px/1.5 ui-monospace,monospace", color: "var(--color-text-muted)"}}>WRITING / NOTES</span>
+    </div>
+    <div style={{display: "grid", gridTemplateColumns: "repeat(3, 1fr)"}}>
+      {featuredArticles.map((a) => (
+        <ArticleCard
+          title={a.data.title}
+          description={a.data.description}
+          tags={a.data.tags}
+          slug={a.slug}
+          publishedAt={a.data.publishedAt}
+        />
+      ))}
+    </div>
   </section>
-
-  <EvidenceList items={evidenceItems} />
 </BaseLayout>

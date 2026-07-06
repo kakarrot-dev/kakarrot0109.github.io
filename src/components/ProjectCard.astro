@@ -9,20 +9,22 @@ export interface Props {
 const { title, description, topics, slug } = Astro.props;
 ---
 
-<article class="border border-[var(--color-border)] p-6 hover:border-[var(--color-accent)] transition-colors">
-  <a href={`/projects/${slug}/`} class="no-underline group block">
-    <div class="flex flex-wrap gap-2 mb-3">
-      {topics.map((topic) => (
-        <span class="text-[10px] uppercase tracking-widest text-[var(--color-text-muted)] border border-[var(--color-border)] px-2 py-0.5">
-          {topic}
-        </span>
-      ))}
-    </div>
-    <h3 class="text-xl font-bold mb-2 text-[var(--color-text-primary)] group-hover:text-[var(--color-accent)] transition-colors">
-      {title}
-    </h3>
-    <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed">
-      {description}
-    </p>
+<article style={{
+  minHeight: "440px",
+  padding: "28px",
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "space-between",
+  background: "transparent",
+  transition: "background .15s",
+}}
+onmouseover="this.style.background='color-mix(in oklab, var(--color-accent) 10%, transparent)'"
+onmouseout="this.style.background='transparent'"
+>
+  <span style={{font: "700 13px/1 ui-monospace,monospace", color: "var(--color-text-muted)"}}>{topics[0] ? `${String.fromCharCode(48 + topics.indexOf(topics[0]) + 1).padStart(2, "0")} / ${topics[0].toUpperCase()}` : ""}</span>
+  <a href={`/projects/${slug}/`} style={{textDecoration: "none", color: "inherit"}}>
+    <h3 style={{fontSize: "clamp(28px,4vw,48px)", lineHeight: 1, letterSpacing: "-.05em", fontWeight: 900, margin: "0 0 12px"}}>{title}</h3>
+    <p style={{fontSize: "17px", lineHeight: 1.55, maxWidth: "560px", margin: 0, color: "var(--color-text-secondary)"}}>{description}</p>
   </a>
+  <a href={`/projects/${slug}/`} style={{font: "700 13px/1 ui-monospace,monospace", textDecoration: "none", color: "var(--color-text-primary)"}}>查看案例 &rarr;</a>
 </article>
