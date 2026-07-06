@@ -6,5 +6,5 @@
       "@/*": ["src/*"]
     }
   },
-  "include": ["src/**/*", "src/env.d.ts"]
+  "include": ["src/**/*"]
 }
