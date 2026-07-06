@@ -78,7 +78,14 @@ Tailwind CSS 4 + 自研全局样式（global.css）
 部署方式：
 
 ```text
-GitHub Pages — GitHub Actions 自动构建部署
+GitHub Pages — 本地构建到 docs/，push master 分支即完成部署
+```
+
+快速发布流程：
+
+```bash
+npm run build && git add docs && git commit -m "deploy: 更新内容"
+git push
 ```
 
 ------
