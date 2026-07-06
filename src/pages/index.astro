@@ -1,15 +1,70 @@
 ---
-import '../styles/global.css';
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import HomeHero from "@/components/HomeHero.astro";
+import MethodSection from "@/components/MethodSection.astro";
+import ProjectCard from "@/components/ProjectCard.astro";
+import ArticleCard from "@/components/ArticleCard.astro";
+import EvidenceList from "@/components/EvidenceList.astro";
+import { getCollection } from "astro:content";
+
+const featuredProjects = (await getCollection("projects"))
+  .filter((p) => !p.data.draft && p.data.featured)
+  .slice(0, 3);
+
+const featuredArticles = (await getCollection("writing"))
+  .filter((p) => !p.data.draft && p.data.featured)
+  .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf())
+  .slice(0, 3);
+
+const evidenceItems = [
+  {
+    label: "悟空 — AI 教育智能体",
+    description: "脱敏案例详情，展示从问题拆解到 Agent 方案的全过程。",
+    url: "/projects/wukong/",
+  },
+  {
+    label: "产品文档与架构图",
+    description: "脱敏后的业务流程图和决策树示意。",
+  },
+];
 ---
-<!doctype html>
-<html lang="zh-CN">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Kakarrot — AI 产品经理</title>
-  </head>
-  <body>
-    <h1 class="text-4xl font-bold tracking-tighter uppercase">Kakarrot</h1>
-    <p class="text-lg text-[var(--color-text-secondary)]">AI 产品经理</p>
-  </body>
-</html>
+
+<BaseLayout title="Kakarrot" description="AI 产品经理 — 从第一性原理拆解复杂业务，用 AI 原生方式做成可落地的产品系统。">
+  <HomeHero />
+  <MethodSection />
+
+  <!-- 精选项目 -->
+  <section class="py-16">
+    <h2 class="text-xs uppercase tracking-widest text-[var(--color-text-muted)] mb-8">
+      项目
+    </h2>
+    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {featuredProjects.map((p) => (
+        <ProjectCard
+          title={p.data.title}
+          description={p.data.description}
+          topics={p.data.topics}
+          slug={p.id}
+        />
+      ))}
+    </div>
+  </section>
+
+  <!-- 精选文章 -->
+  <section class="py-16">
+    <h2 class="text-xs uppercase tracking-widest text-[var(--color-text-muted)] mb-8">
+      文章
+    </h2>
+    {featuredArticles.map((a) => (
+      <ArticleCard
+        title={a.data.title}
+        description={a.data.description}
+        tags={a.data.tags}
+        slug={a.id}
+        publishedAt={a.data.publishedAt}
+      />
+    ))}
+  </section>
+
+  <EvidenceList items={evidenceItems} />
+</BaseLayout>

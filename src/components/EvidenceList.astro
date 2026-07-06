@@ -1,0 +1,36 @@
+---
+export interface EvidenceItem {
+  label: string;
+  description: string;
+  url?: string;
+}
+
+export interface Props {
+  items: EvidenceItem[];
+}
+---
+
+<section class="py-16">
+  <h2 class="text-xs uppercase tracking-widest text-[var(--color-text-muted)] mb-8">
+    证据
+  </h2>
+  <ul class="grid gap-4 md:grid-cols-2">
+    {Astro.props.items.map(({ label, description, url }) => (
+      <li class="border border-[var(--color-border)] p-4">
+        {url ? (
+          <a href={url} class="no-underline block">
+            <p class="text-sm font-bold mb-1 text-[var(--color-text-primary)] hover:text-[var(--color-accent)] transition-colors">
+              {label} →
+            </p>
+            <p class="text-xs text-[var(--color-text-secondary)]">{description}</p>
+          </a>
+        ) : (
+          <>
+            <p class="text-sm font-bold mb-1">{label}</p>
+            <p class="text-xs text-[var(--color-text-secondary)]">{description}</p>
+          </>
+        )}
+      </li>
+    ))}
+  </ul>
+</section>
