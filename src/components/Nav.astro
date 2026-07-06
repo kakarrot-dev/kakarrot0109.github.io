@@ -1,0 +1,27 @@
+---
+const links = [
+  { href: "/projects/", label: "Work" },
+  { href: "/writing/", label: "Writing" },
+  { href: "/about/", label: "About" },
+];
+---
+
+<nav class="border-b border-[var(--color-border)] py-4">
+  <div class="max-w-5xl mx-auto px-6 flex items-center justify-between">
+    <a href="/" class="text-sm font-bold uppercase tracking-wider no-underline text-[var(--color-text-primary)] hover:text-[var(--color-accent)] transition-colors">
+      Kakarrot
+    </a>
+    <ul class="flex gap-6">
+      {links.map(({ href, label }) => (
+        <li>
+          <a
+            href={href}
+            class="text-xs uppercase tracking-widest no-underline text-[var(--color-text-secondary)] hover:text-[var(--color-accent)] transition-colors"
+          >
+            {label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</nav>
