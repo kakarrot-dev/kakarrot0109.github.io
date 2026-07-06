@@ -21,6 +21,9 @@ const { title, description, canonical, shell } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <SeoHead {title} {description} {canonical} />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet" />
   </head>
   <body>
     <Nav />
@@ -50,7 +53,7 @@ const { title, description, canonical, shell } = Astro.props;
         { threshold: 0.15 }
       );
 
-      document.querySelectorAll(".reveal, .hero-line, .hero-fade").forEach((el) =>
+      document.querySelectorAll(".reveal").forEach((el) =>
         observer.observe(el)
       );
     </script>

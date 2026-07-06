@@ -7,16 +7,16 @@ const socialLinks = [
 ];
 ---
 
-<footer style={{background: "var(--color-text-primary)", color: "var(--color-bg-warm)", padding: "46px 0"}}>
+<footer style={{background: "var(--color-text-primary)", color: "var(--color-bg-warm)", padding: "64px 0"}}>
   <div class="shell" style="padding:0 28px;border:none">
     <strong style={{display: "block", fontSize: "clamp(36px,4vw,54px)", letterSpacing: "-.05em", fontWeight: 900, lineHeight: 1.05, marginBottom: "40px"}}>从零思考，<br />为现实构建。</strong>
     <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", borderTop: "1px solid rgba(255,255,255,.15)", paddingTop: "20px"}}>
-      <p style={{font: "700 13px/1.5 ui-monospace,monospace", opacity: .6, margin: 0}}>&copy; 2025 Kakarrot Design, All Rights Reserved</p>
+      <p style={{font: "700 13px/1.5 var(--font-mono)", opacity: .6, margin: 0}}>&copy; 2025 Kakarrot Design, All Rights Reserved</p>
       <nav style={{display: "flex", gap: "24px"}}>
         {socialLinks.map(({ label, url }) => (
           <a href={url} target="_blank" rel="noopener noreferrer"
-            style={{font: "700 12px/1 ui-monospace,monospace", letterSpacing: ".04em", textDecoration: "none", color: "var(--color-bg-warm)", opacity: .7, transition: "opacity .15s"}}
-            onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.7'">{label}</a>
+            style={{font: "700 12px/1 var(--font-mono)", letterSpacing: ".04em", textDecoration: "none", color: "var(--color-bg-warm)", opacity: .6, transition: "opacity .15s"}}
+            onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.6'">{label}</a>
         ))}
       </nav>
     </div>

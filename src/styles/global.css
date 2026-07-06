@@ -9,6 +9,32 @@
   --color-text-muted: oklch(60% 0.02 260);
   --color-accent: #39ff14;
   --color-accent-dim: #2ccc10;
+  --font-sans: "Space Grotesk", "Noto Sans SC", sans-serif;
+  --font-mono: "Space Mono", ui-monospace, monospace;
+
+  /* 排版层级 */
+  --text-hero: clamp(48px,12vw,170px);
+  --text-section-title: clamp(50px,7vw,100px);
+  --text-method-title: clamp(44px,6vw,88px);
+  --text-card-title-lg: clamp(28px,4vw,48px);
+  --text-card-title-sm: clamp(22px,2.5vw,30px);
+  --text-body: 17px;
+  --text-body-sm: 15px;
+  --text-mono-tag: 13px;
+  --text-mono-sm: 12px;
+
+  --lh-hero: .85;
+  --lh-section-title: .9;
+  --lh-method-title: .92;
+  --lh-card-title: 1.15;
+  --lh-body: 1.55;
+  --lh-body-relaxed: 1.7;
+
+  --ls-hero: -.06em;
+  --ls-section-title: -.07em;
+  --ls-method-title: -.06em;
+  --ls-card-title-lg: -.05em;
+  --ls-card-title-sm: -.03em;
   --color-border: oklch(85% 0.01 260);
   --color-border-strong: oklch(60% 0.02 260);
   --border-thick: 2px solid var(--color-border-strong);
@@ -17,7 +43,7 @@
 *, *::before, *::after { box-sizing: border-box; }
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Noto Sans SC", sans-serif;
+  font-family: var(--font-sans);
   background-color: var(--color-bg-warm);
   color: var(--color-text-primary);
   line-height: 1.6;
@@ -37,20 +63,53 @@ a:hover { color: var(--color-accent-dim); }
 
 /* shell 容器 */
 .shell {
-  max-width: 1340px;
+  max-width: 1536px;
   margin: 0 auto;
   border-left: var(--border-thick);
   border-right: var(--border-thick);
+}
+@media (max-width: 768px) {
+  .shell {
+    border-left: none;
+    border-right: none;
+  }
+  .grid-2, .grid-3 { grid-template-columns: 1fr !important; }
+  .grid-split { grid-template-columns: 1fr !important; }
+  .grid-split > :first-child { border-right: none !important; border-bottom: 2px solid var(--color-border-strong); }
+  .grid-2 > *, .grid-3 > * { border-right: none !important; }
 }
 .full-bleed {
   width: 100vw;
   margin-left: calc(-50vw + 50%);
 }
 .full-bleed-inner {
-  max-width: 1340px;
+  max-width: 1536px;
   margin: 0 auto;
   border-left: var(--border-thick);
   border-right: var(--border-thick);
+}
+
+/* ——— 卡片组件 ——— */
+.card {
+  border: 2px solid var(--color-border-strong);
+  box-shadow: 6px 6px 0 var(--color-border-strong);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.3s ease,
+              background 0.15s;
+}
+.card:hover {
+  transform: translateY(-2px);
+  border-color: var(--color-accent);
+  box-shadow: 8px 8px 0 var(--color-accent);
+  background: color-mix(in oklab, var(--color-accent) 10%, transparent);
+}
+
+/* ——— Hero 高亮 ——— */
+.highlight-ai {
+  background: var(--color-accent);
+  color: #000;
+  font-weight: 700;
+  padding: 0 6px;
 }
 
 /* ——— 动效 ——— */

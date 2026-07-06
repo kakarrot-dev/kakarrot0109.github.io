@@ -5,15 +5,15 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 <BaseLayout title="About" description="Kakarrot — AI 产品经理的经历与原则" shell>
   <div style={{padding: "38px 30px", borderBottom: "2px solid var(--color-border-strong)", display: "flex", justifyContent: "space-between", alignItems: "flex-end"}}>
     <div>
-      <h1 style={{fontSize: "clamp(50px,7vw,100px)", letterSpacing: "-.07em", lineHeight: .9, fontWeight: 900, margin: "0 0 8px"}}>关于</h1>
-      <p style={{font: "700 13px/1.5 ui-monospace,monospace", color: "var(--color-text-muted)", margin: 0}}>Kakarrot &mdash; AI 产品经理的经历与原则</p>
+      <h1 style={{fontSize: "var(--text-section-title)", letterSpacing: "var(--ls-section-title)", lineHeight: "var(--lh-section-title)", fontWeight: 900, margin: "0 0 8px"}}>关于</h1>
+      <p style={{font: "700 13px/1.5 var(--font-mono)", color: "var(--color-text-muted)", margin: 0}}>Kakarrot &mdash; AI 产品经理的经历与原则</p>
     </div>
-    <p style={{font: "400 14px/1.4 serif", color: "var(--color-text-muted)", margin: 0, whiteSpace: "nowrap"}}>自救者、人恒救之</p>
+    <p style={{font: "400 14px/1.4 var(--font-mono)", color: "var(--color-text-muted)", margin: 0, whiteSpace: "nowrap"}}>自救者、人恒救之</p>
   </div>
 
-  <div style={{display: "grid", gridTemplateColumns: "1fr 1fr", borderBottom: "2px solid var(--color-border-strong)"}}>
+  <div class="grid-2 reveal" style={{display: "grid", gridTemplateColumns: "1fr 1fr", borderBottom: "2px solid var(--color-border-strong)"}}>
     <section style={{padding: "38px 30px", borderRight: "2px solid var(--color-border-strong)"}}>
-      <h2 style={{font: "700 13px/1.5 ui-monospace,monospace", color: "var(--color-text-muted)", marginBottom: "14px"}}>经历</h2>
+      <h2 style={{font: "700 13px/1.5 var(--font-mono)", color: "var(--color-text-muted)", marginBottom: "14px"}}>经历</h2>
       <p style={{fontSize: "17px", lineHeight: 1.6, margin: "0 0 12px"}}>
         PM，坐标郑州。暴雪粉，音乐狂，收集癖，强迫症。
       </p>
@@ -24,7 +24,7 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
       </div>
     </section>
     <section style={{padding: "38px 30px"}}>
-      <h2 style={{font: "700 13px/1.5 ui-monospace,monospace", color: "var(--color-text-muted)", marginBottom: "14px"}}>原则</h2>
+      <h2 style={{font: "700 13px/1.5 var(--font-mono)", color: "var(--color-text-muted)", marginBottom: "14px"}}>原则</h2>
       <ul style={{listStyle: "none", padding: 0, margin: 0}}>
         <li style={{fontSize: "17px", lineHeight: 1.6, marginBottom: "8px"}}>先理解问题，再设计方案。</li>
         <li style={{fontSize: "17px", lineHeight: 1.6, marginBottom: "8px"}}>技术是手段，不是目的。</li>
@@ -33,9 +33,9 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
     </section>
   </div>
 
-  <div style={{display: "grid", gridTemplateColumns: "1fr 1fr"}}>
+  <div class="grid-2 reveal reveal-delay-2" style={{display: "grid", gridTemplateColumns: "1fr 1fr"}}>
     <section style={{padding: "38px 30px", borderRight: "2px solid var(--color-border-strong)"}}>
-      <h2 style={{font: "700 13px/1.5 ui-monospace,monospace", color: "var(--color-text-muted)", marginBottom: "14px"}}>桌面 · 2024</h2>
+      <h2 style={{font: "700 13px/1.5 var(--font-mono)", color: "var(--color-text-muted)", marginBottom: "14px"}}>桌面 · 2024</h2>
       <ul style={{listStyle: "none", padding: 0, margin: 0, fontSize: "15px", lineHeight: 1.8, color: "var(--color-text-secondary)"}}>
         <li><strong style={{color: "var(--color-text-primary)"}}>CPU</strong> Intel i5-13600kf</li>
         <li><strong style={{color: "var(--color-text-primary)"}}>主板</strong> Asus TUF B760M-PLUS WIFI II</li>
@@ -55,7 +55,7 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
       </ul>
     </section>
     <section style={{padding: "38px 30px"}}>
-      <h2 style={{font: "700 13px/1.5 ui-monospace,monospace", color: "var(--color-text-muted)", marginBottom: "14px"}}>移动 · 2023</h2>
+      <h2 style={{font: "700 13px/1.5 var(--font-mono)", color: "var(--color-text-muted)", marginBottom: "14px"}}>移动 · 2023</h2>
       <ul style={{listStyle: "none", padding: 0, margin: 0, fontSize: "15px", lineHeight: 1.8, color: "var(--color-text-secondary)"}}>
         <li><strong style={{color: "var(--color-text-primary)"}}>笔记本</strong> MacBook Air M5 24G+1T</li>
         <li><strong style={{color: "var(--color-text-primary)"}}>显示</strong> Aoc U32N3C</li>

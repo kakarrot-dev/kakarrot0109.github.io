@@ -9,16 +9,16 @@ const projects = (await getCollection("projects"))
 ---
 
 <BaseLayout title="Projects" description="项目案例 — AI 产品实践" shell>
-  <div style={{padding: "38px 30px", borderBottom: "2px solid var(--color-border-strong)", display: "flex", justifyContent: "space-between", alignItems: "flex-end"}}>
+  <div class="reveal" style={{padding: "38px 30px", borderBottom: "2px solid var(--color-border-strong)", display: "flex", justifyContent: "space-between", alignItems: "flex-end"}}>
     <div>
-      <h1 style={{fontSize: "clamp(50px,7vw,100px)", letterSpacing: "-.07em", lineHeight: .9, fontWeight: 900, margin: "0 0 8px"}}>项目</h1>
-      <p style={{font: "700 13px/1.5 ui-monospace,monospace", color: "var(--color-text-muted)", margin: 0}}>项目案例 &mdash; AI 产品实践</p>
+      <h1 style={{fontSize: "var(--text-section-title)", letterSpacing: "var(--ls-section-title)", lineHeight: "var(--lh-section-title)", fontWeight: 900, margin: "0 0 8px"}}>项目</h1>
+      <p style={{font: "700 13px/1.5 var(--font-mono)", color: "var(--color-text-muted)", margin: 0}}>项目案例 &mdash; AI 产品实践</p>
     </div>
-    <p style={{font: "400 14px/1.4 serif", color: "var(--color-text-muted)", margin: 0, whiteSpace: "nowrap"}}>做过的产品会说话</p>
+    <p style={{font: "400 14px/1.4 var(--font-mono)", color: "var(--color-text-muted)", margin: 0, whiteSpace: "nowrap"}}>做过的产品会说话</p>
   </div>
-  <div style={{display: "grid", gridTemplateColumns: "1fr 1fr"}}>
+  <div class="grid-2" style={{display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px", padding: "24px"}}>
     {projects.map((p, i) => (
-      <div key={p.slug} style={{borderRight: i % 2 === 0 ? "2px solid var(--color-border-strong)" : "none", borderBottom: i < projects.length - (projects.length % 2 || 2) ? "2px solid var(--color-border-strong)" : "none"}}>
+      <div key={p.slug} class={"reveal reveal-delay-" + ((i % 2) + 1)}>
         <ProjectCard title={p.data.title} description={p.data.description} topics={p.data.topics} href={`/projects/${p.slug}/`} />
       </div>
     ))}

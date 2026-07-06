@@ -11,18 +11,14 @@ const { title, description, topics, href, variant = "default" } = Astro.props;
 const isUniform = variant === "uniform";
 ---
 
-<article style={{
+<article class="card" style={{
   minHeight: isUniform ? "360px" : "440px",
-  padding: "28px",
+  padding: "24px",
   display: "flex",
   flexDirection: "column",
   justifyContent: "space-between",
-  transition: "background .15s",
-}}
-onmouseover="this.style.background='color-mix(in oklab, var(--color-accent) 10%, transparent)'"
-onmouseout="this.style.background='transparent'"
->
-  <span style={{font: "700 13px/1 ui-monospace,monospace", color: "var(--color-text-muted)"}}>{topics[0] || ""}</span>
+}}>
+  <span style={{font: "700 13px/1 var(--font-mono)", color: "var(--color-text-muted)"}}>{topics[0] || ""}</span>
   <a href={href} style={{textDecoration: "none", color: "inherit", display: "flex", flexDirection: "column", height: isUniform ? "260px" : "auto"}}>
     <div style={{display: "flex", flexDirection: "column", justifyContent: "center", minHeight: isUniform ? "100px" : "auto", marginBottom: isUniform ? "20px" : "12px"}}>
       <h3 style={{
@@ -53,5 +49,5 @@ onmouseout="this.style.background='transparent'"
       }}>{description}</p>
     </div>
   </a>
-  <a href={href} style={{font: isUniform ? "400 12px/1 ui-monospace,monospace" : "700 13px/1 ui-monospace,monospace", textDecoration: "none", color: "var(--color-text-primary)"}}>{isUniform ? "阅读 →" : "查看案例 →"}</a>
+  <a href={href} style={{font: isUniform ? "400 12px/1 var(--font-mono)" : "700 13px/1 var(--font-mono)", textDecoration: "none", color: "var(--color-text-primary)"}}>{isUniform ? "阅读 →" : "查看案例 →"}</a>
 </article>

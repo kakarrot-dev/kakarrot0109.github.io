@@ -1,4 +1,5 @@
 ---
+const currentPath = Astro.url.pathname;
 const links = [
   { href: "/projects/", label: "Projects" },
   { href: "/vibe-coding/", label: "Vibe Coding" },
@@ -9,14 +10,27 @@ const links = [
 
 <nav style="border-bottom:2px solid var(--color-border-strong); background:rgba(244,241,232,.96); position:sticky;top:0;z-index:10">
   <div class="shell" style="height:72px;display:flex;align-items:center;padding:0 28px;border:none">
-    <a href="/" style="font:700 13px/1 ui-monospace,monospace;letter-spacing:.04em;text-decoration:none;text-transform:uppercase;color:var(--color-text-primary)">KAKARROT.COM</a>
+    <a href="/" style="font:700 13px/1 var(--font-mono);letter-spacing:.04em;text-decoration:none;text-transform:uppercase;color:var(--color-text-primary)">KAKARROT.COM</a>
     <ul style="display:flex;gap:28px;list-style:none;margin:0 0 0 auto;padding:0">
-      {links.map(({ href, label }) => (
-        <li>
-          <a href={href} style="font:700 13px/1 ui-monospace,monospace;letter-spacing:.04em;text-decoration:none;text-transform:uppercase;color:var(--color-text-secondary)"
-            onmouseover="this.style.color='var(--color-accent)'" onmouseout="this.style.color='var(--color-text-secondary)'">{label}</a>
-        </li>
-      ))}
+      {links.map(({ href, label }) => {
+  const isActive = currentPath === href || currentPath.startsWith(href);
+  return (
+    <li>
+      <a href={href} style={{
+        font: "700 13px/1 var(--font-mono)",
+        letterSpacing: ".04em",
+        textDecoration: "none",
+        textTransform: "uppercase",
+        color: isActive ? "var(--color-accent)" : "var(--color-text-secondary)",
+        borderBottom: isActive ? "2px solid var(--color-accent)" : "2px solid transparent",
+        paddingBottom: "2px",
+        transition: "color 0.15s",
+      }}
+      onmouseover="this.style.color='var(--color-accent)'" onmouseout="this.style.color=this.dataset.default"
+      data-default={isActive ? "var(--color-accent)" : "var(--color-text-secondary)"}>{label}</a>
+    </li>
+  );
+})}
     </ul>
     
   </div>

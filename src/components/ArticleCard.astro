@@ -15,25 +15,21 @@ const dateStr = publishedAt.toLocaleDateString("zh-CN", {
 });
 ---
 
-<article style={{
-  padding: "26px",
+<article class="card" style={{
+  padding: "24px",
   display: "flex",
   flexDirection: "column",
   justifyContent: "space-between",
   height: "360px",
-  transition: "background .15s",
-}}
-onmouseover="this.style.background='color-mix(in oklab, var(--color-accent) 8%, transparent)'"
-onmouseout="this.style.background='transparent'"
->
+}}>
   <a href={`/writing/${slug}/`} style={{textDecoration: "none", color: "inherit", display: "flex", flexDirection: "column", height: "100%"}}>
     <div style={{flex: 1, display: "flex", flexDirection: "column"}}>
-      <div style={{font: "700 12px/1.4 ui-monospace,monospace", color: "var(--color-text-muted)", marginBottom: "10px"}}>
+      <div style={{font: "700 12px/1.4 var(--font-mono)", color: "var(--color-text-muted)", marginBottom: "10px"}}>
         {tags[0] || ""}
       </div>
-      <h3 style={{fontSize: "clamp(18px,1.8vw,22px)", lineHeight: 1.25, fontWeight: 700, margin: "0 0 10px", overflow: "hidden", textOverflow: "ellipsis", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical"}}>{title}</h3>
-      <p style={{fontSize: "14px", lineHeight: 1.55, color: "var(--color-text-secondary)", margin: 0, overflow: "hidden", textOverflow: "ellipsis", display: "-webkit-box", WebkitLineClamp: 3, WebkitBoxOrient: "vertical"}}>{description}</p>
+      <h3 style={{fontSize: "var(--text-card-title-sm)", lineHeight: "var(--lh-card-title)", letterSpacing: "var(--ls-card-title-sm)", fontWeight: 900, margin: "0 0 10px", overflow: "hidden", textOverflow: "ellipsis", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical"}}>{title}</h3>
+      <p style={{fontSize: "var(--text-body-sm)", lineHeight: "var(--lh-body-relaxed)", color: "var(--color-text-secondary)", margin: 0, overflow: "hidden", textOverflow: "ellipsis", display: "-webkit-box", WebkitLineClamp: 3, WebkitBoxOrient: "vertical"}}>{description}</p>
     </div>
-    <div style={{font: "400 12px/1.4 ui-monospace,monospace", color: "var(--color-text-muted)", marginTop: "auto"}}>{dateStr} &rarr;</div>
+    <div style={{font: "400 12px/1.4 var(--font-mono)", color: "var(--color-text-muted)", marginTop: "auto"}}>{dateStr} &rarr;</div>
   </a>
 </article>
