@@ -1,8 +1,9 @@
 # 设计系统 — kakarrot.com
 
-> 参考 https://yanliudesign.live/ 的 New Brutalism 风格，结合本站暖白+酸绿配色建立的设计规范。
+本文件适用于当前项目。
+Claude Code 和 Codex 默认读取本文件进行网站布局、样式、特效修改。
 
----
+------
 
 ## 1. 设计令牌
 
