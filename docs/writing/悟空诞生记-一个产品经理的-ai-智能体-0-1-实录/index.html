@@ -1,0 +1,93 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>No. 16: 一个产品经理的 AI 智能体 0-1 实录 | KAKARROT&#39;S BLOG</title><meta name="description" content="24 天，345 个 commit，从零到一只懂你的 AI 助手——产品视角的完整复盘。"><link rel="canonical" href="https://kakarrot.com"><meta property="og:title" content="No. 16: 一个产品经理的 AI 智能体 0-1 实录"><meta property="og:description" content="24 天，345 个 commit，从零到一只懂你的 AI 助手——产品视角的完整复盘。"><meta property="og:url" content="https://kakarrot.com"><meta property="og:type" content="website"><meta name="twitter:card" content="summary_large_image"><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet"><link rel="stylesheet" href="/_astro/_slug_.c3171wR9.css">
+<style>.prose{font-size:1.0625rem;line-height:1.8;color:var(--color-text-primary)}.prose h2{font-size:1.65rem;font-weight:700;margin-top:3rem;margin-bottom:.75rem;padding-bottom:.4rem;border-bottom:1px solid var(--color-border);letter-spacing:-.02em}.prose h3{font-size:1.35rem;font-weight:600;margin-top:2.5rem;margin-bottom:.5rem}.prose h4{font-size:1.1rem;font-weight:600;margin-top:2rem;margin-bottom:.5rem}.prose p{margin-bottom:1.25rem;line-height:1.85}.prose ul,.prose ol{margin-bottom:1.25rem;padding-left:1.75rem}.prose ul{list-style:disc}.prose ol{list-style:decimal}.prose li{margin-bottom:.35rem;line-height:1.8}.prose li>ul,.prose li>ol{margin-top:.3rem;margin-bottom:.3rem}.prose code:not(pre code){font-size:.85em;padding:.2em .45em;background:var(--color-bg-card);border:1px solid var(--color-border);font-family:var(--font-mono)}.prose .code-block-wrap{margin:1.5rem 0;border:1px solid #2a2a4a;border-radius:0;overflow:hidden}.code-block-header{display:flex;justify-content:space-between;align-items:center;padding:.45rem 1rem;background:#12121e;border-bottom:1px solid #2a2a4a;font-size:.75rem;font-family:var(--font-mono)}.code-block-header .code-lang{color:#888;text-transform:uppercase;letter-spacing:.06em;font-weight:500;font-size:.7rem}.code-block-header .copy-btn{display:inline-flex;align-items:center;gap:.3rem;border:none;background:transparent;color:#666;cursor:pointer;font-size:.7rem;font-family:inherit;padding:.15rem .4rem;transition:color .15s}.code-block-header .copy-btn:hover{color:#ccc}.code-block-header .copy-btn.copied{color:#4caf50}.code-block-header .copy-btn svg{width:13px;height:13px}.prose .astro-code{margin:0;padding:1.25rem 1.5rem;border:none;border-radius:0}.prose blockquote{margin:1.75rem 0;padding:.75rem 1.25rem;border-left:4px solid var(--color-accent);background:color-mix(in oklab,var(--color-accent) 6%,transparent);color:var(--color-text-primary);font-style:normal}.prose blockquote p:last-child{margin-bottom:0}.prose table{width:100%;margin:1.5rem 0;border-collapse:collapse;font-size:.9375rem;line-height:1.6;overflow-x:auto;display:block}.prose thead{background:var(--color-text-primary);color:var(--color-bg-warm)}.prose th{font-weight:600;text-align:left;padding:.6rem .8rem;border:1px solid var(--color-text-primary);white-space:nowrap}.prose td{padding:.5rem .8rem;border:1px solid var(--color-border)}.prose tbody tr:nth-child(2n){background:var(--color-bg-card)}.prose tbody tr:hover{background:color-mix(in oklab,var(--color-accent) 8%,transparent)}.prose img{max-width:100%;height:auto;margin:1.5rem 0;border:1px solid var(--color-border)}.prose a{color:var(--color-accent);text-underline-offset:3px;text-decoration-thickness:1px}.prose a:hover{color:var(--color-accent-dim)}.prose hr{border:none;border-top:1px solid var(--color-border);margin:2.5rem 0}.prose strong{font-weight:700}.prose em{font-style:italic}.prose blockquote blockquote{margin-left:.5rem;font-size:.95em}.prose h2:hover:before,.prose h3:hover:before,.prose h4:hover:before{content:"#";position:absolute;margin-left:-1.2em;color:var(--color-accent);font-weight:400;opacity:.5}.prose h2,.prose h3,.prose h4{position:relative}@media(max-width:640px){.prose{font-size:1rem}.prose h2{font-size:1.4rem}.prose h3{font-size:1.2rem}.prose pre{padding:1rem;font-size:.8125rem}.prose table{font-size:.8125rem}}
+</style></head> <body> <nav style="border-bottom:2px solid var(--color-border-strong); background:rgba(244,241,232,.96); position:sticky;top:0;z-index:10"> <div class="shell" style="height:72px;display:flex;align-items:center;padding:0 28px;border:none"> <a href="/" style="font:700 13px/1 var(--font-mono);letter-spacing:.04em;text-decoration:none;text-transform:uppercase;color:var(--color-text-primary)">KAKARROT.COM</a> <ul style="display:flex;gap:28px;list-style:none;margin:0 0 0 auto;padding:0"> <li> <a href="/projects/" style="font:700 13px/1 var(--font-mono);letter-spacing:.04em;text-decoration:none;text-transform:uppercase;color:var(--color-text-secondary);border-bottom:2px solid transparent;padding-bottom:2px;transition:color 0.15s" onmouseover="this.style.color='var(--color-accent)'" onmouseout="this.style.color=this.dataset.default" data-default="var(--color-text-secondary)">Projects</a> </li><li> <a href="/vibe-coding/" style="font:700 13px/1 var(--font-mono);letter-spacing:.04em;text-decoration:none;text-transform:uppercase;color:var(--color-text-secondary);border-bottom:2px solid transparent;padding-bottom:2px;transition:color 0.15s" onmouseover="this.style.color='var(--color-accent)'" onmouseout="this.style.color=this.dataset.default" data-default="var(--color-text-secondary)">Vibe Coding</a> </li><li> <a href="/writing/" style="font:700 13px/1 var(--font-mono);letter-spacing:.04em;text-decoration:none;text-transform:uppercase;color:var(--color-accent);border-bottom:2px solid var(--color-accent);padding-bottom:2px;transition:color 0.15s" onmouseover="this.style.color='var(--color-accent)'" onmouseout="this.style.color=this.dataset.default" data-default="var(--color-accent)">Writing</a> </li><li> <a href="/about/" style="font:700 13px/1 var(--font-mono);letter-spacing:.04em;text-decoration:none;text-transform:uppercase;color:var(--color-text-secondary);border-bottom:2px solid transparent;padding-bottom:2px;transition:color 0.15s" onmouseover="this.style.color='var(--color-accent)'" onmouseout="this.style.color=this.dataset.default" data-default="var(--color-text-secondary)">About</a> </li> </ul> </div> </nav> <main style="width:100%">  <article class="max-w-[820px] mx-auto prose pt-16 md:pt-20"> <header class="mb-12"> <h1 class="text-3xl md:text-4xl font-black tracking-tighter uppercase">No. 16: 一个产品经理的 AI 智能体 0-1 实录</h1> <p class="text-[var(--color-text-secondary)] mt-2">24 天，345 个 commit，从零到一只懂你的 AI 助手——产品视角的完整复盘。</p> </header>  <p class="text-xs text-[var(--color-text-muted)] font-mono"> 2026/5/7  </p> <div class="flex flex-wrap gap-2 mt-2 mb-8"> <span class="text-[10px] uppercase tracking-widest text-[var(--color-text-muted)] border border-[var(--color-border)] px-2 py-0.5"> AI Agent </span><span class="text-[10px] uppercase tracking-widest text-[var(--color-text-muted)] border border-[var(--color-border)] px-2 py-0.5"> LLM </span><span class="text-[10px] uppercase tracking-widest text-[var(--color-text-muted)] border border-[var(--color-border)] px-2 py-0.5"> 产品设计 </span><span class="text-[10px] uppercase tracking-widest text-[var(--color-text-muted)] border border-[var(--color-border)] px-2 py-0.5"> Telegram Bot </span><span class="text-[10px] uppercase tracking-widest text-[var(--color-text-muted)] border border-[var(--color-border)] px-2 py-0.5"> AI 原生产品 </span> </div> <p>四月初我开了个新项目。</p>
+<p>不是给公司做的。是给自己做一个 AI 智能体。一个真正”长在身上”的助手——认识你、记得你、会主动找你、做事有分寸。</p>
+<p>24 天，345 个 commit。从一个空文件夹，到一只能在 Telegram 上被我使唤的 AI。我给它起了个代号叫<strong>悟空</strong>——像那只猴子一样，<strong>有点野，但有金箍</strong>。</p>
+<h2 id="1️⃣-为什么非要做这个">1️⃣ 为什么非要做这个</h2>
+<p>不是市面上没有 AI 助手。我用过的跟大多数人一样多。<strong>最大问题是它们不”长在你身上”。</strong></p>
+<p>三件事让我难受：</p>
+<ul>
+<li><strong>不认识我。</strong> 每打开一次都得从零介绍”我是谁、在做什么、偏好是什么”。</li>
+<li><strong>不会主动。</strong> 你不问，它装死。不会冒出来说”你上周那篇文章写到哪了”。</li>
+<li><strong>没有边界。</strong> 要么全自动（让人不放心），要么全手动（用着累）。</li>
+</ul>
+<p>我要的是：<strong>一个能记住我、会主动找我、敢做事但有分寸的 AI 助手。</strong> 主入口 Telegram，其他作为备用通道。</p>
+<p>这不是单点功能问题，是需要从架构层重新设计的产品。所以我决定自己搭。</p>
+<h2 id="2️⃣-第一天就把骨架搭齐">2️⃣ 第一天就把骨架搭齐</h2>
+<p>很多人做 Agent 是先跑通 demo，再加记忆、加安全、加调度。<strong>我反过来——第一天就把全套架构装上。</strong></p>
+<p>理由很简单：AI 智能体的能力不是叠加出来的，是涌现出来的。</p>
+<ul>
+<li>少了记忆，每次对话从零开始</li>
+<li>少了安全闸，它敢删你硬盘</li>
+<li>少了主循环，它只能被动响应</li>
+<li>少了可观测，你永远不知道它在想什么</li>
+</ul>
+<p>这些东西必须<strong>同时存在</strong>才能跑出”智能体”的感觉。先做 demo 再补，每补一项都得重写已有逻辑。</p>
+<p>第一天我跟 AI 协作伙伴一起，7 个小时搭了九层架构：</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>层</th><th>职责</th></tr></thead><tbody><tr><td>感知层</td><td>Telegram / 飞书入口、媒体处理、命令解析</td></tr><tr><td>对话层</td><td>Prompt 构建、上下文管理</td></tr><tr><td>认知层</td><td>LLM 路由、规划、技能匹配</td></tr><tr><td>学习层</td><td>技能构建、阻塞任务恢复</td></tr><tr><td>执行层</td><td>会话管理、技能执行、主循环</td></tr><tr><td>调度层</td><td>心跳自检、主动机制</td></tr><tr><td>记忆层</td><td>短期 / 长期 / 情景 / 向量五种记忆</td></tr><tr><td>安全层</td><td>白名单、加密、风险评估、审计</td></tr><tr><td>管理层</td><td>Web Dashboard</td></tr></tbody></table>
+<p>边界在第一天就划清楚了。后面 24 天每加一个功能，都能精确放进某一层，<strong>不会出现”这东西放哪都行”的混乱。</strong></p>
+<p>这件事产品经理的活儿大于工程师的活儿——架构本质上是产品的信息架构。</p>
+<h2 id="3️⃣-四个关键决策">3️⃣ 四个关键决策</h2>
+<p><strong>安全先行。</strong> 悟空将来要管我的飞书、企业微信、各种 API Key。它随时可能误删一条数据库记录。安全如果是后置补丁，<strong>永远补不全</strong>。</p>
+<p>第一天上了四道闸门：白名单鉴权、凭据加密、工具调用风险判定、高风险操作人工审批。<strong>我不要全自动 AI，我要有手有脚但听我话的 AI。</strong> 这条边界让悟空作为生产力工具是可信的——我才敢真的把企业微信打卡接给它。</p>
+<p><strong>记忆分层，写入有闸门。</strong> 早期版本有个问题：我跟它闲聊”今天吃了麻辣烫”，它给我记进了长期记忆。几天下来全是垃圾。后来立的规矩是——长期记忆只收 5 类白名单信息（偏好、事实、身份、指令、教训），其他一律不收。<strong>这是个产品决策：长期记忆是 prompt 注入的主要素材，塞噪声等于让大模型变笨。</strong></p>
+<p><strong>LLM 双通道 + 动态路由。</strong> 简单的（“今天几号”）走便宜模型，复杂的（“分析这份 PRD”）走旗舰模型，任一家挂了自动 fallback。收益很直接：<strong>API 费用降到 hardcode 旗舰模型的 1/8 左右。</strong> 体验差异几乎看不出来。</p>
+<p><strong>统一 Trigger 模型。</strong> 不管消息从哪来——Telegram、飞书、定时器、系统命令——上层处理逻辑都视作同一种东西：“触发”。后面接新通道时，<strong>主循环一行不用改。</strong> 这是整个项目最值的一笔投资。</p>
+<h2 id="4️⃣-能力的四个阶段">4️⃣ 能力的四个阶段</h2>
+<p><strong>Day 1-2：让悟空能动。</strong> 第一天九层架构，第二天上主动机制——心跳、自检、技能匹配注入。从”AI 助手”到”AI 智能体”的关键跨越：一个会在你不理它时自己冒出来的 AI，跟一个等你提问的 AI，是两个物种。</p>
+<p><strong>Day 3-7：让悟空变聪明。</strong> Web Dashboard——可观测性是产品经理的事，看不见的东西没法优化。接多模态视觉。然后一个大的底层升级：从”按对话轮数截断”改成”按 token 算账”，从”关键词匹配”改成”向量相似度匹配技能”。</p>
+<p><strong>Day 9-17：让悟空懂事。</strong> 给动态生成的技能上 exec 沙箱。加记忆管理命令、加 <code>HealthMonitor</code>（断了发”我掉线了”，恢复发”我回来了”）、加文件解析能力。<strong>做 AI 产品的 70% 工作量根本不在 AI。</strong> LLM 是发动机，但用户感知到的是车。</p>
+<p><strong>Day 24-25：让悟空自己变好。</strong> 自我改进闭环：LLM Judge 打分 → Reflection Engine 提取差异 → 静默改写技能（改前备份、改后跑测试、失败自动回滚）→ 每小时聚合一次改动通知。<strong>自我改进和自我毁灭之间只隔一条线，那条线就是能否感知加能否回滚。</strong></p>
+<h2 id="5️⃣-几条产品经验">5️⃣ 几条产品经验</h2>
+<p><strong>AI 智能体的能力是涌现的，不是叠加的。</strong> 记忆、安全、调度、可观测——第一天必须同时存在，它才”活”得起来。</p>
+<p><strong>安全和可观测是产品决策，不是工程决策。</strong> 安全决定了用户敢不敢把真东西交给它。可观测决定了你能不能持续优化它。</p>
+<p><strong>抽象的价值在未来不用改，不在现在好看。</strong> 第一天做 Trigger 抽象时看起来是过度设计——只有 Telegram 一个通道，建什么统一模型？24 天里它省了至少三次大改。<strong>好的抽象是保险，不是优化。</strong></p>
+<p><strong>AI 协作时代，PM 的核心能力是想清楚要什么。</strong> 我不会写 Python，没看过 MongoDB 文档，没研究过 token 怎么算的。但悟空能跑起来。我的活儿是：想清楚要造一个什么样的”生物”，把这个想法翻译成 AI 能听懂的需求，再把它写出来的东西当 PRD 那样去审。跟开发提需求这件事我做了十几年。AI 协作只是把开发换成了另一个 AI，节奏快得多，但本质没变。</p>
+<hr>
+<p><strong>最难的不是写代码，是克制。</strong> 克制”再加一个功能”的冲动，克制”反正能跑就行”的妥协，克制”先这样以后再说”的偷懒。</p>
+<p>我不完美，悟空也不完美。但我们都在长大。我重新理解了做产品这件事的本质——<strong>为一个东西定义它该是什么、它该往哪长。</strong> 这个”东西”可以是 App，可以是网站，也可以是一只猴子。</p>  </article>  </main> <footer style="background:var(--color-text-primary);color:var(--color-bg-warm);padding:64px 0"> <div class="shell" style="padding:0 28px;border:none"> <strong style="display:block;font-size:clamp(36px,4vw,54px);letter-spacing:-.05em;font-weight:900;line-height:1.05;margin-bottom:40px">从零思考，<br>为现实构建。</strong> <div style="display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(255,255,255,.15);padding-top:20px"> <p style="font:700 13px/1.5 var(--font-mono);opacity:0.6;margin:0">&copy; 2016-2025 Kakarrot Design, All Rights Reserved</p> <nav style="display:flex;gap:24px"> <a href="https://x.com/Kakarrot_me" target="_blank" rel="noopener noreferrer" style="font:700 12px/1 var(--font-mono);letter-spacing:.04em;text-decoration:none;color:var(--color-bg-warm);opacity:0.6;transition:opacity .15s" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.6'">TWITTER</a><a href="https://github.com/kakarrot-dev" target="_blank" rel="noopener noreferrer" style="font:700 12px/1 var(--font-mono);letter-spacing:.04em;text-decoration:none;color:var(--color-bg-warm);opacity:0.6;transition:opacity .15s" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.6'">GITHUB</a><a href="https://t.me/kakarrot_me" target="_blank" rel="noopener noreferrer" style="font:700 12px/1 var(--font-mono);letter-spacing:.04em;text-decoration:none;color:var(--color-bg-warm);opacity:0.6;transition:opacity .15s" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.6'">TELEGRAM</a><a href="mailto:i@kakarrot.com" target="_blank" rel="noopener noreferrer" style="font:700 12px/1 var(--font-mono);letter-spacing:.04em;text-decoration:none;color:var(--color-bg-warm);opacity:0.6;transition:opacity .15s" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.6'">E-MAIL</a> </nav> </div> </div> </footer> <script type="module">const s=new IntersectionObserver(e=>{e.forEach(r=>{r.isIntersecting&&(r.target.classList.add("visible"),s.unobserve(r.target))})},{threshold:.15});document.querySelectorAll(".reveal").forEach(e=>s.observe(e));</script> </body> </html>  <script type="module">document.addEventListener("DOMContentLoaded",()=>{document.querySelectorAll(".prose .astro-code").forEach(o=>{if(o.parentElement?.classList.contains("code-block-wrap"))return;const r=o.getAttribute("data-language")||"",i=r?r.toUpperCase():"TEXT",n=document.createElement("div");n.className="code-block-wrap";const a=document.createElement("div");a.className="code-block-header";const c=document.createElement("span");c.className="code-lang",c.textContent=i;const e=document.createElement("button");e.className="copy-btn",e.innerHTML='<svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" stroke-width="2" fill="none"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> 复制',e.addEventListener("click",async()=>{const d=o.querySelector("code")?.innerText||o.innerText;try{if(navigator.clipboard&&window.isSecureContext)await navigator.clipboard.writeText(d);else{const t=document.createElement("textarea");t.value=d,t.style.position="fixed",t.style.left="-999999px",document.body.appendChild(t),t.select(),document.execCommand("copy"),document.body.removeChild(t)}e.innerHTML='<svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" stroke-width="2" fill="none"><polyline points="20 6 9 17 4 12"></polyline></svg> 已复制',e.classList.add("copied"),setTimeout(()=>{e.innerHTML='<svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" stroke-width="2" fill="none"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> 复制',e.classList.remove("copied")},2e3)}catch(t){console.error("复制失败",t)}}),a.appendChild(c),a.appendChild(e),n.appendChild(a),o.parentNode.insertBefore(n,o),n.appendChild(o)})});</script>

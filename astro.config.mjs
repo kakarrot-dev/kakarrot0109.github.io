@@ -6,6 +6,7 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: 'https://kakarrot.com',
   trailingSlash: 'always',
+  outDir: 'docs',
   integrations: [sitemap()],
   vite: {
     plugins: [tailwindcss()],
