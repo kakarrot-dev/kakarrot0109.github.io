@@ -14,13 +14,13 @@ export async function GET() {
         title: p.data.title,
         description: p.data.description,
         pubDate: p.data.publishedAt,
-        link: `/writing/${p.id}/`,
+        link: `/writing/${p.slug}/`,
       })),
       ...projects.map((p) => ({
         title: p.data.title,
         description: p.data.description,
         pubDate: p.data.publishedAt,
-        link: `/projects/${p.id}/`,
+        link: `/projects/${p.slug}/`,
       })),
     ],
   });

@@ -8,6 +8,8 @@ export interface EvidenceItem {
 export interface Props {
   items: EvidenceItem[];
 }
+
+const { items } = Astro.props;
 ---
 
 <section class="py-16">
@@ -15,7 +17,7 @@ export interface Props {
     证据
   </h2>
   <ul class="grid gap-4 md:grid-cols-2">
-    {Astro.props.items.map(({ label, description, url }) => (
+    {items.map(({ label, description, url }) => (
       <li class="border border-[var(--color-border)] p-4">
         {url ? (
           <a href={url} class="no-underline block">
