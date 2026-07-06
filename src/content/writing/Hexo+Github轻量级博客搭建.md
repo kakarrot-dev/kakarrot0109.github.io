@@ -1,111 +1,65 @@
 ---
-title: "Hexo+Github轻量级博客搭建"
-description: "Hexo博客上线，告别臃肿的WordPress，之前一直对于轻量级博客念念不忘，看来必有回响。"
+title: "No. 1: 我的第一个博客——Hexo + GitHub 搭建记录"
+description: "2013 年，我从 WordPress 投向 Hexo。一个连 CSS 都不会写的人，用命令行搭出了自己的第一个博客。"
 publishedAt: 2013-12-31
 tags:
   - "Hexo"
-  - "Blog"
-  - "Github"
+  - "个人博客"
+  - "GitHub Pages"
+  - "技术笔记"
 featured: false
 draft: false
 ---
 
-## Hexo 是什么？
+2013 年，我还是个不懂前端、不会后端、只会用 WordPress 发文章的人。
 
-Hexo 是一个快速、简洁且高效的博客框架。Hexo 使用 Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。
+WordPress 太重了。后台臃肿、插件一堆、主题选择困难症。我就想找个地方，安安静静写写东西。
 
-### GitHub 优点
+后来发现了 Hexo。一个台湾开发者做的静态博客框架——用 Markdown 写文章、命令行生成页面、部署到 GitHub Pages 上。免费，轻量，完全控制。
 
-- 轻量级的博客系统，没有麻烦的配置
-- 使用标记语言，比如 Markdown
-- 无需自己搭建服务器
-- 根据 Github 的限制，对应的每个站有 300MB 空间
-- 可以绑定自己的域名
+于是有了这个博客的起点。
 
-### Hexo 优点
+## 1️⃣ 从零搭建
 
-- 用于搭建博客网站框架，可以简单实现优美的博客网站
-- 在本地端搭建，就可脱机查阅
-- 架构不依托于其他门户网站，不再担心门户网站倒闭，不担心博文丢失或难以导出
-- 博文为 markdown 格式，通用，容易上手，便于快速书写
-- 可部署在 github 上
-- 创造者来自中国台湾，所以几乎所有模板都关注到了中文的兼容性，很适合使用汉语的码农
+过程其实不复杂，但对当时的我来说每一步都是新世界。
 
-## 搭建方法
+**在 GitHub 上建仓库。** 名字必须是 `username.github.io`。GitHub Pages 会自动把仓库内容当作网站发布。
 
-**新建 GitHub repository**
-
-登录 GitHub 账号，新建 respository，名字为：username.github.io
-
-**Hexo 安装**
+**安装 Hexo。** 那时候用的是 `npm install -g hexo-cli`，一个命令搞定。然后用 `hexo init` 初始化项目目录。
 
 ```shell
-node -v # 查看node版本
-npm -v # 查看npm版本
-npm install -g hexo-cli #-g表示全局安装，npm默认为当前项目安装
-npm install hexo-server --save #安装server模块 hexo3.0更新
+hexo init WebSite
+cd WebSite
+npm install
+hexo g    # 生成静态页面
+hexo s    # 本地预览
 ```
 
-环境变量添加值`C:\Users\KAKARROT\AppData\Roaming\npm\hexo.cmd`
+`localhost:4000` 出现的那一刻，有种"我自己的站在跑了"的满足感。
 
-**Hexo 部署**
+**部署到 GitHub。** 装个 `hexo-deployer-git`，配置一下用户名和邮箱，一条命令就能把静态文件推上去。
 
-```shell
-hexo init WebSite #新建博客文件夹
-cd WebSite #进入博客文件夹
-npm install #安装npm服务
-hexo g #生成静态页面
-hexo s #启动服务
-```
+## 2️⃣ 域名绑定
 
-现在就可以在 localhost:4000 查看网页了
+那时候阿里云买个域名一年几十块。DNS 配置两条记录：
 
-**文件目录概览**
+| 记录类型 | 主机记录 | 记录值 |
+|---------|---------|--------|
+| CNAME | WWW | kakarrot0109.github.io |
+| CNAME | @ | kakarrot0109.github.io |
 
-- public：执行 hexo generate 命令，输出的静态网页内容目录
-- scaffolds：layout 模板文件目录，其中的 md 文件可以添加编辑
-- scripts：扩展脚本目录，这里可以自定义一些 javascript 脚本
-- source：文章源码目录，该目录下的 markdown 和 html 文件均会被 hexo 处理。该页面对应 repo 的根目录，404 文件、favicon.ico 文件，CNAME 文件等都应该放这里，该目录下可新建页面目录。
-- drafts：草稿文章
-- posts：发布文章 themes：主题文件目录
-- config.yml：全局配置文件，大多数的设置都在这里
-- package.json：应用程序数据，指明 hexo 的版本等信息，类似于一般软件中的关于按钮
+再在 `source/` 目录放个 CNAME 文件，写上 `kakarrot.com`。等 DNS 生效，浏览器一刷——自己的域名指向了自己的站。
 
-**Hexo 部署到 GitHub**
+## 3️⃣ 后来才知道的事
 
-```shell
-npm install hexo-deployer-git --save
-git config --global user.name "xxx" # 配置用户名
-git config --global user.email "xxx@xxx.com" # 配置邮箱
-```
+当时做这些纯粹是因为"好玩"。回头看，这次搭建经历无意间让我开始了几个好习惯：
 
-在`Website\source`下新建文件`CNAME`
+- **写 Markdown 写成了习惯。** 后来工作里写文档、写 PRD，自动就用 Markdown。
+- **版本控制**。因为 Hexo 依赖 GitHub，我开始认真用 git，学会了提交、分支、回滚。
+- **命令行不再可怕。** 从"双击图标打开软件"变成了"敲命令干活"。
 
-```md CNAME
-kakarrot.com
-```
+这些在今天看来是最基础的东西，2013 年的我根本不知道它们会那么重要。
 
-## 域名解析
+---
 
-登录阿里云域名管理 添加 2 条解析记录
-
-| 记录类型 | 主机记录 | 记录值                 |
-| -------- | -------- | ---------------------- |
-| CNAME    | WWW      | kakarrot0109.github.io |
-| CNAME    | @        | kakarrot0109.github.io |
-
-## 博客上线
-
-解析后稍等 3-5min，强制刷新浏览器即可看到新站点。
-
-## 博客同步
-
-将源文件夹放至坚果云等同步网盘，实时同步。
-
-## 参考链接
-
-> https://hexo.io/zh-cn/docs/
-
-> http://theme-next.iissnan.com/
-
-> http://www.shuang0420.com/2016/05/12/Github-Pages-Hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/
+十年后，这个 Hexo 博客长成了现在的 Astro 站。**好的开始不一定需要多完美。它只需要让你愿意继续。**

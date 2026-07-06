@@ -1,259 +1,54 @@
 ---
-title: "Hexo+Chic主题二次开发"
-description: "Hexo \"Chic\"主题用过好久了，重新折腾一下。"
+title: "No. 10: 我折腾过的 Hexo 主题——Chic 二次开发记录"
+description: "为了一个顺眼的博客主题，我改了配色、汉化了页面、自定义了样式——那些还在用力气折腾的时光。"
 publishedAt: 2022-06-06
 tags:
   - "Hexo"
-  - "Blog"
+  - "博客"
+  - "主题开发"
+  - "前端"
 featured: false
 draft: false
 ---
 
-## Chic theme 介绍
+如果你也是 Hexo 用户，你应该也经历过这个阶段：每天都在找新主题，找到一个稍微顺眼的，就开始改。
 
-- 主题介绍：优雅、功能全面、阅读友好的 hexo 主题。
-- 主题地址：[GitHub 仓库地址](https://github.com/Siricee/hexo-theme-Chic)
+Chic 主题是我那段时间用的最久的一个。原因很简单——它看起来干净，结构清晰。但我还是没忍住，动了手。
 
-#### 下载主题
+## 1️⃣ 下载和启用
 
-```shell
-cd your-blog/themes
+Chic 是一个优雅的 Hexo 主题，GitHub 上有开源仓库。安装不复杂：
+
+```
 git clone https://github.com/Siricee/hexo-theme-Chic.git Chic
 ```
 
-其中 `your-blog` 为你的博客目录。
+然后在 `_config.yml` 里把 theme 改成 Chic。跑 `hexo s` 就能看到效果。
 
-如果你已经有了主题，那么可以使用 `git pull` 命令更新主题。
+## 2️⃣ 我都改了些什么
 
-#### 启用主题
+**导航和首页信息。** 我删掉了分类和标签页（当时我那博客没几篇文章，拆开更难看），只留下了归档和关于。首页描述写了一句我自己很喜欢的话——"我只想事情是它本来该有的那个样子"。到现在看依然觉得贴切。
 
-```shell
-cd your-blog
-vim _config.yml
-```
+**配色。** 我不喜欢默认的暗色背景，把深色模式的背景色改成更柔和的灰：
 
-找到 `theme` 字段，修改为 `Chic`
-然后保存并退出。
-
-#### 本地测试
-
-```shell
-hexo s
-```
-
----
-
-## Chic theme 自定义配置
-
-#### 主题配置文件
-
-配置文件修改为自己的信息。首页部分基本已经完成自定义了。
-
-```yml _config.yml
-# 头部
-navname: Kakarrot's Blog
-
-# 导航栏项目
-nav:
-  归档: /archives
-  # 分类: /category
-  # 标签: /tag
-  关于: /about
-
-# 网站图标
-favicon: /favicon.ico
-
-# 个人资料
-nickname: Kakarrot
-
-### 这个变量是 MarkDown 格式。
-description: 我只想事情是它本来该有的那个样子 <br>**I just want things to be what they are supposed to be**
-
-### 头像
-avatar: /image/avatar.jpg
-
-# 主菜单导航
-## 链接关键词不应该被更改。
-## 关键词后接完整的 URL。
-## 未使用的关键词可以被注释掉。
-links:
-  # 博客:
-  # 分类:
-  # 标签:
-  # 链接:
-  # 简历:
-  # 发布:
-  # 奖杯:
-  # 画廊:
-  # RSS:
-  # 支付宝:
-  # 知乎:
-  # LinkedIn:
-  # FaceBook:
-  # Twitter:
-  # Skype:
-
-# 如何显示链接：你有 2 个选择--文本或图标。
-links_text_enable: True
-links_icon_enable: True
-
-# 文章页面
-## 文章元数据
-post_meta_enable: True
-post_author_enable: True
-post_date_enable: True
-post_category_enable: True
-
-## 文章版权
-post_copyright_enable: False
-post_copyright_author_enable: False
-post_copyright_permalink_enable: False
-post_copyright_license_enable: False
-post_copyright_license_text: Copyright (c) 2019 <a href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE
-post_copyright_slogan_enable: False
-post_copyright_slogan_text: Do you believe in <strong>DESTINY</strong>?
-
-## 目录
-post_toc_enable: True
-
-# 页面
-page_title_enable: True
-
-# 日期/时间格式
-## Hexo 使用 Moment.js 来解析和显示日期
-## 你可以自定义日期格式，定义在
-## http://momentjs.com/docs/#/displaying/format/
-date_format: YYYY年MM月DD日
-# time_format:
-
-# 样式表加载在 <head> 中
-stylesheets:
-  - /css/style.css
-
-# 脚本加载在 body 末尾
-scripts:
-  - /js/script.js
-  - /js/tocbot.min.js
-    # tscanlin/tocbot: Build a table of contents from headings in an HTML document.
-    # https://github.com/tscanlin/tocbot
-
-# 插件功能
-## Mathjax：数学公式支持
-## https://www.mathjax.org
-mathjax:
-  enable: true
-  import: demand # global or demand
-  ## global: all pages will load mathjax,this will degrade performance and some grammers may be parsed wrong.
-  ## demand: Recommend option,if your post need fomula, you can declare 'mathjax: true' in Front-matter
-```
-
-#### 主题颜色
-
-页面颜色配置,修改首页 Dark Mode 背景色。
-
-```css _partial\variable.styl
+```css
 $dark-background-color = #363636
 ```
 
-#### 主题汉化
+**汉化。** Chic 默认有很多英文标签。我把文章页的"Author"改成"作者"、"Date"改成"日期"、"Categories"改成"分类"。还把底部的"back"、"home"都汉化了。看起来简单，不过要在 EJS 模板里找到对应的变量位置，一个一个改。
 
-文章页面的作者、日期、分类等信息已经汉化了，并且将日期里的时间给隐藏了。
+**隐藏多余元素。** 文章底部的标签和返回按钮被我注释掉了——那会儿觉得不需要，干净就好。
 
-```html post.ejs
-<div class="post-meta">
-  <% if(theme.post_author_enable && config.author){ %> 作者:
-  <a itemprop="author" rel="author" href="/"
-    ><%- config.author %>&nbsp;&nbsp;</a
-  >
-  <% } %> <% if(page.date && theme.post_date_enable){ %>
-  <span class="post-time">
-    日期: <a href="#"><%- date(page.date, theme.date_format) %>&nbsp;&nbsp;</a>
-  </span>
-  <% } %> <% if(page.categories.length!==0 && theme.post_category_enable){ %>
-  <span class="post-category">
-    分类: <% page.categories.forEach(item=>{ %>
-    <a href="<%- url_for(item.path) %>"><%- item.name %></a>
-    <% }) %>
-  </span>
-  <% } %>
-</div>
-```
+**自定义样式。** 给深色模式下的代码块、行号、引用加了自己的颜色配置。
 
-文章页面底部的标签和返回隐藏了。
+## 3️⃣ 现在回头看
 
-```html post.ejs
-<!-- <section class="post-tags">
-  <div>
-    <span>Tag(s):</span>
-    <span class="tag">
-      <% if(page.tags.length!==0){%> <% page.tags.forEach(item=>{ %>
-      <a href="<%- url_for(item.path) %>"># <%- item.name %></a>
-      <% }) %> <% } %>
-    </span>
-  </div>
-  <div>
-    <a href="javascript:window.history.back();">back</a>
-    <span>· </span>
-    <a href="<%- config.root %>">home</a>
-  </div>
-</section> -->
-```
+2022 年的我，还有耐心花一个周末去调整一个主题的 CSS 变量。不是在用博客，是在"折腾博客"——改主题、调配置、换字体。文章更新反而不是重点。
 
-文章页面边栏快捷按钮汉化
+现在站已经迁移到了 Astro。新的主题是自己写的，用 Tailwind，CSS 变量集中在 global.css 里，改起来比当年 EJS + Stylus 舒服多了。但说实话，**我有点怀念那个愿意花时间折腾的版本。** 那时候对技术上瘾，精力也用不完。
 
-```js toc.ejs
-<div class="post-toc">
-  <div class="tocbot-list"></div>
-  <div class="tocbot-list-menu">
-    <a class="tocbot-toc-expand" onclick="expand_toc()">
-      展开全部
-    </a>
-    <a onclick="go_top()">返回顶部</a>
-    <a onclick="go_bottom()">降至底部</a>
-  </div>
-</div>;
+---
 
-b.innerText = expanded ? "展开全部" : "收起全部";
-```
+**折腾了一个又一个主题，最后发现最让自己满意的，往往不是主题本身——是折腾的过程里学到的东西。**
 
-分类页面&标签页面汉化
-
-```html _page\category.ejs
-<div class="container">
-  <div class="post-wrap categories">
-    <h2 class="post-title">-&nbsp;分类&nbsp;·&nbsp;<%-page.category%>-</h2>
-  </div>
-  <%- partial('archive', {pagination: config.category, index: true}) %>
-</div>
-```
-
-```html _page\tag.ejs
-<%# single tag page%>
-<div class="container">
-  <div class="post-wrap tags">
-    <h2 class="post-title">-&nbsp;标签&nbsp;·&nbsp;<%-page.tag%>-</h2>
-  </div>
-  <%- partial('archive', {pagination: config.tag, index: true}) %>
-</div>
-```
-
-#### 主题自定义CSS
-
-```css _partial\custom.styl
-// 深色模式代码块
-.dark-theme .post-content figure,
-.dark-theme .post-content figure.highlight .code pre {
-    background-color: #23241f;
-    color: #f8f8f2;
-
-}
-
-// 深色模式代码块行号
-.dark-theme .post-content figure.highlight .gutter pre {
-    background-color: #23241f;
-    color: $dark-mode-pre-line-number-foreground-color;
-}
-
-// 深色模式引用模式
-$dark-post-blockquote-background-color = #23241f
-```
+现在这个站上的很多前端判断，比如对称、配色、间距、可读性——都是当年倒腾主题时积累下来的。
