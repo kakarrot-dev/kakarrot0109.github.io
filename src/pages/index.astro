@@ -17,7 +17,7 @@ const featuredArticles = (await getCollection("writing"))
   <div class="full-bleed" style="border-bottom:2px solid var(--color-border-strong);background:var(--color-bg-warm)">
     <div style="max-width:1536px;margin:0 auto;padding:clamp(80px,10vw,140px) clamp(32px,6vw,80px) clamp(64px,8vw,120px)">
       <!-- 第一行：名字 + 头像（居中） -->
-      <div style="display:flex;align-items:center;justify-content:center;gap:clamp(16px,2.5vw,40px)">
+      <div class="hero-row" style="display:flex;align-items:center;justify-content:center;gap:clamp(16px,2.5vw,40px)">
         <h1 style="font-size:var(--text-hero);line-height:var(--lh-hero);letter-spacing:var(--ls-hero);font-weight:900;text-transform:uppercase;margin:0;color:var(--color-text-primary)">
           <span class="hero-line"><span>KAKARROT</span></span>
         </h1>
@@ -103,3 +103,14 @@ const featuredArticles = (await getCollection("writing"))
     </div>
   </div>
 </BaseLayout>
+
+<style>
+  @media (max-width: 640px) {
+    .hero-row {
+      flex-direction: column !important;
+    }
+    .avatar-img {
+      margin-top: 16px;
+    }
+  }
+</style>

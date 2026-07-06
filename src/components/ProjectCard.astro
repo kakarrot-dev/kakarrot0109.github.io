@@ -11,8 +11,7 @@ const { title, description, topics, href, variant = "default" } = Astro.props;
 const isUniform = variant === "uniform";
 ---
 
-<article class="card" style={{
-  minHeight: isUniform ? "360px" : "440px",
+<article class="card" {...(isUniform ? {"data-uniform": ""} : {})} style={{
   padding: "24px",
   display: "flex",
   flexDirection: "column",
@@ -49,5 +48,18 @@ const isUniform = variant === "uniform";
       }}>{description}</p>
     </div>
   </a>
-  <a href={href} style={{font: isUniform ? "400 12px/1 var(--font-mono)" : "700 13px/1 var(--font-mono)", textDecoration: "none", color: "var(--color-text-primary)"}}>{isUniform ? "阅读 →" : "查看案例 →"}</a>
+  <a href={href} class="card-cta" style={{font: isUniform ? "400 12px/1 var(--font-mono)" : "700 13px/1 var(--font-mono)", textDecoration: "none", color: "var(--color-text-primary)"}}>{isUniform ? "阅读 →" : "查看案例 →"}</a>
 </article>
+
+<style>
+  .card { min-height: var(--card-min-h, 440px); }
+  .card-cta { display: inline-block; padding: 8px 0; }
+  @media (max-width: 640px) {
+    .card { --card-min-h: 320px; }
+    .card[data-uniform] { --card-min-h: 260px; }
+  }
+  @media (min-width: 641px) and (max-width: 1024px) {
+    .card { --card-min-h: 380px; }
+    .card[data-uniform] { --card-min-h: 300px; }
+  }
+</style>
