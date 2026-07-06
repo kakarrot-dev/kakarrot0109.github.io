@@ -2,46 +2,55 @@
 
 /* 设计令牌 */
 :root {
-  /* 暖底色背景 */
   --color-bg-warm: oklch(96% 0.015 75);
   --color-bg-card: oklch(94% 0.01 75);
   --color-text-primary: oklch(18% 0.01 260);
   --color-text-secondary: oklch(45% 0.02 260);
   --color-text-muted: oklch(60% 0.02 260);
-  --color-accent: #39ff14;         /* 酸性绿：链接和交互反馈 */
-  --color-accent-dim: #2ccc10;     /* 悬停态 */
+  --color-accent: #39ff14;
+  --color-accent-dim: #2ccc10;
   --color-border: oklch(85% 0.01 260);
   --color-border-strong: oklch(60% 0.02 260);
   --border-thick: 2px solid var(--color-border-strong);
 }
 
-/* 全局默认 */
+*, *::before, *::after { box-sizing: border-box; }
 body {
+  margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Noto Sans SC", sans-serif;
   background-color: var(--color-bg-warm);
   color: var(--color-text-primary);
   line-height: 1.6;
 }
-
-/* 链接 */
 a {
   color: var(--color-accent);
   text-decoration: underline;
   text-underline-offset: 2px;
 }
-a:hover {
-  color: var(--color-accent-dim);
-}
-
-/* 选中文本 */
+a:hover { color: var(--color-accent-dim); }
 ::selection {
   background-color: color-mix(in oklab, var(--color-accent) 30%, transparent);
 }
-
-/* 尊重减少动效偏好 */
 @media (prefers-reduced-motion: reduce) {
-  * {
-    animation-duration: 0.01ms !important;
-    transition-duration: 0.01ms !important;
-  }
+  * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+
+/* shell 容器 — 固定宽度主体 */
+.shell {
+  max-width: 1340px;
+  margin: 0 auto;
+  border-left: var(--border-thick);
+  border-right: var(--border-thick);
+}
+
+/* 突破容器 — 让子元素撑满视口宽度 */
+.full-bleed {
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+}
+.full-bleed-inner {
+  max-width: 1340px;
+  margin: 0 auto;
+  border-left: var(--border-thick);
+  border-right: var(--border-thick);
 }

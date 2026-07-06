@@ -15,13 +15,12 @@ const { title, description, topics, slug } = Astro.props;
   display: "flex",
   flexDirection: "column",
   justifyContent: "space-between",
-  background: "transparent",
   transition: "background .15s",
 }}
 onmouseover="this.style.background='color-mix(in oklab, var(--color-accent) 10%, transparent)'"
 onmouseout="this.style.background='transparent'"
 >
-  <span style={{font: "700 13px/1 ui-monospace,monospace", color: "var(--color-text-muted)"}}>{topics[0] ? `${String.fromCharCode(48 + topics.indexOf(topics[0]) + 1).padStart(2, "0")} / ${topics[0].toUpperCase()}` : ""}</span>
+  <span style={{font: "700 13px/1 ui-monospace,monospace", color: "var(--color-text-muted)"}}>{topics[0] ? `01 / ${topics[0].toUpperCase()}` : ""}</span>
   <a href={`/projects/${slug}/`} style={{textDecoration: "none", color: "inherit"}}>
     <h3 style={{fontSize: "clamp(28px,4vw,48px)", lineHeight: 1, letterSpacing: "-.05em", fontWeight: 900, margin: "0 0 12px"}}>{title}</h3>
     <p style={{fontSize: "17px", lineHeight: 1.55, maxWidth: "560px", margin: 0, color: "var(--color-text-secondary)"}}>{description}</p>

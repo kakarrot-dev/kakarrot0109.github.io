@@ -8,15 +8,22 @@ const articles = (await getCollection("writing"))
   .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
 ---
 
-<BaseLayout title="文章" description="关于 AI 产品、方法论与实践的思考">
-  <h1 class="text-4xl font-black tracking-tighter uppercase mb-12">文章</h1>
-  {articles.map((a) => (
-    <ArticleCard
-      title={a.data.title}
-      description={a.data.description}
-      tags={a.data.tags}
-      slug={a.slug}
-      publishedAt={a.data.publishedAt}
-    />
-  ))}
+<BaseLayout title="文章" description="关于 AI 产品、方法论与实践的思考" shell>
+  <div style={{padding: "38px 30px", borderBottom: "1px solid #bbb", background: "#fff"}}>
+    <h1 style={{fontSize: "clamp(50px,7vw,100px)", letterSpacing: "-.07em", lineHeight: .9, fontWeight: 900, margin: "0 0 8px"}}>文章</h1>
+    <p style={{font: "700 13px/1.5 ui-monospace,monospace", color: "var(--color-text-muted)", margin: 0}}>关于 AI 产品、方法论与实践的思考</p>
+  </div>
+  <div style={{background: "#fff"}}>
+    {articles.map((a, i) => (
+      <div key={a.slug} style={{borderTop: i === 0 ? "none" : "1px solid #ddd"}}>
+        <ArticleCard
+          title={a.data.title}
+          description={a.data.description}
+          tags={a.data.tags}
+          slug={a.slug}
+          publishedAt={a.data.publishedAt}
+        />
+      </div>
+    ))}
+  </div>
 </BaseLayout>

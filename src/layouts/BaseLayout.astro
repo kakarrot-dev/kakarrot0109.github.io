@@ -8,10 +8,10 @@ export interface Props {
   title: string;
   description: string;
   canonical?: string;
-  wide?: boolean;
+  shell?: boolean;
 }
 
-const { title, description, canonical, wide } = Astro.props;
+const { title, description, canonical, shell } = Astro.props;
 ---
 
 <!doctype html>
@@ -24,15 +24,17 @@ const { title, description, canonical, wide } = Astro.props;
   </head>
   <body>
     <Nav />
-    <main class:list={{ "max-w-5xl mx-auto px-6 py-12": !wide }}>
-      {wide ? (
-        <div style="max-width:1440px;margin:0 auto;border-left:2px solid var(--color-border-strong);border-right:2px solid var(--color-border-strong)">
+    {shell ? (
+      <main>
+        <div class="shell" style="border-top:2px solid var(--color-border-strong)">
           <slot />
         </div>
-      ) : (
+      </main>
+    ) : (
+      <main style="width:100%">
         <slot />
-      )}
-    </main>
+      </main>
+    )}
     <Footer />
   </body>
 </html>
