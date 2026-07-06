@@ -26,7 +26,7 @@ const { title, description, canonical, shell } = Astro.props;
     <Nav />
     {shell ? (
       <main>
-        <div class="shell" style="border-top:2px solid var(--color-border-strong)">
+        <div class="shell" style="border-top:none">
           <slot />
         </div>
       </main>

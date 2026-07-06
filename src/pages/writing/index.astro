@@ -1,29 +1,34 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import ArticleCard from "@/components/ArticleCard.astro";
 import { getCollection } from "astro:content";
 
 const articles = (await getCollection("writing"))
   .filter((a) => !a.data.draft)
   .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
+const dateOpts = { year: "numeric" as const, month: "2-digit" as const, day: "2-digit" as const };
 ---
 
-<BaseLayout title="文章" description="关于 AI 产品、方法论与实践的思考" shell>
-  <div style={{padding: "38px 30px", borderBottom: "1px solid #bbb", background: "#fff"}}>
+<BaseLayout title="Writing" description="关于 AI 产品、方法论与实践的思考" shell>
+  <div style={{padding: "38px 30px", borderBottom: "2px solid var(--color-border-strong)"}}>
     <h1 style={{fontSize: "clamp(50px,7vw,100px)", letterSpacing: "-.07em", lineHeight: .9, fontWeight: 900, margin: "0 0 8px"}}>文章</h1>
     <p style={{font: "700 13px/1.5 ui-monospace,monospace", color: "var(--color-text-muted)", margin: 0}}>关于 AI 产品、方法论与实践的思考</p>
   </div>
-  <div style={{background: "#fff"}}>
-    {articles.map((a, i) => (
-      <div key={a.slug} style={{borderTop: i === 0 ? "none" : "1px solid #ddd"}}>
-        <ArticleCard
-          title={a.data.title}
-          description={a.data.description}
-          tags={a.data.tags}
-          slug={a.slug}
-          publishedAt={a.data.publishedAt}
-        />
+  {articles.map((a, i) => (
+    <a href={`/writing/${a.slug}/`} style={{display: "block", textDecoration: "none", color: "inherit", padding: "28px 30px", borderBottom: i < articles.length - 1 ? "1px solid var(--color-border-subtle)" : "none", transition: "background .15s"}}
+      onmouseover="this.style.background='color-mix(in oklab, var(--color-accent) 8%, transparent)'"
+      onmouseout="this.style.background='transparent'">
+      <div style={{display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "30px"}}>
+        <div style={{minWidth: 0}}>
+          <div style={{display: "flex", gap: "10px", alignItems: "baseline", marginBottom: "6px"}}>
+            <h2 style={{fontSize: "20px", lineHeight: 1.3, fontWeight: 700, margin: 0}}>{a.data.title}</h2>
+            {a.data.tags?.[0] && <span style={{font: "400 12px/1.4 ui-monospace,monospace", color: "var(--color-text-muted)"}}>{a.data.tags[0]}</span>}
+          </div>
+          <p style={{fontSize: "15px", lineHeight: 1.5, color: "var(--color-text-secondary)", margin: 0}}>{a.data.description}</p>
+        </div>
+        <span style={{flexShrink: 0, font: "400 13px/1.4 ui-monospace,monospace", color: "var(--color-text-muted)", whiteSpace: "nowrap"}}>
+          {a.data.publishedAt.toLocaleDateString("zh-CN", dateOpts)}
+        </span>
       </div>
-    ))}
-  </div>
+    </a>
+  ))}
 </BaseLayout>

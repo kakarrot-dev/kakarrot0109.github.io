@@ -1,0 +1,23 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import ProjectCard from "@/components/ProjectCard.astro";
+import { getCollection } from "astro:content";
+
+const items = (await getCollection("vibe-coding"))
+  .filter((p) => !p.data.draft)
+  .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
+---
+
+<BaseLayout title="Vibe Coding" description="AI 协作构建的产品与实验" shell>
+  <div style={{padding: "38px 30px", borderBottom: "2px solid var(--color-border-strong)"}}>
+    <h1 style={{fontSize: "clamp(50px,7vw,100px)", letterSpacing: "-.07em", lineHeight: .9, fontWeight: 900, margin: "0 0 8px"}}>Vibe Coding</h1>
+    <p style={{font: "700 13px/1.5 ui-monospace,monospace", color: "var(--color-text-muted)", margin: 0}}>AI 协作构建的产品与实验</p>
+  </div>
+  <div style={{display: "grid", gridTemplateColumns: "1fr 1fr"}}>
+    {items.map((p, i) => (
+      <div key={p.slug} style={{borderRight: i % 2 === 0 ? "2px solid var(--color-border-strong)" : "none", borderBottom: i < items.length - (items.length % 2 || 2) ? "2px solid var(--color-border-strong)" : "none"}}>
+        <ProjectCard title={p.data.title} description={p.data.description} topics={p.data.topics} href={`/vibe-coding/${p.slug}/`} />
+      </div>
+    ))}
+  </div>
+</BaseLayout>

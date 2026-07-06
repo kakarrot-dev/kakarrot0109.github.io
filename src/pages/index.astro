@@ -4,12 +4,12 @@ import ProjectCard from "@/components/ProjectCard.astro";
 import ArticleCard from "@/components/ArticleCard.astro";
 import { getCollection } from "astro:content";
 
-const featuredProjects = (await getCollection("projects"))
+const featuredProjects = (await getCollection("vibe-coding"))
   .filter((p) => !p.data.draft && p.data.featured)
-  .slice(0, 2);
+  .slice(0, 3);
 
 const featuredArticles = (await getCollection("writing"))
-  .filter((p) => !p.data.draft && p.data.featured)
+  .filter((p) => !p.data.draft)
   .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf())
   .slice(0, 3);
 ---
@@ -80,31 +80,31 @@ const featuredArticles = (await getCollection("writing"))
     </div>
   </div>
 
-  <!-- 项目区 -->
-  <div class="shell reveal" style="border-top:none">
+  <!-- Vibe Coding 精选 -->
+  <div class="shell reveal" style="border-top:0;border-bottom:2px solid var(--color-border-strong)">
     <div style={{padding: "38px 30px", display: "flex", justifyContent: "space-between", alignItems: "end", borderBottom: "2px solid var(--color-border-strong)"}}>
-      <h2 style={{fontSize: "clamp(50px,7vw,100px)", letterSpacing: "-.07em", lineHeight: .9, fontWeight: 900, margin: 0}}>项目案例</h2>
+      <h2 style={{fontSize: "clamp(50px,7vw,100px)", letterSpacing: "-.07em", lineHeight: .9, fontWeight: 900, margin: 0}}>VIBE CODING</h2>
       <span style={{font: "700 13px/1.5 ui-monospace,monospace", color: "var(--color-text-muted)"}}>SELECTED WORK / 02</span>
     </div>
     <div style={{display: "grid", gridTemplateColumns: "1fr 1fr"}}>
       {featuredProjects.map((p, i) => (
         <div key={p.slug} class={"reveal reveal-delay-" + (i+1)} style={{borderRight: i % 2 === 0 ? "2px solid var(--color-border-strong)" : "none"}}>
-          <ProjectCard title={p.data.title} description={p.data.description} topics={p.data.topics} slug={p.slug} />
+          <ProjectCard title={p.data.title} description={p.data.description} topics={p.data.topics} href={`/vibe-coding/${p.slug}/`} />
         </div>
       ))}
     </div>
   </div>
 
   <!-- 文章区 -->
-  <div class="shell reveal" style="border-top:none;border-bottom:2px solid var(--color-border-strong);background:#fff">
-    <div style={{padding: "38px 30px", display: "flex", justifyContent: "space-between", alignItems: "end", borderBottom: "1px solid #bbb"}}>
-      <h2 style={{fontSize: "clamp(50px,7vw,100px)", letterSpacing: "-.07em", lineHeight: .9, fontWeight: 900, margin: 0}}>最近写作</h2>
-      <span style={{font: "700 13px/1.5 ui-monospace,monospace", color: "var(--color-text-muted)"}}>WRITING / NOTES</span>
+  <div class="shell reveal" style="border-top:0">
+    <div style={{padding: "38px 30px", display: "flex", justifyContent: "space-between", alignItems: "end", borderBottom: "2px solid var(--color-border-strong)"}}>
+      <h2 style={{fontSize: "clamp(50px,7vw,100px)", letterSpacing: "-.07em", lineHeight: .9, fontWeight: 900, margin: 0}}>Writing</h2>
+      <span style={{font: "700 13px/1.5 ui-monospace,monospace", color: "var(--color-text-muted)"}}>WRITING / 03</span>
     </div>
     <div style={{display: "grid", gridTemplateColumns: "repeat(3, 1fr)"}}>
       {featuredArticles.map((a, i) => (
-        <div key={a.slug} class={"reveal reveal-delay-" + (i+1)} style={{borderRight: i < featuredArticles.length - 1 ? "1px solid #bbb" : "none"}}>
-          <ArticleCard title={a.data.title} description={a.data.description} tags={a.data.tags} slug={a.slug} publishedAt={a.data.publishedAt} />
+        <div key={a.slug} class={"reveal reveal-delay-" + (i+1)} style={{borderRight: i % 3 !== 2 ? "2px solid var(--color-border-strong)" : "none"}}>
+          <ProjectCard title={a.data.title} description={a.data.description} topics={a.data.tags} href={`/writing/${a.slug}/`} variant="uniform" />
         </div>
       ))}
     </div>
