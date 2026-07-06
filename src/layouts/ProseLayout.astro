@@ -19,7 +19,7 @@ const { title, description } = Astro.props;
   </article>
 </BaseLayout>
 
-<style>
+<style is:global>
   .prose h2 {
     font-size: 1.5rem;
     font-weight: 700;
@@ -52,5 +52,30 @@ const { title, description } = Astro.props;
     border: none;
     border-top: 1px solid var(--color-border);
     margin: 2.5rem 0;
+  }
+  .prose a {
+    color: var(--color-accent);
+    text-underline-offset: 2px;
+  }
+  .prose a:hover {
+    color: var(--color-accent-dim);
+  }
+  .prose img {
+    max-width: 100%;
+    height: auto;
+    margin: 1.5rem 0;
+  }
+  .prose code {
+    font-size: 0.875em;
+    padding: 0.2em 0.4em;
+    background: var(--color-bg-card);
+    border-radius: 0;
+  }
+  .prose blockquote {
+    border-left: 3px solid var(--color-accent);
+    padding-left: 1rem;
+    margin: 1.5rem 0;
+    color: var(--color-text-secondary);
+    font-style: italic;
   }
 </style>
