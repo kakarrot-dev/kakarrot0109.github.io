@@ -9,7 +9,7 @@ const featuredProjects = (await getCollection("vibe-coding"))
 const featuredArticles = (await getCollection("writing"))
   .filter((p) => !p.data.draft)
   .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf())
-  .slice(0, 3);
+  .slice(0, 6);
 ---
 
 <BaseLayout title="Kakarrot" description="AI 产品经理 — 从第一性原理拆解复杂业务，用 AI 原生方式做成可落地的产品系统。">
