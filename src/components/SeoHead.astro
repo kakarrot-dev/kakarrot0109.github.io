@@ -1,0 +1,22 @@
+---
+export interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  ogImage?: string;
+}
+
+const { title, description, canonical, ogImage } = Astro.props;
+const site = "https://kakarrot.com";
+const fullCanonical = canonical ? `${site}${canonical}` : undefined;
+---
+
+<title>{title} — Kakarrot</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={fullCanonical || site} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={fullCanonical || site} />
+<meta property="og:type" content="website" />
+{ogImage && <meta property="og:image" content={`${site}${ogImage}`} />}
+<meta name="twitter:card" content="summary_large_image" />
