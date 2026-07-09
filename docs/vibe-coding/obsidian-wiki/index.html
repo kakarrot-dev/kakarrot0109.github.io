@@ -11,18 +11,18 @@
 <p>传统的文件夹+标签知识管理，AI Agent 看不懂。我要一个既能自己用、又能让 Agent 自动写入和检索的知识库。</p>
 <h2 id="核心理念">核心理念</h2>
 <p><strong>原文可追溯，加工有结构，标签可检索，附件可归档，规则可执行。</strong></p>
-<p>知识库分成五个区域：</p>
+<p>知识库分为两层：</p>
 <ul>
-<li><strong>00-网页收藏</strong> — 采集原文，不润色不重排，只保留来源</li>
-<li><strong>01-产品管理</strong> — 市场、竞品、行业、需求研究，结论必须能追溯到来源</li>
-<li><strong>02-项目管理</strong> — 目标、范围、决策、进度和复盘</li>
-<li><strong>03-知识提炼</strong> — 长期可复用的概念、方法和规则，重新组织不复制原文</li>
-<li><strong>04-兴趣爱好</strong> — 非工作主题资料</li>
+<li><strong><code>raw/</code></strong> — 采集原文永久保存层，只增不改，保留来源 URL，AI 永不编辑此目录下的文件</li>
+<li><strong><code>wiki/</code></strong> — LLM 编译层加工笔记，拍平到根目录；MOC 索引页单独放在 <code>wiki/索引/</code></li>
 </ul>
-<h2 id="与-ai-agent-协作">与 AI Agent 协作</h2>
-<p>这是这个项目的核心创新。整个知识库的目录结构、Properties 定义、标签体系和编写规范都经过设计，让 AI Agent 能理解上下文、识别笔记类型、正确放置和检索内容。</p>
-<p>Agent 操作规则写在 <code>AGENTS.md</code> 里，非琐碎任务走 spec → plan → 开发的标准流程。被纠正的经验写到 <code>tasks/lessons.md</code>，防止重复犯错。</p>
+<p>Agent 自动执行 Ingest 流程：读取 raw 文件 → 理解语义 → 创建或复用 wiki 笔记 → 更新索引。</p>
+<h2 id="规范化设计">规范化设计</h2>
+<p>每个笔记强制包含完整的 Properties（title、source、author、published、created、description、tags、formatter），不允许省略字段。标签体系使用简体中文为主，与内容笔记分离的 MOC 索引提供上层的知识导航。</p>
+<p>Markdown 风格全程半角符号，标题不跳级，不复制大段原文，表格用于比较而非堆文字。所有规范都让 Agent 能准确理解上下文、识别笔记类型、正确放置和检索内容。</p>
+<h2 id="agent-协作">Agent 协作</h2>
+<p>Agent 操作规则写在 <code>AGENTS.md</code> 里，非琐碎任务走 spec → plan → 开发的标准流程。Ingest 时 Agent 必须完整阅读 raw 文件再决定 wiki 下的归类；Query 时优先读编译层索引，每次检索附带 wiki 更新建议确保知识回流。被纠正的经验写入 <code>tasks/lessons.md</code>，防止重复犯错。</p>
 <h2 id="当前状态">当前状态</h2>
-<p>知识库在持续增长中，Agent 协作流程已经跑通，Obsidian 插件生态兼容良好。</p>  </article>  </main> <footer class="site-footer" data-astro-cid-sz7xmlte> <div class="shell site-footer-inner" data-astro-cid-sz7xmlte> <strong class="site-footer-tagline" data-astro-cid-sz7xmlte>从零思考，<br data-astro-cid-sz7xmlte>为现实构建。</strong> <div class="footer-bottom" data-astro-cid-sz7xmlte> <p class="site-footer-copy" data-astro-cid-sz7xmlte>
+<p>知识库在持续增长，Agent 协作流程已经跑通，Obsidian 插件生态兼容良好。</p>  </article>  </main> <footer class="site-footer" data-astro-cid-sz7xmlte> <div class="shell site-footer-inner" data-astro-cid-sz7xmlte> <strong class="site-footer-tagline" data-astro-cid-sz7xmlte>从零思考，<br data-astro-cid-sz7xmlte>为现实构建。</strong> <div class="footer-bottom" data-astro-cid-sz7xmlte> <p class="site-footer-copy" data-astro-cid-sz7xmlte>
 &copy; 2016-2026 Kakarrot Design, All Rights Reserved
 </p> <nav class="site-footer-social" data-astro-cid-sz7xmlte> <a href="https://x.com/Kakarrot_me" target="_blank" rel="noopener noreferrer" class="social-link" data-astro-cid-sz7xmlte> TWITTER </a><a href="https://github.com/kakarrot-dev" target="_blank" rel="noopener noreferrer" class="social-link" data-astro-cid-sz7xmlte> GITHUB </a><a href="https://t.me/kakarrot_me" target="_blank" rel="noopener noreferrer" class="social-link" data-astro-cid-sz7xmlte> TELEGRAM </a><a href="mailto:i@kakarrot.com" target="_blank" rel="noopener noreferrer" class="social-link" data-astro-cid-sz7xmlte> E-MAIL </a> </nav> </div> </div> </footer>  <script type="module">const s=new IntersectionObserver(e=>{e.forEach(r=>{r.isIntersecting&&(r.target.classList.add("visible"),s.unobserve(r.target))})},{threshold:.15});document.querySelectorAll(".reveal").forEach(e=>s.observe(e));</script> </body> </html>  <script type="module">document.addEventListener("DOMContentLoaded",()=>{document.querySelectorAll(".prose .astro-code").forEach(o=>{if(o.parentElement?.classList.contains("code-block-wrap"))return;const r=o.getAttribute("data-language")||"",i=r?r.toUpperCase():"TEXT",n=document.createElement("div");n.className="code-block-wrap";const a=document.createElement("div");a.className="code-block-header";const c=document.createElement("span");c.className="code-lang",c.textContent=i;const e=document.createElement("button");e.className="copy-btn",e.innerHTML='<svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" stroke-width="2" fill="none"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> 复制',e.addEventListener("click",async()=>{const d=o.querySelector("code")?.innerText||o.innerText;try{if(navigator.clipboard&&window.isSecureContext)await navigator.clipboard.writeText(d);else{const t=document.createElement("textarea");t.value=d,t.style.position="fixed",t.style.left="-999999px",document.body.appendChild(t),t.select(),document.execCommand("copy"),document.body.removeChild(t)}e.innerHTML='<svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" stroke-width="2" fill="none"><polyline points="20 6 9 17 4 12"></polyline></svg> 已复制',e.classList.add("copied"),setTimeout(()=>{e.innerHTML='<svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" stroke-width="2" fill="none"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> 复制',e.classList.remove("copied")},2e3)}catch(t){console.error("复制失败",t)}}),a.appendChild(c),a.appendChild(e),n.appendChild(a),o.parentNode.insertBefore(n,o),n.appendChild(o)})});</script>

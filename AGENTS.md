@@ -72,13 +72,13 @@ npm
 UI 体系：
 
 ```text
-Tailwind CSS 4 + 自研全局样式（global.css）
+Tailwind CSS 4 + 自研全局样式（global.css），设计规范见 DESIGN.md
 ```
 
 部署方式：
 
 ```text
-GitHub Pages — 本地构建到 docs/，push master 分支即完成部署
+GitHub Pages — 构建产物输出到 docs/，推送 master 分支触发 GitHub Actions 自动部署
 ```
 
 快速发布流程：
@@ -130,6 +130,12 @@ npm run lint
 npm run build
 ```
 
+预览构建产物：
+
+```bash
+npm run preview
+```
+
 格式化：
 
 ```bash
@@ -159,19 +165,26 @@ src/
     index.astro     首页
     about.astro     关于
     projects/       项目列表 & 详情
-    writing/        文章列表 & 详情
-    vibe-coding/    作品列表
+    writing/        文章列表 & 详情 & 标签
+    vibe-coding/    作品列表 & 详情
     rss.xml.ts      RSS 生成
-   404.astro        404 页面
+    404.astro       404 页面
   styles/
     global.css      全局样式 & 设计令牌
 public/
   avatar.jpeg       头像
   favicon.ico       图标
   CNAME             自定义域名
+docs/               构建产物（GitHub Pages 部署目录，勿手改）
 .github/
   workflows/
     deploy.yml      GitHub Actions 自动部署
+docs/superpowers/
+  specs/            需求规格
+  plans/            开发计划
+DESIGN.md           设计系统规范
+README.md           项目说明
+lessons.md          项目经验记录（按需创建）
 ```
 
 规则：
@@ -181,6 +194,7 @@ public/
 - 不要创建重复目录
 - 不要移动无关文件
 - 不要顺手重构目录结构
+- 不要直接编辑 `docs/` 下的构建产物，改 `src/` 后重新构建
 
 ------
 
@@ -210,7 +224,7 @@ public/
 
 - 新增功能
 - 修改核心逻辑
-- 数据库变更
+- Content Collections schema 变更
 - 权限、登录、安全、支付
 - 多端联动
 - 架构调整
@@ -380,7 +394,7 @@ plan 要能执行，不要写泛泛而谈的计划。
 
 ## 9. UI 规则
 
-遵守 `DESIGN.md` 规范（如存在）。
+遵守 `DESIGN.md` 规范。
 
 当前项目设计风格：
 
@@ -389,6 +403,8 @@ plan 要能执行，不要写泛泛而谈的计划。
 - 粗边框 + shell 容器布局
 - 等宽字体用于标签、数字
 - 滚动渐入动效
+
+修改样式时优先使用 `global.css` 中的设计令牌，不硬编码颜色和字号。
 
 ------
 
@@ -423,7 +439,7 @@ API 变更前必须明确：
 
 ## 11. 数据库规则
 
-当前项目无数据库。如果未来引入 Content Collections schema 变更：
+当前项目无数据库。如果涉及 Content Collections schema 变更，必须先写清楚：
 
 - 字段变化
 - 是否影响已有 Markdown 文件
@@ -444,8 +460,9 @@ API 变更前必须明确：
 验证优先级：
 
 1. 类型检查（`npm run check`）
-2. 构建（`npm run build`）
-3. 手动在浏览器预览
+2. lint（`npm run lint`）
+3. 构建（`npm run build`）
+4. 手动在浏览器预览（`npm run dev` 或 `npm run preview`）
 
 如果验证失败，必须说明：
 
@@ -549,15 +566,16 @@ commit message 使用：
 常用类型：
 
 ```text
-feat / fix / docs / refactor / test / chore / style / perf
+feat / fix / docs / refactor / test / chore / style / perf / deploy
 ```
 
 示例：
 
 ```text
-fix: 修复模型能力检测失败
-docs: 更新模型能力检测计划
-feat: 新增供应商能力自动识别
+feat: 新增 Vibe Coding 作品详情页
+fix: 修复标签页 404
+docs: 更新项目 AGENTS 规范
+deploy: 更新构建产物
 ```
 
 禁止无确认执行：
@@ -639,16 +657,23 @@ Git：
 
 ## 17. 写作规范
 
-AI 编写文章时严格遵循 `docs/writing-guide.md`：
+AI 编写博客文章时遵循以下约定：
 
-- 标题格式 `No. XX: 标题`
+- 标题格式 `No. XX: 标题`（序号文章）或描述性标题（专题文章）
 - 开场个人叙事钩子 → 1️⃣2️⃣3️⃣ emoji 编号主体 → 升华总结 + **加粗金句**
 - 段落 2-5 句，口语化衔接
 - **加粗**关键概念和金句，适度 emoji 点缀
-- 文末 3-6 个标签
+- 文末 3-6 个标签，与 frontmatter `tags` 字段一致
 - 正文用中文时保留口语化和个人叙述感
 
-新建文章前先读 `docs/writing-guide.md` 全文。
+新建文章流程：
+
+1. 在 `src/content/writing/` 创建 Markdown 文件
+2. 填写 frontmatter（title、description、publishedAt、tags）
+3. 运行 `npm run build` 验证
+4. 推送触发部署
+
+Content Collections frontmatter 字段见 `src/content/config.ts`。
 
 ------
 
