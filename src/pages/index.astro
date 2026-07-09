@@ -7,12 +7,11 @@ const featuredProjects = (await getCollection("vibe-coding"))
   .filter((p) => !p.data.draft && p.data.featured);
 
 const featuredArticles = (await getCollection("writing"))
-  .filter((p) => !p.data.draft)
-  .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf())
-  .slice(0, 6);
+  .filter((p) => !p.data.draft && p.data.featured)
+  .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
 ---
 
-<BaseLayout title="Kakarrot" description="AI 产品经理 — 从第一性原理拆解复杂业务，用 AI 原生方式做成可落地的产品系统。">
+<BaseLayout title="Kakarrot" description="AI 产品经理 — 从第一性原理拆解复杂业务，用 AI 原生方式做成可落地的产品系统。" canonical="/">
   <!-- Hero — 单栏大留白，头像靠右 -->
   <div class="full-bleed" style="border-bottom:2px solid var(--color-border-strong);background:var(--color-bg-warm)">
     <div style="max-width:1536px;margin:0 auto;padding:clamp(80px,10vw,140px) clamp(32px,6vw,80px) clamp(64px,8vw,120px)">
@@ -21,7 +20,17 @@ const featuredArticles = (await getCollection("writing"))
         <h1 style="font-size:var(--text-hero);line-height:var(--lh-hero);letter-spacing:var(--ls-hero);font-weight:900;text-transform:uppercase;margin:0;color:var(--color-text-primary)">
           <span class="hero-line"><span>KAKARROT</span></span>
         </h1>
-        <img src="/avatar.jpeg" alt="Kakarrot" class="avatar-img" style="width:clamp(80px,10vw,160px);height:clamp(80px,10vw,160px);min-width:72px;min-height:72px;border-radius:50%;object-fit:cover;display:block;flex-shrink:0;filter:grayscale(1);transition:filter 0.5s ease" onmouseover="this.style.filter='grayscale(0)'" onmouseout="this.style.filter='grayscale(1)'" />
+        <picture>
+          <source srcset="/avatar.webp" type="image/webp" />
+          <img
+            src="/avatar.jpeg"
+            alt="Kakarrot"
+            class="avatar-img"
+            width="160"
+            height="160"
+            fetchpriority="high"
+          />
+        </picture>
       </div>
       <!-- 间距 -->
       <div style="margin-top:clamp(48px,7vw,120px)"></div>
@@ -92,7 +101,7 @@ const featuredArticles = (await getCollection("writing"))
   <div class="shell reveal" style="border-top:0">
     <div style={{padding: "38px 30px", display: "flex", justifyContent: "space-between", alignItems: "end", borderBottom: "2px solid var(--color-border-strong)"}}>
       <h2 style={{fontSize: "var(--text-section-title)", letterSpacing: "var(--ls-section-title)", lineHeight: "var(--lh-section-title)", fontWeight: 900, margin: 0}}>Writing</h2>
-      <span style={{font: "700 13px/1.5 var(--font-mono)", color: "var(--color-text-muted)"}}>WRITING / 03</span>
+      <a href="/writing/" class="view-all-link">查看全部 →</a>
     </div>
     <div class="grid-3" style={{display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "24px", padding: "24px"}}>
       {featuredArticles.map((a, i) => (

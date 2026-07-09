@@ -8,42 +8,55 @@ const links = [
 ];
 ---
 
-<nav style="border-bottom:2px solid var(--color-border-strong); background:rgba(244,241,232,.96); position:sticky;top:0;z-index:10">
-  <div class="shell nav-inner" style="height:72px;display:flex;align-items:center;padding:0 28px;border:none;position:relative">
-    <a href="/" style="font:700 13px/1 var(--font-mono);letter-spacing:.04em;text-decoration:none;text-transform:uppercase;color:var(--color-text-primary);flex-shrink:0">KAKARROT.COM</a>
-    <button class="nav-toggle" style="display:none;margin-left:auto;width:44px;height:44px;border:none;background:transparent;cursor:pointer;padding:0;color:var(--color-text-primary);flex-shrink:0" aria-label="菜单">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="width:22px;height:22px;display:block;margin:auto">
-        <line class="nav-line-1" x1="3" y1="6" x2="21" y2="6"/>
-        <line class="nav-line-2" x1="3" y1="12" x2="21" y2="12"/>
-        <line class="nav-line-3" x1="3" y1="18" x2="21" y2="18"/>
+<nav class="nav-bar">
+  <div class="shell nav-inner nav-inner-bar">
+    <a href="/" class="nav-brand">KAKARROT.COM</a>
+    <button
+      class="nav-toggle nav-toggle-btn"
+      aria-label="菜单"
+      aria-expanded="false"
+    >
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        class="nav-toggle-icon"
+      >
+        <line class="nav-line-1" x1="3" y1="6" x2="21" y2="6"></line>
+        <line class="nav-line-2" x1="3" y1="12" x2="21" y2="12"></line>
+        <line class="nav-line-3" x1="3" y1="18" x2="21" y2="18"></line>
       </svg>
     </button>
     <ul class="nav-links">
-      {links.map(({ href, label }) => {
-  const isActive = currentPath === href || currentPath.startsWith(href);
-  return (
-    <li>
-      <a href={href} style={{
-        font: "700 13px/1 var(--font-mono)",
-        letterSpacing: ".04em",
-        textDecoration: "none",
-        textTransform: "uppercase",
-        color: isActive ? "var(--color-accent)" : "var(--color-text-secondary)",
-        borderBottom: isActive ? "2px solid var(--color-accent)" : "2px solid transparent",
-        paddingBottom: "2px",
-        transition: "color 0.15s",
-        display: "inline-block",
-      }}
-      onmouseover="this.style.color='var(--color-accent)'" onmouseout="this.style.color=this.dataset.default"
-      data-default={isActive ? "var(--color-accent)" : "var(--color-text-secondary)"}>{label}</a>
-    </li>
-  );
-})}
+      {
+        links.map(({ href, label }) => {
+          const isActive =
+            currentPath === href || currentPath.startsWith(href);
+          return (
+            <li>
+              <a
+                href={href}
+                class:list={["nav-link", isActive && "nav-link--active"]}
+              >
+                {label}
+              </a>
+            </li>
+          );
+        })
+      }
     </ul>
   </div>
 </nav>
 
 <style>
+  .nav-toggle-icon {
+    width: 22px;
+    height: 22px;
+    display: block;
+    margin: auto;
+  }
   .nav-links {
     display: flex;
     gap: 28px;
@@ -57,7 +70,7 @@ const links = [
   }
 
   @media (max-width: 768px) {
-    .nav-toggle {
+    .nav-toggle-btn {
       display: block !important;
     }
     .nav-links {
@@ -68,11 +81,11 @@ const links = [
       right: 0;
       flex-direction: column;
       gap: 0;
-      background: rgba(244,241,232,.98);
+      background: rgba(244, 241, 232, 0.98);
       border-bottom: 2px solid var(--color-border-strong);
       margin: 0;
       padding: 8px 28px;
-      box-shadow: 0 4px 12px rgba(0,0,0,.08);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     }
     .nav-links.open {
       display: flex;
@@ -104,7 +117,6 @@ const links = [
       toggle.setAttribute("aria-expanded", String(open));
     });
 
-    // 点击链接后关闭菜单
     links.querySelectorAll("a").forEach((a) => {
       a.addEventListener("click", () => {
         links.classList.remove("open");

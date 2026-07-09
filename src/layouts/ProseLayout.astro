@@ -4,12 +4,33 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 export interface Props {
   title: string;
   description: string;
+  canonical?: string;
+  ogType?: "website" | "article";
+  publishedAt?: Date;
+  updatedAt?: Date;
+  tags?: string[];
 }
 
-const { title, description } = Astro.props;
+const {
+  title,
+  description,
+  canonical,
+  ogType = "article",
+  publishedAt,
+  updatedAt,
+  tags,
+} = Astro.props;
 ---
 
-<BaseLayout {title} {description}>
+<BaseLayout
+  {title}
+  {description}
+  {canonical}
+  {ogType}
+  {publishedAt}
+  {updatedAt}
+  {tags}
+>
   <article class="max-w-[820px] mx-auto prose pt-16 md:pt-20">
     <header class="mb-12">
       <h1 class="text-3xl md:text-4xl font-black tracking-tighter uppercase">{title}</h1>

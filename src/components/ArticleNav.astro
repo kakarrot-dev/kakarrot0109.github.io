@@ -1,0 +1,82 @@
+---
+export interface NavItem {
+  title: string;
+  href: string;
+}
+
+export interface Props {
+  prev?: NavItem;
+  next?: NavItem;
+}
+
+const { prev, next } = Astro.props;
+---
+
+{(prev || next) && (
+  <nav
+    class="article-nav"
+    aria-label="文章导航"
+    style="margin-top:3rem;padding-top:2rem;border-top:2px solid var(--color-border-strong);display:grid;grid-template-columns:1fr 1fr;gap:24px"
+  >
+    {prev ? (
+      <a href={prev.href} class="article-nav-link" data-direction="prev">
+        <span class="article-nav-label">← 上一篇</span>
+        <span class="article-nav-title">{prev.title}</span>
+      </a>
+    ) : (
+      <span />
+    )}
+    {next ? (
+      <a
+        href={next.href}
+        class="article-nav-link"
+        data-direction="next"
+        style="text-align:right"
+      >
+        <span class="article-nav-label">下一篇 →</span>
+        <span class="article-nav-title">{next.title}</span>
+      </a>
+    ) : (
+      <span />
+    )}
+  </nav>
+)}
+
+<style>
+  .article-nav-link {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 16px;
+    border: 2px solid var(--color-border-strong);
+    transition:
+      border-color 0.15s,
+      background 0.15s;
+  }
+  .article-nav-link:hover {
+    border-color: var(--color-accent);
+    background: color-mix(in oklab, var(--color-accent) 5%, transparent);
+  }
+  .article-nav-label {
+    font: 700 12px/1 var(--font-mono);
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .article-nav-title {
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.4;
+    color: var(--color-text-primary);
+  }
+  @media (max-width: 640px) {
+    .article-nav {
+      grid-template-columns: 1fr !important;
+    }
+    .article-nav-link[data-direction="next"] {
+      text-align: left !important;
+    }
+  }
+</style>

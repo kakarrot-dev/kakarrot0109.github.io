@@ -8,7 +8,7 @@ const items = (await getCollection("vibe-coding"))
   .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
 ---
 
-<BaseLayout title="Vibe Coding" description="AI 协作构建的产品与实验" shell>
+<BaseLayout title="Vibe Coding" description="AI 协作构建的产品与实验" canonical="/vibe-coding/" shell>
   <div class="reveal" style={{padding: "38px 30px", borderBottom: "2px solid var(--color-border-strong)", display: "flex", justifyContent: "space-between", alignItems: "flex-end"}}>
     <div>
       <h1 style={{fontSize: "var(--text-section-title)", letterSpacing: "var(--ls-section-title)", lineHeight: "var(--lh-section-title)", fontWeight: 900, margin: "0 0 8px"}}>Vibe Coding</h1>

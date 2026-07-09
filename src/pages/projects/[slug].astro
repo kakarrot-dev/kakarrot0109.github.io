@@ -14,9 +14,16 @@ export async function getStaticPaths() {
 
 const { project } = Astro.props;
 const { Content } = await project.render();
+const canonical = `/projects/${project.slug}/`;
 ---
 
-<ProseLayout title={project.data.title} description={project.data.description}>
+<ProseLayout
+  title={project.data.title}
+  description={project.data.description}
+  canonical={canonical}
+  publishedAt={project.data.publishedAt}
+  tags={project.data.topics}
+>
   <p class="text-xs text-[var(--color-text-muted)] font-mono">
     发布时间：{project.data.publishedAt.toLocaleDateString("zh-CN")}
   </p>

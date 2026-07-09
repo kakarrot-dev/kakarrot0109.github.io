@@ -8,19 +8,49 @@ const articles = (await getCollection("writing"))
   .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
 ---
 
-<BaseLayout title="Writing" description="关于 AI 产品、方法论与实践的思考" shell>
-  <div style={{padding: "38px 30px", borderBottom: "2px solid var(--color-border-strong)", display: "flex", justifyContent: "space-between", alignItems: "flex-end"}}>
+<BaseLayout
+  title="Writing"
+  description="关于 AI 产品、方法论与实践的思考"
+  canonical="/writing/"
+  shell
+>
+  <div
+    style="padding:38px 30px;border-bottom:2px solid var(--color-border-strong);display:flex;justify-content:space-between;align-items:flex-end"
+  >
     <div>
-      <h1 style={{fontSize: "var(--text-section-title)", letterSpacing: "var(--ls-section-title)", lineHeight: "var(--lh-section-title)", fontWeight: 900, margin: "0 0 8px"}}>文章</h1>
-      <p style={{font: "700 13px/1.5 var(--font-mono)", color: "var(--color-text-muted)", margin: 0}}>关于 AI 产品、方法论与实践的思考</p>
+      <h1
+        style="font-size:var(--text-section-title);letter-spacing:var(--ls-section-title);line-height:var(--lh-section-title);font-weight:900;margin:0 0 8px"
+      >
+        文章
+      </h1>
+      <p
+        style="font:700 13px/1.5 var(--font-mono);color:var(--color-text-muted);margin:0"
+      >
+        关于 AI 产品、方法论与实践的思考
+      </p>
     </div>
-    <p style={{font: "400 14px/1.4 var(--font-mono)", color: "var(--color-text-muted)", margin: 0, whiteSpace: "nowrap"}}>写下来的思考才真正属于自己</p>
+    <p
+      style="font:400 14px/1.4 var(--font-mono);color:var(--color-text-muted);margin:0;white-space:nowrap"
+    >
+      写下来的思考才真正属于自己
+    </p>
   </div>
-  <div style={{display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "24px", padding: "24px"}}>
-    {articles.map((a, i) => (
-      <div key={a.slug} class={"reveal reveal-delay-" + ((i % 3) + 1)}>
-        <ProjectCard title={a.data.title} description={a.data.description} topics={a.data.tags} href={`/writing/${a.slug}/`} variant="uniform" />
-      </div>
-    ))}
+  <div
+    class="grid-3"
+    style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;padding:24px"
+  >
+    {
+      articles.map((a, i) => (
+        <div class={`reveal reveal-delay-${(i % 3) + 1}`}>
+          <ProjectCard
+            title={a.data.title}
+            description={a.data.description}
+            topics={a.data.tags}
+            href={`/writing/${a.slug}/`}
+            variant="uniform"
+          />
+        </div>
+      ))
+    }
   </div>
 </BaseLayout>

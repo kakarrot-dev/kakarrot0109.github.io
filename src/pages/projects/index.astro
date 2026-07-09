@@ -8,7 +8,7 @@ const projects = (await getCollection("projects"))
   .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
 ---
 
-<BaseLayout title="Projects" description="项目案例 — AI 产品实践" shell>
+<BaseLayout title="Projects" description="项目案例 — AI 产品实践" canonical="/projects/" shell>
   <div class="reveal" style={{padding: "38px 30px", borderBottom: "2px solid var(--color-border-strong)", display: "flex", justifyContent: "space-between", alignItems: "flex-end"}}>
     <div>
       <h1 style={{fontSize: "var(--text-section-title)", letterSpacing: "var(--ls-section-title)", lineHeight: "var(--lh-section-title)", fontWeight: 900, margin: "0 0 8px"}}>项目</h1>

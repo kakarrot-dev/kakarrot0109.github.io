@@ -5,30 +5,75 @@ const socialLinks = [
   { label: "TELEGRAM", url: "https://t.me/kakarrot_me" },
   { label: "E-MAIL", url: "mailto:i@kakarrot.com" },
 ];
+const year = new Date().getFullYear();
 ---
 
-<footer style={{background: "var(--color-text-primary)", color: "var(--color-bg-warm)", padding: "64px 0"}}>
-  <div class="shell" style="padding:0 28px;border:none">
-    <strong style={{display: "block", fontSize: "clamp(36px,4vw,54px)", letterSpacing: "-.05em", fontWeight: 900, lineHeight: 1.05, marginBottom: "40px"}}>从零思考，<br />为现实构建。</strong>
-    <div class="footer-bottom" style={{display: "flex", justifyContent: "space-between", alignItems: "center", borderTop: "1px solid rgba(255,255,255,.15)", paddingTop: "20px"}}>
-      <p style={{font: "700 13px/1.5 var(--font-mono)", opacity: .6, margin: 0, flexShrink: 0}}>&copy; 2016-2025 Kakarrot Design, All Rights Reserved</p>
-      <nav style={{display: "flex", gap: "24px", flexWrap: "wrap"}}>
-        {socialLinks.map(({ label, url }) => (
-          <a href={url} target="_blank" rel="noopener noreferrer"
-            style={{font: "700 12px/1 var(--font-mono)", letterSpacing: ".04em", textDecoration: "none", color: "var(--color-bg-warm)", opacity: .6, transition: "opacity .15s"}}
-            onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.6'">{label}</a>
-        ))}
+<footer class="site-footer">
+  <div class="shell site-footer-inner">
+    <strong class="site-footer-tagline">从零思考，<br />为现实构建。</strong>
+    <div class="footer-bottom">
+      <p class="site-footer-copy">
+        &copy; 2016-{year} Kakarrot Design, All Rights Reserved
+      </p>
+      <nav class="site-footer-social">
+        {
+          socialLinks.map(({ label, url }) => (
+            <a
+              href={url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="social-link"
+            >
+              {label}
+            </a>
+          ))
+        }
       </nav>
     </div>
   </div>
 </footer>
 
 <style>
+  .site-footer {
+    background: var(--color-text-primary);
+    color: var(--color-bg-warm);
+    padding: 64px 0;
+  }
+  .site-footer-inner {
+    padding: 0 28px;
+    border: none;
+  }
+  .site-footer-tagline {
+    display: block;
+    font-size: clamp(36px, 4vw, 54px);
+    letter-spacing: -0.05em;
+    font-weight: 900;
+    line-height: 1.05;
+    margin-bottom: 40px;
+  }
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    padding-top: 20px;
+  }
+  .site-footer-copy {
+    font: 700 13px/1.5 var(--font-mono);
+    opacity: 0.6;
+    margin: 0;
+    flex-shrink: 0;
+  }
+  .site-footer-social {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
   @media (max-width: 640px) {
     .footer-bottom {
-      flex-direction: column !important;
+      flex-direction: column;
       gap: 16px;
-      align-items: flex-start !important;
+      align-items: flex-start;
     }
   }
 </style>

@@ -9,9 +9,24 @@ export interface Props {
   description: string;
   canonical?: string;
   shell?: boolean;
+  ogImage?: string;
+  ogType?: "website" | "article";
+  publishedAt?: Date;
+  updatedAt?: Date;
+  tags?: string[];
 }
 
-const { title, description, canonical, shell } = Astro.props;
+const {
+  title,
+  description,
+  canonical = Astro.url.pathname,
+  shell,
+  ogImage,
+  ogType,
+  publishedAt,
+  updatedAt,
+  tags,
+} = Astro.props;
 ---
 
 <!doctype html>
@@ -19,28 +34,43 @@ const { title, description, canonical, shell } = Astro.props;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <SeoHead {title} {description} {canonical} />
+    <SeoHead
+      {title}
+      {description}
+      canonical={canonical}
+      {ogImage}
+      {ogType}
+      {publishedAt}
+      {updatedAt}
+      {tags}
+    />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet" />
   </head>
   <body>
+    <noscript>
+      <style>
+        .reveal {
+          opacity: 1 !important;
+          transform: none !important;
+        }
+      </style>
+    </noscript>
     <Nav />
-    {shell ? (
-      <main>
-        <div class="shell" style="border-top:none">
+    {
+      shell ? (
+        <main>
+          <div class="shell shell--no-top-border">
+            <slot />
+          </div>
+        </main>
+      ) : (
+        <main class="main-full">
           <slot />
-        </div>
-      </main>
-    ) : (
-      <main style="width:100%">
-        <slot />
-      </main>
-    )}
+        </main>
+      )
+    }
     <Footer />
     <script>
-      // 滚动进入视口时显示元素
       const observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {

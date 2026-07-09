@@ -1,5 +1,6 @@
 ---
 import ProseLayout from "@/layouts/ProseLayout.astro";
+import ArticleNav from "@/components/ArticleNav.astro";
 import { getCollection } from "astro:content";
 
 export async function getStaticPaths() {
@@ -14,19 +15,64 @@ export async function getStaticPaths() {
 
 const { article } = Astro.props;
 const { Content } = await article.render();
+
+const allArticles = (await getCollection("writing"))
+  .filter((a) => !a.data.draft)
+  .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
+
+const currentIndex = allArticles.findIndex((a) => a.slug === article.slug);
+const prevArticle = allArticles[currentIndex + 1];
+const nextArticle = allArticles[currentIndex - 1];
+const canonical = `/writing/${article.slug}/`;
 ---
 
-<ProseLayout title={article.data.title} description={article.data.description}>
+<ProseLayout
+  title={article.data.title}
+  description={article.data.description}
+  canonical={canonical}
+  publishedAt={article.data.publishedAt}
+  updatedAt={article.data.updatedAt}
+  tags={article.data.tags}
+>
   <p class="text-xs text-[var(--color-text-muted)] font-mono">
     {article.data.publishedAt.toLocaleDateString("zh-CN")}
-    {article.data.updatedAt && ` · 更新于 ${article.data.updatedAt.toLocaleDateString("zh-CN")}`}
+    {
+      article.data.updatedAt &&
+        ` · 更新于 ${article.data.updatedAt.toLocaleDateString("zh-CN")}`
+    }
   </p>
   <div class="flex flex-wrap gap-2 mt-2 mb-8">
-    {article.data.tags.map((tag) => (
-      <span class="text-[10px] uppercase tracking-widest text-[var(--color-text-muted)] border border-[var(--color-border)] px-2 py-0.5">
-        {tag}
-      </span>
-    ))}
+    {
+      article.data.tags.map((tag) => (
+        <a
+          href={`/writing/tags/${encodeURIComponent(tag)}/`}
+          class="tag-link text-[10px] uppercase tracking-widest text-[var(--color-text-muted)] border border-[var(--color-border)] px-2 py-0.5"
+        >
+          {tag}
+        </a>
+      ))
+    }
   </div>
   <Content />
+  <p class="mt-8">
+    <a href="/writing/" class="section-link">← 返回文章列表</a>
+  </p>
+  <ArticleNav
+    prev={
+      prevArticle
+        ? {
+            title: prevArticle.data.title,
+            href: `/writing/${prevArticle.slug}/`,
+          }
+        : undefined
+    }
+    next={
+      nextArticle
+        ? {
+            title: nextArticle.data.title,
+            href: `/writing/${nextArticle.slug}/`,
+          }
+        : undefined
+    }
+  />
 </ProseLayout>

@@ -2,21 +2,84 @@
 export interface Props {
   title: string;
   description: string;
-  canonical?: string;
+  canonical: string;
   ogImage?: string;
+  ogType?: "website" | "article";
+  publishedAt?: Date;
+  updatedAt?: Date;
+  tags?: string[];
 }
 
-const { title, description, canonical, ogImage } = Astro.props;
+const {
+  title,
+  description,
+  canonical,
+  ogImage = "/avatar.jpeg",
+  ogType = "website",
+  publishedAt,
+  updatedAt,
+  tags = [],
+} = Astro.props;
+
 const site = "https://kakarrot.com";
-const fullCanonical = canonical ? `${site}${canonical}` : undefined;
+const fullCanonical = `${site}${canonical}`;
+const fullOgImage = `${site}${ogImage}`;
+const pageTitle =
+  title === "Kakarrot" ? "KAKARROT'S BLOG" : `${title} | KAKARROT'S BLOG`;
+
+const jsonLd =
+  ogType === "article" && publishedAt
+    ? {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        headline: title,
+        description,
+        url: fullCanonical,
+        datePublished: publishedAt.toISOString(),
+        dateModified: (updatedAt ?? publishedAt).toISOString(),
+        author: { "@type": "Person", name: "Kakarrot", url: site },
+        publisher: { "@type": "Person", name: "Kakarrot" },
+        image: fullOgImage,
+        keywords: tags.join(", "),
+      }
+    : {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        name: "KAKARROT'S BLOG",
+        url: site,
+        description,
+      };
 ---
 
-<title>{title === "Kakarrot" ? "KAKARROT'S BLOG" : `${title} | KAKARROT'S BLOG`}</title>
+<title>{pageTitle}</title>
 <meta name="description" content={description} />
-<link rel="canonical" href={fullCanonical || site} />
+<link rel="canonical" href={fullCanonical} />
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  title="KAKARROT'S BLOG"
+  href={`${site}/rss.xml`}
+/>
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
-<meta property="og:url" content={fullCanonical || site} />
-<meta property="og:type" content="website" />
-{ogImage && <meta property="og:image" content={`${site}${ogImage}`} />}
+<meta property="og:url" content={fullCanonical} />
+<meta property="og:type" content={ogType} />
+<meta property="og:image" content={fullOgImage} />
+<meta property="og:site_name" content="KAKARROT'S BLOG" />
+<meta property="og:locale" content="zh_CN" />
+{ogType === "article" && publishedAt && (
+  <meta
+    property="article:published_time"
+    content={publishedAt.toISOString()}
+  />
+)}
+{ogType === "article" && updatedAt && (
+  <meta property="article:modified_time" content={updatedAt.toISOString()} />
+)}
+{ogType === "article" &&
+  tags.map((tag) => <meta property="article:tag" content={tag} />)}
 <meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={fullOgImage} />
+<script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />

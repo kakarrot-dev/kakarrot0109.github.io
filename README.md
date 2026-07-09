@@ -46,7 +46,7 @@ public/           静态资源
 
 ## 部署
 
-推送 `main` 分支即触发 GitHub Actions 自动构建部署到 GitHub Pages。
+推送 `master` 分支即触发 GitHub Actions 自动构建并更新 `docs/` 部署产物。
 
 ## 链接
 

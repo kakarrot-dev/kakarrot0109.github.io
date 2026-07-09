@@ -14,9 +14,16 @@ export async function getStaticPaths() {
 
 const { item } = Astro.props;
 const { Content } = await item.render();
+const canonical = `/vibe-coding/${item.slug}/`;
 ---
 
-<ProseLayout title={item.data.title} description={item.data.description}>
+<ProseLayout
+  title={item.data.title}
+  description={item.data.description}
+  canonical={canonical}
+  publishedAt={item.data.publishedAt}
+  tags={item.data.topics}
+>
   <p class="text-xs text-[var(--color-text-muted)] font-mono">
     发布时间：{item.data.publishedAt.toLocaleDateString("zh-CN")}
   </p>

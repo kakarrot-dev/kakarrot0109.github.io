@@ -2,8 +2,8 @@ import rss from "@astrojs/rss";
 import { getCollection } from "astro:content";
 
 export async function GET() {
-  const posts = await getCollection("writing");
-  const projects = await getCollection("projects");
+  const posts = (await getCollection("writing")).filter((p) => !p.data.draft);
+  const projects = (await getCollection("projects")).filter((p) => !p.data.draft);
 
   return rss({
     title: "Kakarrot",
@@ -22,6 +22,6 @@ export async function GET() {
         pubDate: p.data.publishedAt,
         link: `/projects/${p.slug}/`,
       })),
-    ],
+    ].sort((a, b) => b.pubDate.valueOf() - a.pubDate.valueOf()),
   });
 }
