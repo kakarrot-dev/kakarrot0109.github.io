@@ -11,42 +11,25 @@ featured: true
 draft: false
 ---
 
-AI 产品经理的品牌网站。从运行十年的 Hexo 博客迁移而来，定位从"博客归档"转变为"个人品牌入口"。
+## 关于这个网站
 
-### 技术栈
+个人网站 / 技术博客 — AI 产品经理的思考、写作与作品展示。
 
-| 层 | 选型 |
-|---|---|
-| 框架 | Astro 5 |
-| 样式 | Tailwind CSS 4 + 全局样式（global.css） |
-| 内容 | Astro Content Collections（文章 / 项目 / Vibe Coding） |
-| 部署 | GitHub Pages + GitHub Actions |
-| 字体 | 系统字体 + JetBrains Mono 等宽字体 |
+这是我从老旧的 Hexo 博客迁移到 Astro 的完全重写版。为什么迁移？因为我需要一个更能代表自己的品牌站点，而不是套用主题的通用博客。
 
-### 设计系统
+设计上追求一种介于"电子杂志"和"访谈记录"之间的质感：暖白底色、酸绿强调、粗边框容器，用 Space Grotesk 和 Space Mono 搭建字体层次。
 
-- **背景** 暖白底色（oklch(96% 0.015 75)）
-- **强调色** 酸绿色 #39ff14
-- **布局** Shell 容器 + 固定宽度 + 全屏色块穿透
-- **组件** 粗边框、项目卡片、文章卡片、滚动渐入动效
-- **页面** 首页 / 文章 / 项目 / Vibe Coding / 关于 / 404 / RSS
+## 设计决策
 
-### 迁移要点
+- **Astro 5** — 静态站的首选，Content Collections 让 Markdown 内容管理有了 schema 约束
+- **Tailwind CSS 4** — 配合自研全局样式，不用 UI 库
+- **纯静态无 JS 运行时** — 不依赖 React/Vue，页面加载就是最终状态
+- **GitHub Pages + Actions** — push 即部署
 
-- 17 篇老文章从 Hexo 迁移到 Astro Content Collections，统一 frontmatter schema
-- 三套内容集合：writing / projects / vibe-coding，各有独立 schema 和类型校验
-- 部署从 Hexo `master` 分支改为 GitHub Actions + `main` 分支
-- CNAME 自定义域名保持 `kakarrot.com`，Cloudflare DNS 托管
+## 技术架构
 
-### 结构
+Astro Content Collections 管理三类内容（Writing / Projects / Vibe Coding），构建产物输出到 `docs/` 用于 GitHub Pages。站点本身纯静态，无后端、无数据库、无评论系统。
 
-```
-src/
-  content/       Markdown 内容（writing / projects / vibe-coding）
-  components/   Astro 组件（Nav、Footer、Card 系列、SeoHead）
-  layouts/      页面布局（BaseLayout、ProseLayout）
-  pages/        文件系统路由
-  styles/       global.css 设计令牌
-```
+## 当前状态
 
-[→ kakarrot.com](https://kakarrot.com) · [→ GitHub 仓库](https://github.com/kakarrot-dev/kakarrot0109.github.io)
+已上线运行（https://kakarrot.com），内容持续更新中。

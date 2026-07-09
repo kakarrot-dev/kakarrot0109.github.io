@@ -1,6 +1,6 @@
 ---
-title: "悟空 — 本机个人智能体服务"
-description: "Telegram + Dashboard 双入口，长期记忆、技能系统、子代理、定时任务，全部跑在本机"
+title: "悟空（Wukong）— 本机个人智能体服务"
+description: "Telegram + Dashboard 双入口的本地 Agent 服务：长期记忆、技能系统、子代理、定时任务，全部跑在本机"
 publishedAt: 2026-07-06
 topics:
   - "AI Agent"
@@ -10,28 +10,26 @@ featured: true
 draft: false
 ---
 
-本地运行的个人 AI 智能体。Telegram 主对话入口，浏览器 Dashboard 管理台，全本机服务，不做 SaaS。
+Wukong 是本机个人智能体服务。它通过 Telegram 和内置 Dashboard 提供对话、工具调用、长期记忆、技能系统、子代理、定时任务等能力。
 
-目标不是做另一个 AI 助手，是做一个能一直活在我机器里、跟我一起工作的服务。
+## 为什么做
 
-### 核心能力
+我需要一个 7×24 小时在线的个人 Agent，但不想把数据和记忆交给任何云服务。Wukong 跑在我自己的机器上，用本机数据库和向量库管理长期记忆。
 
-- **Telegram Bot** — 主对话入口，常驻在聊天列表里
-- **Dashboard** — `http://127.0.0.1:8800` 本地管理台
-- **长期记忆** — MongoDB + Chroma 本地向量库，记忆持久化
+## 核心能力
+
+- **Telegram Bot** — 主对话入口，随时通过手机发送指令
+- **Dashboard** — 本机管理台，默认 `http://127.0.0.1:8800`
+- **长期记忆** — MongoDB + Chroma 向量库，对话历史可回溯可检索
 - **技能系统** — 内置技能 + 自学习技能，可动态加载
-- **子代理** — 子任务可委派给专用子代理执行
-- **定时任务** — 心跳、自检、主动复盘、weekly report
-- **运维工具** — 备份、恢复、迁移、日志跟踪
+- **子代理** — 任务可拆解分配给子 Agent，协同完成复杂任务
+- **定时任务** — 支持计划任务和周期任务
+- **运维脚本** — 备份、恢复、健康检查脚本齐全
 
-### 技术栈
+## 技术栈
 
-Python 3.12+ / FastAPI / python-telegram-bot / MongoDB / Chroma + fastembed / uv 包管理。Dashboard 纯静态 HTML/CSS/JS，不需要前端构建工具。
+Python 3.12+，FastAPI + Uvicorn 做 Web 层，python-telegram-bot 处理 Telegram 集成，MongoDB 存数据，Chroma + fastembed 做向量记忆。包管理用 `uv`，部署支持 Docker 和 macOS launchd。
 
-后端核心层分 interfaces（Telegram / Dashboard / CLI）、core（Agent runtime / memory / learning）、infrastructure（config / security / integrations / scheduler），第一天就把九层架构搭齐了。
+## 当前状态
 
-### 部署
-
-本机运行为主，支持 Docker Compose，macOS launchd 自动重启。`start.sh` 一键启动，`.env.example` 配好 Key 就能跑。
-
-[→ GitHub 仓库](https://github.com/kakarrot-dev/Wukong)
+个人本机服务，稳定运行中。每天通过 Telegram 和它交互，积累记忆。
