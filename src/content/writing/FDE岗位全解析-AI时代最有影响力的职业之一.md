@@ -1,6 +1,5 @@
 ---
-
-## title: "No. 19: FDE 岗位全解析——AI 落地时代最有影响力的职业"
+title: "No. 19: FDE 岗位全解析——AI 落地时代最有影响力的职业"
 description: "Forward Deployed Engineer（FDE）被 Forbes 预测为未来十年最有影响力的科技职业之一。从 Palantir 首创到 Anthropic/OpenAI 纷纷设立，这个岗位为什么在 AI 时代突然爆发？我花了一个月研究这个方向，把核心内容整理成了这篇指南。"
 publishedAt: 2026-07-13
 tags:
@@ -11,6 +10,8 @@ tags:
   - "企业服务"
 featured: false
 draft: false
+
+---
 
 过去几个月，我注意到一个很有趣的趋势：我身边的人——不管是大厂出来创业的朋友，还是在做企业 AI 解决方案的同行——都不约而同地在做同一件事。
 
