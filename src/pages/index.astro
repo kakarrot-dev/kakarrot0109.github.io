@@ -8,7 +8,13 @@ const featuredProjects = (await getCollection("vibe-coding"))
 
 const featuredArticles = (await getCollection("writing"))
   .filter((p) => !p.data.draft)
-  .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf())
+  .sort((a, b) => {
+    const dateDiff = b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf();
+    if (dateDiff !== 0) return dateDiff;
+    const noA = parseInt(a.data.title.match(/^No\.\s*(\d+)/)?.[1] || "0");
+    const noB = parseInt(b.data.title.match(/^No\.\s*(\d+)/)?.[1] || "0");
+    return noB - noA;
+  })
   .slice(0, 6);
 ---
 
