@@ -1,0 +1,98 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>No. 18: 从零搭一套跨平台设计系统——Claude Cream 心路实录 | KAKARROT&#39;S BLOG</title><meta name="description" content="为什么市面上那么多暗色主题，我却偏要做一套暖色调的亮色设计系统？从设计令牌到跨平台渲染，一个产品经理的 CSS 探索之旅。"><link rel="canonical" href="https://kakarrot.com/writing/claude-cream-温暖编辑设计系统搭建实录/"><link rel="alternate" type="application/rss+xml" title="KAKARROT'S BLOG" href="https://kakarrot.com/rss.xml"><meta property="og:title" content="No. 18: 从零搭一套跨平台设计系统——Claude Cream 心路实录"><meta property="og:description" content="为什么市面上那么多暗色主题，我却偏要做一套暖色调的亮色设计系统？从设计令牌到跨平台渲染，一个产品经理的 CSS 探索之旅。"><meta property="og:url" content="https://kakarrot.com/writing/claude-cream-温暖编辑设计系统搭建实录/"><meta property="og:type" content="article"><meta property="og:image" content="https://kakarrot.com/avatar.jpeg"><meta property="og:site_name" content="KAKARROT'S BLOG"><meta property="og:locale" content="zh_CN"><meta property="article:published_time" content="2026-07-13T00:00:00.000Z"><meta property="article:tag" content="设计系统"><meta property="article:tag" content="CSS"><meta property="article:tag" content="开源"><meta property="article:tag" content="跨平台"><meta property="article:tag" content="前端"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="No. 18: 从零搭一套跨平台设计系统——Claude Cream 心路实录"><meta name="twitter:description" content="为什么市面上那么多暗色主题，我却偏要做一套暖色调的亮色设计系统？从设计令牌到跨平台渲染，一个产品经理的 CSS 探索之旅。"><meta name="twitter:image" content="https://kakarrot.com/avatar.jpeg"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"No. 18: 从零搭一套跨平台设计系统——Claude Cream 心路实录","description":"为什么市面上那么多暗色主题，我却偏要做一套暖色调的亮色设计系统？从设计令牌到跨平台渲染，一个产品经理的 CSS 探索之旅。","url":"https://kakarrot.com/writing/claude-cream-温暖编辑设计系统搭建实录/","datePublished":"2026-07-13T00:00:00.000Z","dateModified":"2026-07-13T00:00:00.000Z","author":{"@type":"Person","name":"Kakarrot","url":"https://kakarrot.com"},"publisher":{"@type":"Person","name":"Kakarrot"},"image":"https://kakarrot.com/avatar.jpeg","keywords":"设计系统, CSS, 开源, 跨平台, 前端"}</script><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="stylesheet" href="/_astro/_slug_.V7ORgWbc.css">
+<style>.prose{font-size:1.0625rem;line-height:1.8;color:var(--color-text-primary)}.prose h2{font-size:1.65rem;font-weight:700;margin-top:3rem;margin-bottom:.75rem;padding-bottom:.4rem;border-bottom:1px solid var(--color-border);letter-spacing:-.02em}.prose h3{font-size:1.35rem;font-weight:600;margin-top:2.5rem;margin-bottom:.5rem}.prose h4{font-size:1.1rem;font-weight:600;margin-top:2rem;margin-bottom:.5rem}.prose p{margin-bottom:1.25rem;line-height:1.85}.prose ul,.prose ol{margin-bottom:1.25rem;padding-left:1.75rem}.prose ul{list-style:disc}.prose ol{list-style:decimal}.prose li{margin-bottom:.35rem;line-height:1.8}.prose li>ul,.prose li>ol{margin-top:.3rem;margin-bottom:.3rem}.prose code:not(pre code){font-size:.85em;padding:.2em .45em;background:var(--color-bg-card);border:1px solid var(--color-border);font-family:var(--font-mono)}.prose .code-block-wrap{margin:1.5rem 0;border:1px solid #2a2a4a;border-radius:0;overflow:hidden}.code-block-header{display:flex;justify-content:space-between;align-items:center;padding:.45rem 1rem;background:#12121e;border-bottom:1px solid #2a2a4a;font-size:.75rem;font-family:var(--font-mono)}.code-block-header .code-lang{color:#888;text-transform:uppercase;letter-spacing:.06em;font-weight:500;font-size:.7rem}.code-block-header .copy-btn{display:inline-flex;align-items:center;gap:.3rem;border:none;background:transparent;color:#666;cursor:pointer;font-size:.7rem;font-family:inherit;padding:.15rem .4rem;transition:color .15s}.code-block-header .copy-btn:hover{color:#ccc}.code-block-header .copy-btn.copied{color:#4caf50}.code-block-header .copy-btn svg{width:13px;height:13px}.prose .astro-code{margin:0;padding:1.25rem 1.5rem;border:none;border-radius:0}.prose blockquote{margin:1.75rem 0;padding:.75rem 1.25rem;border-left:4px solid var(--color-accent);background:color-mix(in oklab,var(--color-accent) 6%,transparent);color:var(--color-text-primary);font-style:normal}.prose blockquote p:last-child{margin-bottom:0}.prose table{width:100%;margin:1.5rem 0;border-collapse:collapse;font-size:.9375rem;line-height:1.6;overflow-x:auto;display:block}.prose thead{background:var(--color-text-primary);color:var(--color-bg-warm)}.prose th{font-weight:600;text-align:left;padding:.6rem .8rem;border:1px solid var(--color-text-primary);white-space:nowrap}.prose td{padding:.5rem .8rem;border:1px solid var(--color-border)}.prose tbody tr:nth-child(2n){background:var(--color-bg-card)}.prose tbody tr:hover{background:color-mix(in oklab,var(--color-accent) 8%,transparent)}.prose img{max-width:100%;height:auto;margin:1.5rem 0;border:1px solid var(--color-border)}.prose a{color:var(--color-accent);text-underline-offset:3px;text-decoration-thickness:1px}.prose a:hover{color:var(--color-accent-dim)}.prose hr{border:none;border-top:1px solid var(--color-border);margin:2.5rem 0}.prose strong{font-weight:700}.prose em{font-style:italic}.prose blockquote blockquote{margin-left:.5rem;font-size:.95em}.prose h2:hover:before,.prose h3:hover:before,.prose h4:hover:before{content:"#";position:absolute;margin-left:-1.2em;color:var(--color-accent);font-weight:400;opacity:.5}.prose h2,.prose h3,.prose h4{position:relative}@media(max-width:640px){.prose{font-size:1rem}.prose h2{font-size:1.4rem}.prose h3{font-size:1.2rem}.prose pre{padding:1rem;font-size:.8125rem}.prose table{font-size:.8125rem}}
+.article-nav-link[data-astro-cid-mrc262xk]{text-decoration:none;color:inherit;display:flex;flex-direction:column;gap:6px;padding:16px;border:2px solid var(--color-border-strong);transition:border-color .15s,background .15s}.article-nav-link[data-astro-cid-mrc262xk]:hover{border-color:var(--color-accent);background:color-mix(in oklab,var(--color-accent) 5%,transparent)}.article-nav-label[data-astro-cid-mrc262xk]{font:700 12px/1 var(--font-mono);color:var(--color-text-muted);text-transform:uppercase;letter-spacing:.04em}.article-nav-title[data-astro-cid-mrc262xk]{font-size:15px;font-weight:700;line-height:1.4;color:var(--color-text-primary)}@media(max-width:640px){.article-nav[data-astro-cid-mrc262xk]{grid-template-columns:1fr!important}.article-nav-link[data-astro-cid-mrc262xk][data-direction=next]{text-align:left!important}}
+</style></head> <body> <noscript> <style>
+        .reveal {
+          opacity: 1 !important;
+          transform: none !important;
+        }
+      </style> </noscript> <nav class="nav-bar" data-astro-cid-dmqpwcec> <div class="shell nav-inner nav-inner-bar" data-astro-cid-dmqpwcec> <a href="/" class="nav-brand" data-astro-cid-dmqpwcec>KAKARROT.COM</a> <button class="nav-toggle nav-toggle-btn" aria-label="菜单" aria-expanded="false" data-astro-cid-dmqpwcec> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="nav-toggle-icon" data-astro-cid-dmqpwcec> <line class="nav-line-1" x1="3" y1="6" x2="21" y2="6" data-astro-cid-dmqpwcec></line> <line class="nav-line-2" x1="3" y1="12" x2="21" y2="12" data-astro-cid-dmqpwcec></line> <line class="nav-line-3" x1="3" y1="18" x2="21" y2="18" data-astro-cid-dmqpwcec></line> </svg> </button> <ul class="nav-links" data-astro-cid-dmqpwcec> <li data-astro-cid-dmqpwcec> <a href="/vibe-coding/" class="nav-link" data-astro-cid-dmqpwcec> Vibe Coding </a> </li><li data-astro-cid-dmqpwcec> <a href="/writing/" class="nav-link nav-link--active" data-astro-cid-dmqpwcec> Writing </a> </li><li data-astro-cid-dmqpwcec> <a href="/about/" class="nav-link" data-astro-cid-dmqpwcec> About </a> </li> </ul> </div> </nav>  <script type="module">document.addEventListener("DOMContentLoaded",()=>{const e=document.querySelector(".nav-toggle"),t=document.querySelector(".nav-links");!e||!t||(e.addEventListener("click",()=>{const n=t.classList.toggle("open");e.setAttribute("aria-expanded",String(n))}),t.querySelectorAll("a").forEach(n=>{n.addEventListener("click",()=>{t.classList.remove("open"),e.setAttribute("aria-expanded","false")})}))});</script> <main class="main-full">  <article class="max-w-[820px] mx-auto prose pt-16 md:pt-20 px-7 sm:px-0"> <header class="mb-12"> <h1 class="text-3xl md:text-4xl font-black tracking-tighter uppercase">No. 18: 从零搭一套跨平台设计系统——Claude Cream 心路实录</h1> <p class="text-[var(--color-text-secondary)] mt-2">为什么市面上那么多暗色主题，我却偏要做一套暖色调的亮色设计系统？从设计令牌到跨平台渲染，一个产品经理的 CSS 探索之旅。</p> </header>  <p class="text-xs text-[var(--color-text-muted)] font-mono"> 2026/7/13  </p> <div class="flex flex-wrap gap-2 mt-2 mb-8"> <a href="/writing/tags/%E8%AE%BE%E8%AE%A1%E7%B3%BB%E7%BB%9F/" class="tag-link text-[10px] uppercase tracking-widest text-[var(--color-text-muted)] border border-[var(--color-border)] px-2 py-0.5"> 设计系统 </a><a href="/writing/tags/CSS/" class="tag-link text-[10px] uppercase tracking-widest text-[var(--color-text-muted)] border border-[var(--color-border)] px-2 py-0.5"> CSS </a><a href="/writing/tags/%E5%BC%80%E6%BA%90/" class="tag-link text-[10px] uppercase tracking-widest text-[var(--color-text-muted)] border border-[var(--color-border)] px-2 py-0.5"> 开源 </a><a href="/writing/tags/%E8%B7%A8%E5%B9%B3%E5%8F%B0/" class="tag-link text-[10px] uppercase tracking-widest text-[var(--color-text-muted)] border border-[var(--color-border)] px-2 py-0.5"> 跨平台 </a><a href="/writing/tags/%E5%89%8D%E7%AB%AF/" class="tag-link text-[10px] uppercase tracking-widest text-[var(--color-text-muted)] border border-[var(--color-border)] px-2 py-0.5"> 前端 </a> </div> <p>我每天在 Typora 写东西，在 Obsidian 整理知识，在终端跑命令，在 Claude Code 里跟 AI 结对编程。</p>
+<p>四个工具，四个界面。没有一个互相认识。</p>
+<p>某个深夜我盯着 Typora 的纯白背景——#ffffff——突然觉得刺眼。不是物理上的刺眼，是心理上的。这跟我在 Claude.com 上对话时的色调完全不一样，后者那种暖融融的奶油色让人能坐得住。</p>
+<p>一个念头冒出来：<strong>能不能让所有我写作和编码的地方，共用同一套视觉语言？</strong></p>
+<h2 id="1️⃣-这件事值得做吗">1️⃣ 这件事值得做吗</h2>
+<p>刚产生这个想法时，我花了三天犹豫。</p>
+<p>因为市面上不缺主题。VS Code 主题成千上万，Obsidian 社区几百个，Typora 也有不少好看的。<strong>问题是它们之间没有关联。</strong> 我不想在 Typora 用一种颜色感知，到 Obsidian 又换一种，到终端又完全不一样。大脑每次切换都在做无意识的”视觉校准”。</p>
+<p>还有个更重要的问题：大部分主题是暗色的。<strong>暗色主题在显示器上确实好看，在投影仪上惨不忍睹。</strong> 我经常要投屏讲东西，暗色主题一投出去，会议室里没人看得清。</p>
+<p>不是暗色主题不够多。是做得好且能用在工作场景的亮色主题太少了。</p>
+<p>我决定做一套自己的。<strong>不是为了”做一个主题”，是为了让写作和编码这件事，在视觉上有一致性。</strong></p>
+<h2 id="2️⃣-从想要什么颜色到设计系统">2️⃣ 从”想要什么颜色”到”设计系统”</h2>
+<p>最开始我只想给 Typora 换个背景色。把 #ffffff 改成 #faf9f5，一个暖奶油色，像旧纸张的质感。</p>
+<p>但这个想法一旦开了头就收不住。改了背景色，正文颜色也得调，不然对比度不对。调了正文，代码块也得跟着变。变了代码块，强调色选什么？蓝的？绿的？都不对。</p>
+<p>我试了一圈，最终落在珊瑚色上。</p>
+<p><strong>#cc785c——像珊瑚、像陶土、像旧书脊上的烙印。</strong> 它在暖色画布上不跳，但又足够独特。我厌倦了蓝绿主导的技术产品视觉语言，珊瑚色有人文感。</p>
+<p>然后我意识到，要的不只是一个颜色方案。如果每个平台重新配一遍色，改一个地方得手动同步四五次——<strong>这不是维护，这是体力活。</strong></p>
+<p>所以第一步不是写 CSS，是搭了一个 <code>tokens/tokens.json</code>。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>范畴</th><th>变量数量</th><th>示例</th></tr></thead><tbody><tr><td>颜色（Light）</td><td>25 个语义色</td><td><code>bg-canvas: #faf9f5</code></td></tr><tr><td>颜色（Dark）</td><td>25 个语义色</td><td><code>bg-canvas: #181715</code></td></tr><tr><td>排版</td><td>5 级</td><td><code>font-body: 16px/1.8</code></td></tr><tr><td>间距</td><td>8 级（8px 递增）</td><td><code>space-4: 32px</code></td></tr><tr><td>圆角</td><td>6 档</td><td><code>radius-md: 6px</code></td></tr><tr><td>语法高亮</td><td>11 类 token</td><td><code>keyword, string, function...</code></td></tr><tr><td>组件引用</td><td>~15 个组件</td><td><code>button-primary, code-window...</code></td></tr></tbody></table>
+<p><strong>一个令牌，所有平台共享。</strong> 改个强调色不用每个文件改一遍，改 tokens.json 就完了。这是我作为一个产品经理的本能——<strong>不要手动同步，不要有多个事实来源。</strong></p>
+<h2 id="3️⃣-四个平台四个脾气">3️⃣ 四个平台，四个脾气</h2>
+<p>理想很丰满，现实是每个平台都有自己的脾气。</p>
+<p><strong>Typora</strong> 是最乖的。它原生支持 CSS 变量，亮暗两套主题拆两个文件就行。唯一的坑是文件名必须用连字符，不能用下划线——Typora 直接拒读。</p>
+<p><strong>Obsidian</strong> 复杂一些。它有自己的 CSS 变量体系，我得把我那套 tokens 映射到 Obsidian 的变量名上。而且 Obsidian 社区有个很强的 Style Settings 插件——用户希望能在设置面板里调页宽、字号、主色。<strong>这意味着我的主题不能硬编码，得开接口给别人调。</strong></p>
+<p><strong>Ghostty</strong> 是纯终端配色。没有 CSS，没有变量，只有 palette 定义。它给我 16 个颜色槽，我得把珊瑚色、奶油色、语法高亮色全部塞进这 16 个坑里。好在它支持跟随系统外观自动切换——亮暗各一套 palette，不用手动换。</p>
+<p><strong>AI CLI</strong> 三位（Claude Code、Codex CLI、Cursor）是最特别的。它们不渲染 CSS，但它们渲染项目规范。Claude Code 读 <code>CLAUDE.md</code>，Codex CLI 读 <code>AGENTS.md</code>，Cursor 有自己的 <code>settings.json</code>。所以我把这三个工具的配置也放进了项目——<strong>写作相关工具的统一色调，编码相关工具的规范风格，都在同一个 repo 里。</strong></p>
+<p>每个平台写一套主题不叫设计系统。<strong>设计系统是跨平台的内容一致性。</strong> 用户在不同工具间切换时不需要重新适应视觉语言。</p>
+<h2 id="4️⃣-三个有意思的决策">4️⃣ 三个有意思的决策</h2>
+<p>项目过程中有三个决策我觉得值得记下来。</p>
+<p><strong>亮色模式的语法高亮比暗色难做。</strong></p>
+<p>暗色模式天然适合高饱和语法色——黑色背景上什么颜色都跳。但奶油色背景上，传统 IDE 的高亮方案显得太吵。试了好几套方案，最终选了 GitHub 风格的语法着色：keyword 用红色 <code>#CF222E</code>，string 用蓝色 <code>#0A3069</code>——<strong>温和但有区分度。</strong></p>
+<p><strong>中文排版是核心约束。</strong></p>
+<p>很多主题做英文排版很漂亮，换上中文就崩。我定了两个规矩：正文全用 PingFang SC（macOS 自带的中文系统字体），代码用 JetBrainsMono Nerd Font Mono。<strong>不做衬线标题，不依赖付费字体。</strong> PingFang SC 本身已经足够撑起编辑气质，而且本地调用零加载延迟，离线也能用。</p>
+<p><strong>“好用”的最好测试方式是投入日常使用。</strong></p>
+<p>项目做到后期，我直接把 Typora 和 Obsidian 的主题切到了 Claude Cream。每天用，每天修。发现自己调了某个位置，就加一条 token。发现某个颜色在特定场景下看不清，就调。<strong>最有效的 QA 不是测试，是自己的手放在键盘上用了三天。</strong></p>
+<h2 id="5️⃣-一些感悟">5️⃣ 一些感悟</h2>
+<p>开源一个项目到 GitHub 后，感受跟我想的不太一样。</p>
+<p>我原以为会有人 star、提 issue、fork。实际上去 GitHub 搜一下就会发现，CSS 主题类 repo 成千上万，一个新人做的亮色主题根本没人看见。<strong>这很公平——我做它的初衷也不是为了 star。</strong></p>
+<p>我现在每天在四个工具间切换，每一个都是奶油色画布、珊瑚色点缀、PingFang SC 正文。视觉上不再有割裂感了。</p>
+<p>前几天我在公司投屏开会。以前用暗色主题，投上去第一件事是说”等我调一下亮度”。这次直接打开，会议室里看得清清楚楚。</p>
+<p>旁边同事问了一句：“你这个界面看着挺舒服的，什么主题？”</p>
+<p><strong>大概这就是产品经理做开源项目的最终回报——有人注意到了你没说的事。</strong></p>
+<hr>
+<p>项目地址：<a href="https://github.com/kakarrot-dev/claude-cream">https://github.com/kakarrot-dev/claude-cream</a></p> <p class="mt-8"> <a href="/writing/" class="section-link">← 返回文章列表</a> </p> <nav class="article-nav" aria-label="文章导航" style="margin-top:3rem;padding-top:2rem;border-top:2px solid var(--color-border-strong);display:grid;grid-template-columns:1fr 1fr;gap:24px" data-astro-cid-mrc262xk><a href="/writing/从hexo迁移到astro的心路历程/" class="article-nav-link" data-direction="prev" data-astro-cid-mrc262xk><span class="article-nav-label" data-astro-cid-mrc262xk>← 上一篇</span><span class="article-nav-title" data-astro-cid-mrc262xk>No. 17: 从 Hexo 到 Astro——一次被推着走的迁移</span></a><span data-astro-cid-mrc262xk></span></nav>  </article>  </main> <footer class="site-footer" data-astro-cid-sz7xmlte> <div class="shell site-footer-inner" data-astro-cid-sz7xmlte> <strong class="site-footer-tagline" data-astro-cid-sz7xmlte>从零思考，<br data-astro-cid-sz7xmlte>为现实构建。</strong> <div class="footer-bottom" data-astro-cid-sz7xmlte> <p class="site-footer-copy" data-astro-cid-sz7xmlte>
+&copy; 2016-2026 Kakarrot Design, All Rights Reserved
+</p> <nav class="site-footer-social" data-astro-cid-sz7xmlte> <a href="https://x.com/Kakarrot_me" target="_blank" rel="noopener noreferrer" class="social-link" data-astro-cid-sz7xmlte> TWITTER </a><a href="https://github.com/kakarrot-dev" target="_blank" rel="noopener noreferrer" class="social-link" data-astro-cid-sz7xmlte> GITHUB </a><a href="https://t.me/kakarrot_me" target="_blank" rel="noopener noreferrer" class="social-link" data-astro-cid-sz7xmlte> TELEGRAM </a><a href="mailto:i@kakarrot.com" target="_blank" rel="noopener noreferrer" class="social-link" data-astro-cid-sz7xmlte> E-MAIL </a> </nav> </div> </div> </footer>  <script type="module">const s=new IntersectionObserver(e=>{e.forEach(r=>{r.isIntersecting&&(r.target.classList.add("visible"),s.unobserve(r.target))})},{threshold:.15});document.querySelectorAll(".reveal").forEach(e=>s.observe(e));</script> </body> </html>  <script type="module">document.addEventListener("DOMContentLoaded",()=>{document.querySelectorAll(".prose .astro-code").forEach(o=>{if(o.parentElement?.classList.contains("code-block-wrap"))return;const r=o.getAttribute("data-language")||"",i=r?r.toUpperCase():"TEXT",n=document.createElement("div");n.className="code-block-wrap";const a=document.createElement("div");a.className="code-block-header";const c=document.createElement("span");c.className="code-lang",c.textContent=i;const e=document.createElement("button");e.className="copy-btn",e.innerHTML='<svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" stroke-width="2" fill="none"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> 复制',e.addEventListener("click",async()=>{const d=o.querySelector("code")?.innerText||o.innerText;try{if(navigator.clipboard&&window.isSecureContext)await navigator.clipboard.writeText(d);else{const t=document.createElement("textarea");t.value=d,t.style.position="fixed",t.style.left="-999999px",document.body.appendChild(t),t.select(),document.execCommand("copy"),document.body.removeChild(t)}e.innerHTML='<svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" stroke-width="2" fill="none"><polyline points="20 6 9 17 4 12"></polyline></svg> 已复制',e.classList.add("copied"),setTimeout(()=>{e.innerHTML='<svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" stroke-width="2" fill="none"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> 复制',e.classList.remove("copied")},2e3)}catch(t){console.error("复制失败",t)}}),a.appendChild(c),a.appendChild(e),n.appendChild(a),o.parentNode.insertBefore(n,o),n.appendChild(o)})});</script>
