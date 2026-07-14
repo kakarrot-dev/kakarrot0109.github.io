@@ -19,12 +19,12 @@ const featuredArticles = (await getCollection("writing"))
 ---
 
 <BaseLayout title="Kakarrot" description="AI 产品经理 — 从第一性原理拆解复杂业务，用 AI 原生方式做成可落地的产品系统。" canonical="/">
-  <!-- Hero — 单栏大留白，头像靠右 -->
+  <!-- Hero — 数字名片四层 -->
   <div class="full-bleed" style="border-bottom:2px solid var(--color-border-strong);background:var(--color-bg-warm)">
-    <div style="max-width:1536px;margin:0 auto;padding:clamp(80px,10vw,140px) clamp(32px,6vw,80px) clamp(64px,8vw,120px)">
-      <!-- 第一行：名字 + 头像（居中） -->
-      <div class="hero-row" style="display:flex;align-items:center;justify-content:center;gap:clamp(16px,2.5vw,40px)">
-        <h1 style="font-size:var(--text-hero);line-height:var(--lh-hero);letter-spacing:var(--ls-hero);font-weight:900;text-transform:uppercase;margin:0;color:var(--color-text-primary)">
+    <div style="max-width:1536px;margin:0 auto;padding:clamp(60px,8vw,100px) clamp(32px,6vw,80px) clamp(48px,6vw,80px)">
+      <!-- 第一层：名字 + 头像 -->
+      <div style="display:flex;align-items:center;justify-content:center;gap:clamp(16px,2.5vw,40px)">
+        <h1 style="font-size:clamp(40px,8vw,96px);line-height:var(--lh-hero);letter-spacing:var(--ls-hero);font-weight:900;text-transform:uppercase;margin:0;color:var(--color-text-primary)">
           <span class="hero-line"><span>KAKARROT</span></span>
         </h1>
         <picture>
@@ -33,25 +33,33 @@ const featuredArticles = (await getCollection("writing"))
             src="/avatar.jpeg"
             alt="Kakarrot"
             class="avatar-img"
-            width="160"
-            height="160"
+            width="120"
+            height="120"
             fetchpriority="high"
           />
         </picture>
       </div>
       <!-- 间距 -->
-      <div style="margin-top:clamp(48px,7vw,120px)"></div>
-      <!-- 介绍文案 -->
-      <div style="padding-left:clamp(16px,2vw,24px);border-left:4px solid var(--color-accent)">
-        <p class="hero-fade" style="font:400 16px/1.6 var(--font-mono);margin:0;color:var(--color-text-secondary)">
-          大家好！我是 Kakarrot，一名拥有 <span class="highlight-ai">10 年+经验产品经理</span>。我的职业履历涵盖拓普丰联、宇通集团、南威集团等中国行业知名企业，熟悉互联网及项目产品从 0-1 创业流程，同时熟悉二开产品从 1-∞ 迭代流程。
+      <div style="margin-top:clamp(32px,4vw,56px)"></div>
+      <!-- 第二层：头衔 -->
+      <p style="font:400 clamp(14px,1.5vw,18px)/1.6 var(--font-mono);margin:0;color:var(--color-text-secondary);text-align:center">
+        <span class="highlight-ai">AI 产品经理</span> &middot; 10 年+ PM
+      </p>
+      <!-- 间距 -->
+      <div style="margin-top:clamp(20px,2.5vw,36px)"></div>
+      <!-- 第三层：一句话定位 -->
+      <div style="max-width:720px;margin:0 auto;padding:0 0 0 clamp(16px,2vw,24px);border-left:4px solid var(--color-accent)">
+        <p class="hero-fade" style="font-size:clamp(20px,2.5vw,32px);line-height:1.4;font-weight:600;margin:0;color:var(--color-text-primary)">
+          从第一性原理出发，用 AI 原生方式重新设计产品与增长系统
         </p>
-        <p class="hero-fade" style="font:400 16px/1.6 var(--font-mono);margin:16px 0 0;color:var(--color-text-secondary)">
-          我热衷于探索产品、商业、人工智能的融合领域。我擅长 <span class="highlight-ai">从第一性原理出发，识别业务真正的问题，用 AI 原生方式重新设计产品与增长系统。</span>
-        </p>
-        <p class="hero-fade" style="font:400 16px/1.6 var(--font-mono);margin:16px 0 0;color:var(--color-text-secondary)">
-          当前的 AI 对整个行业及相关产业链冲击巨大，我也在学习和整理全新的工作流程——通过结合 <span class="highlight-ai">AI 技术与直觉洞察</span>，加速产品开发进程并激发创造性协作。
-        </p>
+      </div>
+      <!-- 间距 -->
+      <div style="margin-top:clamp(24px,3vw,40px)"></div>
+      <!-- 第四层：标签 -->
+      <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:12px">
+        {["AI Native", "Product Design", "First Principles", "PM"].map((tag) => (
+          <span class="tag-pill">{tag}</span>
+        ))}
       </div>
     </div>
   </div>
@@ -122,11 +130,9 @@ const featuredArticles = (await getCollection("writing"))
 
 <style>
   @media (max-width: 640px) {
-    .hero-row {
-      flex-direction: column !important;
-    }
-    .avatar-img {
-      margin-top: 16px;
+    .tag-pill {
+      font-size: 12px !important;
+      padding: 4px 12px !important;
     }
   }
 </style>

@@ -301,3 +301,19 @@ a:hover { color: var(--color-accent-dim); }
   display: flex;
   animation: marquee 30s linear infinite;
 }
+
+/* 数字名片标签 */
+.tag-pill {
+  display: inline-block;
+  font: 700 13px/1 var(--font-mono);
+  letter-spacing: 0.04em;
+  padding: 6px 16px;
+  border: 2px solid var(--color-accent);
+  color: var(--color-accent);
+  text-transform: uppercase;
+  transition: background 0.15s, color 0.15s;
+}
+.tag-pill:hover {
+  background: var(--color-accent);
+  color: #000;
+}
