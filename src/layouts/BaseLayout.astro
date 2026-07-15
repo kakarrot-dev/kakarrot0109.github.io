@@ -45,6 +45,21 @@ const {
       {tags}
     />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <!-- Google tag (gtag.js) -->
+    <script
+      is:inline
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-T1TKDDHVNN"
+    ></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-T1TKDDHVNN");
+    </script>
   </head>
   <body>
     <noscript>
