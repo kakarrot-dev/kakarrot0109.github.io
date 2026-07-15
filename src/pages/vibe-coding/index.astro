@@ -18,7 +18,7 @@ const items = (await getCollection("vibe-coding"))
   </div>
   <div class="grid-2" style={{display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px", padding: "24px"}}>
     {items.map((p, i) => (
-      <div key={p.slug} class={"reveal reveal-delay-" + ((i % 2) + 1)}>
+      <div class={"reveal reveal-delay-" + ((i % 2) + 1)}>
         <ProjectCard title={p.data.title} description={p.data.description} topics={p.data.topics} href={`/vibe-coding/${p.slug}/`} />
       </div>
     ))}

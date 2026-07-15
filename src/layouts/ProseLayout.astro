@@ -266,7 +266,7 @@ const {
 <script>
   // 代码块：语言标签 + 复制按钮
   document.addEventListener("DOMContentLoaded", () => {
-    document.querySelectorAll(".prose .astro-code").forEach((pre) => {
+    document.querySelectorAll<HTMLPreElement>(".prose .astro-code").forEach((pre) => {
       // 跳过已处理的
       if (pre.parentElement?.classList.contains("code-block-wrap")) return;
 
@@ -320,7 +320,7 @@ const {
       wrap.appendChild(header);
 
       // 将 pre 移到 wrap 内
-      pre.parentNode.insertBefore(wrap, pre);
+      pre.before(wrap);
       wrap.appendChild(pre);
     });
   });

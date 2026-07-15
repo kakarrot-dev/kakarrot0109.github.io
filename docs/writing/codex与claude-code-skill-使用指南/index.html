@@ -1,0 +1,773 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>No. 20: 把 Codex 和 Claude Code 武装起来——我日常使用的 26 个 Skill | KAKARROT&#39;S BLOG</title><meta name="description" content="我把日常使用的 26 个 Agent Skill、Plugin 和 CLI 分成八类，逐一说明用途、地址、Codex 与 Claude Code 安装方式，以及同类工具能否共存。"><link rel="canonical" href="https://kakarrot.com/writing/codex与claude-code-skill-使用指南/"><link rel="alternate" type="application/rss+xml" title="KAKARROT'S BLOG" href="https://kakarrot.com/rss.xml"><meta property="og:title" content="No. 20: 把 Codex 和 Claude Code 武装起来——我日常使用的 26 个 Skill"><meta property="og:description" content="我把日常使用的 26 个 Agent Skill、Plugin 和 CLI 分成八类，逐一说明用途、地址、Codex 与 Claude Code 安装方式，以及同类工具能否共存。"><meta property="og:url" content="https://kakarrot.com/writing/codex与claude-code-skill-使用指南/"><meta property="og:type" content="article"><meta property="og:image" content="https://kakarrot.com/avatar.jpeg"><meta property="og:site_name" content="KAKARROT'S BLOG"><meta property="og:locale" content="zh_CN"><meta property="article:published_time" content="2026-07-15T00:00:00.000Z"><meta property="article:tag" content="AI Agent"><meta property="article:tag" content="Codex"><meta property="article:tag" content="Claude Code"><meta property="article:tag" content="Agent Skills"><meta property="article:tag" content="效率工具"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="No. 20: 把 Codex 和 Claude Code 武装起来——我日常使用的 26 个 Skill"><meta name="twitter:description" content="我把日常使用的 26 个 Agent Skill、Plugin 和 CLI 分成八类，逐一说明用途、地址、Codex 与 Claude Code 安装方式，以及同类工具能否共存。"><meta name="twitter:image" content="https://kakarrot.com/avatar.jpeg"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"No. 20: 把 Codex 和 Claude Code 武装起来——我日常使用的 26 个 Skill","description":"我把日常使用的 26 个 Agent Skill、Plugin 和 CLI 分成八类，逐一说明用途、地址、Codex 与 Claude Code 安装方式，以及同类工具能否共存。","url":"https://kakarrot.com/writing/codex与claude-code-skill-使用指南/","datePublished":"2026-07-15T00:00:00.000Z","dateModified":"2026-07-15T00:00:00.000Z","author":{"@type":"Person","name":"Kakarrot","url":"https://kakarrot.com"},"publisher":{"@type":"Person","name":"Kakarrot"},"image":"https://kakarrot.com/avatar.jpeg","keywords":"AI Agent, Codex, Claude Code, Agent Skills, 效率工具"}</script><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="stylesheet" href="/_astro/_slug_.DyYLdA7n.css">
+<style>.prose{font-size:1.0625rem;line-height:1.8;color:var(--color-text-primary)}.prose h2{font-size:1.65rem;font-weight:700;margin-top:3rem;margin-bottom:.75rem;padding-bottom:.4rem;border-bottom:1px solid var(--color-border);letter-spacing:-.02em}.prose h3{font-size:1.35rem;font-weight:600;margin-top:2.5rem;margin-bottom:.5rem}.prose h4{font-size:1.1rem;font-weight:600;margin-top:2rem;margin-bottom:.5rem}.prose p{margin-bottom:1.25rem;line-height:1.85}.prose ul,.prose ol{margin-bottom:1.25rem;padding-left:1.75rem}.prose ul{list-style:disc}.prose ol{list-style:decimal}.prose li{margin-bottom:.35rem;line-height:1.8}.prose li>ul,.prose li>ol{margin-top:.3rem;margin-bottom:.3rem}.prose code:not(pre code){font-size:.85em;padding:.2em .45em;background:var(--color-bg-card);border:1px solid var(--color-border);font-family:var(--font-mono)}.prose .code-block-wrap{margin:1.5rem 0;border:1px solid #2a2a4a;border-radius:0;overflow:hidden}.code-block-header{display:flex;justify-content:space-between;align-items:center;padding:.45rem 1rem;background:#12121e;border-bottom:1px solid #2a2a4a;font-size:.75rem;font-family:var(--font-mono)}.code-block-header .code-lang{color:#888;text-transform:uppercase;letter-spacing:.06em;font-weight:500;font-size:.7rem}.code-block-header .copy-btn{display:inline-flex;align-items:center;gap:.3rem;border:none;background:transparent;color:#666;cursor:pointer;font-size:.7rem;font-family:inherit;padding:.15rem .4rem;transition:color .15s}.code-block-header .copy-btn:hover{color:#ccc}.code-block-header .copy-btn.copied{color:#4caf50}.code-block-header .copy-btn svg{width:13px;height:13px}.prose .astro-code{margin:0;padding:1.25rem 1.5rem;border:none;border-radius:0}.prose blockquote{margin:1.75rem 0;padding:.75rem 1.25rem;border-left:4px solid var(--color-accent);background:color-mix(in oklab,var(--color-accent) 6%,transparent);color:var(--color-text-primary);font-style:normal}.prose blockquote p:last-child{margin-bottom:0}.prose table{width:100%;margin:1.5rem 0;border-collapse:collapse;font-size:.9375rem;line-height:1.6;overflow-x:auto;display:block}.prose thead{background:var(--color-text-primary);color:var(--color-bg-warm)}.prose th{font-weight:600;text-align:left;padding:.6rem .8rem;border:1px solid var(--color-text-primary);white-space:nowrap}.prose td{padding:.5rem .8rem;border:1px solid var(--color-border)}.prose tbody tr:nth-child(2n){background:var(--color-bg-card)}.prose tbody tr:hover{background:color-mix(in oklab,var(--color-accent) 8%,transparent)}.prose img{max-width:100%;height:auto;margin:1.5rem 0;border:1px solid var(--color-border)}.prose a{color:var(--color-accent);text-underline-offset:3px;text-decoration-thickness:1px}.prose a:hover{color:var(--color-accent-dim)}.prose hr{border:none;border-top:1px solid var(--color-border);margin:2.5rem 0}.prose strong{font-weight:700}.prose em{font-style:italic}.prose blockquote blockquote{margin-left:.5rem;font-size:.95em}.prose h2:hover:before,.prose h3:hover:before,.prose h4:hover:before{content:"#";position:absolute;margin-left:-1.2em;color:var(--color-accent);font-weight:400;opacity:.5}.prose h2,.prose h3,.prose h4{position:relative}@media(max-width:640px){.prose{font-size:1rem}.prose h2{font-size:1.4rem}.prose h3{font-size:1.2rem}.prose pre{padding:1rem;font-size:.8125rem}.prose table{font-size:.8125rem}}
+.article-nav-link[data-astro-cid-mrc262xk]{text-decoration:none;color:inherit;display:flex;flex-direction:column;gap:6px;padding:16px;border:2px solid var(--color-border-strong);transition:border-color .15s,background .15s}.article-nav-link[data-astro-cid-mrc262xk]:hover{border-color:var(--color-accent);background:color-mix(in oklab,var(--color-accent) 5%,transparent)}.article-nav-label[data-astro-cid-mrc262xk]{font:700 12px/1 var(--font-mono);color:var(--color-text-muted);text-transform:uppercase;letter-spacing:.04em}.article-nav-title[data-astro-cid-mrc262xk]{font-size:15px;font-weight:700;line-height:1.4;color:var(--color-text-primary)}@media(max-width:640px){.article-nav[data-astro-cid-mrc262xk]{grid-template-columns:1fr!important}.article-nav-link[data-astro-cid-mrc262xk][data-direction=next]{text-align:left!important}}
+</style></head> <body> <noscript> <style>
+        .reveal {
+          opacity: 1 !important;
+          transform: none !important;
+        }
+      </style> </noscript> <nav class="nav-bar" data-astro-cid-dmqpwcec> <div class="shell nav-inner nav-inner-bar" data-astro-cid-dmqpwcec> <a href="/" class="nav-brand" data-astro-cid-dmqpwcec>KAKARROT.COM</a> <button class="nav-toggle nav-toggle-btn" aria-label="菜单" aria-expanded="false" data-astro-cid-dmqpwcec> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="nav-toggle-icon" data-astro-cid-dmqpwcec> <line class="nav-line-1" x1="3" y1="6" x2="21" y2="6" data-astro-cid-dmqpwcec></line> <line class="nav-line-2" x1="3" y1="12" x2="21" y2="12" data-astro-cid-dmqpwcec></line> <line class="nav-line-3" x1="3" y1="18" x2="21" y2="18" data-astro-cid-dmqpwcec></line> </svg> </button> <ul class="nav-links" data-astro-cid-dmqpwcec> <li data-astro-cid-dmqpwcec> <a href="/vibe-coding/" class="nav-link" data-astro-cid-dmqpwcec> Vibe Coding </a> </li><li data-astro-cid-dmqpwcec> <a href="/writing/" class="nav-link nav-link--active" data-astro-cid-dmqpwcec> Writing </a> </li><li data-astro-cid-dmqpwcec> <a href="/about/" class="nav-link" data-astro-cid-dmqpwcec> About </a> </li> </ul> </div> </nav>  <script type="module">document.addEventListener("DOMContentLoaded",()=>{const e=document.querySelector(".nav-toggle"),t=document.querySelector(".nav-links");!e||!t||(e.addEventListener("click",()=>{const n=t.classList.toggle("open");e.setAttribute("aria-expanded",String(n))}),t.querySelectorAll("a").forEach(n=>{n.addEventListener("click",()=>{t.classList.remove("open"),e.setAttribute("aria-expanded","false")})}))});</script> <main class="main-full">  <article class="max-w-[820px] mx-auto prose pt-16 md:pt-20 pb-24 px-7 sm:px-0"> <header class="mb-12"> <h1 class="text-3xl md:text-4xl font-black tracking-tighter uppercase">No. 20: 把 Codex 和 Claude Code 武装起来——我日常使用的 26 个 Skill</h1> <p class="text-[var(--color-text-secondary)] mt-2">我把日常使用的 26 个 Agent Skill、Plugin 和 CLI 分成八类，逐一说明用途、地址、Codex 与 Claude Code 安装方式，以及同类工具能否共存。</p> </header>  <p class="text-xs text-[var(--color-text-muted)] font-mono"> 2026/7/15  </p> <div class="flex flex-wrap gap-2 mt-2 mb-8"> <a href="/writing/tags/AI%20Agent/" class="tag-link text-[10px] uppercase tracking-widest text-[var(--color-text-muted)] border border-[var(--color-border)] px-2 py-0.5"> AI Agent </a><a href="/writing/tags/Codex/" class="tag-link text-[10px] uppercase tracking-widest text-[var(--color-text-muted)] border border-[var(--color-border)] px-2 py-0.5"> Codex </a><a href="/writing/tags/Claude%20Code/" class="tag-link text-[10px] uppercase tracking-widest text-[var(--color-text-muted)] border border-[var(--color-border)] px-2 py-0.5"> Claude Code </a><a href="/writing/tags/Agent%20Skills/" class="tag-link text-[10px] uppercase tracking-widest text-[var(--color-text-muted)] border border-[var(--color-border)] px-2 py-0.5"> Agent Skills </a><a href="/writing/tags/%E6%95%88%E7%8E%87%E5%B7%A5%E5%85%B7/" class="tag-link text-[10px] uppercase tracking-widest text-[var(--color-text-muted)] border border-[var(--color-border)] px-2 py-0.5"> 效率工具 </a> </div> <p>过去一段时间，我几乎每天都在 Codex 和 Claude Code 之间切换。</p>
+<p>写代码时，我希望 Agent 先理解问题、写计划、跑验证；做产品时，我又希望它能查资料、整理 Obsidian、写 PRD、画架构图、做演示。默认能力当然能完成不少工作，但真正决定使用体验的，往往是装在外面的那一层：<strong>Skill、Plugin、CLI、MCP 和项目模板。</strong></p>
+<p>问题也从这里开始。GitHub 上的项目都说自己“开箱即用”，但有的只支持 Claude Code，有的通过 Agent Skills 标准兼容 Codex，有的根本不是 Skill，只是一个需要单独运行的应用。装得越多，重复命令、Hooks 冲突、规则打架也越常见。</p>
+<p>我把自己日常使用和长期关注的清单重新核验了一遍，去掉一条重复项，最后留下 26 个项目。下面不做 Star 数排行榜，只回答四个实际问题：<strong>它解决什么、去哪里找、Codex 和 Claude Code 怎么装、同类工具一起装会不会冲突。</strong></p>
+<blockquote>
+<p>本文信息核验于 2026 年 7 月 15 日。项目安装方式会变化，执行前仍应以官方 README 为准。文中的远程脚本命令都建议先打开脚本检查，再决定是否执行。</p>
+</blockquote>
+<h2 id="1️⃣-skill-不是装得越多越好">1️⃣ Skill 不是装得越多越好</h2>
+<p>我现在把 Agent 的扩展能力分成五种。分清类型，比记住命令更重要。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>类型</th><th>本质</th><th>常见安装位置</th><th>主要风险</th></tr></thead><tbody><tr><td>Skill</td><td>给模型看的专业流程和知识</td><td><code>~/.codex/skills</code>、<code>~/.claude/skills</code></td><td>触发重复、规则冲突</td></tr><tr><td>Plugin</td><td>Skill、命令、Hooks、MCP 的安装包</td><td>平台插件目录</td><td>重复安装、全局行为改变</td></tr><tr><td>CLI</td><td>Agent 可以调用的本地程序</td><td>npm、Homebrew、独立二进制</td><td>运行时和权限问题</td></tr><tr><td>MCP</td><td>给 Agent 暴露外部工具的协议服务</td><td>平台配置文件</td><td>服务名、端口和凭证冲突</td></tr><tr><td>Template / App</td><td>一个完整项目或独立工作台</td><td>单独仓库、桌面应用</td><td>不应当作全局 Skill 安装</td></tr></tbody></table>
+<p>所以，“同类安装多个是否冲突”不能只回答能或不能。我采用四个判断：</p>
+<p>按实际任务，我把清单分成八类：开发工作流、输出控制、代码理解、联网研究、Office 文档、页面与视觉、知识管理、产品与 Skill 创作。为了保持这套博客原有的阅读节奏，后文再合并到四个场景章节中介绍。</p>
+<ul>
+<li><strong>无冲突</strong>：能力边界不同，可以同时存在。</li>
+<li><strong>功能重叠</strong>：都能做相似的事，但不会互相破坏，按任务选择即可。</li>
+<li><strong>规则冲突</strong>：都在规定 Agent 应该如何计划、写作或停止，模型可能收到相反指令。</li>
+<li><strong>技术冲突</strong>：会重复注册 Skill、Hooks、MCP、命令或 statusline，直接出现两次执行或配置覆盖。</li>
+</ul>
+<p>先用一张表看完 26 项，再决定是否继续往下读：</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>项目</th><th>类型</th><th>主要用途</th><th>平台</th><th>共存结论</th></tr></thead><tbody><tr><td>Superpowers</td><td>Plugin / Skills</td><td>稳定开发闭环</td><td>双端原生</td><td>主工作流三选一</td></tr><tr><td>Caveman</td><td>风格 Skill</td><td>压缩 Agent 表达</td><td>双端</td><td>避免覆盖强制汇报格式</td></tr><tr><td>Planning with Files</td><td>Skill + Hooks</td><td>长任务跨会话</td><td>双端原生</td><td>不重复安装 Hooks</td></tr><tr><td>ECC</td><td>Agent 框架</td><td>全套工程能力</td><td>双端原生</td><td>安装路径只选一种</td></tr><tr><td>Claude HUD</td><td>statusline Plugin</td><td>显示上下文与状态</td><td>仅 Claude Code</td><td>状态栏只保留一个</td></tr><tr><td>Understand Anything</td><td>代码理解系统</td><td>生成代码知识图谱</td><td>双端原生</td><td>与 CodeGraph 先选一个</td></tr><tr><td>CodeGraph</td><td>CLI + MCP</td><td>本地代码关系检索</td><td>双端原生</td><td>与前者功能重叠</td></tr><tr><td>Agent Reach</td><td>CLI + Skill</td><td>多平台联网路由</td><td>双端兼容</td><td>可组合 OpenCLI</td></tr><tr><td>Last 30 Days</td><td>研究 Skill</td><td>最近 30 天趋势</td><td>双端</td><td>不走双安装通道</td></tr><tr><td>OpenCLI</td><td>CLI + Skills</td><td>操作登录态网页</td><td>双端兼容</td><td>可作为 Agent Reach 后端</td></tr><tr><td>PPT Master</td><td>PPTX Skill</td><td>可编辑 PowerPoint</td><td>双端</td><td>与 HTML 演示可共存</td></tr><tr><td>归藏 PPT Skill</td><td>HTML Skill</td><td>单文件网页演示</td><td>双端兼容</td><td>提示词写明输出格式</td></tr><tr><td>OfficeCLI</td><td>CLI + Skill</td><td>PPTX、DOCX、XLSX</td><td>双端原生</td><td>与文档 Skill 功能重叠</td></tr><tr><td>AI Website Cloner</td><td>Template</td><td>项目内复刻网站</td><td>双端兼容</td><td>不做全局安装</td></tr><tr><td>Open Design</td><td>App + MCP</td><td>可视化设计工作台</td><td>双端 MCP</td><td>与 HTML Anything 选主工具</td></tr><tr><td>HTML Anything</td><td>本地 App</td><td>多 Agent HTML 工作台</td><td>双端兼容</td><td>不复制到全局 Skills</td></tr><tr><td>UI UX Pro Max</td><td>Skill + CLI</td><td>检索 UI/UX 规范</td><td>双端原生</td><td>与 Frontend Design 分工</td></tr><tr><td>Frontend Design</td><td>官方 Skill</td><td>提升前端视觉完成度</td><td>双端</td><td>指定主设计规则</td></tr><tr><td>归藏 Social Card</td><td>图片 Skill</td><td>社交媒体卡片</td><td>双端兼容</td><td>与 PPT Skill 可共存</td></tr><tr><td>Archify</td><td>图表 Skill</td><td>架构与流程图</td><td>双端兼容</td><td>边界窄，通常无冲突</td></tr><tr><td>Obsidian Skills</td><td>Skill 集</td><td>正确读写 Obsidian</td><td>双端原生</td><td>可作为知识流底层能力</td></tr><tr><td>Claude Obsidian</td><td>Vault 工作流</td><td>自动维护第二大脑</td><td>Claude 原生、Codex 实验</td><td>先在测试 Vault 使用</td></tr><tr><td>PM Skills</td><td>Plugin 市场</td><td>串联 PM 工作流</td><td>双端原生</td><td>与另一 PM 库选主库</td></tr><tr><td>Product Manager Skills</td><td>Skill 库</td><td>深入执行 PM 框架</td><td>双端官方路径</td><td>按需补充，不全量叠加</td></tr><tr><td>Anthropic Skills</td><td>官方集合</td><td>文档与示例能力</td><td>双端</td><td>用 <code>--skill</code> 按需安装</td></tr><tr><td>Skill Creator</td><td>官方 Skill</td><td>创建和评估 Skill</td><td>双端</td><td>同一项目只用一个生成流程</td></tr></tbody></table>
+<h2 id="2️⃣-让开发过程更稳定">2️⃣ 让开发过程更稳定</h2>
+<h3 id="1-superpowers把先想清楚再动手变成默认流程">1. Superpowers：把“先想清楚再动手”变成默认流程</h3>
+<p><strong>类型：</strong> 工作流 Plugin / Skill 集合
+<strong>平台：</strong> Codex 原生插件；Claude Code 原生插件
+<strong>地址：</strong> <a href="https://github.com/obra/superpowers">obra/superpowers</a></p>
+<p>Superpowers 不是某一种编程能力，而是一整套开发纪律：需求澄清、方案设计、计划、测试驱动、系统调试、验证和分支收尾。它最有价值的地方，是把“写完代码再想怎么验证”改成“先定义完成标准，再开始实现”。</p>
+<p>Claude Code 可以直接安装官方插件：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>/plugin install superpowers@claude-plugins-official</span></span></code></pre>
+<p>如果官方市场里没有，也可以添加项目市场后安装：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>/plugin marketplace add obra/superpowers-marketplace</span></span>
+<span class="line"><span>/plugin install superpowers@superpowers-marketplace</span></span></code></pre>
+<p>Codex App 在 Plugins 侧栏的 Coding 分类中安装；Codex CLI 可以输入 <code>/plugins</code>，搜索 Superpowers 后安装。使用时通常不需要背命令，直接描述“先梳理需求，再实现并验证”，它会根据任务触发对应 Skill。</p>
+<p><strong>冲突判断：规则冲突。</strong> Superpowers、ECC 和 Planning with Files 都能接管计划与执行流程。它们可以同时装，但不要同时把三套规则设成强制主流程。我通常让 Superpowers 负责软件开发闭环，其他框架只按需调用。</p>
+<h3 id="2-caveman让-agent-少说套话保留结论">2. Caveman：让 Agent 少说套话，保留结论</h3>
+<p><strong>类型：</strong> 输出风格 Plugin / Skill
+<strong>平台：</strong> Codex 标准兼容；Claude Code 原生插件
+<strong>地址：</strong> <a href="https://github.com/JuliusBrussee/caveman">JuliusBrussee/caveman</a></p>
+<p>Caveman 做的事情很单纯：压缩表达。它不会降低模型的推理能力，只是减少铺垫、重复解释和“当然可以”一类套话。对长期终端协作很实用，因为真正占注意力的不是 Token 数，而是我每次必须从一大段话里找结论。</p>
+<p>Claude Code 安装：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">claude</span><span style="color:#9ECBFF"> plugin</span><span style="color:#9ECBFF"> marketplace</span><span style="color:#9ECBFF"> add</span><span style="color:#9ECBFF"> JuliusBrussee/caveman</span></span>
+<span class="line"><span style="color:#B392F0">claude</span><span style="color:#9ECBFF"> plugin</span><span style="color:#9ECBFF"> install</span><span style="color:#9ECBFF"> caveman@caveman</span></span></code></pre>
+<p>Codex 安装：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">npx</span><span style="color:#9ECBFF"> skills</span><span style="color:#9ECBFF"> add</span><span style="color:#9ECBFF"> JuliusBrussee/caveman</span><span style="color:#79B8FF"> -a</span><span style="color:#9ECBFF"> codex</span></span></code></pre>
+<p>Claude Code 插件通过 Hooks 自动生效；Codex 中可以在需要时调用 <code>/caveman</code>，或者直接要求“使用 Caveman 风格回答”。</p>
+<p><strong>冲突判断：规则冲突。</strong> 它会改变输出风格。如果项目要求详细教学、审计记录或固定汇报模板，过度压缩会丢失必要解释。我的做法是只让它控制日常对话，不让它覆盖项目强制格式。</p>
+<h3 id="3-planning-with-files把上下文写回文件">3. Planning with Files：把上下文写回文件</h3>
+<p><strong>类型：</strong> 文件化规划 Skill + Hooks
+<strong>平台：</strong> Codex 专用集成；Claude Code 原生插件
+<strong>地址：</strong> <a href="https://github.com/OthmanAdi/planning-with-files">OthmanAdi/planning-with-files</a></p>
+<p>长任务最怕两件事：上下文压缩后忘记决定，换一次会话后重新研究。Planning with Files 用三个文件解决：<code>task_plan.md</code> 记录阶段，<code>findings.md</code> 记录发现，<code>progress.md</code> 记录执行和验证。模型的短期上下文会消失，文件不会。</p>
+<p>Claude Code 建议走插件安装，具体插件名以官方 README 当前版本为准：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>/plugin marketplace add OthmanAdi/planning-with-files</span></span>
+<span class="line"><span>/plugin install planning-with-files@planning-with-files</span></span></code></pre>
+<p>Codex 官方建议把仓库中的 <code>.codex/</code> 集成复制到项目，团队可以一起版本化：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">git</span><span style="color:#9ECBFF"> clone</span><span style="color:#9ECBFF"> https://github.com/OthmanAdi/planning-with-files.git</span><span style="color:#9ECBFF"> /tmp/planning-with-files</span></span>
+<span class="line"><span style="color:#B392F0">cp</span><span style="color:#79B8FF"> -r</span><span style="color:#9ECBFF"> /tmp/planning-with-files/.codex</span><span style="color:#9ECBFF"> .</span></span></code></pre>
+<p>然后在 <code>~/.codex/config.toml</code> 的 <code>[features]</code> 下启用：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="toml"><code><span class="line"><span style="color:#E1E4E8">hooks = </span><span style="color:#79B8FF">true</span></span></code></pre>
+<p>Codex 如果已有全局 <code>hooks.json</code>，不要直接覆盖，要手动合并。开始复杂任务时调用 <code>/plan</code> 或直接要求初始化文件化计划；一次性 <code>codex exec</code> 不想被现有计划影响，可以设置 <code>PLANNING_DISABLED=1</code>。</p>
+<p><strong>冲突判断：规则冲突 + 技术冲突。</strong> 它与其他计划框架会争夺同一任务流程；同时在项目级和全局各装一份 Hooks，还会收到双份提醒。只保留一个 Hooks 入口。</p>
+<h3 id="4-ecc给-agent-装一整套工程操作系统">4. ECC：给 Agent 装一整套工程操作系统</h3>
+<p><strong>类型：</strong> Agent 工程框架 / Plugin / Rules / Hooks / MCP 集合
+<strong>平台：</strong> Codex 一等支持；Claude Code 原生插件
+<strong>地址：</strong> <a href="https://github.com/affaan-m/ECC">affaan-m/ECC</a></p>
+<p>ECC 原名 Everything Claude Code，现在已经不是几个 Skill 的集合，而是一套很完整的 Agent Harness。它覆盖编码规范、TDD、安全审查、文档查询、前后端模式、研究、内容生产和 MCP 配置。适合想一次建立完整工程环境的人，不适合只想加一个小能力的人。</p>
+<p>Claude Code 推荐插件路径：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>/plugin marketplace add https://github.com/affaan-m/ECC</span></span>
+<span class="line"><span>/plugin install ecc@ecc</span></span></code></pre>
+<p>插件不会自动分发 <code>rules</code>。如果确实需要规则，只复制 <code>rules/common</code> 和当前技术栈对应的目录。<strong>不要在装完插件后再运行 full 安装器</strong>，否则 Skill 和 Hooks 会重复。</p>
+<p>Codex 当前更稳定的方式是克隆仓库后运行同步脚本，并先预览：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">git</span><span style="color:#9ECBFF"> clone</span><span style="color:#9ECBFF"> https://github.com/affaan-m/ECC.git</span></span>
+<span class="line"><span style="color:#79B8FF">cd</span><span style="color:#9ECBFF"> ECC</span></span>
+<span class="line"><span style="color:#B392F0">npm</span><span style="color:#9ECBFF"> install</span></span>
+<span class="line"><span style="color:#B392F0">bash</span><span style="color:#9ECBFF"> scripts/sync-ecc-to-codex.sh</span><span style="color:#79B8FF"> --dry-run</span></span>
+<span class="line"><span style="color:#B392F0">bash</span><span style="color:#9ECBFF"> scripts/sync-ecc-to-codex.sh</span></span></code></pre>
+<p>ECC 也提供实验性的 Codex Marketplace，但官方明确提示上游插件缓存仍可能丢失共享内容，因此现阶段手动同步更稳。</p>
+<p><strong>冲突判断：规则冲突 + 技术冲突。</strong> ECC 与 Superpowers、Planning with Files 在计划、测试、验证上大量重叠。更严重的是，同一个平台同时使用插件安装和 full 手动安装，会产生重复 Skill、重复 Hooks 和重复运行时。安装 ECC 时，“只选一条路径”比命令本身更重要。</p>
+<h3 id="5-claude-hud把上下文和工具状态放进状态栏">5. Claude HUD：把上下文和工具状态放进状态栏</h3>
+<p><strong>类型：</strong> Claude Code statusline Plugin
+<strong>平台：</strong> Codex 不支持；Claude Code 原生插件
+<strong>地址：</strong> <a href="https://github.com/jarrodwatts/claude-hud">jarrodwatts/claude-hud</a></p>
+<p>Claude HUD 显示当前模型、上下文占用、工具调用和任务状态。它不让模型变强，但能让我知道一次会话还剩多少空间，以及 Agent 是否真的在执行，而不是卡在某一步。</p>
+<p>安装命令：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>/plugin marketplace add jarrodwatts/claude-hud</span></span>
+<span class="line"><span>/plugin install claude-hud</span></span>
+<span class="line"><span>/reload-plugins</span></span>
+<span class="line"><span>/claude-hud:setup</span></span></code></pre>
+<p>设置完成后重启 Claude Code。Codex 没有对应安装入口，不建议把 Claude 的 statusline 配置硬搬过去。</p>
+<p><strong>冲突判断：技术冲突。</strong> 它可能与其他 statusline 插件或自己写的状态栏配置互相覆盖。状态栏只保留一个主实现。</p>
+<h3 id="6-understand-anything先画出代码知识图谱再开始改">6. Understand Anything：先画出代码知识图谱，再开始改</h3>
+<p><strong>类型：</strong> 代码理解 Skill + 本地知识图谱
+<strong>平台：</strong> Codex 专用安装；Claude Code 原生插件
+<strong>地址：</strong> <a href="https://github.com/Egonex-AI/Understand-Anything">Egonex-AI/Understand-Anything</a></p>
+<p>清单里的 SkillsLLM 页面已经不是最可靠入口，当前官方仓库是 Egonex-AI。它会分析代码库并生成 <code>.ua/knowledge-graph.json</code>，再提供 Dashboard、问答、Diff 分析等能力。面对陌生项目时，它比“把整个仓库塞进上下文”更节省重复阅读。</p>
+<p>Claude Code 安装：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>/plugin marketplace add Egonex-AI/Understand-Anything</span></span>
+<span class="line"><span>/plugin install understand-anything</span></span></code></pre>
+<p>Codex 官方提供安装脚本。先在浏览器打开脚本检查内容，再执行：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">curl</span><span style="color:#79B8FF"> -fsSL</span><span style="color:#9ECBFF"> https://raw.githubusercontent.com/Egonex-AI/Understand-Anything/main/install.sh</span><span style="color:#F97583"> |</span><span style="color:#B392F0"> bash</span><span style="color:#79B8FF"> -s</span><span style="color:#9ECBFF"> codex</span></span></code></pre>
+<p>Claude Code 使用 <code>/understand</code>，Codex 使用 <code>$understand</code>；后续可进入 Dashboard 或继续询问模块关系。首次索引大型仓库会消耗较多时间和 Token，不要把生成目录当业务源码提交。</p>
+<p><strong>冲突判断：功能重叠。</strong> 它与 CodeGraph 都在做代码结构检索。两者技术上可以共存，但会分别维护索引。先选一个，确定现有检索不够再加另一个。</p>
+<h3 id="7-codegraph把本地代码关系暴露成-mcp">7. CodeGraph：把本地代码关系暴露成 MCP</h3>
+<p><strong>类型：</strong> 本地 CLI + 代码图谱 MCP
+<strong>平台：</strong> Codex 原生检测；Claude Code 原生检测
+<strong>地址：</strong> <a href="https://github.com/colbymchenry/codegraph">colbymchenry/codegraph</a></p>
+<p>CodeGraph 更像基础设施。它在本地建立代码索引，通过 MCP 把符号、调用关系和语义检索交给 Agent。Understand Anything 偏“生成一套可浏览的理解成果”，CodeGraph 偏“让模型在工作时随查随用”。</p>
+<p>两个平台使用同一套安装方式：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">npm</span><span style="color:#9ECBFF"> install</span><span style="color:#79B8FF"> -g</span><span style="color:#9ECBFF"> @colbymchenry/codegraph</span></span>
+<span class="line"><span style="color:#B392F0">codegraph</span><span style="color:#9ECBFF"> install</span></span></code></pre>
+<p>进入具体项目后初始化：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">codegraph</span><span style="color:#9ECBFF"> init</span></span></code></pre>
+<p>也可以先用 <code>npx @colbymchenry/codegraph</code> 体验。<code>codegraph install</code> 会检测本机 Agent 并写入 MCP 配置，执行前应查看它准备修改的平台。</p>
+<p><strong>冲突判断：功能重叠。</strong> 与 Understand Anything 共存不会直接报错，但两套索引会占用磁盘和维护时间。代码库很大、需要持续语义检索时选 CodeGraph；想快速获得结构化全景时选 Understand Anything。</p>
+<h2 id="3️⃣-给-agent-接上互联网">3️⃣ 给 Agent 接上互联网</h2>
+<h3 id="8-agent-reach让一个入口覆盖多个内容平台">8. Agent Reach：让一个入口覆盖多个内容平台</h3>
+<p><strong>类型：</strong> 联网 CLI + 路由 Skill
+<strong>平台：</strong> Codex 标准兼容；Claude Code 标准兼容
+<strong>地址：</strong> <a href="https://github.com/Panniantong/Agent-Reach">Panniantong/Agent-Reach</a></p>
+<p>Agent Reach 的价值不是“又一个搜索工具”，而是统一入口。网页、GitHub、X、Reddit、YouTube、Bilibili、小红书、播客等平台需要不同后端，它负责判断当前环境有哪些能力，再把请求路由过去。</p>
+<p>官方推荐直接把安装文档交给 Agent。为了可控，我会先打开文档阅读，再让 Agent 执行其中步骤：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>帮我安装 Agent Reach：https://raw.githubusercontent.com/Panniantong/agent-reach/main/docs/install.md</span></span></code></pre>
+<p>安装后先检查：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">agent-reach</span><span style="color:#9ECBFF"> doctor</span><span style="color:#79B8FF"> --json</span></span></code></pre>
+<p>Codex 和 Claude Code 都可以用自然语言调用，例如“搜索最近一周 GitHub 上关于 Agent Skills 的讨论”。部分平台仍需要登录、Cookie 或第三方 CLI，Agent Reach 不会凭空绕过平台权限。</p>
+<p><strong>冲突判断：功能重叠但可组合。</strong> 它与 Last 30 Days 都能做联网研究，但后者强调时间窗口和综合报告；OpenCLI 反而可以成为 Agent Reach 访问登录网站的后端。三者不是必须三选一。</p>
+<h3 id="9-last-30-days只研究最近一个月发生了什么">9. Last 30 Days：只研究最近一个月发生了什么</h3>
+<p><strong>类型：</strong> 时效研究 Skill
+<strong>平台：</strong> Codex 标准兼容；Claude Code 原生插件
+<strong>地址：</strong> <a href="https://github.com/mvanhorn/last30days-skill">mvanhorn/last30days-skill</a></p>
+<p>很多研究失败，不是因为资料少，而是因为新旧信息混在一起。Last 30 Days 把时间窗口固定在最近 30 天，跨多个来源检索，再总结趋势、共识和争议。适合研究模型更新、产品口碑、热点工具和社区变化。</p>
+<p>Claude Code 插件安装：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>/plugin marketplace add mvanhorn/last30days-skill</span></span>
+<span class="line"><span>/plugin install last30days</span></span></code></pre>
+<p>Codex 安装：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">npx</span><span style="color:#9ECBFF"> skills</span><span style="color:#9ECBFF"> add</span><span style="color:#9ECBFF"> mvanhorn/last30days-skill</span><span style="color:#79B8FF"> -g</span><span style="color:#79B8FF"> -a</span><span style="color:#9ECBFF"> codex</span></span></code></pre>
+<p>使用方式很直接：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>/last30days Agent Skills</span></span></code></pre>
+<p>它需要 Python 3.12+，部分数据源还需要 API Key 或平台登录。</p>
+<p><strong>冲突判断：技术冲突。</strong> Claude Code 同时通过 Plugin 和 <code>npx skills</code> 安装，会出现两个 <code>/last30days</code>。同一台机器只选一种安装方式。与 Agent Reach 只是功能重叠，不会直接冲突。</p>
+<h3 id="10-opencli把已登录浏览器变成可复用命令行">10. OpenCLI：把已登录浏览器变成可复用命令行</h3>
+<p><strong>类型：</strong> 浏览器数据 CLI + Skill 集
+<strong>平台：</strong> Codex 标准兼容；Claude Code 标准兼容
+<strong>地址：</strong> <a href="https://github.com/jackwener/OpenCLI">jackwener/OpenCLI</a></p>
+<p>很多网站没有公开 API，但浏览器里已经登录。OpenCLI 通过浏览器扩展和本地 CLI，把页面能力包装成结构化命令。相比让 Agent 盲点网页，它更适合可重复的数据读取和自动化。</p>
+<p>先安装 CLI，Node.js 需要 20 或以上：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">npm</span><span style="color:#9ECBFF"> install</span><span style="color:#79B8FF"> -g</span><span style="color:#9ECBFF"> @jackwener/opencli</span></span>
+<span class="line"><span style="color:#B392F0">opencli</span><span style="color:#9ECBFF"> doctor</span></span></code></pre>
+<p>再安装浏览器桥接扩展，并把 Skills 接入当前 Agent：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">npx</span><span style="color:#9ECBFF"> skills</span><span style="color:#9ECBFF"> add</span><span style="color:#9ECBFF"> jackwener/opencli</span></span></code></pre>
+<p>之后可以直接说“用 OpenCLI 读取当前登录站点的数据”，也可以手动运行：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">opencli</span><span style="color:#9ECBFF"> hackernews</span><span style="color:#9ECBFF"> top</span><span style="color:#79B8FF"> --limit</span><span style="color:#79B8FF"> 5</span></span></code></pre>
+<p><strong>冲突判断：无冲突。</strong> 它与 Agent Reach 是上下层关系：OpenCLI 提供具体平台能力，Agent Reach 负责发现和路由。真正需要注意的是浏览器登录态和权限，不要让 Agent 在未确认时执行写操作。</p>
+<h2 id="4️⃣-把想法变成页面图片和演示">4️⃣ 把想法变成页面、图片和演示</h2>
+<h3 id="11-ppt-master生成真正可编辑的-powerpoint">11. PPT Master：生成真正可编辑的 PowerPoint</h3>
+<p><strong>类型：</strong> PPTX 生成 Skill / 完整仓库工作流
+<strong>平台：</strong> Codex 标准兼容；Claude Code 原生插件
+<strong>地址：</strong> <a href="https://github.com/hugohe3/ppt-master">hugohe3/ppt-master</a></p>
+<p>PPT Master 的目标不是生成一张“像幻灯片的图”，而是输出可以继续编辑的原生 <code>.pptx</code>。它会先梳理内容和视觉方向，再通过 Python、Pandoc 等工具生成结构化页面，适合商业汇报、课程和需要交付源文件的场景。</p>
+<p>跨平台安装 Skill：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">npx</span><span style="color:#9ECBFF"> skills</span><span style="color:#9ECBFF"> add</span><span style="color:#9ECBFF"> hugohe3/ppt-master</span></span></code></pre>
+<p>Claude Code 也可以安装插件：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>/plugin marketplace add hugohe3/ppt-master</span></span>
+<span class="line"><span>/plugin install ppt-master@ppt-master</span></span></code></pre>
+<p>插件只负责 Skill 文件，仍要按照仓库 README 安装 Python 依赖和 Pandoc。使用时给出受众、页数、场景、内容来源和视觉方向，比只说“做个 PPT”稳定得多。</p>
+<p><strong>冲突判断：功能重叠。</strong> 它与归藏 PPT Skill 都做演示，但 PPT Master 的核心产物是可编辑 PPTX，归藏 PPT 是单文件 HTML。按照最终交付格式选，不需要争论谁“更强”。</p>
+<h3 id="12-归藏-ppt-skill把内容做成单文件-html-演示">12. 归藏 PPT Skill：把内容做成单文件 HTML 演示</h3>
+<p><strong>类型：</strong> HTML 演示生成 Skill
+<strong>平台：</strong> Codex 标准兼容；Claude Code 标准兼容
+<strong>地址：</strong> <a href="https://github.com/op7418/guizang-ppt-skill">op7418/guizang-ppt-skill</a></p>
+<p>归藏 PPT Skill 更适合快速展示和网页传播。它会处理封面、版式、配图和横向翻页，最后输出一个可直接打开的 HTML 文件。无需 PowerPoint 环境，发给别人也容易预览。</p>
+<p>Codex 和 Claude Code 都可以通过 Agent Skills 安装：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">npx</span><span style="color:#9ECBFF"> skills</span><span style="color:#9ECBFF"> add</span><span style="color:#9ECBFF"> https://github.com/op7418/guizang-ppt-skill</span><span style="color:#79B8FF"> --skill</span><span style="color:#9ECBFF"> guizang-ppt-skill</span></span></code></pre>
+<p>安装后直接描述主题、受众、页数和风格，例如“用归藏 PPT Skill 把这份产品复盘做成 12 页横版演示”。如果项目已有品牌色和字体，也应该一起给出。</p>
+<p><strong>冲突判断：功能重叠。</strong> 它不会与 PPT Master 产生技术冲突，但两个 Skill 都可能被“做演示”触发。提示词中明确写出“HTML 演示”或“可编辑 PPTX”，就能避免模型选错。</p>
+<h3 id="13-officecli在终端里生成-pptxdocx-和-xlsx">13. OfficeCLI：在终端里生成 PPTX、DOCX 和 XLSX</h3>
+<p><strong>类型：</strong> Office 文件 CLI + Agent Skill
+<strong>平台：</strong> Codex 官方 Skill；Claude Code 原生插件
+<strong>地址：</strong> <a href="https://github.com/officecli/officecli">officecli/officecli</a></p>
+<p>清单里的 <code>iOfficeAI/OfficeCLI</code> 已迁移到新的官方仓库。OfficeCLI 是一个独立命令行程序，可以从提示词生成可编辑的 PPTX、DOCX、XLSX、报告和图片。Agent Skill 只是让 Codex 或 Claude Code 知道如何调用它，真正干活的是本地 <code>officecli</code> 二进制。</p>
+<p>先安装 CLI：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">npm</span><span style="color:#9ECBFF"> install</span><span style="color:#79B8FF"> -g</span><span style="color:#9ECBFF"> officecli</span></span>
+<span class="line"><span style="color:#B392F0">officecli</span><span style="color:#79B8FF"> --version</span></span>
+<span class="line"><span style="color:#B392F0">officecli</span><span style="color:#9ECBFF"> auth</span><span style="color:#9ECBFF"> status</span></span></code></pre>
+<p>Claude Code 安装插件：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>/plugin marketplace add officecli/officecli</span></span>
+<span class="line"><span>/plugin install officecli@officecli</span></span></code></pre>
+<p>Codex 使用官方 Skill 安装脚本。仍然建议先检查脚本内容：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">curl</span><span style="color:#79B8FF"> -fsSL</span><span style="color:#9ECBFF"> https://raw.githubusercontent.com/officecli/officecli/main/scripts/install-skill.sh</span><span style="color:#F97583"> |</span><span style="color:#B392F0"> bash</span><span style="color:#79B8FF"> -s</span><span style="color:#79B8FF"> --</span><span style="color:#9ECBFF"> officecli</span></span></code></pre>
+<p>不经过 Agent 也能直接使用：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">officecli</span><span style="color:#9ECBFF"> new</span><span style="color:#9ECBFF"> pptx</span><span style="color:#9ECBFF"> "季度复盘"</span><span style="color:#79B8FF"> --prompt</span><span style="color:#9ECBFF"> "生成六页 SaaS 季度业务复盘，包含增长、留存、风险和下季度行动"</span></span></code></pre>
+<p><strong>冲突判断：功能重叠。</strong> OfficeCLI 与 PPT Master、Anthropic 文档 Skills 都能生成 Office 文件，但调用链不同。只做 PPT 时选专用 Skill；需要同一套 CLI 批量生成多种 Office 文件时选 OfficeCLI。</p>
+<h3 id="14-ai-website-cloner-template在项目里完成网站复刻">14. AI Website Cloner Template：在项目里完成网站复刻</h3>
+<p><strong>类型：</strong> 项目 Template，不是全局 Skill
+<strong>平台：</strong> Codex 项目内兼容；Claude Code 项目内兼容
+<strong>地址：</strong> <a href="https://github.com/JCodesMore/ai-website-cloner-template">JCodesMore/ai-website-cloner-template</a></p>
+<p>这个项目最容易被装错。它不是应该复制到全局 Skills 目录的能力，而是一个准备好命令、规范和依赖的网站复刻模板。正确做法是在 GitHub 点击 <strong>Use this template</strong> 创建自己的仓库，再在那个新仓库里工作。</p>
+<p>创建自己的项目后：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">git</span><span style="color:#9ECBFF"> clone</span><span style="color:#F97583"> &#x3C;</span><span style="color:#9ECBFF">你的仓库地</span><span style="color:#E1E4E8">址</span><span style="color:#F97583">></span></span>
+<span class="line"><span style="color:#79B8FF">cd</span><span style="color:#F97583"> &#x3C;</span><span style="color:#9ECBFF">你的仓库目</span><span style="color:#E1E4E8">录</span><span style="color:#F97583">></span></span>
+<span class="line"><span style="color:#B392F0">npm</span><span style="color:#9ECBFF"> install</span></span></code></pre>
+<p>然后在项目里启动 Codex 或 Claude Code，运行：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>/clone-website &#x3C;目标页面地址></span></span></code></pre>
+<p>Claude Code 官方示例更推荐配合 Chrome 能力启动，但 Codex 也可以读取项目内的 Agent 规则完成流程。使用前要确认目标网站的版权、商标和使用许可；“技术上能复刻”不等于“可以公开发布”。</p>
+<p><strong>冲突判断：无冲突。</strong> 它只影响当前项目，不会与全局 UI Skill 冲突。真正的风险是把模板仓库直接当业务仓库长期开发，导致后续无法区分上游模板和自己的代码。</p>
+<h3 id="15-open-design让-agent-通过-mcp-操作设计工作台">15. Open Design：让 Agent 通过 MCP 操作设计工作台</h3>
+<p><strong>类型：</strong> 本地优先桌面 App + CLI + MCP + Skills
+<strong>平台：</strong> Codex MCP；Claude Code MCP
+<strong>地址：</strong> <a href="https://github.com/nexu-io/open-design">nexu-io/open-design</a></p>
+<p>Open Design 是一个完整设计环境，可以生成网页原型、演示、图片和视频。它不是把一个 <code>SKILL.md</code> 丢进目录就结束，而是先安装桌面应用和 <code>od</code> CLI，再把 MCP 注册到 Agent。</p>
+<p>从官方 Releases 或网站安装应用后，可以先预览 MCP 配置：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">od</span><span style="color:#9ECBFF"> mcp</span><span style="color:#9ECBFF"> install</span><span style="color:#9ECBFF"> codex</span><span style="color:#79B8FF"> --print</span></span>
+<span class="line"><span style="color:#B392F0">od</span><span style="color:#9ECBFF"> mcp</span><span style="color:#9ECBFF"> install</span><span style="color:#9ECBFF"> claude</span><span style="color:#79B8FF"> --print</span></span></code></pre>
+<p>确认无误再安装：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">od</span><span style="color:#9ECBFF"> mcp</span><span style="color:#9ECBFF"> install</span><span style="color:#9ECBFF"> codex</span></span>
+<span class="line"><span style="color:#B392F0">od</span><span style="color:#9ECBFF"> mcp</span><span style="color:#9ECBFF"> install</span><span style="color:#9ECBFF"> claude</span></span></code></pre>
+<p>之后直接让 Agent “在 Open Design 中创建一个 SaaS 首页原型”，它会通过 MCP 操作本地工作台。卸载时用对应的 <code>--uninstall</code>，不要手动留下失效的 MCP 配置。</p>
+<p><strong>冲突判断：功能重叠。</strong> 它与 HTML Anything 都是设计工作台，通常不需要同时常驻。MCP 名称不同不会天然冲突，但两个系统都会争夺同类“生成页面”任务，提示词要指定工具。</p>
+<h3 id="16-html-anything把多个-agent-接进同一个-html-工作台">16. HTML Anything：把多个 Agent 接进同一个 HTML 工作台</h3>
+<p><strong>类型：</strong> 本地 Web App / Agent 工作区
+<strong>平台：</strong> 自动检测 Codex CLI；自动检测 Claude Code CLI
+<strong>地址：</strong> <a href="https://github.com/nexu-io/html-anything">nexu-io/html-anything</a></p>
+<p>HTML Anything 也不是一个全局 Skill。它是用 pnpm 启动的本地应用，内置大量 Skill 模板，可以让 Codex、Claude Code 等 Agent 在统一界面里生成和迭代 HTML 作品。适合需要一边看效果、一边让 Agent 修改的人。</p>
+<p>安装运行：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">git</span><span style="color:#9ECBFF"> clone</span><span style="color:#9ECBFF"> https://github.com/nexu-io/html-anything</span></span>
+<span class="line"><span style="color:#79B8FF">cd</span><span style="color:#9ECBFF"> html-anything</span></span>
+<span class="line"><span style="color:#B392F0">pnpm</span><span style="color:#9ECBFF"> install</span></span>
+<span class="line"><span style="color:#B392F0">pnpm</span><span style="color:#79B8FF"> -F</span><span style="color:#9ECBFF"> @html-anything/next</span><span style="color:#9ECBFF"> dev</span></span></code></pre>
+<p>应用会检测本机已经登录的 Codex 和 Claude Code CLI，不需要再把整个仓库复制到 Skills 目录。它的 Skill 模板属于应用内部能力，和平台全局 Skill 是两个层级。</p>
+<p><strong>冲突判断：功能重叠。</strong> 与 Open Design 同时安装不会破坏配置，但使用定位接近。我会选一个作为主要可视化工作台，另一个只在需要其独有输出时打开。</p>
+<h3 id="17-ui-ux-pro-max给-agent-一套可检索的设计知识库">17. UI UX Pro Max：给 Agent 一套可检索的设计知识库</h3>
+<p><strong>类型：</strong> UI/UX Skill + 本地检索 CLI
+<strong>平台：</strong> Codex 专用初始化；Claude Code 原生插件
+<strong>地址：</strong> <a href="https://github.com/nextlevelbuilder/ui-ux-pro-max-skill">nextlevelbuilder/ui-ux-pro-max-skill</a></p>
+<p>UI UX Pro Max 包含设计风格、配色、字体、组件、行业模式和可访问性规则。它的特点不是给一段固定 Prompt，而是根据产品类型检索合适的设计系统，再指导 Agent 落地。</p>
+<p>安装 CLI：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">npm</span><span style="color:#9ECBFF"> install</span><span style="color:#79B8FF"> -g</span><span style="color:#9ECBFF"> ui-ux-pro-max-cli</span></span></code></pre>
+<p>在项目中为不同平台初始化：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">uipro</span><span style="color:#9ECBFF"> init</span><span style="color:#79B8FF"> --ai</span><span style="color:#9ECBFF"> codex</span></span>
+<span class="line"><span style="color:#B392F0">uipro</span><span style="color:#9ECBFF"> init</span><span style="color:#79B8FF"> --ai</span><span style="color:#9ECBFF"> claude</span></span></code></pre>
+<p>Claude Code 也可以走插件：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>/plugin marketplace add nextlevelbuilder/ui-ux-pro-max-skill</span></span>
+<span class="line"><span>/plugin install ui-ux-pro-max@ui-ux-pro-max-skill</span></span></code></pre>
+<p>不要在 Claude Code 同时使用插件和 CLI 生成的重复副本。使用时给出产品类型和技术栈，例如“为 B2B AI 工作台设计信息密度较高的桌面端界面”。</p>
+<p><strong>冲突判断：功能重叠。</strong> 它与 Frontend Design 都会约束界面质量。UI UX Pro Max 更像可检索设计数据库，Frontend Design 更像审美和实现原则。可以共存，但同一轮生成最好指定谁负责主规则。</p>
+<h3 id="18-frontend-design让前端不再长得像默认-ai-页面">18. Frontend Design：让前端不再长得像默认 AI 页面</h3>
+<p><strong>类型：</strong> Anthropic 官方示例 Skill
+<strong>平台：</strong> Codex 标准兼容；Claude Code 官方插件
+<strong>地址：</strong> <a href="https://github.com/anthropics/skills/tree/main/skills/frontend-design">anthropics/skills/skills/frontend-design</a></p>
+<p>Frontend Design 关注的是成品质量：视觉概念、排版、配色、动效和空间关系。它反对没有判断的渐变、卡片堆叠和模板化布局，要求 Agent 先确定明确的设计方向，再写可运行代码。</p>
+<p>Claude Code 安装官方示例 Skill 集：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>/plugin marketplace add anthropics/skills</span></span>
+<span class="line"><span>/plugin install example-skills@anthropic-agent-skills</span></span></code></pre>
+<p>Codex 可以只安装这一项标准 Skill：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">npx</span><span style="color:#9ECBFF"> skills</span><span style="color:#9ECBFF"> add</span><span style="color:#9ECBFF"> anthropics/skills</span><span style="color:#79B8FF"> -g</span><span style="color:#79B8FF"> --skill</span><span style="color:#9ECBFF"> frontend-design</span><span style="color:#79B8FF"> -a</span><span style="color:#9ECBFF"> codex</span></span></code></pre>
+<p>使用时不要只说“美化页面”，而要给内容、用户、设备和限制，例如“保持现有 Astro 结构，只重做首页视觉层级，不增加依赖”。</p>
+<p><strong>冲突判断：功能重叠。</strong> 与 UI UX Pro Max 共存没有技术问题，但两套审美规则可能给出不同方向。UI UX Pro Max 负责查规范、Frontend Design 负责形成视觉主张，是比较清楚的分工。</p>
+<h3 id="19-归藏-social-card-skill把长内容拆成社交卡片">19. 归藏 Social Card Skill：把长内容拆成社交卡片</h3>
+<p><strong>类型：</strong> 社交图片生成 Skill
+<strong>平台：</strong> Codex 标准兼容；Claude Code 标准兼容
+<strong>地址：</strong> <a href="https://github.com/op7418/guizang-social-card-skill">op7418/guizang-social-card-skill</a></p>
+<p>它把文章、观点或产品内容转换成小红书卡片、公众号封面等社交媒体视觉。对我来说，它不是“画一张图”，而是先把长内容重组为封面、核心观点和连续阅读节奏。</p>
+<p>两个平台都可以安装：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">npx</span><span style="color:#9ECBFF"> skills</span><span style="color:#9ECBFF"> add</span><span style="color:#9ECBFF"> https://github.com/op7418/guizang-social-card-skill</span><span style="color:#79B8FF"> --skill</span><span style="color:#9ECBFF"> guizang-social-card-skill</span></span></code></pre>
+<p>提示词中给出发布平台、画幅、卡片数量、品牌色和原始文案。生成后仍要人工检查文字换行、事实和平台安全区，不能因为图做出来了就直接发布。</p>
+<p><strong>冲突判断：无冲突。</strong> 它与归藏 PPT 共用一些视觉思路，但交付物不同，一个服务社交传播，一个服务演示。两者可以同时安装。</p>
+<h3 id="20-archify专门生成能交付的技术图">20. Archify：专门生成能交付的技术图</h3>
+<p><strong>类型：</strong> 架构图与流程图 Skill
+<strong>平台：</strong> Codex 标准兼容；Claude Code 标准兼容
+<strong>地址：</strong> <a href="https://github.com/tt-a1i/archify">tt-a1i/archify</a></p>
+<p>Archify 专注架构图、工作流、时序图、数据流和生命周期图，输出带明暗主题和导出能力的独立 HTML。与通用网页生成相比，它的边界更窄，反而更稳定：节点、关系、方向和分组是第一优先级。</p>
+<p>全局安装：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">npx</span><span style="color:#9ECBFF"> skills</span><span style="color:#9ECBFF"> add</span><span style="color:#9ECBFF"> tt-a1i/archify</span><span style="color:#79B8FF"> -g</span></span></code></pre>
+<p>也可以直接指定平台体验：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">npx</span><span style="color:#9ECBFF"> skills</span><span style="color:#9ECBFF"> use</span><span style="color:#9ECBFF"> tt-a1i/archify@archify</span><span style="color:#79B8FF"> --agent</span><span style="color:#9ECBFF"> codex</span></span>
+<span class="line"><span style="color:#B392F0">npx</span><span style="color:#9ECBFF"> skills</span><span style="color:#9ECBFF"> use</span><span style="color:#9ECBFF"> tt-a1i/archify@archify</span><span style="color:#79B8FF"> --agent</span><span style="color:#9ECBFF"> claude-code</span></span></code></pre>
+<p>使用时先提供对象和关系，再给视觉要求。例如“画出从用户输入、Intent Router、Agent Runtime 到 Memory Store 的数据流”。</p>
+<p><strong>冲突判断：无冲突。</strong> 它与其他设计 Skill 只有表面重叠。Archify 负责技术关系，Frontend Design 负责页面审美，边界明确时可以组合。</p>
+<h2 id="5️⃣-管理文档知识和产品工作">5️⃣ 管理文档、知识和产品工作</h2>
+<h3 id="21-obsidian-skills先让-agent-正确读写-obsidian-文件">21. Obsidian Skills：先让 Agent 正确读写 Obsidian 文件</h3>
+<p><strong>类型：</strong> Obsidian 基础 Skill 集
+<strong>平台：</strong> Codex 官方支持；Claude Code 原生插件
+<strong>地址：</strong> <a href="https://github.com/kepano/obsidian-skills">kepano/obsidian-skills</a></p>
+<p>这是 Obsidian CEO Steph Ango 维护的一组标准 Agent Skills，解决的是基础能力：Obsidian Markdown、Bases、JSON Canvas、Obsidian CLI 和网页正文提取。它不会替你决定知识管理方法，但能避免 Agent 把 Wikilink、Callout、Properties 或 <code>.canvas</code> 写错。</p>
+<p>Claude Code 插件安装：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>/plugin marketplace add kepano/obsidian-skills</span></span>
+<span class="line"><span>/plugin install obsidian@obsidian-skills</span></span></code></pre>
+<p>Codex 和 Claude Code 也都可以通过标准安装器接入：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">npx</span><span style="color:#9ECBFF"> skills</span><span style="color:#9ECBFF"> add</span><span style="color:#9ECBFF"> https://github.com/kepano/obsidian-skills</span></span></code></pre>
+<p>Codex 手动安装时，把仓库的 <code>skills/</code> 中各 Skill 目录复制到 <code>~/.codex/skills</code>。项目级使用则放在具体 Vault 或仓库中，避免所有项目都加载 Obsidian 规则。</p>
+<p><strong>冲突判断：无冲突。</strong> 它提供的是文件格式与工具能力，可以作为 Claude Obsidian 的底层能力。只有当另一套 Skill 也定义了相反的 Markdown 写法时，才会出现规则冲突。</p>
+<h3 id="22-claude-obsidian让-vault-自己生长和维护">22. Claude Obsidian：让 Vault 自己生长和维护</h3>
+<p><strong>类型：</strong> 第二大脑工作流 / Obsidian Vault 模板 / Skill 集
+<strong>平台：</strong> Codex 实验兼容；Claude Code 原生插件
+<strong>地址：</strong> <a href="https://github.com/AgriciDaniel/claude-obsidian">AgriciDaniel/claude-obsidian</a></p>
+<p>Claude Obsidian 不是几个语法 Skill，而是一套完整知识库方法。它会创建索引、实体、概念、来源、热缓存和日志，并提供 <code>/wiki</code>、<code>/save</code>、<code>/autoresearch</code>、<code>/canvas</code>、<code>/think</code> 等工作流。适合从零建立持续增长的第二大脑，不适合直接接管一个已经有严格目录规范的 Vault。</p>
+<p>最完整的方式是克隆为独立 Vault：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">git</span><span style="color:#9ECBFF"> clone</span><span style="color:#9ECBFF"> https://github.com/AgriciDaniel/claude-obsidian</span></span>
+<span class="line"><span style="color:#79B8FF">cd</span><span style="color:#9ECBFF"> claude-obsidian</span></span>
+<span class="line"><span style="color:#B392F0">bash</span><span style="color:#9ECBFF"> bin/setup-vault.sh</span></span></code></pre>
+<p>Claude Code 也可以安装插件：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">claude</span><span style="color:#9ECBFF"> plugin</span><span style="color:#9ECBFF"> marketplace</span><span style="color:#9ECBFF"> add</span><span style="color:#9ECBFF"> AgriciDaniel/claude-obsidian</span></span>
+<span class="line"><span style="color:#B392F0">claude</span><span style="color:#9ECBFF"> plugin</span><span style="color:#9ECBFF"> install</span><span style="color:#9ECBFF"> claude-obsidian@agricidaniel-claude-obsidian</span></span></code></pre>
+<p>Codex 可在克隆后的仓库中读取兼容的 Agent Skills，但官方说明目前是<strong>实验支持</strong>，生产验证仍以 Claude Code 为主。对 Codex 用户，我更建议先在副本 Vault 中测试自然语言调用，不要直接让它重组主知识库。</p>
+<p><strong>冲突判断：规则冲突。</strong> 它与 Obsidian Skills 的基础能力互补，但会对目录、命名、索引和自动写入提出自己的规则。如果现有 Vault 已使用 PARA、Zettelkasten 或自定义结构，先选一个测试目录，确认方法兼容后再扩大范围。</p>
+<h3 id="23-pm-skills按产品工作流组织的插件市场">23. PM Skills：按产品工作流组织的插件市场</h3>
+<p><strong>类型：</strong> 产品管理 Plugin Marketplace / Skill 与命令集合
+<strong>平台：</strong> Codex 原生插件；Claude Code 原生插件
+<strong>地址：</strong> <a href="https://github.com/phuryn/pm-skills">phuryn/pm-skills</a></p>
+<p>PM Skills 把产品工作拆成发现、战略、市场研究、数据分析、增长、上市、执行和 AI 交付等插件。它的优势是完整工作流：<code>/discover</code> 会串起创意、假设、优先级和实验，而不只是给一张模板。</p>
+<p>Claude Code 先添加市场，再按领域安装，不需要九个全部装：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">claude</span><span style="color:#9ECBFF"> plugin</span><span style="color:#9ECBFF"> marketplace</span><span style="color:#9ECBFF"> add</span><span style="color:#9ECBFF"> phuryn/pm-skills</span></span>
+<span class="line"><span style="color:#B392F0">claude</span><span style="color:#9ECBFF"> plugin</span><span style="color:#9ECBFF"> install</span><span style="color:#9ECBFF"> pm-toolkit@pm-skills</span></span>
+<span class="line"><span style="color:#B392F0">claude</span><span style="color:#9ECBFF"> plugin</span><span style="color:#9ECBFF"> install</span><span style="color:#9ECBFF"> pm-product-discovery@pm-skills</span></span>
+<span class="line"><span style="color:#B392F0">claude</span><span style="color:#9ECBFF"> plugin</span><span style="color:#9ECBFF"> install</span><span style="color:#9ECBFF"> pm-execution@pm-skills</span></span></code></pre>
+<p>Codex 也支持同一市场结构：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">codex</span><span style="color:#9ECBFF"> plugin</span><span style="color:#9ECBFF"> marketplace</span><span style="color:#9ECBFF"> add</span><span style="color:#9ECBFF"> phuryn/pm-skills</span></span>
+<span class="line"><span style="color:#B392F0">codex</span><span style="color:#9ECBFF"> plugin</span><span style="color:#9ECBFF"> add</span><span style="color:#9ECBFF"> pm-toolkit@pm-skills</span></span>
+<span class="line"><span style="color:#B392F0">codex</span><span style="color:#9ECBFF"> plugin</span><span style="color:#9ECBFF"> add</span><span style="color:#9ECBFF"> pm-product-discovery@pm-skills</span></span>
+<span class="line"><span style="color:#B392F0">codex</span><span style="color:#9ECBFF"> plugin</span><span style="color:#9ECBFF"> add</span><span style="color:#9ECBFF"> pm-execution@pm-skills</span></span></code></pre>
+<p>Claude Code 可以直接运行 <code>/discover</code>、<code>/write-prd</code> 等命令；Codex 当前不会把这些命令暴露成同名 Slash Command，需要用自然语言描述流程，例如“完成产品发现：生成方案、识别假设、按风险排序，再设计实验，每一步暂停确认”。</p>
+<p><strong>冲突判断：功能重叠。</strong> 与 Product Manager Skills 覆盖大量相同框架。如果两个库都全量安装，模型可能同时触发同名或近义 Skill。选一个作为主产品工作流库，另一个只补缺少的框架。</p>
+<h3 id="24-product-manager-skills更像一本可执行的-pm-方法手册">24. Product Manager Skills：更像一本可执行的 PM 方法手册</h3>
+<p><strong>类型：</strong> 产品管理 Skill 库 / Claude Plugin Marketplace
+<strong>平台：</strong> Codex 官方 ZIP；Claude Code 原生插件
+<strong>地址：</strong> <a href="https://github.com/deanpeters/Product-Manager-Skills">deanpeters/Product-Manager-Skills</a></p>
+<p>这套库强调框架的来龙去脉、适用条件和常见误区，包含 Jobs to be Done、PRD、机会解决方案树、路线图、定价、增长、领导力和 AI 产品能力。与 PM Skills 相比，它更像一组可以单独学习和调用的方法手册。</p>
+<p>Claude Code 可以按 Skill 安装：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>/plugin marketplace add deanpeters/Product-Manager-Skills</span></span>
+<span class="line"><span>/plugin install jobs-to-be-done@pm-skills</span></span>
+<span class="line"><span>/plugin install prd-development@pm-skills</span></span>
+<span class="line"><span>/reload-plugins</span></span></code></pre>
+<p>Codex 官方提供专用包：从 <a href="https://github.com/deanpeters/Product-Manager-Skills/releases/latest">Releases</a> 下载 <code>pm-skills-codex.zip</code>，解压到项目根目录，确认生成：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>.agents/</span></span>
+<span class="line"><span>  skills/</span></span>
+<span class="line"><span>AGENTS.md</span></span></code></pre>
+<p>然后在该项目打开 Codex，直接说“使用 <code>jobs-to-be-done</code> Skill 分析这个客户问题”。它是项目级安装，不会自动污染所有仓库。</p>
+<p><strong>冲突判断：功能重叠。</strong> 与 PM Skills 同时少量安装通常没问题，全量并存则容易重复。想要端到端命令链选 PM Skills；想按一个框架深入学习和执行，Product Manager Skills 更直观。</p>
+<h3 id="25-anthropic-skills官方示例标准参考和文档能力集合">25. Anthropic Skills：官方示例、标准参考和文档能力集合</h3>
+<p><strong>类型：</strong> Anthropic 官方 Agent Skills 示例仓库
+<strong>平台：</strong> Codex 标准兼容；Claude Code 官方插件
+<strong>地址：</strong> <a href="https://github.com/anthropics/skills">anthropics/skills</a></p>
+<p>Anthropic Skills 有三层价值。第一，它提供 DOCX、PDF、PPTX、XLSX 等文档 Skill；第二，它提供 Frontend Design、Skill Creator、MCP Builder 等示例；第三，它本身是理解 Agent Skills 目录结构和写法的参考实现。它是“集合”，不是一个叫 Anthropic Skills 的单一命令。</p>
+<p>Claude Code 添加官方市场后，按包安装：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>/plugin marketplace add anthropics/skills</span></span>
+<span class="line"><span>/plugin install document-skills@anthropic-agent-skills</span></span>
+<span class="line"><span>/plugin install example-skills@anthropic-agent-skills</span></span></code></pre>
+<p>Codex 遵循相同 <code>SKILL.md</code> 标准，可以按需安装整个仓库或某一项：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">npx</span><span style="color:#9ECBFF"> skills</span><span style="color:#9ECBFF"> add</span><span style="color:#9ECBFF"> anthropics/skills</span><span style="color:#79B8FF"> -g</span><span style="color:#79B8FF"> -a</span><span style="color:#9ECBFF"> codex</span></span></code></pre>
+<p>如果只需要一个 Skill，优先使用 <code>--skill</code> 限定，减少全局上下文和触发重叠。还要注意仓库中不同目录的许可证说明并不完全相同，二次分发前应检查对应文件。</p>
+<p><strong>冲突判断：功能重叠。</strong> 仓库本身不会主动接管工作流，风险来自全量安装后与现有 PDF、PPT、前端 Skill 重复。按需安装比“一键全装”更合理。</p>
+<h3 id="26-skill-creator把个人经验变成可复用能力">26. Skill Creator：把个人经验变成可复用能力</h3>
+<p><strong>类型：</strong> Skill 创建与评估工作流
+<strong>平台：</strong> Codex 标准兼容；Claude Code 官方插件
+<strong>地址：</strong> <a href="https://github.com/anthropics/skills/tree/main/skills/skill-creator">anthropics/skills/skills/skill-creator</a></p>
+<p>当现成 Skill 不能覆盖自己的工作方法时，Skill Creator 用来创建、修改、评估和迭代 Skill。它会引导你定义触发条件、工作流、资源文件和测试样例，而不是只生成一个很长的 Prompt。</p>
+<p>Claude Code 安装 <code>example-skills</code> 后已经包含它：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>/plugin marketplace add anthropics/skills</span></span>
+<span class="line"><span>/plugin install example-skills@anthropic-agent-skills</span></span></code></pre>
+<p>Codex 可以单独安装：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">npx</span><span style="color:#9ECBFF"> skills</span><span style="color:#9ECBFF"> add</span><span style="color:#9ECBFF"> anthropics/skills</span><span style="color:#79B8FF"> -g</span><span style="color:#79B8FF"> --skill</span><span style="color:#9ECBFF"> skill-creator</span><span style="color:#79B8FF"> -a</span><span style="color:#9ECBFF"> codex</span></span></code></pre>
+<p>使用时提供一个真实任务、理想输出和失败样例，例如“把我的跨平台网站设计审查流程做成 Codex 与 Claude Code 都能读的 Skill”。越接近真实工作，写出的触发描述和验收样例越可靠。</p>
+<p><strong>冲突判断：规则冲突。</strong> 与其他 Skill 生成器同时存在不会直接报错，但可能采用不同目录、Frontmatter 和评估方法。创建同一个 Skill 时只选一个主工作流，再分别用两端标准审查兼容性。</p>
+<h2 id="6️⃣-codex-与-claude-code-怎么安装">6️⃣ Codex 与 Claude Code 怎么安装</h2>
+<p>看完 26 项，真正需要记住的安装原则只有五条。</p>
+<p><strong>第一，先确认它到底是什么。</strong> Template 要新建项目，App 要单独运行，CLI 要安装二进制，MCP 要写配置，只有 Skill 才应该进入 Skills 目录。把所有 GitHub 仓库都复制到 <code>~/.codex/skills</code>，结果通常是一堆无法加载的文件。</p>
+<p><strong>第二，优先使用项目明确支持的平台入口。</strong> Claude Code 有成熟的 Plugin Marketplace；Codex 同样在逐步提供插件能力，但很多项目仍通过 <code>npx skills</code>、<code>.agents/skills</code>、<code>.codex/skills</code> 或 MCP 接入。所谓“兼容”不一定意味着所有 Slash Command、Hooks 和 UI 都完全一致。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>安装方式</th><th>Codex</th><th>Claude Code</th><th>适合场景</th></tr></thead><tbody><tr><td>平台 Plugin</td><td><code>/plugins</code> 或 <code>codex plugin ...</code></td><td><code>/plugin ...</code> 或 <code>claude plugin ...</code></td><td>项目明确提供原生插件</td></tr><tr><td><code>npx skills</code></td><td>常用</td><td>可用</td><td>标准 <code>SKILL.md</code>、多平台分发</td></tr><tr><td>项目级 Skill</td><td><code>.agents/skills</code>、<code>.codex/skills</code></td><td><code>.claude/skills</code></td><td>只在一个仓库生效</td></tr><tr><td>全局 Skill</td><td><code>~/.codex/skills</code></td><td><code>~/.claude/skills</code></td><td>几乎每个项目都需要</td></tr><tr><td>MCP 安装</td><td><code>codex mcp</code> 或配置文件</td><td><code>claude mcp</code> 或配置文件</td><td>本地 App、外部服务和工具调用</td></tr></tbody></table>
+<p><strong>第三，同一个项目只选一种安装通道。</strong> Plugin、<code>npx skills</code> 和手动复制不是三道都要做的步骤，而是三个替代入口。Last 30 Days 和 ECC 都明确记录过重复安装问题。</p>
+<p><strong>第四，默认先装项目级。</strong> 一个 Obsidian Skill 没必要出现在前端仓库，一个 PM Skill 也没必要在每次修 Bug 时触发。只有确认跨项目高频使用后，再移动到全局目录。</p>
+<p><strong>第五，远程脚本先看再跑。</strong> 最短的命令不一定是最安全的命令。遇到下面这种安装方式：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">curl</span><span style="color:#F97583"> &#x3C;</span><span style="color:#9ECBFF">远程地</span><span style="color:#E1E4E8">址</span><span style="color:#F97583">></span><span style="color:#F97583"> |</span><span style="color:#B392F0"> bash</span></span></code></pre>
+<p>至少先打开脚本地址，确认它会下载什么、修改哪些目录、是否写入全局配置。能用 npm、Homebrew 或 Release 二进制时，我通常优先选择可查看版本和卸载路径的方式。</p>
+<h2 id="7️⃣-同类-skill-安装多个会不会冲突">7️⃣ 同类 Skill 安装多个会不会冲突</h2>
+<p>最后给出我实际采用的判断表。重点不是“能否同时存在”，而是<strong>是否应该同时激活</strong>。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>组合</th><th>冲突级别</th><th>影响</th><th>建议</th></tr></thead><tbody><tr><td>Superpowers + ECC</td><td>规则冲突</td><td>计划、TDD、验证规则重复，流程变长</td><td>选一个主框架，另一个按需调用</td></tr><tr><td>Superpowers + Planning with Files</td><td>规则冲突</td><td>计划文档和停止条件可能不一致</td><td>前者管开发方法，后者只管长任务记忆</td></tr><tr><td>ECC Plugin + ECC full installer</td><td>技术冲突</td><td>Skill、Hooks、命令重复加载</td><td>只选一种安装路径</td></tr><tr><td>Planning with Files 项目 Hooks + 全局 Hooks</td><td>技术冲突</td><td>同一事件收到两次提醒</td><td>只保留项目级或全局其中一个</td></tr><tr><td>Claude HUD + 其他 statusline</td><td>技术冲突</td><td>状态栏被覆盖或重复渲染</td><td>只保留一个主状态栏</td></tr><tr><td>Agent Reach + OpenCLI</td><td>无冲突</td><td>前者路由，后者提供浏览器能力</td><td>推荐组合</td></tr><tr><td>Agent Reach + Last 30 Days</td><td>功能重叠</td><td>都能研究热点，输出侧重点不同</td><td>明确是否需要固定 30 天窗口</td></tr><tr><td>Last 30 Days Plugin + <code>npx skills</code></td><td>技术冲突</td><td>出现重复命令</td><td>同一平台只装一次</td></tr><tr><td>Understand Anything + CodeGraph</td><td>功能重叠</td><td>两份代码索引、额外资源消耗</td><td>大型项目先选一个</td></tr><tr><td>PPT Master + 归藏 PPT</td><td>功能重叠</td><td>同一提示可能触发错误输出格式</td><td>明确写 PPTX 或 HTML</td></tr><tr><td>OfficeCLI + 文档 Skills</td><td>功能重叠</td><td>多条生成 Office 文件的路径</td><td>批处理选 CLI，深度编辑选专用 Skill</td></tr><tr><td>Open Design + HTML Anything</td><td>功能重叠</td><td>两个设计工作台定位接近</td><td>选一个主工作台</td></tr><tr><td>UI UX Pro Max + Frontend Design</td><td>功能重叠</td><td>设计建议可能方向不同</td><td>前者查规范，后者定视觉方向</td></tr><tr><td>Obsidian Skills + Claude Obsidian</td><td>轻度规则重叠</td><td>基础语法兼容，知识库结构由后者接管</td><td>可组合，先在测试 Vault 验证</td></tr><tr><td>PM Skills + Product Manager Skills</td><td>功能重叠</td><td>同名框架、触发重复、上下文增加</td><td>选一个主库，另一个补缺</td></tr><tr><td>Anthropic Skills 全量包 + 专用 Skill</td><td>功能重叠</td><td>文档、前端、Skill 创建能力重复</td><td>使用 <code>--skill</code> 按需安装</td></tr></tbody></table>
+<p>我以前也会把 Skill 数量当成能力数量。装了 30 个，好像 Agent 就有 30 种新本事。真正用久了才发现，<strong>能力不是相加关系，而是路由关系。</strong> 同一句“帮我做个产品方案”，如果五个 Skill 都觉得自己应该介入，模型拿到的不是五倍专业，而是五套优先级。</p>
+<p>现在我的做法是：每一类任务只有一个主 Skill，其他工具必须有明确边界。开发流程由一套框架负责；联网研究区分通用检索和 30 天时效研究；演示按 PPTX 与 HTML 分流；Obsidian 区分文件能力和知识管理方法；产品管理只保留一个主库。</p>
+<p>这样做之后，Agent 反而更稳定。不是因为它知道得更少，而是因为它更清楚什么时候应该使用哪一种能力。</p>
+<p><strong>真正有价值的不是装了多少 Skill，而是每一种能力都有清楚的边界。</strong></p>
+<p><strong>标签：</strong> #AI Agent · #Codex · #Claude Code · #Agent Skills · #效率工具</p> <p class="mt-8"> <a href="/writing/" class="section-link">← 返回文章列表</a> </p> <nav class="article-nav" aria-label="文章导航" style="margin-top:2.5rem;padding-top:2rem;border-top:2px solid var(--color-border-strong);display:grid;grid-template-columns:1fr 1fr;gap:24px" data-astro-cid-mrc262xk><a href="/writing/claude-cream-温暖编辑设计系统搭建实录/" class="article-nav-link" data-direction="prev" data-astro-cid-mrc262xk><span class="article-nav-label" data-astro-cid-mrc262xk>← 上一篇</span><span class="article-nav-title" data-astro-cid-mrc262xk>No. 18: 从零搭一套跨平台设计系统——Claude Cream 心路实录</span></a><span data-astro-cid-mrc262xk></span></nav>  </article>  </main> <footer class="site-footer" data-astro-cid-sz7xmlte> <div class="shell site-footer-inner" data-astro-cid-sz7xmlte> <strong class="site-footer-tagline" data-astro-cid-sz7xmlte>从零思考，<br data-astro-cid-sz7xmlte>为现实构建。</strong> <div class="footer-bottom" data-astro-cid-sz7xmlte> <p class="site-footer-copy" data-astro-cid-sz7xmlte>
+&copy; 2016-2026 Kakarrot Design, All Rights Reserved
+</p> <nav class="site-footer-social" data-astro-cid-sz7xmlte> <a href="https://x.com/Kakarrot_me" target="_blank" rel="noopener noreferrer" class="social-link" data-astro-cid-sz7xmlte> TWITTER </a><a href="https://github.com/kakarrot-dev" target="_blank" rel="noopener noreferrer" class="social-link" data-astro-cid-sz7xmlte> GITHUB </a><a href="https://t.me/kakarrot_me" target="_blank" rel="noopener noreferrer" class="social-link" data-astro-cid-sz7xmlte> TELEGRAM </a><a href="mailto:i@kakarrot.com" target="_blank" rel="noopener noreferrer" class="social-link" data-astro-cid-sz7xmlte> E-MAIL </a> </nav> </div> </div> </footer>  <script type="module">const s=new IntersectionObserver(e=>{e.forEach(r=>{r.isIntersecting&&(r.target.classList.add("visible"),s.unobserve(r.target))})},{threshold:.15});document.querySelectorAll(".reveal").forEach(e=>s.observe(e));</script> </body> </html>  <script type="module">document.addEventListener("DOMContentLoaded",()=>{document.querySelectorAll(".prose .astro-code").forEach(o=>{if(o.parentElement?.classList.contains("code-block-wrap"))return;const r=o.getAttribute("data-language")||"",i=r?r.toUpperCase():"TEXT",n=document.createElement("div");n.className="code-block-wrap";const a=document.createElement("div");a.className="code-block-header";const c=document.createElement("span");c.className="code-lang",c.textContent=i;const e=document.createElement("button");e.className="copy-btn",e.innerHTML='<svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" stroke-width="2" fill="none"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> 复制',e.addEventListener("click",async()=>{const d=o.querySelector("code")?.innerText||o.innerText;try{if(navigator.clipboard&&window.isSecureContext)await navigator.clipboard.writeText(d);else{const t=document.createElement("textarea");t.value=d,t.style.position="fixed",t.style.left="-999999px",document.body.appendChild(t),t.select(),document.execCommand("copy"),document.body.removeChild(t)}e.innerHTML='<svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" stroke-width="2" fill="none"><polyline points="20 6 9 17 4 12"></polyline></svg> 已复制',e.classList.add("copied"),setTimeout(()=>{e.innerHTML='<svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" stroke-width="2" fill="none"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> 复制',e.classList.remove("copied")},2e3)}catch(t){console.error("复制失败",t)}}),a.appendChild(c),a.appendChild(e),n.appendChild(a),o.before(n),n.appendChild(o)})});</script>

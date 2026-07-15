@@ -179,12 +179,13 @@ docs/               构建产物（GitHub Pages 部署目录，勿手改）
 .github/
   workflows/
     deploy.yml      GitHub Actions 自动部署
-docs/superpowers/
+tasks/
+  todo.md           当前任务清单
+  lessons.md        项目经验记录
   specs/            需求规格
   plans/            开发计划
 DESIGN.md           设计系统规范
 README.md           项目说明
-lessons.md          项目经验记录（按需创建）
 ```
 
 规则：
@@ -253,7 +254,7 @@ lessons.md          项目经验记录（按需创建）
 spec 放到：
 
 ```text
-docs/superpowers/specs/
+tasks/specs/
 ```
 
 命名格式：
@@ -317,7 +318,7 @@ spec 不写实现细节，除非实现约束会影响需求边界。
 plan 放到：
 
 ```text
-docs/superpowers/plans/
+tasks/plans/
 ```
 
 命名格式：
@@ -333,7 +334,7 @@ plan 模板：
 
 ## 对应 spec
 
-路径：docs/superpowers/specs/xxx.md
+路径：tasks/specs/xxx.md
 
 ## 已确认需求
 
@@ -361,7 +362,7 @@ plan 模板：
 
 ## 文档同步
 
-说明是否需要更新 README.md、lessons.md 或其他文档。
+说明是否需要更新 README.md、tasks/lessons.md 或其他文档。
 ```
 
 plan 要能执行，不要写泛泛而谈的计划。
@@ -475,12 +476,12 @@ API 变更前必须明确：
 
 ------
 
-## 13. README 与 lessons.md 同步规则
+## 13. README 与 tasks/lessons.md 同步规则
 
 新增功能、修改功能、关键修复后，必须检查：
 
 - README.md
-- lessons.md
+- tasks/lessons.md
 - docs/
 
 ### 13.1 README.md
@@ -505,9 +506,9 @@ API 变更前必须明确：
 - 普通修复流水账
 - 无关想法
 
-### 13.2 lessons.md
+### 13.2 tasks/lessons.md
 
-lessons.md 记录可复用经验。
+tasks/lessons.md 记录可复用经验。
 
 适合写入：
 
@@ -555,7 +556,7 @@ git status
 - 没有密钥、token、.env
 - 没有缓存、构建产物、大文件
 - 验证已运行，或已说明不能运行原因
-- README.md 和 lessons.md 已检查
+- README.md 和 tasks/lessons.md 已检查
 
 commit message 使用：
 
@@ -619,7 +620,7 @@ git rebase
 - 没有无关改动
 - 没有敏感信息泄露
 - README.md 已检查
-- lessons.md 已检查
+- tasks/lessons.md 已检查
 - 如有 plan，plan 状态已更新
 - 已按规则 commit
 - 如允许 push，已 push
@@ -639,7 +640,7 @@ git rebase
 
 文档：
 - README.md：已检查 / 已更新 / 无需更新
-- lessons.md：已检查 / 已更新 / 无需更新
+- tasks/lessons.md：已检查 / 已更新 / 无需更新
 
 Git：
 - commit：xxx

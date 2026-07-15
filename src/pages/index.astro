@@ -85,7 +85,7 @@ const featuredArticles = (await getCollection("writing"))
       </div>
       <div class="grid-3" style={{display: "grid", gridTemplateColumns: "repeat(3, 1fr)"}}>
         {[{step:"01",title:"找到本质问题",desc:"去掉行业惯例和历史包袱，确认用户真正要完成的任务。"},{step:"02",title:"拆解业务系统",desc:"把用户、价值、流程、成本与增长放回同一张地图。"},{step:"03",title:"AI 原生重构",desc:"重新分配人与机器的职责，设计新的产品形态与反馈闭环。"}].map(({step,title,desc},i)=>(
-          <article key={step} class={"reveal reveal-delay-" + (i+1)} style={{minHeight: "400px", padding: "34px 28px", display: "flex", flexDirection: "column", justifyContent: "space-between", borderRight: i < 2 ? "2px solid var(--color-border-strong)" : "none", background: i === 1 ? "var(--color-accent)" : "transparent"}}>
+          <article class={"reveal reveal-delay-" + (i+1)} style={{minHeight: "400px", padding: "34px 28px", display: "flex", flexDirection: "column", justifyContent: "space-between", borderRight: i < 2 ? "2px solid var(--color-border-strong)" : "none", background: i === 1 ? "var(--color-accent)" : "transparent"}}>
             <span style={{font: "700 16px/1 var(--font-mono)", color: i === 1 ? "var(--color-text-primary)" : "var(--color-text-muted)"}}>{step}</span>
             <div>
               <h3 style={{fontSize: "clamp(28px,2.5vw,36px)", lineHeight: 1.05, margin: "0 0 16px", fontWeight: 700}}>{title}</h3>
@@ -105,7 +105,7 @@ const featuredArticles = (await getCollection("writing"))
     </div>
     <div class="grid-2" style={{display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px", padding: "24px"}}>
       {featuredProjects.map((p, i) => (
-        <div key={p.slug} class={"reveal reveal-delay-" + (i+1)}>
+        <div class={"reveal reveal-delay-" + (i+1)}>
           <ProjectCard title={p.data.title} description={p.data.description} topics={p.data.topics} href={`/vibe-coding/${p.slug}/`} />
         </div>
       ))}
@@ -120,7 +120,7 @@ const featuredArticles = (await getCollection("writing"))
     </div>
     <div class="grid-3" style={{display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "24px", padding: "24px"}}>
       {featuredArticles.map((a, i) => (
-        <div key={a.slug} class={"reveal reveal-delay-" + (i+1)}>
+        <div class={"reveal reveal-delay-" + (i+1)}>
           <ProjectCard title={a.data.title} description={a.data.description} topics={a.data.tags} href={`/writing/${a.slug}/`} variant="uniform" />
         </div>
       ))}
