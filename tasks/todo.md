@@ -22,3 +22,4 @@
 - 提示：保留 `document.execCommand` 的 1 条既有弃用 hint，不影响类型检查与构建。
 - 文档：README.md、AGENTS.md、tasks/lessons.md 已同步并去重。
 - 范围：只包含文章、7 个基线类型修复、任务文档和对应构建产物；`.codegraph/` 保持未跟踪且不暂存。
+- Git：主提交 `d1e925c` 已推送至 `codex/blog-codex-claude-skills`，按计划不创建 PR。

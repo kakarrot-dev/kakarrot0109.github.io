@@ -188,9 +188,9 @@ rg -n 'curl.*\|.*bash|wget.*\|.*bash|iwr.*iex|--force|reset --hard|clean -fd' sr
 - [x] 运行 `git status --short`、`git diff --check`，确认无无关修改。
 - [x] 只暂存文章、4 个基线修复文件、AGENTS、README、tasks 与相关 `docs/` 构建产物。
 - [x] 确认 `.codegraph/` 未暂存，且没有密钥、缓存或无关大文件。
-- [ ] 提交：`git commit -m "docs: 新增 Codex 与 Claude Code Skill 使用指南"`。
-- [ ] 推送：`git push -u origin codex/blog-codex-claude-skills`。
-- [ ] 停止，不创建 PR。
+- [x] 提交：`git commit -m "docs: 新增 Codex 与 Claude Code Skill 使用指南"`，主提交 `d1e925c`。
+- [x] 推送：`git push -u origin codex/blog-codex-claude-skills`。
+- [x] 停止，不创建 PR。
 
 ## 验证方式
 
