@@ -10,6 +10,14 @@ featured: true
 draft: false
 ---
 
+<p align="center">
+  <a href="https://github.com/kakarrot-dev/claude-cream">
+    <img src="https://raw.githubusercontent.com/kakarrot-dev/claude-cream/main/img/brand/logo.svg" width="112" alt="Claude Cream Logo">
+  </a>
+</p>
+
+![Claude Cream 项目横幅](https://raw.githubusercontent.com/kakarrot-dev/claude-cream/main/img/brand/banner.svg)
+
 [Claude Cream](https://github.com/kakarrot-dev/claude-cream) 是一个温暖的编辑型设计系统，灵感来自 Claude.com 的视觉语言，采用奶油色画布搭配珊瑚色点缀。
 
 ## 为什么做
@@ -42,3 +50,7 @@ draft: false
 ## 当前状态
 
 亮色主题已趋稳定，暗色主题持续打磨中。MIT 开源许可，欢迎使用和贡献。
+
+---
+
+Made with ☕ + coral by [KAKARROT](https://github.com/kakarrot-dev)
