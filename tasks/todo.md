@@ -23,3 +23,19 @@
 - 文档：README.md、AGENTS.md、tasks/lessons.md 已同步并去重。
 - 范围：只包含文章、7 个基线类型修复、任务文档和对应构建产物；`.codegraph/` 保持未跟踪且不暂存。
 - Git：主提交 `d1e925c` 已推送至 `codex/blog-codex-claude-skills`，按计划不创建 PR。
+
+# Claude Cream 品牌素材与 GitHub 链接修复
+
+- [x] 排查网站与上游仓库的 GitHub 链接
+- [x] 确认方案 A：网站增加品牌素材，上游修复 9 个旧账号链接
+- [x] 编写实施计划
+- [x] 创建两个隔离分支
+- [x] 网站文章增加 Logo、横幅和作者链接
+- [x] 修复上游两份 README
+- [x] 运行文本检查、类型检查、lint 和构建
+- [x] 检查 README.md、tasks/lessons.md 与 Git 范围
+- [ ] 提交并推送两个分支
+
+## Review
+
+- 待完成后补充。
