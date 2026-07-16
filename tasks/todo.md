@@ -34,8 +34,14 @@
 - [x] 修复上游两份 README
 - [x] 运行文本检查、类型检查、lint 和构建
 - [x] 检查 README.md、tasks/lessons.md 与 Git 范围
-- [ ] 提交并推送两个分支
+- [x] 提交并推送两个分支
 
 ## Review
 
-- 待完成后补充。
+- 网站：作品页顶部新增居中 Logo 和横幅，底部新增指向 `kakarrot-dev` 的作者链接。
+- 上游：`README.md` 与 `README.zh-CN.md` 共修复 9 个旧账号链接；旧链接数量为 0。
+- 链接：Logo、横幅、GitHub 账号均返回 HTTP 200。
+- 验证：`npm run check`、`npm run lint`、`npm run build` 均退出码 0；构建生成 95 个页面。
+- 提示：保留 `document.execCommand` 的 1 条既有弃用 hint。
+- 文档：网站 README.md 无需更新；`tasks/lessons.md` 已记录账号迁移检查规则。
+- Git：网站实现提交 `ffdc4d4`、上游提交 `6ea9cc3` 均已推送；按确认范围不创建 PR、不合并主分支。

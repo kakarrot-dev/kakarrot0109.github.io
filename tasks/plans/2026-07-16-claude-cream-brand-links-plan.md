@@ -45,6 +45,6 @@
 ### 任务 3：提交与推送
 
 - [x] 检查两个仓库的 diff，仅包含本次相关文件。
-- [ ] 网站仓库提交并推送 `codex/claude-cream-brand-links`。
+- [x] 网站仓库提交并推送 `codex/claude-cream-brand-links`。
 - [x] 上游仓库提交并推送 `codex/fix-github-links`。
 - [x] 检查 README.md 和 `tasks/lessons.md` 是否需要同步。
