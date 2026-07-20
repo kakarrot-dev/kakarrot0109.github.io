@@ -19,6 +19,7 @@
 - 验证：`npm run check`、`npm run lint`、`npm run build` 均退出码 0；前两项各有 `ProseLayout.astro:304` 的既有 `document.execCommand` 弃用 hint，未产生错误或 warning。构建生成 98 个页面，`docs/writing/claude-code与codex项目规范双轨实践/` 和 `docs/rss.xml` 均包含文章标题。
 - 文档：README.md 不涉及长期命令、架构或配置变化，无需更新；tasks/lessons.md 没有新的可复用教训，无需更新。
 - 范围：源码文章已在基线提交 `dbb169d`；本次仅提交任务记录与 `npm run build` 生成的 `docs/`。未跟踪 `.codegraph/` 为用户既有无关内容，保持不暂存。
+- 审查：最终审查发现构建导致首页和 Vibe Coding 卡片顺序漂移，已按用户选择恢复两个无关生成页面；未修改排序源码。
 
 # Codex 与 Claude Code Skill 使用指南
 
