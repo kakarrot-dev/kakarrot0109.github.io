@@ -6,11 +6,19 @@
 - [x] 编写并自审 spec
 - [x] 用户确认 spec
 - [x] 编写并自审开发 plan
-- [ ] 用户确认开发 plan
-- [ ] 核验当前官方资料
-- [ ] 撰写 `No. 21` 文章
-- [ ] 运行类型检查、lint 和构建
-- [ ] 检查 README.md、tasks/lessons.md 与 Git 范围
+- [x] 用户确认开发 plan
+- [x] 核验当前官方资料
+- [x] 撰写 `No. 21` 文章
+- [x] 运行类型检查、lint 和构建
+- [x] 检查 README.md、tasks/lessons.md 与 Git 范围
+
+## Review
+
+- 文章：`src/content/writing/Claude-Code与Codex项目规范双轨实践.md`，标题为 No. 21。
+- 事实核验：复核 Claude Code 的项目记忆、设置与 Skills 文档，以及 Codex 的 `AGENTS.md`、配置、Skills 与 Rules 文档；文章只将平台差异用于文件职责与发现机制说明。
+- 验证：`npm run check`、`npm run lint`、`npm run build` 均退出码 0；前两项各有 `ProseLayout.astro:304` 的既有 `document.execCommand` 弃用 hint，未产生错误或 warning。构建生成 98 个页面，`docs/writing/claude-code与codex项目规范双轨实践/` 和 `docs/rss.xml` 均包含文章标题。
+- 文档：README.md 不涉及长期命令、架构或配置变化，无需更新；tasks/lessons.md 没有新的可复用教训，无需更新。
+- 范围：源码文章已在基线提交 `dbb169d`；本次仅提交任务记录与 `npm run build` 生成的 `docs/`。未跟踪 `.codegraph/` 为用户既有无关内容，保持不暂存。
 
 # Codex 与 Claude Code Skill 使用指南
 
