@@ -80,7 +80,7 @@ npm run build && git add docs && git commit -m "deploy: 更新内容" && git pus
 
 ## 设计规范
 
-UI 修改遵守 `DESIGN.md`：暖白底色、酸绿强调色（#39ff14）、粗边框 shell 容器布局。
+UI 修改遵守 `DESIGN.md`：暖白底色、苔绿强调色（#467f3f）、粗边框 shell 容器布局。
 
 ## AI Agent 规范
 

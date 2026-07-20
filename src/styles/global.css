@@ -12,8 +12,8 @@
   --color-text-primary: oklch(18% 0.01 260);
   --color-text-secondary: oklch(45% 0.02 260);
   --color-text-muted: oklch(60% 0.02 260);
-  --color-accent: #39ff14;
-  --color-accent-dim: #2ccc10;
+  --color-accent: #467f3f;
+  --color-accent-dim: #35672f;
   --font-sans: "Space Grotesk", "Noto Sans SC", sans-serif;
   --font-mono: "Space Mono", ui-monospace, monospace;
 
