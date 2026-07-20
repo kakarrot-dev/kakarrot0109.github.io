@@ -23,3 +23,6 @@ Thumbs.db
 # Astro
 .astro/
 dist/
+
+# Agent 本地任务与规格（不入库）
+tasks/
