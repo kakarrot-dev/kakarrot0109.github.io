@@ -1,3 +1,17 @@
+# Claude Code 与 Codex 项目规范博客
+
+- [x] 读取原始对照表、现有文章与项目规范
+- [x] 确认个人实践定位、目标读者与核心观点
+- [x] 比较文章结构并确认推荐方案
+- [x] 编写并自审 spec
+- [ ] 用户确认 spec
+- [ ] 编写并自审开发 plan
+- [ ] 用户确认开发 plan
+- [ ] 核验当前官方资料
+- [ ] 撰写 `No. 21` 文章
+- [ ] 运行类型检查、lint 和构建
+- [ ] 检查 README.md、tasks/lessons.md 与 Git 范围
+
 # Codex 与 Claude Code Skill 使用指南
 
 - [x] 读取推荐清单、文章结构与项目规范
