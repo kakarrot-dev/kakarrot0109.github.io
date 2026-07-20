@@ -11,6 +11,8 @@
 - [x] 撰写 `No. 21` 文章
 - [x] 运行类型检查、lint 和构建
 - [x] 检查 README.md、tasks/lessons.md 与 Git 范围
+- [x] 根据反馈恢复核心表格和代码块
+- [x] 同步 spec/plan/lessons
 
 ## Review
 
@@ -20,6 +22,7 @@
 - 文档：README.md 不涉及长期命令、架构或配置变化，无需更新；tasks/lessons.md 没有新的可复用教训，无需更新。
 - 范围：源码文章已在基线提交 `dbb169d`；本次仅提交任务记录与 `npm run build` 生成的 `docs/`。未跟踪 `.codegraph/` 为用户既有无关内容，保持不暂存。
 - 审查：最终审查发现构建导致首页和 Vibe Coding 卡片顺序漂移，已按用户选择恢复两个无关生成页面；未修改排序源码。
+- 修订：根据反馈将文章调整为“个人实践主线 + 可复制配置示例 + 精简对照手册”，固定保留 2 张精简表和 3 个核心代码块；本轮不构建、不修改 `docs/`、不推送。
 
 # Codex 与 Claude Code Skill 使用指南
 

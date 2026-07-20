@@ -2,9 +2,9 @@
 
 > **执行要求：** 实施时必须使用 `superpowers:subagent-driven-development`（推荐）或 `superpowers:executing-plans`，逐项执行并用复选框跟踪。
 
-**目标：** 将原始项目规范对照表整理成一篇以个人实践为主线、事实经过核验的 `No. 21` Writing 博客文章。
+**目标：** 将原始项目规范对照表整理成一篇以个人实践为主线、事实经过核验，并保留精简查阅价值的 `No. 21` Writing 博客文章。
 
-**实现方式：** 先从 Claude Code 与 Codex 当前官方资料建立事实清单，再按“重复维护问题 → 单一事实来源 → 共享与分离边界 → 最小目录 → 维护原则”写成一篇 Markdown 文章。只新增文章和任务记录，不修改 Content Collections schema、页面组件或构建产物源码。
+**实现方式：** 先从 Claude Code 与 Codex 当前官方资料建立事实清单，再按“重复维护问题 → 核心文件对照 → 三层职责 → 可复制入口与加载顺序 → 最小目录 → 维护原则”写成一篇 Markdown 文章。文章保留个人实践主线，并用两张精简表和三个核心代码块恢复查阅价值；不修改 Content Collections schema、页面组件或构建产物源码。
 
 **技术栈：** Astro 5、Astro Content Collections、Markdown、npm。
 
@@ -36,8 +36,8 @@
 ## 文件边界
 
 - 新建：`src/content/writing/Claude-Code与Codex项目规范双轨实践.md`，承载完整文章。
-- 修改：`tasks/todo.md`，跟踪实施状态并记录 Review。
-- 检查但默认不修改：`README.md`、`tasks/lessons.md`。
+- 修改：`tasks/specs/2026-07-20-Claude-Code-Codex-项目规范博客-spec.md`、`tasks/plans/2026-07-20-Claude-Code-Codex-项目规范博客-plan.md`、`tasks/todo.md`、`tasks/lessons.md`，同步反馈、执行状态与复用经验。
+- 检查但本轮不修改：`README.md`。
 - 构建生成：`docs/`，只在执行 `npm run build` 后按项目发布约定检查，不手工编辑。
 
 ### Task 1：建立官方事实清单
@@ -134,8 +134,9 @@
   内容要求：
 
   - 三层分别为项目事实、工作流能力、平台运行配置。
-  - 只保留一张“内容职责与推荐位置”对照表。
-  - 目录树保持最小，只展示 `CLAUDE.md`、`AGENTS.md`、`.claude/`、`.codex/`、`.agents/skills/` 中经核验且与观点相关的部分。
+  - 保留两张精简表：核心文件对照表，以及“内容层 / 典型内容 / 共享边界 / 推荐位置”表。
+  - 保留三个核心代码块：`CLAUDE.md` 薄入口、两端简化加载顺序、双工具推荐目录。
+  - 目录树保持最小，只展示 `CLAUDE.md`、`AGENTS.md`、`.claude/`、`.codex/`、`.agents/skills/` 中经核验且与观点相关的部分；用户配置位置用注释放在项目树之外。
   - 明确“单一事实来源”是维护原则，不把软链接或自动同步脚本写成默认方案。
 
 - [x] **Step 4：完成结尾与标签**
@@ -153,9 +154,11 @@
   ```bash
   rg -n 'No\. 21|1️⃣|2️⃣|3️⃣|4️⃣|5️⃣|6️⃣|#ClaudeCode #Codex #CodingAgent #项目规范' src/content/writing/Claude-Code与Codex项目规范双轨实践.md
   rg -n 'TODO|TBD|待补充|据说|一定|完全兼容' src/content/writing/Claude-Code与Codex项目规范双轨实践.md
+  awk '/^\|[[:space:]]*---/{tables++} END {print tables+0}' src/content/writing/Claude-Code与Codex项目规范双轨实践.md
+  awk '/^```/{fences++} END {print fences/2}' src/content/writing/Claude-Code与Codex项目规范双轨实践.md
   ```
 
-  预期：第一条命令命中标题、六个主体和文末标签；第二条命令无输出。
+  预期：第一条命令命中标题、六个主体和文末标签；第二条命令无输出；表格为 2 张，fenced code block 为 3 个。
 
 ### Task 3：验证、文档检查与 Git 收尾
 
@@ -230,6 +233,64 @@
   运行：`git push -u origin codex/blog-claude-codex-project-rules`
 
   预期：远端分支创建成功；不合并 `master`，不执行强推。
+
+### Task 4：根据用户反馈恢复核心表格与代码块
+
+**文件：**
+
+- 修改：`src/content/writing/Claude-Code与Codex项目规范双轨实践.md`
+- 修改：`tasks/specs/2026-07-20-Claude-Code-Codex-项目规范博客-spec.md`
+- 修改：`tasks/plans/2026-07-20-Claude-Code-Codex-项目规范博客-plan.md`
+- 修改：`tasks/todo.md`
+- 修改：`tasks/lessons.md`
+
+**产出：** 在不复活未核验事实的前提下，将文章调整为“个人实践主线 + 可复制配置示例 + 精简对照手册”。
+
+- [x] **Step 1：执行 RED 内容检查**
+
+  运行：
+
+  ```bash
+  awk '/^\|[[:space:]]*---/{tables++} END {print "markdown_tables=" tables+0}' src/content/writing/Claude-Code与Codex项目规范双轨实践.md
+  awk '/^```/{fences++} END {print "fenced_code_blocks=" fences/2}' src/content/writing/Claude-Code与Codex项目规范双轨实践.md
+  ```
+
+  预期：修改前表格为 1 张、fenced code block 为 1 个，证明反馈尚未满足。
+
+- [x] **Step 2：恢复两张表和三个代码块**
+
+  保留六个 emoji 主体和个人叙事；增加 6 行核心文件对照表，改造三层职责表；依次加入薄入口、加载顺序、推荐目录三个代码块。
+
+- [x] **Step 3：同步任务文档与经验**
+
+  更新 spec、plan、todo；检索 `tasks/lessons.md` 去重后，记录“资料型文章不能为了叙事性删掉核心查阅价值”。
+
+- [x] **Step 4：执行 GREEN 内容与范围检查**
+
+  运行：
+
+  ```bash
+  awk '/^\|[[:space:]]*---/{tables++} END {print "markdown_tables=" tables+0}' src/content/writing/Claude-Code与Codex项目规范双轨实践.md
+  awk '/^```/{fences++} END {print "fenced_code_blocks=" fences/2}' src/content/writing/Claude-Code与Codex项目规范双轨实践.md
+  rg -n '^## [1-6]️⃣|#ClaudeCode #Codex #CodingAgent #项目规范' src/content/writing/Claude-Code与Codex项目规范双轨实践.md
+  rg -n '\.codex/hooks\.json|\[features\][[:space:]]+hooks|\.codex/agents/.*\.toml|Codex.*无原生命令|完全等价|双端原生|无冲突' src/content/writing/Claude-Code与Codex项目规范双轨实践.md
+  git diff --check
+  git status --short
+  ```
+
+  预期：表格为 2 张，fenced code block 为 3 个；六个标题和固定标签存在；禁用事实检索无输出；Git 只包含五个修订文件和既有 `.codegraph/`。
+
+- [x] **Step 5：只暂存修订文件并提交**
+
+  运行：
+
+  ```bash
+  git add src/content/writing/Claude-Code与Codex项目规范双轨实践.md tasks/specs/2026-07-20-Claude-Code-Codex-项目规范博客-spec.md tasks/plans/2026-07-20-Claude-Code-Codex-项目规范博客-plan.md tasks/todo.md tasks/lessons.md
+  git diff --cached --check
+  git commit -m "docs: 恢复项目规范文章查阅内容"
+  ```
+
+  预期：提交仅包含五个指定文件；不构建、不修改 `docs/`、不推送。
 
 ## 回滚方式
 
