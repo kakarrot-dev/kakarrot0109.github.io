@@ -23,6 +23,7 @@
 - 范围：源码文章已在基线提交 `dbb169d`；本次仅提交任务记录与 `npm run build` 生成的 `docs/`。未跟踪 `.codegraph/` 为用户既有无关内容，保持不暂存。
 - 审查：最终审查发现构建导致首页和 Vibe Coding 卡片顺序漂移，已按用户选择恢复两个无关生成页面；未修改排序源码。
 - 修订：根据反馈将文章调整为“个人实践主线 + 可复制配置示例 + 精简对照手册”，固定保留 2 张精简表和 3 个核心代码块；本轮不构建、不修改 `docs/`、不推送。
+- 修订验证：保留 2 张表和 3 个核心代码块后，`npm run check`、`npm run lint`、`npm run build` 均退出码 0；两项诊断均为 0 errors、0 warnings、1 个既有 `document.execCommand` hint。首次 `check` 内容同步曾输出同 slug duplicate id，源文件唯一且后续 lint/build 未复现，按瞬时缓存提示记录。构建后已恢复无关的 `docs/index.html` 与 `docs/vibe-coding/index.html`；文章页（核心文件对照、`@AGENTS.md`、`CODEX_HOME`、`settings.local.json`、最小推荐目录）、Writing 索引、RSS 和 4 个标签页均已确认。
 
 # Codex 与 Claude Code Skill 使用指南
 

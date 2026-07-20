@@ -23,60 +23,130 @@
 <p>真正的风险是：两份文件都开始解释“这个项目是什么”。</p>
 <p>构建命令是项目事实，目录职责是项目事实，不能读取和提交密钥也是项目事实。它们不会因为我换了 Agent 就改变，所以不该各自维护。</p>
 <p>这里的“单一事实来源”是一条维护原则：<strong>同一条项目约定，只选一个权威位置。</strong> 它不等于必须使用软链接，也不等于先写一套自动同步脚本。</p>
+<p>原始资料里有一张很长的功能对照表。我现在只保留最常查的六项，因为两端的文件名即使相似，加载和作用机制也不一定一一对应。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>核心项</th><th>Claude Code</th><th>Codex</th><th>共享边界</th></tr></thead><tbody><tr><td>项目指令入口</td><td><code>CLAUDE.md</code></td><td><code>AGENTS.md</code></td><td>都承载项目指令，但发现机制不同</td></tr><tr><td>本机补充 / 同层候选</td><td><code>CLAUDE.local.md</code> 与同层 <code>CLAUDE.md</code> 一起拼接</td><td><code>AGENTS.override.md</code> 非空时成为同层首选，不再加载同层 <code>AGENTS.md</code></td><td>不是一组可直接互换的“覆盖文件”</td></tr><tr><td>项目设置</td><td><code>.claude/settings.json</code></td><td>受信任项目中的 <code>.codex/config.toml</code></td><td>各自维护，不合并</td></tr><tr><td>用户设置</td><td><code>~/.claude/settings.json</code></td><td><code>~/.codex/config.toml</code>（默认位置）</td><td>位于用户环境，不属于仓库</td></tr><tr><td>项目 Skills</td><td><code>.claude/skills/&#x3C;name>/SKILL.md</code></td><td><code>.agents/skills/&#x3C;name>/SKILL.md</code></td><td>可共享方法语义，加载路径分别适配</td></tr><tr><td>Rules</td><td><code>.claude/rules/*.md</code></td><td><code>.codex/rules/*.rules</code>（实验性，以当前版本为准）</td><td>前者是项目指令，后者控制 sandbox 外命令，不是对应物</td></tr></tbody></table>
+<p>这张表只用来定位文件，不用来证明两套工具能力对等。<a href="https://code.claude.com/docs/en/memory">Claude Code 项目记忆文档</a> <a href="https://code.claude.com/docs/en/settings">Claude Code 设置文档</a> <a href="https://code.claude.com/docs/en/skills">Claude Code Skills 文档</a> <a href="https://learn.chatgpt.com/docs/agent-configuration/agents-md">Codex <code>AGENTS.md</code> 文档</a> <a href="https://learn.chatgpt.com/docs/config-file/config-basic">Codex 配置文档</a> <a href="https://learn.chatgpt.com/docs/build-skills">Codex Skills 文档</a> <a href="https://learn.chatgpt.com/docs/agent-configuration/rules">Codex Rules 文档</a></p>
 <h2 id="2️⃣-先把内容分成三层">2️⃣ 先把内容分成三层</h2>
 <p>我不再先问“这句话写进哪个文件”，而是先判断它属于哪一层。</p>
 <p><strong>第一层是项目事实。</strong> 包括技术栈、常用命令、目录职责、编码约定、验证方式、安全边界和 Git 流程。这一层回答的是：这个项目如何正确地工作。</p>
 <p><strong>第二层是工作流能力。</strong> 比如某类任务要如何调研、规划、实现或验证。这些能力可以由 Skill 承载，但路径和触发方式由平台决定。</p>
 <p><strong>第三层是平台运行配置。</strong> 模型、审批、sandbox、MCP、本机偏好和平台自身的权限设置，都应该留在各自平台的配置层。</p>
 <p>这三层拆开后，“共享”就不再意味着两个目录完全一样。共享的是不变的项目语义；分开的是平台如何读取它、配置它和调用它。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>内容层</th><th>典型内容</th><th>共享边界</th><th>推荐位置</th></tr></thead><tbody><tr><td>项目事实</td><td>技术栈、命令、目录、安全、验证、Git 约定</td><td>同一语义只维护一份</td><td><code>AGENTS.md</code> 作为权威来源，<code>CLAUDE.md</code> 只负责导入和少量平台说明</td></tr><tr><td>工作流能力</td><td>专项调研、写作、调试、验证流程</td><td>共享方法，分别适配路径与触发方式</td><td>Claude 放 <code>.claude/skills/&#x3C;name>/SKILL.md</code>；Codex 放 <code>.agents/skills/&#x3C;name>/SKILL.md</code></td></tr><tr><td>平台运行配置</td><td>权限、MCP、模型、审批、sandbox、本机偏好</td><td>不共享</td><td>Claude 使用 settings 层；Codex 使用 config 层</td></tr></tbody></table>
 <h2 id="3️⃣-哪些内容共享哪些必须分开">3️⃣ 哪些内容共享，哪些必须分开</h2>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<table><thead><tr><th>内容层</th><th>典型内容</th><th>是否共享</th><th>推荐位置</th></tr></thead><tbody><tr><td>项目事实</td><td>技术栈、命令、目录、安全、验证、Git 约定</td><td>是</td><td><code>AGENTS.md</code> 作为权威来源，<code>CLAUDE.md</code> 只导入并补充 Claude 入口说明</td></tr><tr><td>工作流能力</td><td>专项调研、写作、调试、验证流程</td><td>共享语义，分开适配</td><td>Claude 项目 Skill 放在 <code>.claude/skills/&#x3C;name>/SKILL.md</code>；Codex 项目 Skill 放在 <code>.agents/skills/&#x3C;name>/SKILL.md</code></td></tr><tr><td>平台运行配置</td><td>权限、MCP、模型、审批、sandbox、本机偏好</td><td>否</td><td>Claude 放在 <code>.claude/settings.json</code> 或本机设置；Codex 放在 <code>.codex/config.toml</code> 或用户配置</td></tr></tbody></table>
 <p>我把 <code>AGENTS.md</code> 选为项目事实的权威来源，不是因为 Claude Code 会自动读它。事实正好相反：Claude Code 不会自动读取 <code>AGENTS.md</code>。官方支持在 <code>CLAUDE.md</code> 中用 <code>@AGENTS.md</code> 显式导入，也支持让 <code>CLAUDE.md</code> 成为指向它的符号链接。我选显式导入，只是因为这个入口更容易被人读懂，不是因为它是唯一方式。<a href="https://code.claude.com/docs/en/memory">Claude Code 项目记忆文档</a></p>
+<p>因此，我的 <code>CLAUDE.md</code> 只保留一个薄入口：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span># CLAUDE.md</span></span>
+<span class="line"><span># 本文推荐的显式导入方式，不是官方唯一方案</span></span>
+<span class="line"><span>@AGENTS.md</span></span></code></pre>
 <p>Claude Code 发现的 <code>CLAUDE.md</code> 和 <code>CLAUDE.local.md</code> 会被拼接进上下文，后者不是同目录主文件的机械替换。Codex 则会在每一层按 <code>AGENTS.override.md</code>、<code>AGENTS.md</code> 和回退名的顺序，选择第一个非空文件，再把各层内容从根目录向当前目录拼接。这两种机制不同，所以我不会把 <code>CLAUDE.local.md</code> 和 <code>AGENTS.override.md</code> 当成一组对应物。<a href="https://code.claude.com/docs/en/memory">Claude Code 项目记忆文档</a> <a href="https://learn.chatgpt.com/docs/agent-configuration/agents-md">Codex <code>AGENTS.md</code> 文档</a></p>
+<p>把两套简化顺序并排看，差异更清楚：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>Claude Code（多层拼接）</span></span>
+<span class="line"><span>  用户级 ~/.claude/CLAUDE.md</span></span>
+<span class="line"><span>  → 项目根到当前目录沿途发现的 CLAUDE.md / CLAUDE.local.md</span></span>
+<span class="line"><span>  → 同目录内 CLAUDE.local.md 排在 CLAUDE.md 之后</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>Codex（同层选一个，再跨层拼接）</span></span>
+<span class="line"><span>  Codex home（默认 ~/.codex，可由 CODEX_HOME 改变）</span></span>
+<span class="line"><span>  → 每层依次检查 AGENTS.override.md、AGENTS.md、配置的回退名</span></span>
+<span class="line"><span>  → 每层只取第一个非空候选</span></span>
+<span class="line"><span>  → 项目根到当前目录的各层命中内容按顺序拼接</span></span></code></pre>
 <p>配置层也是同样。Claude 的 <code>.claude/settings.json</code> 用于可提交的项目设置，<code>.claude/settings.local.json</code> 用于不提交的本机项目设置，普通同键设置中本地层优先级更高。Codex 的用户配置默认在 <code>~/.codex/config.toml</code>，项目的 <code>.codex/config.toml</code> 只会在项目受信任时加载。这些都是平台运行边界，强行合并反而会隐藏差异。<a href="https://code.claude.com/docs/en/settings">Claude Code 设置文档</a> <a href="https://learn.chatgpt.com/docs/config-file/config-basic">Codex 配置文档</a></p>
 <h2 id="4️⃣-我最终采用的最小目录">4️⃣ 我最终采用的最小目录</h2>
 <p>我最终保留的骨架很小：</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>.</span></span>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>your-project/</span></span>
 <span class="line"><span>├── AGENTS.md</span></span>
 <span class="line"><span>├── CLAUDE.md</span></span>
 <span class="line"><span>├── .claude/</span></span>
 <span class="line"><span>│   ├── settings.json</span></span>
+<span class="line"><span>│   ├── settings.local.json  # 本机项目设置，不提交</span></span>
 <span class="line"><span>│   └── skills/&#x3C;name>/SKILL.md</span></span>
 <span class="line"><span>├── .codex/</span></span>
 <span class="line"><span>│   └── config.toml</span></span>
 <span class="line"><span>└── .agents/skills/</span></span>
-<span class="line"><span>    └── &#x3C;name>/SKILL.md</span></span></code></pre>
+<span class="line"><span>    └── &#x3C;name>/SKILL.md</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span># 用户配置不在仓库目录中：</span></span>
+<span class="line"><span># Claude Code：~/.claude/settings.json</span></span>
+<span class="line"><span># Codex：~/.codex/config.toml（默认；Codex home 可由 CODEX_HOME 改变）</span></span></code></pre>
 <p><code>AGENTS.md</code> 写完整的项目规范。<code>CLAUDE.md</code> 作为 Claude Code 的薄入口，显式导入 <code>@AGENTS.md</code>，只在必要时补充 Claude 专属的入口说明。</p>
-<p><code>.claude/</code> 和 <code>.codex/</code> 不是两份项目手册，而是两个平台的适配层。项目 Skill 也按各自的正式路径放置：Claude 使用 <code>.claude/skills/&#x3C;name>/SKILL.md</code>，Codex 使用 <code>.agents/skills/&#x3C;name>/SKILL.md</code>。Codex 的用户级 Skill 路径是 <code>~/.agents/skills</code>，不是 <code>~/.codex/skills</code>。<a href="https://code.claude.com/docs/en/skills">Claude Code Skills 文档</a> <a href="https://learn.chatgpt.com/docs/build-skills">Codex Skills 文档</a></p>
+<p><code>.claude/</code> 和 <code>.codex/</code> 不是两份项目手册，而是两个平台的适配层。项目 Skill 也按各自的正式路径放置：Claude 使用 <code>.claude/skills/&#x3C;name>/SKILL.md</code>，Codex 使用 <code>.agents/skills/&#x3C;name>/SKILL.md</code>，Codex 的用户级 Skill 路径是 <code>~/.agents/skills</code>。<a href="https://code.claude.com/docs/en/skills">Claude Code Skills 文档</a> <a href="https://learn.chatgpt.com/docs/build-skills">Codex Skills 文档</a></p>
 <p>这个目录没有解决“如何让两端共用同一份 Skill”的所有问题，但它先解决了更基础的问题：什么是项目事实，什么是平台适配。只有这个边界稳定后，才值得评估软链接、安装工具或同步脚本。</p>
 <h2 id="5️⃣-一条规则应该放在哪里">5️⃣ 一条规则应该放在哪里</h2>
 <p>我现在用三个问题来判断。</p>
