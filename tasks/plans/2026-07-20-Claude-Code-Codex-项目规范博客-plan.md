@@ -290,7 +290,76 @@
   git commit -m "docs: 恢复项目规范文章查阅内容"
   ```
 
-  预期：提交仅包含五个指定文件；不构建、不修改 `docs/`、不推送。
+  Task 4 阶段边界：提交仅包含五个指定文件；本阶段不构建、不修改 `docs/`、不推送。后续验证、构建产物更新和推送记录见 Task 5。
+
+### Task 5：修订后验证与发布收尾
+
+> **后续授权说明：** Task 5 是 Task 4 完成后追加确认的发布收尾；Task 4 的“不构建、不修改 `docs/`、不推送”只约束该阶段。全局“不修改 `docs/` 下的构建产物”在本阶段继续约束手工编辑，但允许通过 `npm run build` 更新相关页面，并恢复无关生成变化。
+
+**文件：**
+
+- 构建更新：`docs/writing/claude-code与codex项目规范双轨实践/index.html`
+- 恢复无关变化：`docs/index.html`、`docs/vibe-coding/index.html`
+- 执行记录：`tasks/todo.md`
+
+**产出：** 重新验证修订后的文章，更新 No. 21 详情页构建产物，隔离无关排序变化并推送当前分支。
+
+- [x] **Step 1：重新运行类型检查并核对瞬时提示**
+
+  运行：
+
+  ```bash
+  npm run check
+  rg -l '^title: "No\. 21:' src/content/writing
+  ```
+
+  结果：`npm run check` 退出码 0，为 0 errors、0 warnings、1 个既有 `document.execCommand` hint。首次内容同步出现同 slug duplicate id 提示；检索确认源文件唯一，后续 lint 与 build 未复现，因此按瞬时缓存提示记录。
+
+- [x] **Step 2：重新运行 lint 与构建**
+
+  运行：
+
+  ```bash
+  npm run lint
+  npm run build
+  ```
+
+  结果：两条命令均退出码 0；lint 为 0 errors、0 warnings、1 个既有 hint，构建生成 98 个页面。
+
+- [x] **Step 3：按用户方案 A 恢复两个无关页面**
+
+  运行：
+
+  ```bash
+  git restore docs/index.html docs/vibe-coding/index.html
+  git diff --name-only
+  ```
+
+  结果：恢复首页与 Vibe Coding 列表的无关排序变化，只保留 No. 21 详情页及任务记录相关差异。
+
+- [x] **Step 4：核对构建页证据**
+
+  运行：
+
+  ```bash
+  rg -n '核心文件对照|@AGENTS\.md|CODEX_HOME|settings\.local\.json|我最终采用的最小目录' docs/writing/claude-code与codex项目规范双轨实践/index.html
+  rg -l '一套项目，两套 Agent' docs/writing/index.html docs/rss.xml 'docs/writing/tags/Claude Code/index.html' 'docs/writing/tags/Codex/index.html' 'docs/writing/tags/Coding Agent/index.html' 'docs/writing/tags/项目规范/index.html'
+  ```
+
+  结果：No. 21 详情页包含核心对照、薄入口、加载顺序和推荐目录；Writing 索引、RSS 与 4 个标签页均保留文章入口。
+
+- [x] **Step 5：提交构建产物并推送分支**
+
+  运行：
+
+  ```bash
+  git add docs/writing/claude-code与codex项目规范双轨实践/index.html tasks/todo.md
+  git diff --cached --check
+  git commit -m "docs: 更新项目规范文章构建产物"
+  git push
+  ```
+
+  结果：提交 `9af3bb6` 已创建，远端 `origin/codex/blog-claude-codex-project-rules` 已更新到该提交；未合并 `master`，未强推。
 
 ## 回滚方式
 

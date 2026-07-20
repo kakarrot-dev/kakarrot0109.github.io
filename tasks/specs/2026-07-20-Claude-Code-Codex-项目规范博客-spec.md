@@ -82,5 +82,6 @@
 - Markdown 表格总数固定为 2 张，fenced code block 总数固定为 3 个；保留查阅价值，但不逐段复刻原始手册。
 - 只保留经当前官方资料核验的版本敏感事实，并附必要来源链接。
 - 文末标签与 frontmatter 一致。
-- 初稿已通过 `npm run check`、`npm run lint`、`npm run build`；本轮内容修订使用静态计数、禁用事实检索、`git diff --check` 和范围检查验证，不重新构建 `docs/`。
-- 检查 README.md 与 `tasks/lessons.md` 是否需要同步，不直接编辑 `docs/` 构建产物。
+- 内容修订后重新运行 `npm run check`、`npm run lint`、`npm run build`，并更新 No. 21 详情页构建产物；首次 `check` 出现的同 slug duplicate id 瞬时提示需结合源文件唯一性和后续检查结果核对。
+- 构建产生的首页与 Vibe Coding 无关排序变化按用户确认的方案 A 恢复，只保留 No. 21 详情页的相关构建更新。
+- 检查 README.md 与 `tasks/lessons.md` 是否需要同步，不手工编辑 `docs/` 构建产物；相关构建产物和任务记录已提交，当前分支已正常推送。
