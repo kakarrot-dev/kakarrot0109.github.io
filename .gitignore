@@ -3,6 +3,7 @@ node_modules/
 
 # Superpowers brainstorming workspace
 .superpowers/
+.worktrees/
 
 # Generated files
 db.json
