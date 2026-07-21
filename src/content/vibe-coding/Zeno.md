@@ -7,7 +7,7 @@ topics:
   - "Tauri"
   - "桌面应用"
 featured: true
-draft: false
+draft: true
 ---
 
 Zeno 是一个本地优先的桌面 AI 工作台。

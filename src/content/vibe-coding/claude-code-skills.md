@@ -7,7 +7,7 @@ topics:
   - "AI Agent"
   - "工作流"
 featured: true
-draft: false
+draft: true
 ---
 
 一套覆盖 AI 内容创作、知识库管理、产品开发、技术调研和文档生成等场景的 Claude Code Skills 集合。
