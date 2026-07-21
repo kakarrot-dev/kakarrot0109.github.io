@@ -1,35 +1,44 @@
 ---
-title: "kakarrot.com — AI 产品经理品牌网站"
-description: "从老 Hexo 博客迁移到 Astro 的品牌站点：Content Collections 管理文章/项目/实验，Shell 容器布局，酸绿色强调，纯静态零 JS 构建"
+title: "kakarrot.com — 把个人品牌做成一个持续迭代的产品"
+description: "从 Hexo 迁移到 Astro，以结构化内容、编辑杂志式视觉和纯静态部署，承载 AI 产品经理的思考、案例与作品"
 publishedAt: 2026-07-06
 topics:
   - "Astro"
-  - "Tailwind"
+  - "内容产品"
   - "个人品牌"
   - "静态站"
 featured: true
 draft: false
 ---
 
-## 关于这个网站
+kakarrot.com 是我的个人品牌网站，也是我持续迭代的一个 Vibe Coding 项目。它承载 AI 产品经理的思考、写作与作品，让零散的实践不只停留在代码仓库或聊天记录里，而是形成一个可以长期积累、对外表达的内容产品。
 
-个人网站 / 技术博客 — AI 产品经理的思考、写作与作品展示。
+## 为什么重做
 
-这是我从老旧的 Hexo 博客迁移到 Astro 的完全重写版。为什么迁移？因为我需要一个更能代表自己的品牌站点，而不是套用主题的通用博客。
+这个网站最初建立在 Hexo 上。它能发布文章，但通用博客主题越来越难准确表达我是谁、在做什么，也无法清晰区分观点文章、正式项目和快速实验。
 
-设计上追求一种介于"电子杂志"和"访谈记录"之间的质感：暖白底色、酸绿强调、粗边框容器，用 Space Grotesk 和 Space Mono 搭建字体层次。
+我决定用 Astro 完全重写，不是为了追逐新框架，而是为了重新设计内容结构和品牌体验：访客进入网站后，应该能快速看到我的关注方向、产品判断和真实作品，而不需要先理解一套博客分类体系。
 
-## 设计决策
+## 关键产品决策
 
-- **Astro 5** — 静态站的首选，Content Collections 让 Markdown 内容管理有了 schema 约束
-- **Tailwind CSS 4** — 配合自研全局样式，不用 UI 库
-- **纯静态无 JS 运行时** — 不依赖 React/Vue，页面加载就是最终状态
-- **GitHub Pages + Actions** — push 即部署
+- **内容先结构化** — Astro Content Collections 为 Writing、Projects 和 Vibe Coding 提供明确 schema，让 Markdown 既保持写作自由，也拥有稳定的数据边界
+- **三类内容承担不同任务** — Writing 沉淀观点和方法，Projects 展示正式案例，Vibe Coding 记录快速构建与持续实践
+- **视觉服务个人表达** — 暖白底色、苔绿色强调、粗边框 Shell 和编辑杂志式排版，共同形成克制但有辨识度的品牌语言
+- **保持纯静态** — 页面不依赖 React 或 Vue 运行时，没有后端和数据库，构建结果就是访客最终看到的页面
+- **让发布成为日常动作** — master 分支通过 GitHub Actions 构建并部署到 GitHub Pages，内容更新不需要额外后台
 
-## 技术架构
+## 从博客到内容产品
 
-Astro Content Collections 管理三类内容（Writing / Projects / Vibe Coding），构建产物输出到 `docs/` 用于 GitHub Pages。站点本身纯静态，无后端、无数据库、无评论系统。
+我把网站看成一套持续运转的表达系统，而不是一次性完成的主页。文章、项目和实验可以互相补充：一篇方法论能够链接到真实项目，一个 Vibe Coding 实验也可能沉淀为更完整的案例或文章。
+
+网站本身同样接受这种迭代。内容结构、设计令牌、组件和 Agent 协作规范都保存在仓库中，每次优化既改变站点，也成为我实践 AI 协作产品开发的一部分。
+
+## 项目价值
+
+它为分散在不同仓库和笔记中的工作提供了一个统一出口，也迫使我把“做过什么”进一步整理为“为什么做、如何判断、产生了什么价值”。这种整理本身就是个人品牌最重要的基础设施。
 
 ## 当前状态
 
-已上线运行（https://kakarrot.com），内容持续更新中。
+网站已上线运行，内容和展示方式持续更新。当前保持纯静态、无后台、无评论系统，把精力集中在作品、写作和清晰表达上。
+
+[访问 kakarrot.com](https://kakarrot.com) · [查看 GitHub 仓库](https://github.com/kakarrot-dev/kakarrot0109.github.io)

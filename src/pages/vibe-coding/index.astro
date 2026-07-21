@@ -3,9 +3,24 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import ProjectCard from "@/components/ProjectCard.astro";
 import { getCollection } from "astro:content";
 
-const items = (await getCollection("vibe-coding"))
-  .filter((p) => !p.data.draft)
-  .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
+const orderedSlugs = [
+  "wukong",
+  "kakarrot-website",
+  "claude-cream",
+  "obsidian-wiki",
+  "pm-ai-agent-book",
+  "tampermonkey",
+] as const;
+
+const publishedItems = (await getCollection("vibe-coding")).filter((item) => !item.data.draft);
+const itemsBySlug = new Map(publishedItems.map((item) => [item.slug, item]));
+const items = orderedSlugs.map((slug) => {
+  const item = itemsBySlug.get(slug);
+  if (!item) {
+    throw new Error(`Vibe Coding 项目缺失或未发布：${slug}`);
+  }
+  return item;
+});
 ---
 
 <BaseLayout title="Vibe Coding" description="AI 协作构建的产品与实验" canonical="/vibe-coding/" shell>
