@@ -31,13 +31,6 @@ draft: false
 - **中文优先** — 正文使用 PingFang SC 系统字体，代码使用 JetBrains Mono
 - **单一真源** — 以 `tokens/tokens.json` 统一管理颜色、排版、间距、圆角和语法高亮
 
-## 截图展示
-
-![Typora 亮色主题](https://raw.githubusercontent.com/kakarrot-dev/claude-cream/main/img/showcase/typora-1.png)
-![Typora 暗色主题](https://raw.githubusercontent.com/kakarrot-dev/claude-cream/main/img/showcase/typora-2.png)
-![Obsidian 亮色主题](https://raw.githubusercontent.com/kakarrot-dev/claude-cream/main/img/showcase/obsidian-1.png)
-![Obsidian 暗色主题](https://raw.githubusercontent.com/kakarrot-dev/claude-cream/main/img/showcase/obsidian-2.png)
-
 ## 覆盖平台
 
 - **Typora** — Light + Dark 双主题
