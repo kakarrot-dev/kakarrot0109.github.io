@@ -1,5 +1,5 @@
 ---
-title: "我砍掉了 Agent 的“自我进化”：一次关于 Skill 的产品判断修正"
+title: "No. 22: 我砍掉了 Agent 的“自我进化”：一次关于 Skill 的产品判断修正"
 description: "从自动改写 Skill 到人工维护 Skill：个人 Agent 可以积累经验，但未经稳定验证的经验，不该自动获得长期指令权。"
 publishedAt: 2026-07-21
 tags:
