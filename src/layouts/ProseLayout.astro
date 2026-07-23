@@ -210,6 +210,25 @@ const {
     margin: 1.5rem 0;
     border: 1px solid var(--color-border);
   }
+  .prose .book-cover-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    margin: 2rem 0 2.5rem;
+  }
+  .prose .book-cover-grid a {
+    display: block;
+  }
+  .prose .book-cover-grid img {
+    display: block;
+    width: 100%;
+    margin: 0;
+    transition: transform 180ms ease, box-shadow 180ms ease;
+  }
+  .prose .book-cover-grid a:hover img {
+    transform: translateY(-3px);
+    box-shadow: 6px 6px 0 var(--color-border);
+  }
 
   /* ——— 链接 ——— */
   .prose a {
@@ -260,6 +279,7 @@ const {
     .prose h3 { font-size: 1.2rem; }
     .prose pre { padding: 1rem; font-size: 0.8125rem; }
     .prose table { font-size: 0.8125rem; }
+    .prose .book-cover-grid { gap: 0.75rem; }
   }
 </style>
 
