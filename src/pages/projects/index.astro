@@ -19,7 +19,7 @@ const projects = (await getCollection("projects"))
   <div class="grid-2" style={{display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px", padding: "24px"}}>
     {projects.map((p, i) => (
       <div class={"reveal reveal-delay-" + ((i % 2) + 1)}>
-        <ProjectCard title={p.data.title} description={p.data.description} topics={p.data.topics} href={`/projects/${p.slug}/`} />
+        <ProjectCard title={p.data.title} description={p.data.description} topics={p.data.topics} href={`/projects/${p.id}/`} />
       </div>
     ))}
   </div>

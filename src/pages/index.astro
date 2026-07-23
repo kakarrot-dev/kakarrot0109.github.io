@@ -106,7 +106,7 @@ const featuredArticles = (await getCollection("writing"))
     <div class="grid-2" style={{display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px", padding: "24px"}}>
       {featuredProjects.map((p, i) => (
         <div class={"reveal reveal-delay-" + (i+1)}>
-          <ProjectCard title={p.data.title} description={p.data.description} topics={p.data.topics} href={`/vibe-coding/${p.slug}/`} />
+          <ProjectCard title={p.data.title} description={p.data.description} topics={p.data.topics} href={`/vibe-coding/${p.id}/`} />
         </div>
       ))}
     </div>
@@ -121,7 +121,7 @@ const featuredArticles = (await getCollection("writing"))
     <div class="grid-3" style={{display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "24px", padding: "24px"}}>
       {featuredArticles.map((a, i) => (
         <div class={"reveal reveal-delay-" + (i+1)}>
-          <ProjectCard title={a.data.title} description={a.data.description} topics={a.data.tags} href={`/writing/${a.slug}/`} variant="uniform" />
+          <ProjectCard title={a.data.title} description={a.data.description} topics={a.data.tags} href={`/writing/${a.id}/`} variant="uniform" />
         </div>
       ))}
     </div>

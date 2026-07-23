@@ -1,29 +1,29 @@
 ---
 import ProseLayout from "@/layouts/ProseLayout.astro";
 import ArticleNav from "@/components/ArticleNav.astro";
-import { getCollection } from "astro:content";
+import { getCollection, render } from "astro:content";
 
 export async function getStaticPaths() {
   const articles = await getCollection("writing");
   return articles
     .filter((a) => !a.data.draft)
     .map((a) => ({
-      params: { slug: a.slug },
+      params: { slug: a.id },
       props: { article: a },
     }));
 }
 
 const { article } = Astro.props;
-const { Content } = await article.render();
+const { Content } = await render(article);
 
 const allArticles = (await getCollection("writing"))
   .filter((a) => !a.data.draft)
   .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
 
-const currentIndex = allArticles.findIndex((a) => a.slug === article.slug);
+const currentIndex = allArticles.findIndex((a) => a.id === article.id);
 const prevArticle = allArticles[currentIndex + 1];
 const nextArticle = allArticles[currentIndex - 1];
-const canonical = `/writing/${article.slug}/`;
+const canonical = `/writing/${article.id}/`;
 ---
 
 <ProseLayout
@@ -62,7 +62,7 @@ const canonical = `/writing/${article.slug}/`;
       prevArticle
         ? {
             title: prevArticle.data.title,
-            href: `/writing/${prevArticle.slug}/`,
+            href: `/writing/${prevArticle.id}/`,
           }
         : undefined
     }
@@ -70,7 +70,7 @@ const canonical = `/writing/${article.slug}/`;
       nextArticle
         ? {
             title: nextArticle.data.title,
-            href: `/writing/${nextArticle.slug}/`,
+            href: `/writing/${nextArticle.id}/`,
           }
         : undefined
     }

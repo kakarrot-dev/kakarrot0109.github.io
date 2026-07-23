@@ -1,20 +1,20 @@
 ---
 import ProseLayout from "@/layouts/ProseLayout.astro";
-import { getCollection } from "astro:content";
+import { getCollection, render } from "astro:content";
 
 export async function getStaticPaths() {
   const items = await getCollection("vibe-coding");
   return items
     .filter((p) => !p.data.draft)
     .map((p) => ({
-      params: { slug: p.slug },
+      params: { slug: p.id },
       props: { item: p },
     }));
 }
 
 const { item } = Astro.props;
-const { Content } = await item.render();
-const canonical = `/vibe-coding/${item.slug}/`;
+const { Content } = await render(item);
+const canonical = `/vibe-coding/${item.id}/`;
 ---
 
 <ProseLayout

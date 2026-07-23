@@ -60,7 +60,7 @@ kakarrot.com — KAKARROT'S BLOG
 ### 前端
 
 ```text
-Astro 5 + .astro 组件；内容由 Astro Content Collections（Markdown）管理
+Astro 7 + .astro 组件；内容由 Astro Content Collections（Markdown）管理
 ```
 
 ### 后端
@@ -102,13 +102,13 @@ npm
 ### 部署方式
 
 ```text
-GitHub Pages — 构建产物输出到 docs/，推送 master 分支触发 GitHub Actions 自动部署
+GitHub Pages — 构建产物输出到 docs/，推送 master 分支后由 GitHub Actions 直接部署
 ```
 
 快速发布流程：
 
 ```bash
-npm run build && git add docs && git commit -m "deploy: 更新内容"
+npm run check && npm run build
 git push
 ```
 
@@ -186,12 +186,12 @@ npm run preview
 
 ```text
 src/
+  content.config.ts Content Collections schema 定义
   components/       Astro 组件
   content/          内容集合
     projects/       项目案例（Markdown）
     writing/        博客文章（Markdown）
     vibe-coding/    Vibe Coding 作品（Markdown）
-    config.ts       集合 schema 定义
   layouts/          页面布局（BaseLayout、ProseLayout）
   pages/            路由页面
     index.astro     首页
@@ -241,7 +241,7 @@ README.md           项目说明
 - `tasks/specs/`：已确认需求
 - `tasks/plans/`：已确认实现计划
 - `tasks/lessons.md`：可复用踩坑经验
-- `src/content/config.ts`：Content Collections frontmatter 字段
+- `src/content.config.ts`：Content Collections frontmatter 字段
 
 不存在的文件不需要创建，除非任务确实需要。
 
@@ -747,7 +747,7 @@ git status
 - 当前分支是否正确；默认不在 `main` / `master` / `production` / `release` 上做中大型任务，除非用户明确允许
 - 暂存区是否只包含当前任务相关文件
 - 是否包含密钥、`.env`、缓存或大文件
-- `docs/` 仅作为构建产物提交，不手改后直接提交
+- `docs/` 仅作为构建产物，不手改；部署由 GitHub Actions 重新生成
 - 相关验证是否已经完成
 - `README.md` 和 `tasks/lessons.md` 是否已检查
 - commit message 是否准确描述本次改动
@@ -876,4 +876,4 @@ AI 编写博客文章时遵循以下约定：
 3. 运行 `npm run build` 验证
 4. 推送触发部署
 
-Content Collections frontmatter 字段见 `src/content/config.ts`。
+Content Collections frontmatter 字段见 `src/content.config.ts`。

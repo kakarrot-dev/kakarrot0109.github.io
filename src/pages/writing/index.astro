@@ -46,7 +46,7 @@ const articles = (await getCollection("writing"))
             title={a.data.title}
             description={a.data.description}
             topics={a.data.tags}
-            href={`/writing/${a.slug}/`}
+            href={`/writing/${a.id}/`}
             variant="uniform"
           />
         </div>

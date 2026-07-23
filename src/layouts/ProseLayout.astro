@@ -312,18 +312,7 @@ const {
       copyBtn.addEventListener("click", async () => {
         const code = pre.querySelector("code")?.innerText || pre.innerText;
         try {
-          if (navigator.clipboard && window.isSecureContext) {
-            await navigator.clipboard.writeText(code);
-          } else {
-            const ta = document.createElement("textarea");
-            ta.value = code;
-            ta.style.position = "fixed";
-            ta.style.left = "-999999px";
-            document.body.appendChild(ta);
-            ta.select();
-            document.execCommand("copy");
-            document.body.removeChild(ta);
-          }
+          await navigator.clipboard.writeText(code);
           copyBtn.innerHTML = `<svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" stroke-width="2" fill="none"><polyline points="20 6 9 17 4 12"></polyline></svg> 已复制`;
           copyBtn.classList.add("copied");
           setTimeout(() => {

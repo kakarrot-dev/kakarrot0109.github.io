@@ -14,13 +14,13 @@ export async function GET() {
         title: p.data.title,
         description: p.data.description,
         pubDate: p.data.publishedAt,
-        link: `/writing/${p.slug}/`,
+        link: `/writing/${p.id}/`,
       })),
       ...projects.map((p) => ({
         title: p.data.title,
         description: p.data.description,
         pubDate: p.data.publishedAt,
-        link: `/projects/${p.slug}/`,
+        link: `/projects/${p.id}/`,
       })),
     ].sort((a, b) => b.pubDate.valueOf() - a.pubDate.valueOf()),
   });
