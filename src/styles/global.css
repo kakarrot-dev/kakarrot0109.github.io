@@ -1,5 +1,5 @@
 @import "tailwindcss";
-/* 仅 400：700 全量 CJK 约 1.1MB，首访拖垮样式感知；粗体由系统栈/合成兜底 */
+/* 仅 400：700 全量 CJK 约 1.1MB；文章加粗靠系统中文字体真字重 */
 @import "@fontsource/noto-sans-sc/chinese-simplified-400.css";
 /* 只拉 latin，避免 JetBrains/Syne 全脚本子集把 CSS 撑大 */
 @import "@fontsource/jetbrains-mono/latin-400.css";
@@ -53,7 +53,8 @@ html[data-theme="dark"] {
 }
 
 :root {
-  --font-sans: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", "Segoe UI", system-ui, sans-serif;
+  /* 系统中文字体优先：真·700 粗体；Noto 仅作无系统字体时的回退（避免只载 400 时合成加粗发虚） */
+  --font-sans: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", "Segoe UI", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", "Cascadia Code", Consolas, monospace;
   --font-display: "Syne", var(--font-sans);
 
@@ -1018,7 +1019,16 @@ html.js .reveal-delay-3 { transition-delay: 180ms; }
   padding-left: 1.5rem;
 }
 .prose li { margin-bottom: 0.35rem; }
-.prose strong { color: var(--color-ink); font-weight: 700; }
+.prose strong,
+.prose b {
+  color: var(--color-ink);
+  font-weight: 700;
+}
+html[data-theme="dark"] .prose strong,
+html[data-theme="dark"] .prose b {
+  /* 暗色 body/ink 原本过近，加粗需要更亮一档 */
+  color: #f3f0e6;
+}
 .prose blockquote {
   margin: 1.5rem 0;
   padding: 0.6rem 0 0.6rem 1.1rem;

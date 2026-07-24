@@ -35,15 +35,15 @@
 
 | Token | 栈 | 用途 |
 |---|---|---|
-| `--font-sans` | Noto Sans SC → PingFang SC → Microsoft YaHei → Segoe UI → system-ui | 正文 / UI |
+| `--font-sans` | PingFang SC → Hiragino Sans GB → Microsoft YaHei → Noto Sans SC → Segoe UI → system-ui | 正文 / UI |
 | `--font-mono` | JetBrains Mono → ui-monospace → SF Mono → Cascadia Code → Consolas | 元信息 / 代码 |
 | `--font-display` | Syne → sans | 品牌拉丁（KAKARROT） |
 
-自托管 `@fontsource`；`font-display: swap`。不绑死 PingFang。
+自托管 `@fontsource`（Noto 作无系统中文字体时的回退）；`font-display: swap`。系统中文字体优先，以便文章 `**加粗**` 用到真·700。
 
 加载约束（首访体积）：
 
-- Noto Sans SC 只引 `chinese-simplified-400`（700 全量 CJK ~1.1MB，粗体走合成/系统栈）
+- Noto Sans SC 只引 `chinese-simplified-400`（700 全量 CJK ~1.1MB；粗体优先靠系统字体）
 - JetBrains Mono / Syne 只引 `latin-*` 子集
 - 首页对 Noto 400 woff2 做 `rel=preload`
 
