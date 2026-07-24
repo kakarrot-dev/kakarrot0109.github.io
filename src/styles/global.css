@@ -264,7 +264,7 @@ a:hover {
   color: var(--color-ink);
 }
 .nav-brand:hover { color: var(--color-ink); }
-.nav-brand:hover :global(.brand-logo__word) {
+.nav-brand:hover .brand-logo__word {
   color: var(--color-primary);
 }
 

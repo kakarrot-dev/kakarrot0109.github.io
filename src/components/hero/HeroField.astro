@@ -41,121 +41,95 @@ import SocialIcon from "@/components/SocialIcon.astro";
     if (reduce) {
       /* keep fallback */
     } else {
-      void (async () => {
-        try {
-          const THREE = await import("three");
-          const theme = () =>
-            document.documentElement.getAttribute("data-theme") === "dark"
-              ? { canvas: 0x2d2e2d, primary: 0xe6bf7a, ink: 0xe9e6dc }
-              : { canvas: 0xf5f3e9, primary: 0xb7791f, ink: 0x29271d };
+      const context = canvas.getContext("2d");
+      if (!context) {
+        canvas.hidden = true;
+        fallback?.removeAttribute("hidden");
+      } else {
+        const theme = () =>
+          document.documentElement.getAttribute("data-theme") === "dark"
+            ? { canvas: "#2d2e2d", primary: "#e6bf7a" }
+            : { canvas: "#f5f3e9", primary: "#b7791f" };
+        const points = Array.from({ length: 180 }, () => ({
+          x: Math.random(),
+          y: Math.random(),
+          depth: 0.35 + Math.random() * 0.65,
+          size: 0.6 + Math.random() * 1.4,
+        }));
+        const pointer = { x: 0, y: 0 };
+        const target = { x: 0, y: 0 };
+        let width = 0;
+        let height = 0;
+        let dpr = 1;
+        let raf = 0;
 
-          canvas.hidden = false;
-          if (fallback) fallback.setAttribute("hidden", "");
+        canvas.hidden = false;
+        fallback?.setAttribute("hidden", "");
 
-          const renderer = new THREE.WebGLRenderer({
-            canvas,
-            antialias: true,
-            alpha: true,
-          });
-          renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        const resize = () => {
+          const rect = root.getBoundingClientRect();
+          width = rect.width;
+          height = rect.height;
+          dpr = Math.min(window.devicePixelRatio, 2);
+          canvas.width = Math.round(width * dpr);
+          canvas.height = Math.round(height * dpr);
+          canvas.style.width = `${width}px`;
+          canvas.style.height = `${height}px`;
+          context.setTransform(dpr, 0, 0, dpr, 0, 0);
+        };
 
-          const scene = new THREE.Scene();
-          const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100);
-          camera.position.z = 6;
-
+        const draw = (time: number) => {
+          pointer.x += (target.x - pointer.x) * 0.04;
+          pointer.y += (target.y - pointer.y) * 0.04;
           const colors = theme();
-          scene.background = new THREE.Color(colors.canvas);
+          context.fillStyle = colors.canvas;
+          context.fillRect(0, 0, width, height);
 
-          // sparse points
-          const count = 180;
-          const positions = new Float32Array(count * 3);
-          for (let i = 0; i < count; i++) {
-            positions[i * 3] = (Math.random() - 0.5) * 14;
-            positions[i * 3 + 1] = (Math.random() - 0.5) * 8;
-            positions[i * 3 + 2] = (Math.random() - 0.5) * 4;
+          const gridSize = Math.max(56, width / 24);
+          const gridOffsetX = (pointer.x * 18) % gridSize;
+          const gridOffsetY = (-pointer.y * 12) % gridSize;
+          context.strokeStyle = `${colors.primary}1f`;
+          context.lineWidth = 1;
+          context.beginPath();
+          for (let x = gridOffsetX; x <= width; x += gridSize) {
+            context.moveTo(x, 0);
+            context.lineTo(x, height);
           }
-          const geo = new THREE.BufferGeometry();
-          geo.setAttribute("position", new THREE.BufferAttribute(positions, 3));
-          const mat = new THREE.PointsMaterial({
-            color: colors.primary,
-            size: 0.035,
-            transparent: true,
-            opacity: 0.7,
-            depthWrite: false,
-          });
-          const points = new THREE.Points(geo, mat);
-          scene.add(points);
+          for (let y = gridOffsetY; y <= height; y += gridSize) {
+            context.moveTo(0, y);
+            context.lineTo(width, y);
+          }
+          context.stroke();
 
-          // faint grid
-          const grid = new THREE.GridHelper(16, 24, colors.primary, colors.primary);
-          grid.rotation.x = Math.PI / 2;
-          grid.position.z = -2;
-          const gridMats = Array.isArray(grid.material) ? grid.material : [grid.material];
-          gridMats.forEach((m) => {
-            m.transparent = true;
-            m.opacity = 0.12;
-          });
-          scene.add(grid);
+          context.fillStyle = `${colors.primary}b3`;
+          for (const point of points) {
+            const drift = time * 0.000006 * point.depth;
+            const x =
+              ((point.x + drift) % 1) * width +
+              pointer.x * 22 * point.depth;
+            const y = point.y * height - pointer.y * 14 * point.depth;
+            context.globalAlpha = 0.35 + point.depth * 0.4;
+            context.fillRect(x, y, point.size, point.size);
+          }
+          context.globalAlpha = 1;
+          raf = requestAnimationFrame(draw);
+        };
 
-          let w = 0;
-          let h = 0;
-          const pointer = { x: 0, y: 0 };
-          const target = { x: 0, y: 0 };
+        resize();
+        window.addEventListener("resize", resize);
+        root.addEventListener("pointermove", (event) => {
+          const pointerEvent = event as PointerEvent;
+          const rect = root.getBoundingClientRect();
+          target.x = ((pointerEvent.clientX - rect.left) / rect.width - 0.5) * 2;
+          target.y = ((pointerEvent.clientY - rect.top) / rect.height - 0.5) * 2;
+        });
+        raf = requestAnimationFrame(draw);
 
-          const resize = () => {
-            const rect = root.getBoundingClientRect();
-            w = rect.width;
-            h = rect.height;
-            renderer.setSize(w, h, false);
-            camera.aspect = w / Math.max(h, 1);
-            camera.updateProjectionMatrix();
-          };
-          resize();
-          window.addEventListener("resize", resize);
-
-          root.addEventListener("pointermove", (e) => {
-            const ev = e as PointerEvent;
-            const rect = root.getBoundingClientRect();
-            target.x = ((ev.clientX - rect.left) / rect.width - 0.5) * 2;
-            target.y = ((ev.clientY - rect.top) / rect.height - 0.5) * 2;
-          });
-
-          const syncTheme = () => {
-            const c = theme();
-            scene.background = new THREE.Color(c.canvas);
-            mat.color.setHex(c.primary);
-            gridMats.forEach((m) => {
-              if ("color" in m && m.color) (m.color as InstanceType<typeof THREE.Color>).setHex(c.primary);
-            });
-          };
-          const mo = new MutationObserver(syncTheme);
-          mo.observe(document.documentElement, {
-            attributes: true,
-            attributeFilter: ["data-theme"],
-          });
-
-          let raf = 0;
-          const tick = (t: number) => {
-            pointer.x += (target.x - pointer.x) * 0.04;
-            pointer.y += (target.y - pointer.y) * 0.04;
-            points.rotation.y = t * 0.00005 + pointer.x * 0.12;
-            points.rotation.x = pointer.y * 0.08;
-            grid.position.x = pointer.x * 0.3;
-            grid.position.y = -pointer.y * 0.2;
-            renderer.render(scene, camera);
-            raf = requestAnimationFrame(tick);
-          };
-          raf = requestAnimationFrame(tick);
-
-          document.addEventListener("visibilitychange", () => {
-            if (document.hidden) cancelAnimationFrame(raf);
-            else raf = requestAnimationFrame(tick);
-          });
-        } catch {
-          canvas.hidden = true;
-          fallback?.removeAttribute("hidden");
-        }
-      })();
+        document.addEventListener("visibilitychange", () => {
+          if (document.hidden) cancelAnimationFrame(raf);
+          else raf = requestAnimationFrame(draw);
+        });
+      }
     }
   }
 </script>

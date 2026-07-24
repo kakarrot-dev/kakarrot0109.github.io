@@ -22,5 +22,9 @@ export default defineConfig({
   },
   vite: {
     plugins: [tailwindcss()],
+    build: {
+      // Mermaid 仅在文章包含图表时异步加载，按其实际懒加载边界设置告警阈值。
+      chunkSizeWarningLimit: 700,
+    },
   },
 });
