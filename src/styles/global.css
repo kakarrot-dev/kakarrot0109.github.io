@@ -669,9 +669,9 @@ html[data-theme="dark"] .work-card:hover .work-card__media img {
   to { transform: translate3d(-50%, 0, 0); }
 }
 @media (hover: none), (pointer: coarse) {
-  /* 触控无可靠 hover：封面文案常显；略加速并避免 will-change 层卡死 */
+  /* 触控无可靠 hover：封面文案常显；手机端明显加快，桌面仍 48s */
   .marquee__track {
-    animation-duration: 36s;
+    animation-duration: 24s;
     will-change: auto;
   }
   .marquee .work-card__scrim,
