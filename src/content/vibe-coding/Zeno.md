@@ -6,6 +6,7 @@ topics:
   - "AI Agent"
   - "Tauri"
   - "桌面应用"
+cover: "/images/vibe-coding/Zeno/cover.webp"
 featured: true
 draft: true
 ---

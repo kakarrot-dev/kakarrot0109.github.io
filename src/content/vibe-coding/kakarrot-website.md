@@ -7,6 +7,7 @@ topics:
   - "内容产品"
   - "个人品牌"
   - "静态站"
+cover: "/images/vibe-coding/kakarrot-website/cover.webp"
 featured: true
 draft: false
 ---

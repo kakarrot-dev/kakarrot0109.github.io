@@ -6,6 +6,7 @@ topics:
   - "知识管理"
   - "Obsidian"
   - "AI Agent"
+cover: "/images/vibe-coding/obsidian-wiki/cover.webp"
 featured: true
 draft: false
 ---

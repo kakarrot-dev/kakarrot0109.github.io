@@ -6,6 +6,7 @@ topics:
   - "Tampermonkey"
   - "用户脚本"
   - "效率工具"
+cover: "/images/vibe-coding/tampermonkey/cover.webp"
 featured: true
 draft: false
 ---

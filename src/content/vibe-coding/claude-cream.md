@@ -6,6 +6,7 @@ topics:
   - "Design System"
   - "CSS"
   - "Theme"
+cover: "/images/vibe-coding/claude-cream/cover.webp"
 featured: true
 draft: false
 ---

@@ -6,6 +6,7 @@ topics:
   - "Claude Code"
   - "AI Agent"
   - "工作流"
+cover: "/images/vibe-coding/claude-code-skills/cover.webp"
 featured: true
 draft: true
 ---

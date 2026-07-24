@@ -6,6 +6,7 @@ topics:
   - "AI Agent"
   - "Python"
   - "AI 原生产品"
+cover: "/images/vibe-coding/wukong/cover.webp"
 featured: true
 draft: false
 ---

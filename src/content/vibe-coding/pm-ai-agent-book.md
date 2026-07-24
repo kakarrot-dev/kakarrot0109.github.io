@@ -6,6 +6,7 @@ topics:
   - "AI Agent"
   - "产品方法"
   - "内容创作"
+cover: "/images/vibe-coding/pm-ai-agent-book/cover.webp"
 featured: true
 draft: false
 ---
