@@ -27,11 +27,11 @@
 
 <p align="center">
   <a href="https://kakarrot.com">
-    <img src="./public/images/readme/home.webp" alt="kakarrot.com homepage — Quiet Studio" width="920" />
+    <img src="./public/images/readme/home-themes.webp" alt="kakarrot.com homepage in light and dark themes" width="960" />
   </a>
 </p>
 
-<p align="center"><em>首页：琥珀雾场 Hero · Vibe Coding 封面跑马 · Writing 精选列表</em></p>
+<p align="center"><em>Quiet Studio 首页 · Light / Dark</em></p>
 
 ---
 
