@@ -79,15 +79,16 @@ import SocialIcon from "@/components/SocialIcon.astro";
         };
 
         const draw = (time: number) => {
-          pointer.x += (target.x - pointer.x) * 0.04;
-          pointer.y += (target.y - pointer.y) * 0.04;
+          // 指针跟随：桌面/触控共用，略加快以免「拖泥」
+          pointer.x += (target.x - pointer.x) * 0.08;
+          pointer.y += (target.y - pointer.y) * 0.08;
           const colors = theme();
           context.fillStyle = colors.canvas;
           context.fillRect(0, 0, width, height);
 
           const gridSize = Math.max(56, width / 24);
-          const gridOffsetX = (pointer.x * 18) % gridSize;
-          const gridOffsetY = (-pointer.y * 12) % gridSize;
+          const gridOffsetX = (pointer.x * 24) % gridSize;
+          const gridOffsetY = (-pointer.y * 16) % gridSize;
           context.strokeStyle = `${colors.primary}1f`;
           context.lineWidth = 1;
           context.beginPath();
@@ -103,11 +104,12 @@ import SocialIcon from "@/components/SocialIcon.astro";
 
           context.fillStyle = `${colors.primary}b3`;
           for (const point of points) {
-            const drift = time * 0.000006 * point.depth;
+            // 粒子漂移：约 4× 原速，桌面与 iOS 同一套
+            const drift = time * 0.000024 * point.depth;
             const x =
               ((point.x + drift) % 1) * width +
-              pointer.x * 22 * point.depth;
-            const y = point.y * height - pointer.y * 14 * point.depth;
+              pointer.x * 28 * point.depth;
+            const y = point.y * height - pointer.y * 18 * point.depth;
             context.globalAlpha = 0.35 + point.depth * 0.4;
             context.fillRect(x, y, point.size, point.size);
           }

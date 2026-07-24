@@ -31,8 +31,8 @@ function formatMeta(date: Date, topics?: string[]) {
 >
   <HeroField />
 
-  <section class="section reveal">
-    <div class="container section-head">
+  <section class="section">
+    <div class="container section-head reveal">
       <div class="section-head__left">
         <span class="section-num">01</span>
         <h2 class="section-title">Vibe Coding</h2>
@@ -40,6 +40,7 @@ function formatMeta(date: Date, topics?: string[]) {
       </div>
       <a class="section-link" href="/vibe-coding/">View all →</a>
     </div>
+    {/* 跑马灯不进 .reveal：祖先 filter/transform 会在 iOS 上冻住子级 CSS 动画 */}
     <div class="marquee" aria-label="精选作品横向展示">
       <div class="marquee__track">
         {

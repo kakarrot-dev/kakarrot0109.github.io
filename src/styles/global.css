@@ -1,11 +1,12 @@
 @import "tailwindcss";
+/* 仅 400：700 全量 CJK 约 1.1MB，首访拖垮样式感知；粗体由系统栈/合成兜底 */
 @import "@fontsource/noto-sans-sc/chinese-simplified-400.css";
-@import "@fontsource/noto-sans-sc/chinese-simplified-700.css";
-@import "@fontsource/jetbrains-mono/400.css";
-@import "@fontsource/jetbrains-mono/500.css";
-@import "@fontsource/jetbrains-mono/700.css";
-@import "@fontsource/syne/700.css";
-@import "@fontsource/syne/800.css";
+/* 只拉 latin，避免 JetBrains/Syne 全脚本子集把 CSS 撑大 */
+@import "@fontsource/jetbrains-mono/latin-400.css";
+@import "@fontsource/jetbrains-mono/latin-500.css";
+@import "@fontsource/jetbrains-mono/latin-700.css";
+@import "@fontsource/syne/latin-700.css";
+@import "@fontsource/syne/latin-800.css";
 
 /* ——— Claude Cream 双主题 ——— */
 html[data-theme="light"],
@@ -84,7 +85,7 @@ html[data-theme="dark"] {
 *, *::before, *::after { box-sizing: border-box; }
 
 html {
-  overflow-x: hidden;
+  overflow-x: clip;
   color-scheme: light dark;
   scroll-behavior: smooth;
 }
@@ -125,7 +126,10 @@ a:hover {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
-  .reveal { opacity: 1 !important; filter: none !important; transform: none !important; }
+  html.js .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
 }
 
 /* ——— 布局 ——— */
@@ -661,11 +665,15 @@ html[data-theme="dark"] .work-card:hover .work-card__media img {
   flex: 0 0 min(86vw, 640px);
 }
 @keyframes marquee-x {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-50%, 0, 0); }
 }
 @media (hover: none), (pointer: coarse) {
-  /* 触控无可靠 hover：封面文案常显 */
+  /* 触控无可靠 hover：封面文案常显；略加速并避免 will-change 层卡死 */
+  .marquee__track {
+    animation-duration: 36s;
+    will-change: auto;
+  }
   .marquee .work-card__scrim,
   .marquee .work-card__body {
     opacity: 1;
@@ -796,20 +804,19 @@ html[data-theme="dark"] .work-card:hover .work-card__media img {
 .about-note p:last-child { margin-bottom: 0; }
 
 /* ——— 滚动渐入 ——— */
-.reveal {
+/* 仅 html.js 时隐藏：无 JS / 内联标记前内容可见，避免首访「像没加载 CSS」 */
+html.js .reveal {
   opacity: 0;
-  filter: blur(4px);
   transform: translateY(12px);
-  transition: opacity 500ms var(--ease-out), filter 500ms var(--ease-out), transform 500ms var(--ease-out);
+  transition: opacity 500ms var(--ease-out), transform 500ms var(--ease-out);
 }
-.reveal.visible {
+html.js .reveal.visible {
   opacity: 1;
-  filter: none;
   transform: none;
 }
-.reveal-delay-1 { transition-delay: 60ms; }
-.reveal-delay-2 { transition-delay: 120ms; }
-.reveal-delay-3 { transition-delay: 180ms; }
+html.js .reveal-delay-1 { transition-delay: 60ms; }
+html.js .reveal-delay-2 { transition-delay: 120ms; }
+html.js .reveal-delay-3 { transition-delay: 180ms; }
 
 /* ——— 内容页网格 ——— */
 .prose-layout {

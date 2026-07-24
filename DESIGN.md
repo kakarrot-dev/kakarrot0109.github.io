@@ -41,6 +41,12 @@
 
 自托管 `@fontsource`；`font-display: swap`。不绑死 PingFang。
 
+加载约束（首访体积）：
+
+- Noto Sans SC 只引 `chinese-simplified-400`（700 全量 CJK ~1.1MB，粗体走合成/系统栈）
+- JetBrains Mono / Syne 只引 `latin-*` 子集
+- 首页对 Noto 400 woff2 做 `rel=preload`
+
 字号阶梯：display / title / body / meta。正文行宽约 `65ch`（阅读柱 760px）。
 
 ---
