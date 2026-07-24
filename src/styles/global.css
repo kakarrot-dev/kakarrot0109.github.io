@@ -58,7 +58,8 @@ html[data-theme="dark"] {
   --page-top: 32px;
   --nav-h: 64px;
 
-  --text-display: clamp(48px, 10vw, 96px);
+  /* 下限按窄屏「KAKARROT」全显估算；过大易被 .hero overflow 裁切 */
+  --text-display: clamp(2rem, 11vw, 6rem);
   --text-title: clamp(28px, 4vw, 40px);
   --text-section: clamp(22px, 2.8vw, 32px);
   --text-body: 17px;
@@ -199,8 +200,9 @@ a:hover {
 }
 
 .page-header {
+  /* 与 .page-shell 顶距对称：眉题之上 / 统计之下到分隔线同为 --page-top */
   padding-top: 0;
-  padding-bottom: 40px;
+  padding-bottom: var(--page-top);
   border-bottom: 1px solid var(--color-hairline);
   margin-bottom: 40px;
 }
@@ -454,6 +456,10 @@ html[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
   border-color: var(--color-primary);
   transform: translateY(-2px);
 }
+/* 栏目页常显文案：悬停只缩放图片 + 文字明暗，不抬卡片、不显隐文案 */
+.work-card--always-meta:hover {
+  transform: none;
+}
 .work-card__media {
   position: absolute;
   inset: 0;
@@ -470,6 +476,12 @@ html[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
   display: block;
 }
 .work-card:hover .work-card__media { transform: scale(1.03); }
+.work-card--always-meta:hover .work-card__title {
+  color: color-mix(in oklab, #fff 92%, var(--color-primary));
+}
+.work-card--always-meta:hover .work-card__desc {
+  color: color-mix(in oklab, #fff 90%, transparent);
+}
 
 .work-card__scrim {
   position: absolute;
@@ -615,10 +627,14 @@ html[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
   gap: 20px;
   width: max-content;
   animation: marquee-x 48s linear infinite;
+  will-change: transform;
 }
-.marquee:hover .marquee__track,
-.marquee:focus-within .marquee__track {
-  animation-play-state: paused;
+/* 仅桌面精确指针暂停；触控 sticky :hover / :focus-within 会导致永远停住 */
+@media (hover: hover) and (pointer: fine) {
+  .marquee:hover .marquee__track,
+  .marquee:focus-within .marquee__track {
+    animation-play-state: paused;
+  }
 }
 .marquee__item {
   flex: 0 0 min(86vw, 640px);
@@ -627,11 +643,28 @@ html[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
   from { transform: translateX(0); }
   to { transform: translateX(-50%); }
 }
+@media (hover: none), (pointer: coarse) {
+  /* 触控无可靠 hover：封面文案常显 */
+  .marquee .work-card__scrim,
+  .marquee .work-card__body {
+    opacity: 1;
+    transform: none;
+  }
+}
 @media (prefers-reduced-motion: reduce) {
-  .marquee__track {
-    animation: none;
+  /* 盖过全局 * { animation-duration: 0.01ms !important }，改手势横滑 */
+  .marquee {
     overflow-x: auto;
-    width: 100%;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+    padding-bottom: 4px;
+  }
+  .marquee__track {
+    animation: none !important;
+    transform: none !important;
+    will-change: auto;
+    width: max-content;
     padding-inline: var(--page-pad);
   }
 }
@@ -685,6 +718,15 @@ html[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
   line-height: var(--lh-display);
   text-transform: uppercase;
   color: var(--color-ink);
+  max-width: 100%;
+}
+@media (max-width: 480px) {
+  .hero__brand {
+    /* Syne 宽体：按实测约 9.5em 宽拟合 8 字，避免被 .hero overflow 裁切 */
+    font-size: clamp(1.75rem, calc((100vw - 2 * var(--page-pad)) / 9.5), 3.5rem);
+    letter-spacing: -0.06em;
+    white-space: nowrap;
+  }
 }
 .hero__tagline {
   margin: 0 0 36px;
@@ -1106,7 +1148,7 @@ html[data-theme="dark"] .astro-code span {
   display: flex;
   flex-wrap: wrap;
   gap: 16px 28px;
-  margin: 20px 0 28px;
+  margin: 16px 0 0;
   font: 400 12px/1 var(--font-mono);
   letter-spacing: 0.06em;
   text-transform: uppercase;

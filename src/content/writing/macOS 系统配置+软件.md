@@ -15,7 +15,7 @@ draft: false
 
 记录一份我的 Mac 初始化清单。从系统配置到开发工具到日常软件，全部 Homebrew 搞定。
 
-## 1️⃣ 系统配置
+## 1. 系统配置
 
 外接显示器不是 Retina 的话，先开 HiDPI：
 
@@ -23,7 +23,7 @@ draft: false
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/xzhih/one-key-hidpi/master/hidpi.sh)"
 ```
 
-## 2️⃣ Homebrew 包管理器
+## 2. Homebrew 包管理器
 
 安装：
 
@@ -47,7 +47,7 @@ brew upgrade                  # 升级全部
 brew cleanup                  # 清理旧版本
 ```
 
-## 3️⃣ 命令行工具
+## 3. 命令行工具
 
 基础工具：
 
@@ -73,7 +73,7 @@ brew install mongodb-community mongodb-database-tools mongosh
 brew services start mongodb-community
 ```
 
-## 4️⃣ 编辑器和终端
+## 4. 编辑器和终端
 
 ```bash
 brew install --cask zed typora obsidian
@@ -83,7 +83,7 @@ brew install --cask font-jetbrains-mono-nerd-font
 
 字体设成 JetBrainsMono Nerd Font，终端里的图标才能正常显示。
 
-## 5️⃣ AI 开发工具
+## 5. AI 开发工具
 
 ```bash
 brew install --cask claude-code codex
@@ -93,14 +93,14 @@ brew install --cask cherry-studio
 
 各 CLI 首次运行会引导登录或填 API Key。
 
-## 6️⃣ 日常应用
+## 6. 日常应用
 
 通讯：微信 / QQ / 企业微信 / 飞书 / 钉钉 / Telegram / Discord  
 办公：Microsoft Office / Notion  
 网盘：OneDrive / 百度网盘  
 素材：Eagle
 
-## 7️⃣ 常见问题
+## 7. 常见问题
 
 **Homebrew 安装慢：** 切换到清华镜像源再 update。
 

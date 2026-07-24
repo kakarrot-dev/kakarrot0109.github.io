@@ -17,7 +17,7 @@ tags:
 
 **我后来想清楚了：需要双轨的是平台入口，不是项目事实。**
 
-## 1️⃣ 问题不在两份文件，而在两份事实
+## 1. 问题不在两份文件，而在两份事实
 
 `CLAUDE.md` 和 `AGENTS.md` 同时存在，本身不是问题。两个平台有不同的指令发现方式，项目需要两个入口很正常。
 
@@ -40,7 +40,7 @@ tags:
 
 这张表只用来定位文件，不用来证明两套工具能力对等。[Claude Code 项目记忆文档](https://code.claude.com/docs/en/memory) [Claude Code 设置文档](https://code.claude.com/docs/en/settings) [Claude Code Skills 文档](https://code.claude.com/docs/en/skills) [Codex `AGENTS.md` 文档](https://learn.chatgpt.com/docs/agent-configuration/agents-md) [Codex 配置文档](https://learn.chatgpt.com/docs/config-file/config-basic) [Codex Skills 文档](https://learn.chatgpt.com/docs/build-skills) [Codex Rules 文档](https://learn.chatgpt.com/docs/agent-configuration/rules)
 
-## 2️⃣ 先把内容分成三层
+## 2. 先把内容分成三层
 
 我不再先问“这句话写进哪个文件”，而是先判断它属于哪一层。
 
@@ -58,7 +58,7 @@ tags:
 | 工作流能力 | 专项调研、写作、调试、验证流程 | 共享方法，分别适配路径与触发方式 | Claude 放 `.claude/skills/<name>/SKILL.md`；Codex 放 `.agents/skills/<name>/SKILL.md` |
 | 平台运行配置 | 权限、MCP、模型、审批、sandbox、本机偏好 | 不共享 | Claude 使用 settings 层；Codex 使用 config 层 |
 
-## 3️⃣ 哪些内容共享，哪些必须分开
+## 3. 哪些内容共享，哪些必须分开
 
 我把 `AGENTS.md` 选为项目事实的权威来源，不是因为 Claude Code 会自动读它。事实正好相反：Claude Code 不会自动读取 `AGENTS.md`。官方支持在 `CLAUDE.md` 中用 `@AGENTS.md` 显式导入，也支持让 `CLAUDE.md` 成为指向它的符号链接。我选显式导入，只是因为这个入口更容易被人读懂，不是因为它是唯一方式。[Claude Code 项目记忆文档](https://code.claude.com/docs/en/memory)
 
@@ -89,7 +89,7 @@ Codex（同层选一个，再跨层拼接）
 
 配置层也是同样。Claude 的 `.claude/settings.json` 用于可提交的项目设置，`.claude/settings.local.json` 用于不提交的本机项目设置，普通同键设置中本地层优先级更高。Codex 的用户配置默认在 `~/.codex/config.toml`，项目的 `.codex/config.toml` 只会在项目受信任时加载。这些都是平台运行边界，强行合并反而会隐藏差异。[Claude Code 设置文档](https://code.claude.com/docs/en/settings) [Codex 配置文档](https://learn.chatgpt.com/docs/config-file/config-basic)
 
-## 4️⃣ 我最终采用的最小目录
+## 4. 我最终采用的最小目录
 
 我最终保留的骨架很小：
 
@@ -117,7 +117,7 @@ your-project/
 
 这个目录没有解决“如何让两端共用同一份 Skill”的所有问题，但它先解决了更基础的问题：什么是项目事实，什么是平台适配。只有这个边界稳定后，才值得评估软链接、安装工具或同步脚本。
 
-## 5️⃣ 一条规则应该放在哪里
+## 5. 一条规则应该放在哪里
 
 我现在用三个问题来判断。
 
@@ -129,7 +129,7 @@ your-project/
 
 这三个问题的作用，不是找到一个万能文件，而是避免把不同性质的内容堆在一起。
 
-## 6️⃣ 两套 Agent 并用时，我现在只守五条原则
+## 6. 两套 Agent 并用时，我现在只守五条原则
 
 **第一，项目事实只写一遍。** 命令、目录、安全和验证规则只有一个权威来源。
 

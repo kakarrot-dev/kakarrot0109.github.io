@@ -860,20 +860,49 @@ Git：
 
 ## 21. 写作规范
 
-AI 编写博客文章时遵循以下约定：
+AI 编写或改写博客文章时必须遵守：
 
-- 标题格式 `No. XX: 标题`（序号文章）或描述性标题（专题文章）
-- 开场个人叙事钩子 → 1️⃣2️⃣3️⃣ emoji 编号主体 → 升华总结 + **加粗金句**
-- 段落 2-5 句，口语化衔接
-- **加粗**关键概念和金句，适度 emoji 点缀
-- 文末 3-6 个标签，与 frontmatter `tags` 字段一致
-- 正文用中文时保留口语化和个人叙述感
+### 21.1 结构
 
-新建文章流程：
+- 标题：`No. XX: 标题`（序号文章）或描述性标题（专题文章）
+- 开场：个人叙事钩子（2–4 段），不要一上来列提纲
+- 主体：用标准 Markdown 二级标题分节，推荐两种之一：
+  - 描述性标题（优先，参考 No. 22）：`## 最危险的不是改错，而是把偶然当成规律`
+  - 数字编号标题：`## 1. 系统配置`（半角数字 + 点 + 空格）
+- 禁止用 emoji / 键帽数字当章节号（禁止 `## 1️⃣ …`、行首 `1️⃣ …`）
+- 需要进 TOC 的章节必须是真正的 `##` / `###`，不要写成普通段落里的「1.」冒充小标题
+- 收尾：升华 1–2 段 + **加粗金句**；不要在正文末尾再手写「标签：…」（标签只放 frontmatter，由页面渲染）
+- 外链项目可在文末用一行 Markdown 链接给出，例如 `项目：[name](url)`
+
+### 21.2 文风与符号
+
+- 段落 2–5 句，口语化衔接；**加粗**关键概念和金句
+- **正文、标题、列表、表格、引用内一律不得出现 emoji**（含 😀、✅、键帽 1️⃣–9️⃣、装饰符号等）
+- 需要序号时用 `1. 2. 3.` 或中文「一、二、三」，不用 emoji
+- 中文正文保留个人叙述感；专有名词可保留英文
+
+### 21.3 Frontmatter
+
+```yaml
+title: "No. XX: 标题"
+description: "一句话摘要"
+publishedAt: YYYY-MM-DD
+tags:
+  - "标签A"
+  - "标签B"
+featured: false
+draft: false
+```
+
+- `tags` 3–6 个，与文中主题一致
+- 不要在正文重复罗列同一套标签
+
+### 21.4 新建流程
 
 1. 在 `src/content/writing/` 创建 Markdown 文件
-2. 填写 frontmatter（title、description、publishedAt、tags）
-3. 运行 `npm run build` 验证
-4. 推送触发部署
+2. 按上面填写 frontmatter 与正文
+3. 自检：无 emoji；章节均为 `##`/`###`；文末无重复标签行
+4. `npm run check && npm run build`
+5. 需要发布时再 commit / push
 
-Content Collections frontmatter 字段见 `src/content.config.ts`。
+Content Collections 字段见 `src/content.config.ts`。

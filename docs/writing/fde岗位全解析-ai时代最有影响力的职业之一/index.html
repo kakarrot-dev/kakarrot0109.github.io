@@ -20,7 +20,7 @@
       }
       gtag("js", new Date());
       gtag("config", "G-T1TKDDHVNN");
-    </script><link rel="stylesheet" href="/_astro/BaseLayout.BxCCdM_v.css"><style>.article-nav-link[data-astro-cid-gjmmonms]{color:inherit;border:1px solid var(--color-hairline);flex-direction:column;gap:6px;padding:16px;text-decoration:none;transition:border-color .15s,background .15s;display:flex}.article-nav-link[data-astro-cid-gjmmonms]:hover{border-color:var(--color-accent);background:color-mix(in oklab, var(--color-accent) 5%, transparent)}.article-nav-label[data-astro-cid-gjmmonms]{font:700 12px/1 var(--font-mono);color:var(--color-text-muted);text-transform:uppercase;letter-spacing:.04em}.article-nav-title[data-astro-cid-gjmmonms]{color:var(--color-text-primary);font-size:15px;font-weight:700;line-height:1.4}@media (width<=640px){.article-nav[data-astro-cid-gjmmonms]{grid-template-columns:1fr!important}.article-nav-link[data-astro-cid-gjmmonms][data-direction=next]{text-align:left!important}}
+    </script><link rel="stylesheet" href="/_astro/BaseLayout.XmJ8mHMe.css"><style>.article-nav-link[data-astro-cid-gjmmonms]{color:inherit;border:1px solid var(--color-hairline);flex-direction:column;gap:6px;padding:16px;text-decoration:none;transition:border-color .15s,background .15s;display:flex}.article-nav-link[data-astro-cid-gjmmonms]:hover{border-color:var(--color-accent);background:color-mix(in oklab, var(--color-accent) 5%, transparent)}.article-nav-label[data-astro-cid-gjmmonms]{font:700 12px/1 var(--font-mono);color:var(--color-text-muted);text-transform:uppercase;letter-spacing:.04em}.article-nav-title[data-astro-cid-gjmmonms]{color:var(--color-text-primary);font-size:15px;font-weight:700;line-height:1.4}@media (width<=640px){.article-nav[data-astro-cid-gjmmonms]{grid-template-columns:1fr!important}.article-nav-link[data-astro-cid-gjmmonms][data-direction=next]{text-align:left!important}}
 </style></head><body><noscript><style>
         .reveal {
           opacity: 1 !important;
@@ -33,7 +33,7 @@
 <p>直到我看到一篇关于 Forward Deployed Engineer（FDE）的分析，才明白这群人有一个统一的岗位名字。Palantir 在 2000 年代中期首创了这个角色，当时定义很直接：工程师不在总部写内部代码，而是驻场到客户现场解决问题。</p>
 <p>到了 2025-2026 年，FDE 成了硅谷最稀缺的岗位之一。Anthropic 设立了 Applied AI 团队，其 FDE 直接嵌入企业客户的业务中构建 MCP 服务器和 Agent。OpenAI 的 Applied Engineering 团队同理。Forbes 在 2025 年底干脆预测：<strong>“FDE 将成为未来十年最有影响力的科技职业之一。”</strong></p>
 <p>我把这个方向做了一次系统性梳理，以下是我认为最值得分享的内容。</p>
-<h2 id="1️⃣-fde-的本质不是驻场工程师">1️⃣ FDE 的本质：不是驻场工程师</h2>
+<h2 id="1-fde-的本质不是驻场工程师">1. FDE 的本质：不是驻场工程师</h2>
 <p>最容易被误解的是名字里的 “Deployed”——很多人觉得 FDE 就是“驻场程序员”、是“写代码的售前”、或者是“高级实施工程师”。但这些理解都偏了。</p>
 <p>FDE 的核心理念只有一句话：</p>
 <blockquote>
@@ -44,7 +44,7 @@
 <p>第二，FDE 不是“自动化现有流程”。他重新设计流程。标志性的技能是画出业务数据流图，标注每一个决策点、等待时间、人工搬运节点，然后找出哪些环节可以被 NLP/推理/自动化替代。这个比例通常在 20-40%。</p>
 <p>第三，FDE 不是“写好代码就走”。他要确保系统在客户的真实环境中真正运转——对接 SSO、部署到内网环境、写运维手册、教会客户团队独立运维，最后逐步退出。</p>
 <p><strong>一个 FDE 在同一个项目里要切换三种人格：问题阶段像行业分析师，交付阶段像全栈工程师，交接阶段像培训师。</strong></p>
-<h2 id="2️⃣-五步闭环fde-的标准作业流程">2️⃣ 五步闭环：FDE 的标准作业流程</h2>
+<h2 id="2-五步闭环fde-的标准作业流程">2. 五步闭环：FDE 的标准作业流程</h2>
 <p>我花了一些时间才理解 FDE 为什么值那个价，直到我看到这个五步模型：</p>
 <table>
 <thead>
@@ -57,31 +57,31 @@
 </thead>
 <tbody>
 <tr>
-<td>① 本质问题识别</td>
+<td>1 本质问题识别</td>
 <td>穿透需求到真问题</td>
 <td>问题定义文档 + 业务影响预估</td>
 <td>结构化访谈、领域建模</td>
 </tr>
 <tr>
-<td>② 业务系统拆解</td>
+<td>2 业务系统拆解</td>
 <td>把业务过程变成数据流</td>
 <td>系统拆解图 + AI 化机会标注</td>
 <td>数据工程、领域建模</td>
 </tr>
 <tr>
-<td>③ 原型交付与验证</td>
+<td>3 原型交付与验证</td>
 <td>1-3 周做出能跑的系统</td>
 <td>可运行原型 + Go/No-Go 决策</td>
 <td>全栈工程、AI 系统</td>
 </tr>
 <tr>
-<td>④ 完整系统交付</td>
+<td>4 完整系统交付</td>
 <td>打磨到生产级</td>
 <td>生产系统 + 运维手册</td>
 <td>全栈、系统集成</td>
 </tr>
 <tr>
-<td>⑤ 能力转移与维护</td>
+<td>5 能力转移与维护</td>
 <td>让客户能独立运维</td>
 <td>交接包 + 产品反馈</td>
 <td>演示能力、文档能力</td>
@@ -90,7 +90,7 @@
 </table>
 <p>最打动我的一点是第五步——<strong>做 FDE 的目标是让自己变得不需要。</strong> 交付不是终点，让客户的团队能够独立跑起来才是。这意味着 FDE 要把自己“解雇”掉。</p>
 <p>五步中任何一步没走完都不能算成功。原型好但上不了线？白做。系统上线了但交接不了？变成运维噩梦。</p>
-<h2 id="3️⃣-fde-的能力三叠层为什么这个岗位门槛极高">3️⃣ FDE 的能力三叠层：为什么这个岗位门槛极高</h2>
+<h2 id="3-fde-的能力三叠层为什么这个岗位门槛极高">3. FDE 的能力三叠层：为什么这个岗位门槛极高</h2>
 <p>FDE 需要的能力分成三层，缺一不可：</p>
 <p><strong>硬技能层（能做出东西）</strong>：</p>
 <ul>
@@ -112,7 +112,7 @@
 <p>FDE 面试很少问“某某 API 怎么用”，而是问“为什么选 LangGraph 不选 CrewAI”。</p>
 <p>有一个很关键的能力映射关系：<strong>硬技能是入场券，软技能决定天花板。</strong></p>
 <p>全栈和 AI 能力决定你能不能做出东西，但访谈能力、演示能力和商业敏感度决定你做出来的东西是不是真的被用了。多数工程师转 FDE 失败，是因为跳过了“先学问出真问题”这一步。</p>
-<h2 id="4️⃣-fde-的成长路径与薪酬">4️⃣ FDE 的成长路径与薪酬</h2>
+<h2 id="4-fde-的成长路径与薪酬">4. FDE 的成长路径与薪酬</h2>
 <p>FDE 通常分三级，每级 2-3 年：</p>
 <p><strong>初级 FDE（0-2 年）</strong>：在指导下完成指定模块——写 MCP Server、配置数据管道、调试 Agent。典型年薪 $170K-$220K。</p>
 <p><strong>中级 FDE（2-5 年）</strong>：独立从问题识别做到系统交付，可以带 1-2 人。能设计 multi-agent 架构、评估 AI 方案效果、管理 4-6 周项目。典型年薪 $220K-$350K。</p>
@@ -126,7 +126,7 @@
 <li><strong>在一个行业做太久</strong> → 跳不出“驻场运维”标签</li>
 <li><strong>害怕与业务方对话</strong> → 永远停留在初级</li>
 </ul>
-<h2 id="5️⃣-谁该关注这个方向">5️⃣ 谁该关注这个方向</h2>
+<h2 id="5-谁该关注这个方向">5. 谁该关注这个方向</h2>
 <p>基于我的理解，这三类人最适合关注 FDE：</p>
 <p><strong>有 2-5 年工程/产品经验，想转向 AI 应用的</strong>——FDE 是当前 AI 落地岗位中门槛最高、天花板也最高的方向之一。</p>
 <p><strong>创业者或 CTO</strong>——FDE 的方法论可以帮你避开“给旧流程加 AI”的陷阱。先问本质问题再开工，比什么都重要。</p>
@@ -136,4 +136,4 @@
 <p>Palantir 对自己的 FDSE 有一个经典描述：<strong>“这个角色类似于初创公司 CTO——在小型团队中端到端地执行高风险的交付任务。”</strong></p>
 <p>我在整理完这些内容后最大的体感是：AI 产品经理和 FDE 之间的边界正在模糊。当一个 PM 开始驻场、画数据流图、写原型、推动交付、确保客户用起来——她就在做 FDE 的事情。反之，当一个 FDE 开始定义问题的优先级、评估商业价值、决定做什么——他也在做 PM 的事情。</p>
 <p>这可能才是 AI 时代最有意思的变化：<strong>角色边界在溶解，剩下的只有一件事——把技术变成价值。</strong></p>
-<p style="margin-top:2.5rem"><a href="/writing/" class="section-link">← Writing</a></p><nav class="article-nav" aria-label="文章导航" style="margin-top:2.5rem;padding-top:2rem;border-top:1px solid var(--color-hairline);display:grid;grid-template-columns:1fr 1fr;gap:24px" data-astro-cid-gjmmonms><a href="/writing/从hexo迁移到astro的心路历程/" class="article-nav-link" data-direction="prev" data-astro-cid-gjmmonms><span class="article-nav-label" data-astro-cid-gjmmonms>← 上一篇</span><span class="article-nav-title" data-astro-cid-gjmmonms>No. 17: 从 Hexo 到 Astro——一次被推着走的迁移</span></a><a href="/writing/claude-cream-温暖编辑设计系统搭建实录/" class="article-nav-link" data-direction="next" style="text-align:right" data-astro-cid-gjmmonms><span class="article-nav-label" data-astro-cid-gjmmonms>下一篇 →</span><span class="article-nav-title" data-astro-cid-gjmmonms>No. 18: 从零搭一套跨平台设计系统——Claude Cream 心路实录</span></a></nav></article><aside class="prose-layout__toc"><nav class="toc" aria-label="目录"><p class="toc-title">On this page</p><ul class="toc-list"><li class="toc-depth-2"><a href="#1️⃣-fde-的本质不是驻场工程师">1️⃣ FDE 的本质：不是驻场工程师</a></li><li class="toc-depth-2"><a href="#2️⃣-五步闭环fde-的标准作业流程">2️⃣ 五步闭环：FDE 的标准作业流程</a></li><li class="toc-depth-2"><a href="#3️⃣-fde-的能力三叠层为什么这个岗位门槛极高">3️⃣ FDE 的能力三叠层：为什么这个岗位门槛极高</a></li><li class="toc-depth-2"><a href="#4️⃣-fde-的成长路径与薪酬">4️⃣ FDE 的成长路径与薪酬</a></li><li class="toc-depth-2"><a href="#5️⃣-谁该关注这个方向">5️⃣ 谁该关注这个方向</a></li></ul></nav></aside></div></main><footer class="site-footer"><div class="site-footer-inner"><p class="site-footer-copy">2016–2026 Design by Kakarrot.</p><nav class="site-footer-social" aria-label="社交链接"><a href="https://x.com/Kakarrot_me" aria-label="X" title="X" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-astro-cid-g5kwm3ld><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.727-8.835L1.254 2.25H8.08l4.253 5.622L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z" data-astro-cid-g5kwm3ld></path></svg></a><a href="https://github.com/kakarrot-dev" aria-label="GitHub" title="GitHub" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-astro-cid-g5kwm3ld><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.69-1.335-1.69-1.09-.745.083-.729.083-.729 1.205.084 1.84 1.236 1.84 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" data-astro-cid-g5kwm3ld></path></svg></a><a href="https://www.instagram.com/kakarrot.me/" aria-label="Instagram" title="Instagram" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-astro-cid-g5kwm3ld><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" data-astro-cid-g5kwm3ld></path></svg></a><a href="https://www.xiaohongshu.com/user/profile/6409ec3f0000000029010738" aria-label="小红书" title="小红书" target="_blank" rel="noopener noreferrer"><span class="social-icon-mask" style="mask-image:url(/icons/xiaohongshu.svg);-webkit-mask-image:url(/icons/xiaohongshu.svg)" aria-hidden="true" data-astro-cid-g5kwm3ld></span></a><a href="mailto:i@kakarrot.com" aria-label="Email" title="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true" data-astro-cid-g5kwm3ld><rect x="3" y="5" width="18" height="14" rx="1" data-astro-cid-g5kwm3ld></rect><path d="M3 7l9 7 9-7" data-astro-cid-g5kwm3ld></path></svg></a></nav></div></footer><script type="module">var e=new IntersectionObserver(t=>{t.forEach(t=>{t.isIntersecting&&(t.target.classList.add(`visible`),e.unobserve(t.target))})},{threshold:.12});document.querySelectorAll(`.reveal`).forEach(t=>e.observe(t));</script></body></html><script type="module" src="/_astro/ProseLayout.astro_astro_type_script_index_0_lang.BPMACJSS.js"></script>
+<p style="margin-top:2.5rem"><a href="/writing/" class="section-link">← Writing</a></p><nav class="article-nav" aria-label="文章导航" style="margin-top:2.5rem;padding-top:2rem;border-top:1px solid var(--color-hairline);display:grid;grid-template-columns:1fr 1fr;gap:24px" data-astro-cid-gjmmonms><a href="/writing/从hexo迁移到astro的心路历程/" class="article-nav-link" data-direction="prev" data-astro-cid-gjmmonms><span class="article-nav-label" data-astro-cid-gjmmonms>← 上一篇</span><span class="article-nav-title" data-astro-cid-gjmmonms>No. 17: 从 Hexo 到 Astro——一次被推着走的迁移</span></a><a href="/writing/claude-cream-温暖编辑设计系统搭建实录/" class="article-nav-link" data-direction="next" style="text-align:right" data-astro-cid-gjmmonms><span class="article-nav-label" data-astro-cid-gjmmonms>下一篇 →</span><span class="article-nav-title" data-astro-cid-gjmmonms>No. 18: 从零搭一套跨平台设计系统——Claude Cream 心路实录</span></a></nav></article><aside class="prose-layout__toc"><nav class="toc" aria-label="目录"><p class="toc-title">On this page</p><ul class="toc-list"><li class="toc-depth-2"><a href="#1-fde-的本质不是驻场工程师">1. FDE 的本质：不是驻场工程师</a></li><li class="toc-depth-2"><a href="#2-五步闭环fde-的标准作业流程">2. 五步闭环：FDE 的标准作业流程</a></li><li class="toc-depth-2"><a href="#3-fde-的能力三叠层为什么这个岗位门槛极高">3. FDE 的能力三叠层：为什么这个岗位门槛极高</a></li><li class="toc-depth-2"><a href="#4-fde-的成长路径与薪酬">4. FDE 的成长路径与薪酬</a></li><li class="toc-depth-2"><a href="#5-谁该关注这个方向">5. 谁该关注这个方向</a></li></ul></nav></aside></div></main><footer class="site-footer"><div class="site-footer-inner"><p class="site-footer-copy">2016–2026 Design by Kakarrot.</p><nav class="site-footer-social" aria-label="社交链接"><a href="https://x.com/Kakarrot_me" aria-label="X" title="X" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-astro-cid-g5kwm3ld><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.727-8.835L1.254 2.25H8.08l4.253 5.622L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z" data-astro-cid-g5kwm3ld></path></svg></a><a href="https://github.com/kakarrot-dev" aria-label="GitHub" title="GitHub" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-astro-cid-g5kwm3ld><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.69-1.335-1.69-1.09-.745.083-.729.083-.729 1.205.084 1.84 1.236 1.84 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" data-astro-cid-g5kwm3ld></path></svg></a><a href="https://www.instagram.com/kakarrot.me/" aria-label="Instagram" title="Instagram" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-astro-cid-g5kwm3ld><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" data-astro-cid-g5kwm3ld></path></svg></a><a href="https://www.xiaohongshu.com/user/profile/6409ec3f0000000029010738" aria-label="小红书" title="小红书" target="_blank" rel="noopener noreferrer"><span class="social-icon-mask" style="mask-image:url(/icons/xiaohongshu.svg);-webkit-mask-image:url(/icons/xiaohongshu.svg)" aria-hidden="true" data-astro-cid-g5kwm3ld></span></a><a href="mailto:i@kakarrot.com" aria-label="Email" title="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true" data-astro-cid-g5kwm3ld><rect x="3" y="5" width="18" height="14" rx="1" data-astro-cid-g5kwm3ld></rect><path d="M3 7l9 7 9-7" data-astro-cid-g5kwm3ld></path></svg></a></nav></div></footer><script type="module">var e=new IntersectionObserver(t=>{t.forEach(t=>{t.isIntersecting&&(t.target.classList.add(`visible`),e.unobserve(t.target))})},{threshold:.12});document.querySelectorAll(`.reveal`).forEach(t=>e.observe(t));</script></body></html><script type="module" src="/_astro/ProseLayout.astro_astro_type_script_index_0_lang.BPMACJSS.js"></script>

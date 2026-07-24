@@ -1,18 +1,37 @@
-# kakarrot.com
+<p align="center">
+  <a href="https://kakarrot.com">
+    <img src="./public/images/readme/brand.webp" alt="Kakarrot" width="420" />
+  </a>
+</p>
 
-个人网站与作品集 — AI 产品经理的思考、写作与 Vibe Coding 实践。
+<h1 align="center">kakarrot.com</h1>
 
-设计方向：**静室 Quiet Studio**（Claude Cream 双主题）。
+<p align="center">
+  <strong>静室 Quiet Studio</strong> · AI 产品经理的个人站与作品集<br/>
+  思考、写作与 Vibe Coding 实践 · 设计系统对齐 Claude Cream
+</p>
 
-| | |
-|---|---|
-| **Site** | [https://kakarrot.com](https://kakarrot.com) |
-| **RSS** | [https://kakarrot.com/rss.xml](https://kakarrot.com/rss.xml) |
-| **Author** | [Kakarrot](https://github.com/kakarrot-dev) |
+<p align="center">
+  <a href="https://kakarrot.com">Website</a>
+  ·
+  <a href="https://kakarrot.com/rss.xml">RSS</a>
+  ·
+  <a href="https://github.com/kakarrot-dev">Author</a>
+</p>
 
-[![Astro](https://img.shields.io/badge/Astro-7-BC52EE?logo=astro&logoColor=white)](https://astro.build)
-[![Node](https://img.shields.io/badge/node-%3E%3D22.12-339933?logo=node.js&logoColor=white)](https://nodejs.org)
-[![Deploy](https://img.shields.io/badge/deploy-GitHub%20Pages-222?logo=github)](https://pages.github.com)
+<p align="center">
+  <a href="https://astro.build"><img src="https://img.shields.io/badge/Astro-7-BC52EE?logo=astro&logoColor=white" alt="Astro 7" /></a>
+  <a href="https://nodejs.org"><img src="https://img.shields.io/badge/node-%3E%3D22.12-339933?logo=node.js&logoColor=white" alt="Node >= 22.12" /></a>
+  <a href="https://pages.github.com"><img src="https://img.shields.io/badge/deploy-GitHub%20Pages-222?logo=github" alt="GitHub Pages" /></a>
+</p>
+
+<p align="center">
+  <a href="https://kakarrot.com">
+    <img src="./public/images/readme/home.webp" alt="kakarrot.com homepage — Quiet Studio" width="920" />
+  </a>
+</p>
+
+<p align="center"><em>首页：琥珀雾场 Hero · Vibe Coding 封面跑马 · Writing 精选列表</em></p>
 
 ---
 
@@ -77,7 +96,7 @@ src/
   layouts/              BaseLayout · ProseLayout
   pages/                路由
   styles/global.css     设计令牌与全局样式
-public/                 静态资源（favicon、logo、CNAME）
+public/                 静态资源（favicon、logo、CNAME、README 展示图）
 docs/                   GitHub Pages 构建产物（勿手改）
 .github/workflows/      部署流水线
 DESIGN.md               设计系统 SSOT
@@ -111,6 +130,12 @@ RSS 聚合 Writing 与 Vibe Coding；不再包含 projects。
 - 封面：16:10 母版、站点色约束、静物式构图
 
 UI 改动请优先使用 `global.css` 令牌，勿引入与静室冲突的视觉语言。
+
+品牌标识：
+
+<p align="center">
+  <img src="./public/logo.svg" alt="Kakarrot mark" width="72" />
+</p>
 
 ## Deployment
 

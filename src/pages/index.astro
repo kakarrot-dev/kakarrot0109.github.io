@@ -51,6 +51,7 @@ function formatMeta(date: Date, topics?: string[]) {
                 href={`/vibe-coding/${p.id}/`}
                 cover={p.data.cover}
                 meta={formatMeta(p.data.publishedAt, p.data.topics)}
+                alwaysMeta={true}
               />
             </div>
           ))

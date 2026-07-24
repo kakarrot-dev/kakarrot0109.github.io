@@ -22,7 +22,7 @@ draft: false
 
 > 本文信息核验于 2026 年 7 月 15 日。项目安装方式会变化，执行前仍应以官方 README 为准。文中的远程脚本命令都建议先打开脚本检查，再决定是否执行。
 
-## 1️⃣ Skill 不是装得越多越好
+## 1. Skill 不是装得越多越好
 
 我现在把 Agent 的扩展能力分成五种。分清类型，比记住命令更重要。
 
@@ -74,7 +74,7 @@ draft: false
 | Anthropic Skills | 官方集合 | 文档与示例能力 | 双端 | 用 `--skill` 按需安装 |
 | Skill Creator | 官方 Skill | 创建和评估 Skill | 双端 | 同一项目只用一个生成流程 |
 
-## 2️⃣ 让开发过程更稳定
+## 2. 让开发过程更稳定
 
 ### 1. Superpowers：把“先想清楚再动手”变成默认流程
 
@@ -260,7 +260,7 @@ codegraph init
 
 **冲突判断：功能重叠。** 与 Understand Anything 共存不会直接报错，但两套索引会占用磁盘和维护时间。代码库很大、需要持续语义检索时选 CodeGraph；想快速获得结构化全景时选 Understand Anything。
 
-## 3️⃣ 给 Agent 接上互联网
+## 3. 给 Agent 接上互联网
 
 ### 8. Agent Reach：让一个入口覆盖多个内容平台
 
@@ -346,7 +346,7 @@ opencli hackernews top --limit 5
 
 **冲突判断：无冲突。** 它与 Agent Reach 是上下层关系：OpenCLI 提供具体平台能力，Agent Reach 负责发现和路由。真正需要注意的是浏览器登录态和权限，不要让 Agent 在未确认时执行写操作。
 
-## 4️⃣ 把想法变成页面、图片和演示
+## 4. 把想法变成页面、图片和演示
 
 ### 11. PPT Master：生成真正可编辑的 PowerPoint
 
@@ -601,7 +601,7 @@ npx skills use tt-a1i/archify@archify --agent claude-code
 
 **冲突判断：无冲突。** 它与其他设计 Skill 只有表面重叠。Archify 负责技术关系，Frontend Design 负责页面审美，边界明确时可以组合。
 
-## 5️⃣ 管理文档、知识和产品工作
+## 5. 管理文档、知识和产品工作
 
 ### 21. Obsidian Skills：先让 Agent 正确读写 Obsidian 文件
 
@@ -765,7 +765,7 @@ npx skills add anthropics/skills -g --skill skill-creator -a codex
 
 **冲突判断：规则冲突。** 与其他 Skill 生成器同时存在不会直接报错，但可能采用不同目录、Frontmatter 和评估方法。创建同一个 Skill 时只选一个主工作流，再分别用两端标准审查兼容性。
 
-## 6️⃣ Codex 与 Claude Code 怎么安装
+## 6. Codex 与 Claude Code 怎么安装
 
 看完 26 项，真正需要记住的安装原则只有五条。
 
@@ -793,7 +793,7 @@ curl <远程地址> | bash
 
 至少先打开脚本地址，确认它会下载什么、修改哪些目录、是否写入全局配置。能用 npm、Homebrew 或 Release 二进制时，我通常优先选择可查看版本和卸载路径的方式。
 
-## 7️⃣ 同类 Skill 安装多个会不会冲突
+## 7. 同类 Skill 安装多个会不会冲突
 
 最后给出我实际采用的判断表。重点不是“能否同时存在”，而是**是否应该同时激活**。
 

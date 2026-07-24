@@ -16,7 +16,7 @@ draft: false
 
 步骤不复杂，但容易踩坑。
 
-## 1️⃣ 全局工具升级
+## 1. 全局工具升级
 
 先升级 npm 本身和 Hexo CLI：
 
@@ -29,7 +29,7 @@ npm update -g
 npm install --global hexo
 ```
 
-## 2️⃣ 项目依赖更新
+## 2. 项目依赖更新
 
 进入博客目录，检查有哪些模块需要更新：
 
@@ -48,7 +48,7 @@ npm update --save
 
 很多 Hexo 升级翻车，就是因为保留了旧的 `node_modules`，新旧依赖混在一起。
 
-## 3️⃣ 验证
+## 3. 验证
 
 跑 `hexo clean && hexo g && hexo s` 本地预览。如果 `hexo d` 报错，通常是因为 `.deploy_git` 里缓存了旧版本生成的静态文件——删掉就好了。
 

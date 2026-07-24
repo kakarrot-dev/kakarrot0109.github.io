@@ -17,7 +17,7 @@ draft: false
 
 冷静下来之后，发现事情没我想的那么糟，但也足够糟糕。
 
-1️⃣ 现象：DNS 没挂，但内容变了
+## 1. 现象：DNS 没挂，但内容变了
 
 第一时间查 DNS：
 
@@ -33,7 +33,7 @@ draft: false
 
 问题确认了：**域名被另一个 GitHub 账户绑定了。**
 
-2️⃣ 根因：GitHub Pages 域名验证机制的漏洞
+## 2. 根因：GitHub Pages 域名验证机制的漏洞
 
 这不是 DNS 劫持。是一种针对 GitHub Pages 的特殊攻击：
 
@@ -44,7 +44,7 @@ draft: false
 
 GitHub Pages 的工作原理是：收到请求 → 看 Host 头 → 匹配绑定了该域名的仓库 → 返回内容。**如果域名没被验证，任何人都能"认领"它。**
 
-3️⃣ 恢复：四步夺回域名控制权
+## 3. 恢复：四步夺回域名控制权
 
 **第一步：仓库改公开。** 仓库 Settings → General → Danger Zone → Change visibility → Make public。没有这一步，GitHub Pages 根本不服务你的仓库。
 
@@ -69,7 +69,7 @@ GitHub Pages 的工作原理是：收到请求 → 看 Host 头 → 匹配绑定
 
 **第四步：重新绑定域名 + 开启 HTTPS。** 仓库 Settings → Pages → 输入自定义域名，Save，等 DNS check 通过后勾选 Enforce HTTPS。
 
-4️⃣ 预防：一次就够
+## 4. 预防：一次就够
 
 - **验证域名所有权要第一时间做。** `https://github.com/settings/pages` 里 Add a domain，做一次就不需要再做。
 - 保持仓库为公开（除非你买了 GitHub Pro）。
