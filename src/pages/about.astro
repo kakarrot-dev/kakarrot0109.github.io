@@ -1,80 +1,110 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+
+const personaTags = ["PM", "郑州", "暴雪粉", "音乐狂", "收集癖", "强迫症"];
+
+const deskDesktop = [
+  ["CPU", "Intel i5-13600kf"],
+  ["主板", "Asus TUF B760M-PLUS WIFI II"],
+  ["显卡", "Asus TUF RTX 4070 SUPER O12G"],
+  ["内存", "Corsair 16G×2 DDR5 6400"],
+  ["固态", "Samsung 980PRO 1T + TiPlus7100 2TB"],
+  ["散热", "DeepCool AK620"],
+  ["电源", "Phanteks AMP GH850W"],
+  ["机箱", "NZXT S340 Elite"],
+  ["解码", "OCTAVART Champs-élysées + HD650"],
+  ["音箱", "Bose C50"],
+  ["键盘", "Filco 圣手二代 104 / Cherry G80-3000"],
+  ["鼠标", "Logitech G903 + Master 3"],
+  ["显示", "LG 34UC88-B + LG 27GR84Q-B"],
+  ["耳机", "Sennheiser HD650 + Logitech G933"],
+  ["路由", "Phicomm K3C"],
+] as const;
+
+const deskMobile = [
+  ["笔记本", "MacBook Air M5 24G+1T"],
+  ["显示", "Aoc U32N3C"],
+  ["键盘", "NIZ T-35g C103 / IKBC Poker Pro 61"],
+  ["鼠标", "Logitech Master 3 / MX Vertical"],
+  ["耳机", "Bose QC35 II"],
+  ["阅读", "Kindle Paperwhite 4"],
+] as const;
 ---
 
-<BaseLayout title="About" description="Kakarrot — AI 产品经理的经历与原则" canonical="/about/" shell>
-  <div style={{padding: "38px 30px", borderBottom: "2px solid var(--color-border-strong)", display: "flex", justifyContent: "space-between", alignItems: "flex-end"}}>
-    <div>
-      <h1 style={{fontSize: "var(--text-section-title)", letterSpacing: "var(--ls-section-title)", lineHeight: "var(--lh-section-title)", fontWeight: 900, margin: "0 0 8px"}}>关于</h1>
-      <p style={{font: "700 13px/1.5 var(--font-mono)", color: "var(--color-text-muted)", margin: 0}}>Kakarrot &mdash; AI 产品经理的经历与原则</p>
-    </div>
-    <p style={{font: "400 14px/1.4 var(--font-mono)", color: "var(--color-text-muted)", margin: 0, whiteSpace: "nowrap"}}>自救者、人恒救之</p>
-  </div>
-
-  <div class="grid-2 reveal" style={{display: "grid", gridTemplateColumns: "1fr 1fr", borderBottom: "2px solid var(--color-border-strong)"}}>
-    <section style={{padding: "38px 30px", borderRight: "2px solid var(--color-border-strong)"}}>
-      <h2 style={{font: "700 13px/1.5 var(--font-mono)", color: "var(--color-text-muted)", marginBottom: "14px"}}>经历</h2>
-      <!-- 首页 Hero 迁移文案 -->
-      <p style={{fontSize: "17px", lineHeight: 1.6, margin: "0 0 12px"}}>
-        大家好！我是 Kakarrot，一名拥有 <strong style={{color: "var(--color-accent)"}}>10 年+经验产品经理</strong>。我的职业履历涵盖拓普丰联、宇通集团、南威集团等中国行业知名企业，熟悉互联网及项目产品从 0-1 创业流程，同时熟悉二开产品从 1-∞ 迭代流程。
-      </p>
-      <p style={{fontSize: "17px", lineHeight: 1.6, margin: "0 0 12px"}}>
-        我热衷于探索产品、商业、人工智能的融合领域。我擅长 <strong style={{color: "var(--color-accent)"}}>从第一性原理出发，识别业务真正的问题，用 AI 原生方式重新设计产品与增长系统。</strong>
-      </p>
-      <p style={{fontSize: "17px", lineHeight: 1.6, margin: "0 0 12px"}}>
-        当前的 AI 对整个行业及相关产业链冲击巨大，我也在学习和整理全新的工作流程——通过结合 <strong style={{color: "var(--color-accent)"}}>AI 技术与直觉洞察</strong>，加速产品开发进程并激发创造性协作。
-      </p>
-      <p style={{fontSize: "17px", lineHeight: 1.6, margin: "0 0 12px"}}>
-        PM，坐标郑州。暴雪粉，音乐狂，收集癖，强迫症。
-      </p>
-      <div style={{fontSize: "15px", lineHeight: 1.7, color: "var(--color-text-secondary)"}}>
-        <p style={{margin: "0 0 8px"}}><strong style={{color: "var(--color-text-primary)"}}>2020 前</strong> — 积累具体做事方法、工作经验，养成阅读、写作习惯。</p>
-        <p style={{margin: "0 0 8px"}}><strong style={{color: "var(--color-text-primary)"}}>2020 后</strong> — 系统地梳理总结产品专业知识，沉迷于阅读、写作。</p>
-        <p style={{margin: 0}}><strong style={{color: "var(--color-text-primary)"}}>2022 后</strong> — 认识 AI、拥抱 AI、学习 AI、研究 AI。</p>
+<BaseLayout title="About" description="Kakarrot — AI 产品经理的经历与原则" canonical="/about/">
+  <div class="container section page-shell" style="max-width:760px;margin-inline:auto">
+    <header class="page-header">
+      <p class="page-eyebrow">About</p>
+      <h1 class="page-title">Kakarrot</h1>
+      <p class="page-lead">AI 产品经理 · 坐标郑州</p>
+      <div class="prose-header__tags" style="margin-top:20px">
+        {personaTags.map((tag) => <span class="prose-tag">{tag}</span>)}
       </div>
-    </section>
-    <section style={{padding: "38px 30px"}}>
-      <h2 style={{font: "700 13px/1.5 var(--font-mono)", color: "var(--color-text-muted)", marginBottom: "14px"}}>原则</h2>
-      <ul style={{listStyle: "none", padding: 0, margin: 0}}>
-        <li style={{fontSize: "17px", lineHeight: 1.6, marginBottom: "8px"}}>先理解问题，再设计方案。</li>
-        <li style={{fontSize: "17px", lineHeight: 1.6, marginBottom: "8px"}}>技术是手段，不是目的。</li>
-        <li style={{fontSize: "17px", lineHeight: 1.6, marginBottom: "8px"}}>最好的产品是那些用户感觉不到的产品。</li>
-      </ul>
-    </section>
-  </div>
+    </header>
 
-  <div class="grid-2 reveal reveal-delay-2" style={{display: "grid", gridTemplateColumns: "1fr 1fr"}}>
-    <section style={{padding: "38px 30px", borderRight: "2px solid var(--color-border-strong)"}}>
-      <h2 style={{font: "700 13px/1.5 var(--font-mono)", color: "var(--color-text-muted)", marginBottom: "14px"}}>桌面 · 2024</h2>
-      <ul style={{listStyle: "none", padding: 0, margin: 0, fontSize: "15px", lineHeight: 1.8, color: "var(--color-text-secondary)"}}>
-        <li><strong style={{color: "var(--color-text-primary)"}}>CPU</strong> Intel i5-13600kf</li>
-        <li><strong style={{color: "var(--color-text-primary)"}}>主板</strong> Asus TUF B760M-PLUS WIFI II</li>
-        <li><strong style={{color: "var(--color-text-primary)"}}>显卡</strong> Asus TUF RTX 4070 SUPER O12G</li>
-        <li><strong style={{color: "var(--color-text-primary)"}}>内存</strong> Corsair 16G×2 DDR5 6400</li>
-        <li><strong style={{color: "var(--color-text-primary)"}}>固态</strong> Samsung 980PRO 1T + TiPlus7100 2TB</li>
-        <li><strong style={{color: "var(--color-text-primary)"}}>散热</strong> DeepCool AK620</li>
-        <li><strong style={{color: "var(--color-text-primary)"}}>电源</strong> Phanteks AMP GH850W</li>
-        <li><strong style={{color: "var(--color-text-primary)"}}>机箱</strong> NZXT S340 Elite</li>
-        <li><strong style={{color: "var(--color-text-primary)"}}>解码</strong> OCTAVART Champs-élysées + HD650</li>
-        <li><strong style={{color: "var(--color-text-primary)"}}>音箱</strong> Bose C50</li>
-        <li><strong style={{color: "var(--color-text-primary)"}}>键盘</strong> Filco 圣手二代 104 / Cherry G80-3000</li>
-        <li><strong style={{color: "var(--color-text-primary)"}}>鼠标</strong> Logitech G903 + Master 3</li>
-        <li><strong style={{color: "var(--color-text-primary)"}}>显示</strong> LG 34UC88-B + LG 27GR84Q-B</li>
-        <li><strong style={{color: "var(--color-text-primary)"}}>耳机</strong> Sennheiser HD650 + Logitech G933</li>
-        <li><strong style={{color: "var(--color-text-primary)"}}>路由</strong> Phicomm K3C</li>
-      </ul>
-    </section>
-    <section style={{padding: "38px 30px"}}>
-      <h2 style={{font: "700 13px/1.5 var(--font-mono)", color: "var(--color-text-muted)", marginBottom: "14px"}}>移动 · 2023</h2>
-      <ul style={{listStyle: "none", padding: 0, margin: 0, fontSize: "15px", lineHeight: 1.8, color: "var(--color-text-secondary)"}}>
-        <li><strong style={{color: "var(--color-text-primary)"}}>笔记本</strong> MacBook Air M5 24G+1T</li>
-        <li><strong style={{color: "var(--color-text-primary)"}}>显示</strong> Aoc U32N3C</li>
-        <li><strong style={{color: "var(--color-text-primary)"}}>键盘</strong> NIZ T-35g C103 / IKBC Poker Pro 61</li>
-        <li><strong style={{color: "var(--color-text-primary)"}}>鼠标</strong> Logitech Master 3 / MX Vertical</li>
-        <li><strong style={{color: "var(--color-text-primary)"}}>耳机</strong> Bose QC35 II</li>
-        <li><strong style={{color: "var(--color-text-primary)"}}>阅读</strong> Kindle Paperwhite 4</li>
-      </ul>
-    </section>
-  </div>
+    <div class="reveal" style="font-size:17px;line-height:1.75;color:var(--color-body)">
+      <p>
+        大家好，我是 Kakarrot，一名拥有 <strong style="color:var(--color-ink)">10 年+经验</strong> 的产品经理。履历涵盖拓普丰联、宇通集团、南威集团等，熟悉 0→1 创业与 1→∞ 迭代。
+      </p>
+      <p>
+        我擅长从第一性原理识别业务真正的问题，用 AI 原生方式重新设计产品与增长系统。当前也在整理全新的工作流——结合 AI 技术与直觉洞察，加速开发并激发协作。
+      </p>
 
+      <h2 style="font-size:13px;font-family:var(--font-mono);letter-spacing:0.08em;text-transform:uppercase;color:var(--color-primary);margin:48px 0 16px">Timeline</h2>
+      <p><strong style="color:var(--color-ink)">2020 前</strong> — 积累做事方法与阅读写作习惯。</p>
+      <p><strong style="color:var(--color-ink)">2020 后</strong> — 系统梳理产品专业知识。</p>
+      <p><strong style="color:var(--color-ink)">2022 后</strong> — 认识、拥抱、学习、研究 AI。</p>
+
+      <h2 style="font-size:13px;font-family:var(--font-mono);letter-spacing:0.08em;text-transform:uppercase;color:var(--color-primary);margin:48px 0 16px">Principles</h2>
+      <ul style="padding-left:1.2rem;margin:0">
+        <li>先理解问题，再设计方案。</li>
+        <li>技术是手段，不是目的。</li>
+        <li>最好的产品是那些用户感觉不到的产品。</li>
+      </ul>
+
+      <details style="margin-top:56px;border-top:1px solid var(--color-hairline);padding-top:24px" open>
+        <summary style="cursor:pointer;font:500 12px/1 var(--font-mono);letter-spacing:0.08em;text-transform:uppercase;color:var(--color-muted)">
+          Desk &amp; kit
+        </summary>
+        <div class="about-desk" style="display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:24px">
+          <div>
+            <p style="font:500 12px/1 var(--font-mono);letter-spacing:0.06em;text-transform:uppercase;color:var(--color-ink);margin:0 0 14px">桌面</p>
+            <ul style="list-style:none;padding:0;margin:0;font-size:14px;line-height:1.75;color:var(--color-muted)">
+              {
+                deskDesktop.map(([k, v]) => (
+                  <li>
+                    <strong style="color:var(--color-ink);font-weight:600">{k}</strong>
+                    {" "}
+                    {v}
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+          <div>
+            <p style="font:500 12px/1 var(--font-mono);letter-spacing:0.06em;text-transform:uppercase;color:var(--color-ink);margin:0 0 14px">移动</p>
+            <ul style="list-style:none;padding:0;margin:0;font-size:14px;line-height:1.75;color:var(--color-muted)">
+              {
+                deskMobile.map(([k, v]) => (
+                  <li>
+                    <strong style="color:var(--color-ink);font-weight:600">{k}</strong>
+                    {" "}
+                    {v}
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+        </div>
+      </details>
+    </div>
+  </div>
 </BaseLayout>
+
+<style>
+  @media (max-width: 640px) {
+    .about-desk {
+      grid-template-columns: 1fr !important;
+    }
+  }
+</style>

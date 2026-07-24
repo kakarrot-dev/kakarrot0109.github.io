@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import ProjectCard from "@/components/ProjectCard.astro";
+import ArticleRow from "@/components/ArticleRow.astro";
 import { getCollection } from "astro:content";
 
 export async function getStaticPaths() {
@@ -25,49 +25,29 @@ const canonical = `/writing/tags/${encodeURIComponent(tag)}/`;
 ---
 
 <BaseLayout
-  title={`标签：${tag}`}
+  title={`Tag · ${tag}`}
   description={`${tag} 相关文章 — Kakarrot 的思考与实践`}
   canonical={canonical}
-  shell
 >
-  <div
-    class="section-header"
-    style="padding:38px 30px;border-bottom:2px solid var(--color-border-strong);display:flex;justify-content:space-between;align-items:flex-end"
-  >
-    <div>
-      <p
-        style="font:700 13px/1.5 var(--font-mono);color:var(--color-text-muted);margin:0 0 8px"
-      >
-        <a href="/writing/" class="section-link">Writing</a> / 标签
+  <div class="container section page-shell">
+    <header class="page-header">
+      <p class="page-eyebrow">
+        <a href="/writing/" class="section-link">Writing</a> / Tag
       </p>
-      <h1
-        style="font-size:var(--text-section-title);letter-spacing:var(--ls-section-title);line-height:var(--lh-section-title);font-weight:900;margin:0"
-      >
-        {tag}
-      </h1>
-    </div>
-    <p
-      style="font:400 14px/1.4 var(--font-mono);color:var(--color-text-muted);margin:0;white-space:nowrap"
-    >
-      {articles.length} 篇文章
-    </p>
-  </div>
-  <div
-    class="grid-3"
-    style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;padding:24px"
-  >
-    {
-      articles.map((a, i) => (
-        <div class={`reveal reveal-delay-${(i % 3) + 1}`}>
-          <ProjectCard
+      <h1 class="page-title">{tag}</h1>
+      <p class="page-lead">{articles.length} articles</p>
+    </header>
+    <div class="reveal">
+      {
+        articles.map((a) => (
+          <ArticleRow
             title={a.data.title}
             description={a.data.description}
-            topics={a.data.tags}
             href={`/writing/${a.id}/`}
-            variant="uniform"
+            date={a.data.publishedAt}
           />
-        </div>
-      ))
-    }
+        ))
+      }
+    </div>
   </div>
 </BaseLayout>

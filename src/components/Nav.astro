@@ -1,4 +1,7 @@
 ---
+import ThemeToggle from "@/components/ThemeToggle.astro";
+import Logo from "@/components/Logo.astro";
+
 const currentPath = Astro.url.pathname;
 const links = [
   { href: "/vibe-coding/", label: "Vibe Coding" },
@@ -8,37 +11,30 @@ const links = [
 ---
 
 <nav class="nav-bar">
-  <div class="shell nav-inner nav-inner-bar">
-    <a href="/" class="nav-brand">KAKARROT.COM</a>
+  <div class="nav-inner">
+    <a href="/" class="nav-brand" aria-label="Kakarrot 首页">
+      <Logo />
+    </a>
     <button
-      class="nav-toggle nav-toggle-btn"
+      class="nav-toggle-btn"
+      type="button"
       aria-label="菜单"
       aria-expanded="false"
+      data-nav-toggle
     >
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        class="nav-toggle-icon"
-      >
-        <line class="nav-line-1" x1="3" y1="6" x2="21" y2="6"></line>
-        <line class="nav-line-2" x1="3" y1="12" x2="21" y2="12"></line>
-        <line class="nav-line-3" x1="3" y1="18" x2="21" y2="18"></line>
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.75">
+        <line x1="4" y1="7" x2="20" y2="7"></line>
+        <line x1="4" y1="12" x2="20" y2="12"></line>
+        <line x1="4" y1="17" x2="20" y2="17"></line>
       </svg>
     </button>
-    <ul class="nav-links">
+    <ul class="nav-links" data-nav-links>
       {
         links.map(({ href, label }) => {
-          const isActive =
-            currentPath === href || currentPath.startsWith(href);
+          const isActive = currentPath === href || currentPath.startsWith(href);
           return (
             <li>
-              <a
-                href={href}
-                class:list={["nav-link", isActive && "nav-link--active"]}
-              >
+              <a href={href} class:list={["nav-link", isActive && "nav-link--active"]}>
                 {label}
               </a>
             </li>
@@ -46,69 +42,16 @@ const links = [
         })
       }
     </ul>
+    <div class="nav-actions">
+      <ThemeToggle />
+    </div>
   </div>
 </nav>
 
-<style>
-  .nav-toggle-icon {
-    width: 22px;
-    height: 22px;
-    display: block;
-    margin: auto;
-  }
-  .nav-links {
-    display: flex;
-    gap: 28px;
-    list-style: none;
-    margin: 0 0 0 auto;
-    padding: 0;
-    align-items: center;
-  }
-  .nav-links li {
-    padding: 12px 0;
-  }
-
-  @media (max-width: 768px) {
-    .nav-toggle-btn {
-      display: block !important;
-    }
-    .nav-links {
-      display: none;
-      position: absolute;
-      top: 72px;
-      left: 0;
-      right: 0;
-      flex-direction: column;
-      gap: 0;
-      background: rgba(244, 241, 232, 0.98);
-      border-bottom: 2px solid var(--color-border-strong);
-      margin: 0;
-      padding: 8px 28px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    }
-    .nav-links.open {
-      display: flex;
-    }
-    .nav-links li {
-      padding: 14px 0;
-      border-top: 1px solid var(--color-border);
-      width: 100%;
-    }
-    .nav-links li:first-child {
-      border-top: none;
-    }
-    .nav-links a {
-      font-size: 14px !important;
-      padding: 4px 0;
-      width: 100%;
-    }
-  }
-</style>
-
 <script>
   document.addEventListener("DOMContentLoaded", () => {
-    const toggle = document.querySelector(".nav-toggle");
-    const links = document.querySelector(".nav-links");
+    const toggle = document.querySelector("[data-nav-toggle]");
+    const links = document.querySelector("[data-nav-links]");
     if (!toggle || !links) return;
 
     toggle.addEventListener("click", () => {

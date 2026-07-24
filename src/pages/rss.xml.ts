@@ -3,7 +3,7 @@ import { getCollection } from "astro:content";
 
 export async function GET() {
   const posts = (await getCollection("writing")).filter((p) => !p.data.draft);
-  const projects = (await getCollection("projects")).filter((p) => !p.data.draft);
+  const vibe = (await getCollection("vibe-coding")).filter((p) => !p.data.draft);
 
   return rss({
     title: "Kakarrot",
@@ -16,11 +16,11 @@ export async function GET() {
         pubDate: p.data.publishedAt,
         link: `/writing/${p.id}/`,
       })),
-      ...projects.map((p) => ({
+      ...vibe.map((p) => ({
         title: p.data.title,
         description: p.data.description,
         pubDate: p.data.publishedAt,
-        link: `/projects/${p.id}/`,
+        link: `/vibe-coding/${p.id}/`,
       })),
     ].sort((a, b) => b.pubDate.valueOf() - a.pubDate.valueOf()),
   });

@@ -1,5 +1,12 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import TableOfContents from "@/components/TableOfContents.astro";
+
+export interface Heading {
+  depth: number;
+  slug: string;
+  text: string;
+}
 
 export interface Props {
   title: string;
@@ -9,6 +16,8 @@ export interface Props {
   publishedAt?: Date;
   updatedAt?: Date;
   tags?: string[];
+  tagBase?: string;
+  headings?: Heading[];
 }
 
 const {
@@ -18,8 +27,19 @@ const {
   ogType = "article",
   publishedAt,
   updatedAt,
-  tags,
+  tags = [],
+  tagBase,
+  headings = [],
 } = Astro.props;
+
+const timeLabel = publishedAt
+  ? publishedAt.toLocaleDateString("en-CA").replace(/-/g, ".")
+  : null;
+const updatedLabel = updatedAt
+  ? updatedAt.toLocaleDateString("en-CA").replace(/-/g, ".")
+  : null;
+const tocItems = headings.filter((h) => h.depth >= 2 && h.depth <= 3);
+const hasToc = tocItems.length > 0;
 ---
 
 <BaseLayout
@@ -31,269 +51,57 @@ const {
   {updatedAt}
   {tags}
 >
-  <article class="max-w-[820px] mx-auto prose pt-16 md:pt-20 pb-24 px-7 sm:px-0">
-    <header class="mb-12">
-      <h1 class="text-3xl md:text-4xl font-black tracking-tighter uppercase">{title}</h1>
-      <p class="text-[var(--color-text-secondary)] mt-2">{description}</p>
-    </header>
-    <slot />
-  </article>
+  <div class:list={["prose-layout", !hasToc && "prose-layout--solo"]}>
+    <article class="prose-layout__main prose">
+      <header class="prose-header">
+        <h1>{title}</h1>
+        <p class="prose-header__desc">{description}</p>
+        {
+          timeLabel && (
+            <p class="prose-header__time">
+              {timeLabel}
+              {updatedLabel ? ` · Updated ${updatedLabel}` : ""}
+            </p>
+          )
+        }
+        {
+          tags.length > 0 && (
+            <div class="prose-header__tags">
+              {tags.map((tag) =>
+                tagBase ? (
+                  <a
+                    class="prose-tag"
+                    href={`${tagBase}${encodeURIComponent(tag)}/`}
+                  >
+                    {tag}
+                  </a>
+                ) : (
+                  <span class="prose-tag">{tag}</span>
+                )
+              )}
+            </div>
+          )
+        }
+      </header>
+      <slot />
+    </article>
+    {
+      hasToc && (
+        <aside class="prose-layout__toc">
+          <TableOfContents headings={headings} />
+        </aside>
+      )
+    }
+  </div>
 </BaseLayout>
 
-<style is:global>
-  /* ——— 基础排版 ——— */
-  .prose {
-    font-size: 1.0625rem;
-    line-height: 1.8;
-    color: var(--color-text-primary);
-  }
-
-  .prose h2 {
-    font-size: 1.65rem;
-    font-weight: 700;
-    margin-top: 3rem;
-    margin-bottom: 0.75rem;
-    padding-bottom: 0.4rem;
-    border-bottom: 1px solid var(--color-border);
-    letter-spacing: -.02em;
-  }
-  .prose h3 {
-    font-size: 1.35rem;
-    font-weight: 600;
-    margin-top: 2.5rem;
-    margin-bottom: 0.5rem;
-  }
-  .prose h4 {
-    font-size: 1.1rem;
-    font-weight: 600;
-    margin-top: 2rem;
-    margin-bottom: 0.5rem;
-  }
-
-  /* ——— 段落与列表 ——— */
-  .prose p {
-    margin-bottom: 1.25rem;
-    line-height: 1.85;
-  }
-  .prose ul, .prose ol {
-    margin-bottom: 1.25rem;
-    padding-left: 1.75rem;
-  }
-  .prose ul { list-style: disc; }
-  .prose ol { list-style: decimal; }
-  .prose li {
-    margin-bottom: 0.35rem;
-    line-height: 1.8;
-  }
-  .prose li > ul, .prose li > ol {
-    margin-top: 0.3rem;
-    margin-bottom: 0.3rem;
-  }
-
-  /* ——— 行内代码 ——— */
-  .prose code:not(pre code) {
-    font-size: 0.85em;
-    padding: 0.2em 0.45em;
-    background: var(--color-bg-card);
-    border: 1px solid var(--color-border);
-    font-family: var(--font-mono);
-  }
-
-  /* ——— 代码块：容器 ——— */
-  .prose .code-block-wrap {
-    margin: 1.5rem 0;
-    border: 1px solid #2a2a4a;
-    border-radius: 0;
-    overflow: hidden;
-  }
-
-  .code-block-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.45rem 1rem;
-    background: #12121e;
-    border-bottom: 1px solid #2a2a4a;
-    font-size: 0.75rem;
-    font-family: var(--font-mono);
-  }
-
-  .code-block-header .code-lang {
-    color: #888;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    font-weight: 500;
-    font-size: 0.7rem;
-  }
-
-  .code-block-header .copy-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.3rem;
-    border: none;
-    background: transparent;
-    color: #666;
-    cursor: pointer;
-    font-size: 0.7rem;
-    font-family: inherit;
-    padding: 0.15rem 0.4rem;
-    transition: color 0.15s;
-  }
-  .code-block-header .copy-btn:hover {
-    color: #ccc;
-  }
-  .code-block-header .copy-btn.copied {
-    color: #4CAF50;
-  }
-
-  .code-block-header .copy-btn svg {
-    width: 13px;
-    height: 13px;
-  }
-
-  .prose .astro-code {
-    margin: 0;
-    padding: 1.25rem 1.5rem;
-    border: none;
-    border-radius: 0;
-  }
-
-  /* ——— 引用 ——— */
-  .prose blockquote {
-    margin: 1.75rem 0;
-    padding: 0.75rem 1.25rem;
-    border-left: 4px solid var(--color-accent);
-    background: color-mix(in oklab, var(--color-accent) 6%, transparent);
-    color: var(--color-text-primary);
-    font-style: normal;
-  }
-  .prose blockquote p:last-child {
-    margin-bottom: 0;
-  }
-
-  /* ——— 表格 ——— */
-  .prose table {
-    width: 100%;
-    margin: 1.5rem 0;
-    border-collapse: collapse;
-    font-size: 0.9375rem;
-    line-height: 1.6;
-    overflow-x: auto;
-    display: block;
-  }
-  .prose thead {
-    background: var(--color-text-primary);
-    color: var(--color-bg-warm);
-  }
-  .prose th {
-    font-weight: 600;
-    text-align: left;
-    padding: 0.6rem 0.8rem;
-    border: 1px solid var(--color-text-primary);
-    white-space: nowrap;
-  }
-  .prose td {
-    padding: 0.5rem 0.8rem;
-    border: 1px solid var(--color-border);
-  }
-  .prose tbody tr:nth-child(even) {
-    background: var(--color-bg-card);
-  }
-  .prose tbody tr:hover {
-    background: color-mix(in oklab, var(--color-accent) 8%, transparent);
-  }
-
-  /* ——— 图片 ——— */
-  .prose img {
-    max-width: 100%;
-    height: auto;
-    margin: 1.5rem 0;
-    border: 1px solid var(--color-border);
-  }
-  .prose .book-cover-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1rem;
-    margin: 2rem 0 2.5rem;
-  }
-  .prose .book-cover-grid a {
-    display: block;
-  }
-  .prose .book-cover-grid img {
-    display: block;
-    width: 100%;
-    margin: 0;
-    transition: transform 180ms ease, box-shadow 180ms ease;
-  }
-  .prose .book-cover-grid a:hover img {
-    transform: translateY(-3px);
-    box-shadow: 6px 6px 0 var(--color-border);
-  }
-
-  /* ——— 链接 ——— */
-  .prose a {
-    color: var(--color-accent);
-    text-underline-offset: 3px;
-    text-decoration-thickness: 1px;
-  }
-  .prose a:hover {
-    color: var(--color-accent-dim);
-  }
-
-  /* ——— 分割线 ——— */
-  .prose hr {
-    border: none;
-    border-top: 1px solid var(--color-border);
-    margin: 2.5rem 0;
-  }
-
-  /* ——— 粗体/斜体 ——— */
-  .prose strong { font-weight: 700; }
-  .prose em { font-style: italic; }
-
-  /* ——— 嵌套引用缩进 ——— */
-  .prose blockquote blockquote {
-    margin-left: 0.5rem;
-    font-size: 0.95em;
-  }
-
-  /* ——— 标题锚点悬停 ——— */
-  .prose h2:hover::before,
-  .prose h3:hover::before,
-  .prose h4:hover::before {
-    content: "#";
-    position: absolute;
-    margin-left: -1.2em;
-    color: var(--color-accent);
-    font-weight: 400;
-    opacity: 0.5;
-  }
-  .prose h2, .prose h3, .prose h4 {
-    position: relative;
-  }
-
-  /* ——— 响应式 ——— */
-  @media (max-width: 640px) {
-    .prose { font-size: 1rem; }
-    .prose h2 { font-size: 1.4rem; }
-    .prose h3 { font-size: 1.2rem; }
-    .prose pre { padding: 1rem; font-size: 0.8125rem; }
-    .prose table { font-size: 0.8125rem; }
-    .prose .book-cover-grid { gap: 0.75rem; }
-  }
-</style>
-
 <script>
-  // 代码块：语言标签 + 复制按钮
+  // 代码块：语言 + 图标复制（无顶栏背景）
   document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll<HTMLPreElement>(".prose .astro-code").forEach((pre) => {
-      // 跳过已处理的
       if (pre.parentElement?.classList.contains("code-block-wrap")) return;
-
-      const lang = pre.getAttribute("data-language") || "";
-      const langLabel = lang
-        ? lang.toUpperCase()
-        : "TEXT";
+      const lang = (pre.getAttribute("data-language") || "text").toUpperCase();
+      if (lang === "MERMAID") return;
 
       const wrap = document.createElement("div");
       wrap.className = "code-block-wrap";
@@ -303,34 +111,89 @@ const {
 
       const langSpan = document.createElement("span");
       langSpan.className = "code-lang";
-      langSpan.textContent = langLabel;
+      langSpan.textContent = lang;
 
       const copyBtn = document.createElement("button");
+      copyBtn.type = "button";
       copyBtn.className = "copy-btn";
-      copyBtn.innerHTML = `<svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" stroke-width="2" fill="none"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> 复制`;
+      copyBtn.setAttribute("aria-label", "复制代码");
+      copyBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>`;
 
       copyBtn.addEventListener("click", async () => {
         const code = pre.querySelector("code")?.innerText || pre.innerText;
         try {
           await navigator.clipboard.writeText(code);
-          copyBtn.innerHTML = `<svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" stroke-width="2" fill="none"><polyline points="20 6 9 17 4 12"></polyline></svg> 已复制`;
           copyBtn.classList.add("copied");
+          copyBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>`;
           setTimeout(() => {
-            copyBtn.innerHTML = `<svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" stroke-width="2" fill="none"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> 复制`;
             copyBtn.classList.remove("copied");
-          }, 2000);
+            copyBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>`;
+          }, 1600);
         } catch (err) {
           console.error("复制失败", err);
         }
       });
 
-      header.appendChild(langSpan);
-      header.appendChild(copyBtn);
-      wrap.appendChild(header);
-
-      // 将 pre 移到 wrap 内
+      header.append(langSpan, copyBtn);
+      wrap.append(header);
       pre.before(wrap);
       wrap.appendChild(pre);
     });
+
+    // Mermaid
+    const mermaidBlocks = document.querySelectorAll<HTMLPreElement>(
+      '.prose pre[data-language="mermaid"], .prose .astro-code[data-language="mermaid"]'
+    );
+    if (mermaidBlocks.length > 0) {
+      void import("mermaid").then(async ({ default: mermaid }) => {
+        const isDark = document.documentElement.getAttribute("data-theme") === "dark";
+        mermaid.initialize({
+          startOnLoad: false,
+          theme: isDark ? "dark" : "neutral",
+          securityLevel: "loose",
+        });
+        let i = 0;
+        for (const pre of mermaidBlocks) {
+          const src = pre.querySelector("code")?.textContent || pre.textContent || "";
+          const host = document.createElement("div");
+          host.className = "mermaid";
+          host.textContent = src.trim();
+          pre.replaceWith(host);
+          try {
+            const id = `mermaid-${i++}`;
+            const { svg } = await mermaid.render(id, src.trim());
+            host.innerHTML = svg;
+          } catch (e) {
+            host.textContent = src.trim();
+            console.error("Mermaid 渲染失败", e);
+          }
+        }
+      });
+    }
+
+    // TOC 当前节
+    const tocLinks = [...document.querySelectorAll<HTMLAnchorElement>(".toc-list a")];
+    const ids = tocLinks
+      .map((a) => decodeURIComponent(a.getAttribute("href")?.slice(1) || ""))
+      .filter(Boolean);
+    const sections = ids
+      .map((id) => document.getElementById(id))
+      .filter((el): el is HTMLElement => !!el);
+    if (sections.length && "IntersectionObserver" in window) {
+      const io = new IntersectionObserver(
+        (entries) => {
+          const visible = entries
+            .filter((e) => e.isIntersecting)
+            .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+          if (!visible?.target?.id) return;
+          tocLinks.forEach((a) => {
+            const on = a.getAttribute("href") === `#${visible.target.id}`;
+            a.setAttribute("aria-current", on ? "true" : "false");
+          });
+        },
+        { rootMargin: "-20% 0px -60% 0px", threshold: [0, 0.25, 0.5, 1] }
+      );
+      sections.forEach((s) => io.observe(s));
+    }
   });
 </script>

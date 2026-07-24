@@ -14,7 +14,7 @@ export async function getStaticPaths() {
 }
 
 const { article } = Astro.props;
-const { Content } = await render(article);
+const { Content, headings } = await render(article);
 
 const allArticles = (await getCollection("writing"))
   .filter((a) => !a.data.draft)
@@ -33,29 +33,12 @@ const canonical = `/writing/${article.id}/`;
   publishedAt={article.data.publishedAt}
   updatedAt={article.data.updatedAt}
   tags={article.data.tags}
+  tagBase="/writing/tags/"
+  headings={headings}
 >
-  <p class="text-xs text-[var(--color-text-muted)] font-mono">
-    {article.data.publishedAt.toLocaleDateString("zh-CN")}
-    {
-      article.data.updatedAt &&
-        ` · 更新于 ${article.data.updatedAt.toLocaleDateString("zh-CN")}`
-    }
-  </p>
-  <div class="flex flex-wrap gap-2 mt-2 mb-8">
-    {
-      article.data.tags.map((tag) => (
-        <a
-          href={`/writing/tags/${encodeURIComponent(tag)}/`}
-          class="tag-link text-[10px] uppercase tracking-widest text-[var(--color-text-muted)] border border-[var(--color-border)] px-2 py-0.5"
-        >
-          {tag}
-        </a>
-      ))
-    }
-  </div>
   <Content />
-  <p class="mt-8">
-    <a href="/writing/" class="section-link">← 返回文章列表</a>
+  <p style="margin-top:2.5rem">
+    <a href="/writing/" class="section-link">← Writing</a>
   </p>
   <ArticleNav
     prev={

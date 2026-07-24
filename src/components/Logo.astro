@@ -1,0 +1,62 @@
+---
+/**
+ * Kakarrot 品牌标识
+ * 几何 K：墨色竖干 + 琥珀上臂 + 右下静点
+ */
+export interface Props {
+  withWordmark?: boolean;
+  class?: string;
+}
+
+const { withWordmark = true, class: className = "" } = Astro.props;
+---
+
+<span class:list={["brand-logo", className]}>
+  <svg
+    class="brand-logo__mark"
+    viewBox="0 0 40 40"
+    width="28"
+    height="28"
+    aria-hidden="true"
+  >
+    <rect x="8" y="5" width="5.5" height="30" rx="1" fill="currentColor"></rect>
+    <path
+      d="M15.5 6.5 31.5 17.2l-3.6 3.4L15.5 12.2Z"
+      fill="var(--color-primary)"
+    ></path>
+    <path
+      d="M15.5 20.5 31.2 34.5h-5.2L15.5 25.2Z"
+      fill="currentColor"
+    ></path>
+    <rect
+      x="30.5"
+      y="30.5"
+      width="4"
+      height="4"
+      rx="0.7"
+      fill="var(--color-primary)"
+    ></rect>
+  </svg>
+  {withWordmark && <span class="brand-logo__word">Kakarrot</span>}
+</span>
+
+<style>
+  .brand-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--color-ink);
+  }
+  .brand-logo__mark {
+    display: block;
+    flex-shrink: 0;
+  }
+  .brand-logo__word {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 15px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    line-height: 1;
+  }
+</style>

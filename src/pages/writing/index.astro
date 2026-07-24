@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import ProjectCard from "@/components/ProjectCard.astro";
+import ArticleRow from "@/components/ArticleRow.astro";
 import { getCollection } from "astro:content";
 
 const articles = (await getCollection("writing"))
@@ -12,45 +12,27 @@ const articles = (await getCollection("writing"))
   title="Writing"
   description="关于 AI 产品、方法论与实践的思考"
   canonical="/writing/"
-  shell
 >
-  <div
-    style="padding:38px 30px;border-bottom:2px solid var(--color-border-strong);display:flex;justify-content:space-between;align-items:flex-end"
-  >
-    <div>
-      <h1
-        style="font-size:var(--text-section-title);letter-spacing:var(--ls-section-title);line-height:var(--lh-section-title);font-weight:900;margin:0 0 8px"
-      >
-        文章
-      </h1>
-      <p
-        style="font:700 13px/1.5 var(--font-mono);color:var(--color-text-muted);margin:0"
-      >
-        关于 AI 产品、方法论与实践的思考
-      </p>
-    </div>
-    <p
-      style="font:400 14px/1.4 var(--font-mono);color:var(--color-text-muted);margin:0;white-space:nowrap"
-    >
-      写下来的思考才真正属于自己
-    </p>
-  </div>
-  <div
-    class="grid-3"
-    style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;padding:24px"
-  >
-    {
-      articles.map((a, i) => (
-        <div class={`reveal reveal-delay-${(i % 3) + 1}`}>
-          <ProjectCard
+  <div class="container section page-shell">
+    <header class="page-header">
+      <p class="page-eyebrow">Writing</p>
+      <h1 class="page-title">Notes & Essays</h1>
+      <p class="page-lead">关于 AI 产品、方法论与实践的思考</p>
+      <div class="stat-bar">
+        <span><strong>{articles.length}</strong> articles</span>
+      </div>
+    </header>
+    <div class="reveal">
+      {
+        articles.map((a) => (
+          <ArticleRow
             title={a.data.title}
             description={a.data.description}
-            topics={a.data.tags}
             href={`/writing/${a.id}/`}
-            variant="uniform"
+            date={a.data.publishedAt}
           />
-        </div>
-      ))
-    }
+        ))
+      }
+    </div>
   </div>
 </BaseLayout>

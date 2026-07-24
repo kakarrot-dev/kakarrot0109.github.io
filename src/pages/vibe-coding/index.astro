@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import ProjectCard from "@/components/ProjectCard.astro";
+import WorkCard from "@/components/WorkCard.astro";
 import { getCollection } from "astro:content";
 
 const orderedSlugs = [
@@ -12,30 +12,54 @@ const orderedSlugs = [
   "tampermonkey",
 ] as const;
 
-const publishedItems = (await getCollection("vibe-coding")).filter((item) => !item.data.draft);
+const publishedItems = (await getCollection("vibe-coding")).filter(
+  (item) => !item.data.draft
+);
 const itemsBySlug = new Map(publishedItems.map((item) => [item.id, item]));
-const items = orderedSlugs.map((slug) => {
-  const item = itemsBySlug.get(slug);
-  if (!item) {
-    throw new Error(`Vibe Coding 项目缺失或未发布：${slug}`);
-  }
-  return item;
-});
+const ordered = orderedSlugs
+  .map((slug) => itemsBySlug.get(slug))
+  .filter((item): item is (typeof publishedItems)[number] => !!item);
+const rest = publishedItems.filter((item) => !orderedSlugs.includes(item.id as (typeof orderedSlugs)[number]));
+const items = [...ordered, ...rest];
+
+const topics = [...new Set(items.flatMap((i) => i.data.topics))];
+
+function formatMeta(date: Date, t?: string[]) {
+  const d = date.toLocaleDateString("en-CA").replace(/-/g, ".");
+  return t?.[0] ? `${d} · ${t[0]}` : d;
+}
 ---
 
-<BaseLayout title="Vibe Coding" description="AI 协作构建的产品与实验" canonical="/vibe-coding/" shell>
-  <div class="reveal" style={{padding: "38px 30px", borderBottom: "2px solid var(--color-border-strong)", display: "flex", justifyContent: "space-between", alignItems: "flex-end"}}>
-    <div>
-      <h1 style={{fontSize: "var(--text-section-title)", letterSpacing: "var(--ls-section-title)", lineHeight: "var(--lh-section-title)", fontWeight: 900, margin: "0 0 8px"}}>Vibe Coding</h1>
-      <p style={{font: "700 13px/1.5 var(--font-mono)", color: "var(--color-text-muted)", margin: 0}}>AI 协作构建的产品与实验</p>
-    </div>
-    <p style={{font: "400 14px/1.4 var(--font-mono)", color: "var(--color-text-muted)", margin: 0, whiteSpace: "nowrap"}}>想法的快速原型是最高效的学习</p>
-  </div>
-  <div class="grid-2" style={{display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px", padding: "24px"}}>
-    {items.map((p, i) => (
-      <div class={"reveal reveal-delay-" + ((i % 2) + 1)}>
-        <ProjectCard title={p.data.title} description={p.data.description} topics={p.data.topics} href={`/vibe-coding/${p.id}/`} />
+<BaseLayout
+  title="Vibe Coding"
+  description="AI 协作构建的产品与实验"
+  canonical="/vibe-coding/"
+>
+  <div class="container section page-shell">
+    <header class="page-header">
+      <p class="page-eyebrow">Vibe Coding</p>
+      <h1 class="page-title">Selected Works</h1>
+      <p class="page-lead">用 AI 原生方式做出来的工具、站点与实验</p>
+      <div class="stat-bar">
+        <span><strong>{items.length}</strong> works</span>
+        <span><strong>{topics.length}</strong> topics</span>
       </div>
-    ))}
+    </header>
+
+    <div class="work-grid">
+      {
+        items.map((p, i) => (
+          <div class={`reveal reveal-delay-${(i % 3) + 1}`}>
+            <WorkCard
+              title={p.data.title}
+              description={p.data.description}
+              href={`/vibe-coding/${p.id}/`}
+              cover={p.data.cover}
+              meta={formatMeta(p.data.publishedAt, p.data.topics)}
+            />
+          </div>
+        ))
+      }
+    </div>
   </div>
 </BaseLayout>

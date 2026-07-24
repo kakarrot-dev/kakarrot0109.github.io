@@ -8,7 +8,6 @@ export interface Props {
   title: string;
   description: string;
   canonical?: string;
-  shell?: boolean;
   ogImage?: string;
   ogType?: "website" | "article";
   publishedAt?: Date;
@@ -20,7 +19,6 @@ const {
   title,
   description,
   canonical = Astro.url.pathname,
-  shell,
   ogImage,
   ogType,
   publishedAt,
@@ -34,6 +32,22 @@ const {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script is:inline>
+      (function () {
+        try {
+          var stored = localStorage.getItem("theme");
+          var theme =
+            stored === "light" || stored === "dark"
+              ? stored
+              : window.matchMedia("(prefers-color-scheme: dark)").matches
+                ? "dark"
+                : "light";
+          document.documentElement.setAttribute("data-theme", theme);
+        } catch (e) {
+          document.documentElement.setAttribute("data-theme", "light");
+        }
+      })();
+    </script>
     <SeoHead
       {title}
       {description}
@@ -44,8 +58,10 @@ const {
       {updatedAt}
       {tags}
     />
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-    <!-- Google tag (gtag.js) -->
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <script
       is:inline
       async
@@ -57,7 +73,6 @@ const {
         dataLayer.push(arguments);
       }
       gtag("js", new Date());
-
       gtag("config", "G-T1TKDDHVNN");
     </script>
   </head>
@@ -66,24 +81,15 @@ const {
       <style>
         .reveal {
           opacity: 1 !important;
+          filter: none !important;
           transform: none !important;
         }
       </style>
     </noscript>
     <Nav />
-    {
-      shell ? (
-        <main>
-          <div class="shell shell--no-top-border">
-            <slot />
-          </div>
-        </main>
-      ) : (
-        <main class="main-full">
-          <slot />
-        </main>
-      )
-    }
+    <main class="main-full">
+      <slot />
+    </main>
     <Footer />
     <script>
       const observer = new IntersectionObserver(
@@ -95,12 +101,9 @@ const {
             }
           });
         },
-        { threshold: 0.15 }
+        { threshold: 0.12 }
       );
-
-      document.querySelectorAll(".reveal").forEach((el) =>
-        observer.observe(el)
-      );
+      document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
     </script>
   </body>
 </html>

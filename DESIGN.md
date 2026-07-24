@@ -1,286 +1,217 @@
-# 设计系统 — kakarrot.com
+# 设计系统 — 静室 Quiet Studio
 
-本文件适用于当前项目。
-Claude Code 和 Codex 默认读取本文件进行网站布局、样式、特效修改。
+本文件是 kakarrot.com 视觉与布局的单一真相。UI 改动必须遵守本文。
 
-------
+气质：**克制、干净、有呼吸感、有设计感**。个人品牌博客 + 作品站。
 
-## 1. 设计令牌
-
-### 1.1 色彩
-
-| 令牌 | 值 | 用途 |
-|---|---|---|
-| `--background` | `oklch(96% 0.015 75)` | 暖白页面底色 |
-| `--foreground` | `oklch(18% 0.01 260)` | 正文文字色 |
-| `--card` | `oklch(94% 0.01 75)` | 卡片背景（预留，目前未用） |
-| `--primary` | `oklch(18% 0.01 260)` | 主文字色 |
-| `--secondary` | `oklch(45% 0.02 260)` | 次要文字色 |
-| `--muted` | `oklch(60% 0.02 260)` | 辅助信息/标签色 |
-| `--accent` | `#467f3f` | 低饱和苔绿强调色 |
-| `--accent-dim` | `#35672f` | 深苔绿 hover |
-| `--border` | `oklch(85% 0.01 260)` | 细边框 |
-| `--border-strong` | `oklch(60% 0.02 260)` | 粗边框（2px） |
-| `--selection` | `color-mix(in oklab, #467f3f 30%, transparent)` | 选中高亮 |
-
-### 1.2 字体系列
-
-| 令牌 | 值 | 用途 |
-|---|---|---|
-| `--font-sans` | `"Space Grotesk", "Noto Sans SC", sans-serif` | 标题、正文 |
-| `--font-mono` | `"Space Mono", ui-monospace, monospace` | 标签、代码、辅助文字 |
-
-### 1.3 排版层级
-
-| 变量名 | 字号 | 字重 | 字距 | 行高 | 用法 |
-|---|---|---|---|---|---|
-| `--text-hero` | `clamp(48px,12vw,170px)` | 900 | `-.06em` | `.85` | 首页 Logo |
-| `--text-section-title` | `clamp(50px,7vw,100px)` | 900 | `-.07em` | `.9` | 板块标题 |
-| `--text-method-title` | `clamp(44px,6vw,88px)` | 900 | `-.06em` | `.92` | 首页方法区 |
-| `--text-card-title-lg` | `clamp(28px,4vw,48px)` | 900 | `-.05em` | `1.15` | 作品卡 |
-| `--text-card-title-sm` | `clamp(22px,2.5vw,30px)` | 900 | `-.03em` | `1.15` | 文章卡 |
-| `--text-body` | `17px` | 400 | normal | `1.55` | 正文内容 |
-| `--text-body-sm` | `15px` | 400 | normal | `1.7` | 辅助正文 |
-| `--text-mono-tag` | `13px` | 700 | `.04em` | `1` | 分类、步骤编号 |
-| `--text-mono-sm` | `12px` | 400/700 | `.04em` | `1.4` | 日期、小标签 |
-
-> 全局 CSS 变量定义在 `--text-*` / `--lh-*` / `--ls-*` 命名空间下，页面引用变量而非硬编码值。
-
-### 1.4 间距系统
-
-基础单位 `--spacing: 0.25rem`（4px）。
-
-| Token | 值 | 典型用途 |
-|---|---|---|
-| `p-4` | 16px | 容器内边距 |
-| `p-6` | 24px | 卡片内边距 |
-| `p-8` | 32px | 大卡片、section |
-| `gap-4` | 16px | Grid/弹性间距 |
-| `gap-8` | 32px | 大间距 |
-| `gap-12` | 48px | 区块间距 |
-| `py-16` | 64px | 垂直板块间距 |
-
-### 1.5 边框
-
-| Token | 值 | 用途 |
-|---|---|---|
-| `--border-thick` | `2px solid var(--color-border-strong)` | shell 容器、模块分隔线 |
-| `border` | `1px solid var(--color-border)` | 细分割线 |
-| `border-l-4` | 4px 左侧粗边 | 引用/描述块强调 |
-
-### 1.6 Shell 容器
-
-```css
-.shell {
-  max-width: 1340px;
-  margin: 0 auto;
-  border-left: var(--border-thick);
-  border-right: var(--border-thick);
-}
-```
-
-- 全宽区块始终 `border-bottom: var(--border-thick)`
-- 移动端（<768px）不显示 shell 左右边框，区块全宽铺满
+色彩 SSOT：[claude-cream `tokens/tokens.json`](https://github.com/kakarrot-dev/claude-cream)。
 
 ---
 
-## 2. 组件规范
+## 1. 色彩（Claude Cream）
 
-### 2.1 卡片（ProjectCard / ArticleCard）
+通过 `html[data-theme="light"|"dark"]` 切换。
 
-```
-┌──────────────────────────┐
-│ mono 标签                │  ← 12-13px, --muted 色
-│                          │
-│ 标题 — — — — — — — — —  │  ← 大字重、大尺寸
-│ 标题                      │
-│                          │
-│ 描述文字...               │  ← --secondary 色
-│                          │
-│ 查看案例 →               │  ← mono 标签, hover 变色
-└──────────────────────────┘
-```
-
-**规则：**
-- `border: 2px solid var(--color-border-strong)`
-- `box-shadow: 6px 6px 0 var(--color-border-strong)`（brutal 实色投影）
-- hover：`translateY(-2px)` + 边框变 accent + `box-shadow: 8px 8px 0 var(--color-accent)` + 背景 10% 酸绿半透明
-- 内容上下 `space-between` 撑满卡片高度
-- 过渡时长 `0.3s`（transform/shadow）、`0.15s`（background）
-- CSS class `.card` 定义于 global.css
-
-### 2.2 导航栏（Nav）
-
-```
-│ KAKARROT.COM    Projects Vibe Coding Writing About │
-```
-
-- 粘性顶栏，`rgba(244,241,232,.96)` 半透明背景
-- 站名左对齐，导航右对齐
-- 链接：`font: 700 13px/1 var(--font-mono)`、uppercase、`tracking: .04em`
-- 默认 `--secondary` 色，hover 变 `--accent`
-- 当前页面：`--accent` 色 + 底部 `2px solid var(--color-accent)` 下划线
-- 底部 `border-bottom: 2px solid --border-strong`
-
-### 2.3 按钮 / CTA
-
-```
-[READ MORE →]          ← mono, uppercase, tracking-wider
-```
-
-- 文字型：`font: 700 13px/1 var(--font-mono)`，hover 变 accent
-- 按钮型（待统一）：2px 边框 + 实色投影
-
-### 2.4 跑马条（Marquee）
-
-```css
-@keyframes marquee {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-.marquee-track {
-  display: flex;
-  animation: marquee 30s linear infinite;
-}
-```
-
-- 苔绿底色 `--accent`
-- 文字黑色、字重 900
-- 水平无缝滚动
-
-### 2.5 代码块
-
-```
-┌──────────────────────────────┐
-│ JAVASCRIPT             复制  │  ← 深色 header
-├──────────────────────────────┤
-│ const x = 1;                  │
-│ console.log(x);               │
-└──────────────────────────────┘
-```
-
-- 深色背景（`#12121e`），1px `#2a2a4a` 边框
-- Header：语言标签 + 复制按钮
-- 零圆角
-
----
-
-## 3. 布局规则
-
-### 3.1 页面网格
-
-| 区域 | 列数 | 间距方式 |
-|---|---|---|
-| 首页方法区 | 1fr + 3fr（左侧解释 + 右侧 3 列步骤） | border-right 分隔 |
-| Vibe 作品 | 2 列 | 偶数项 `border-right: none` |
-| 文章 | 3 列 | 每 3n 项去除右边框 |
-| 项目列表页 | `1fr 1fr` | border 分隔 |
-
-**待统一规则：**
-- 卡片之间始终用 `2px solid --border-strong` 分隔，而不是用 gap 混合
-- 或在全局定一个统一的 `gap-4`（16px）方案
-
-### 3.2 板块垂直节奏
-
-```
-Hero (full-bleed)
-  ↓ 2px border-bottom
-Marquee (full-bleed)
-  ↓ 2px border-bottom
-方法区 (full-bleed)
-  ↓ 2px border-bottom
-Vibe Coding (shell)
-  ↓ 2px border-bottom
-Writing (shell)
-  ↓ (无底部边框)
-Footer
-```
-
-### 3.3 响应式断点
-
-| 断点 | 宽度 | Shell 行为 |
-|---|---|---|
-| 桌面 | >768px | 显示 shell 左右边框 |
-| 移动 | ≤768px | 全宽，无 shell 边框，卡片改为单列 |
-
----
-
-## 4. 动效规范
-
-### 4.1 滚动渐入
-
-```css
-.reveal {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-```
-
-- Monitor：`IntersectionObserver`，`threshold: 0.15`
-- 延迟阶梯：`reveal-delay-1`（0s）/ `2`（0.1s）/ `3`（0.2s）
-
-### 4.2 Hero 标题逐字动画
-
-- 每个 `.hero-line span` 从 `translateY(100%)` 到 `0`、`0.8s`、缓出
-- 辅助信息 `.hero-fade`：`opacity 0→1` + `translateY(8px→0)`、`0.6s`
-
-### 4.3 Hover 微交互
-
-| 元素 | 效果 | 时长 |
-|---|---|---|
-| 卡片 | `translateY(-2px)` + 投影偏移 6→8px + 背景变半透明绿 | `0.3s` / `0.15s` |
-| 导航链接（非 active） | color `--secondary → --accent` | `0.15s` |
-| 导航 active | 底部酸绿下划线保留，不变色 | — |
-| 头像 | `filter: grayscale(1) → grayscale(0)` | `0.5s` |
-| 社交图标 | opacity `.6 → 1` | `0.15s` |
-| 链接 | color `--accent → --accent-dim` | `0.15s` |
-
-### 4.4 无障碍
-
-```css
-@media (prefers-reduced-motion: reduce) {
-  * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
-}
-```
-
----
-
-## 5. 内容规范
-
-### 5.1 排版
-
-- .prose 正文基础字号：`1.0625rem`（17px），行高 `1.8`
-- h2：`1.65rem`，底部边框分隔
-- blockquote：4px 苔绿左边框 + 6% 苔绿半透明背景
-- 表格：深色表头（`--foreground`），条纹行
-
-### 5.2 标签标签
-
-- 分类标签（如 "AI PRODUCT"、"THINKING"）：`font-mono 12-13px`、uppercase、`--muted` 色
-- 位置在卡片标题上方、section 标识右侧
-
-### 5.3 按钮/链接文案
-
-- "查看案例 →" / "阅读 →"
-- always uppercase（CSS 控制）
-
----
-
-## 6. 与 Yanliu Design 的差异对照
-
-| 维度 | Yanliu Design | kakarrot.com | 说明 |
+| Token | Light | Dark | 用途 |
 |---|---|---|---|
-| 背景色 | 纯白 `oklch(100% 0 0)` | 暖白 `oklch(96% 0.015 75)` | 保持温暖感 |
-| 强调色 | `#7FFF00` (chartreuse) | `#467f3f` (苔绿) | 更柔和沉稳 |
-| 卡片 | 2px 黑色边框 + 8px 实色投影 | 2px 边框 + 6px 实色投影 | ✅ 已对齐 |
-| 卡片 hover | 投影偏移 8→12px | 投影偏移 6→8px + 边框变 accent + 背景变绿 | ✅ 风格一致 |
-| Hero | 纯文字大标题 + 头像 | 大字 + 头像 + 社交图标 | 结构不同 |
-| 字体 | 全英文 Space Grotesk/Mono | 含中文 fallback | 中英文混合 |
-| 图片 | grayscale → hover 还原彩色 | 头像 grayscale → hover 还原 | ✅ 已引入 |
-| 导航 active | hover underline | hover 变色 + active 下划线 | ✅ 更完整 |
+| `--color-canvas` | `#f5f3e9` | `#2d2e2d` | 页面底 |
+| `--color-ink` | `#29271d` | `#e9e6dc` | 主文字 |
+| `--color-body` | `#403d36` | `#ddd9cd` | 正文 |
+| `--color-muted` | `#6d675b` | `#bbb6a8` | 元信息 |
+| `--color-primary` | `#b7791f` | `#e6bf7a` | 强调 / 链接 / CTA |
+| `--color-hairline` | `#d8d2c3` | `#3d3d3a` | 细线 |
+| `--color-surface` | `#ffffff` | `#303030` | 卡片/浮层底 |
+| `--color-teal` | `#2c6f75` | `#75b5bc` | 极少点缀 |
+
+兼容别名（过渡期）：`--color-bg-warm` → canvas；`--color-text-primary` → ink；`--color-accent` → primary；`--color-border` → hairline。
+
+禁止：苔绿、紫渐变、brutal 实色投影、荧光描边。
+
+主题：系统偏好 → `localStorage`；head 内联 boot 防闪。
+
+---
+
+## 2. 字体
+
+| Token | 栈 | 用途 |
+|---|---|---|
+| `--font-sans` | Noto Sans SC → PingFang SC → Microsoft YaHei → Segoe UI → system-ui | 正文 / UI |
+| `--font-mono` | JetBrains Mono → ui-monospace → SF Mono → Cascadia Code → Consolas | 元信息 / 代码 |
+| `--font-display` | Syne → sans | 品牌拉丁（KAKARROT） |
+
+自托管 `@fontsource`；`font-display: swap`。不绑死 PingFang。
+
+字号阶梯：display / title / body / meta。正文行宽约 `65ch`（阅读柱 760px）。
+
+---
+
+## 3. 布局
+
+| 面 | 宽 | 说明 |
+|---|---|---|
+| 列表 / 首页区块 | `1120px` | `.container` |
+| 内容阅读柱 | `760px` | 视口 `1fr \| 760 \| 1fr` 居中 |
+
+水平 padding：`clamp(20px, 5vw, 48px)`。区块垂直：`64–96px`。
+
+废弃：`.shell` 左右粗边、文字口号 marquee、brutal 投影卡、方法论三列墙、pill 堆。
+
+Header / Footer 全站一份，经 `BaseLayout` 注入。
+
+---
+
+## 4. 信息架构
+
+导航：`Vibe Coding · Writing · About` + 主题切换。不要 Projects。
+
+首页：Hero（雾场）→ VIBE CODING 全宽跑马 → WRITING 行列表 → About 短条 → Footer。
+
+`/projects/*` → `/vibe-coding/`。
+
+---
+
+## 5. 组件约定
+
+- **WorkCard**：封面主导；标题叠在封面上；无封面用渐变占位。
+- **ArticleRow**：整行可点；hover = 浅琥珀底 + 左侧 primary 竖条。
+- **TOC**：右侧线条常驻，无折叠；窄屏叠到正文上方。
+- **Hero**：琥珀雾场（Three.js）；无头像、无「作品/写作」CTA；社交图标+文字。
+- 区头：`01` / `02` + 大写英文标题 + 描述 + VIEW ALL。
+
+文案：栏目/区头/chips 优先大写英文；长文中文标题可保留。
+
+---
+
+## 6. Prose
+
+页眉顺序：标题 → 导语 → 时间 → 标签 → 正文。
+
+- 代码块：语法高亮 + 语言标签 + 图标复制；顶栏无背景条；配色跟主题。
+- Mermaid：阅读柱内自适应。
+- 表格：行 hover 高亮。
+- 顶距：导航下 `--page-top`（32px），与栏目页一致。
+
+---
+
+## 7. 动效
+
+- 滚动渐入：短 opacity（可关）。
+- 链接：下划线生长。
+- 主题：背景/文字 150–200ms。
+- Hero：指针视差；`prefers-reduced-motion` 销毁 WebGL → 静态径向渐变。
+
+---
+
+## 8. 封面规范（Cover）
+
+目标：封面像「静室里的一幅静物」，服务扫读与分享，不抢品牌、不喧宾夺主。一张图同时适配站点列表 / 详情氛围 / OG 分享。
+
+### 8.1 用途矩阵
+
+| 场景 | 比例 | 说明 |
+|---|---|---|
+| Vibe 列表 / 首页跑马（WorkCard） | **16:10** | 主封面；标题叠在图上，需留暗区 |
+| Writing 列表（当前行列表） | 可选；若加缩略图用 **3:2** | 不宜喧宾夺主 |
+| Writing / Vibe 内容页顶图 | **16:9** 或 **3:2** | 阅读柱内满宽，高度克制 |
+| OG / 社交分享 | **1200×630（≈1.91:1）** | 必须能单独成立 |
+
+一篇内容可共用一稿构图，再导出多裁切；以 **16:10 构图安全区** 为母版最省事。
+
+### 8.2 技术规格
+
+| 项 | 标准 |
+|---|---|
+| 母版画布 | **1600×1000**（16:10）；OG 另出 **1200×630** |
+| 格式 | 站内优先 **WebP**（质量 75–82）；源文件可保留 PNG/SVG |
+| 体积 | 列表封面 **≤ 180KB**；OG **≤ 300KB** |
+| 存放 | Vibe：`public/images/vibe-coding/<slug>/cover.webp`；Writing：`public/images/writing/<slug>/cover.webp` |
+| frontmatter | `cover: "/images/.../cover.webp"`（Writing 启用时再加 schema 字段） |
+| 色域 | sRGB；避免过饱和 HDR 感 |
+
+### 8.3 色彩（必须吃 Cream）
+
+底色优先：
+
+- Light 氛围：`#f5f3e9` canvas，或略深一档的纸感 `#efebe0`
+- 强调只允许：`#b7791f` primary；点缀可极少用 `#2c6f75` teal
+- 墨色结构：`#29271d` / `#403d36`
+
+禁止：
+
+- 紫粉霓虹、赛博网格、苔绿（旧站指纹）
+- 大面积高饱和渐变、荧光描边、玻璃拟态堆叠
+- 与站点无关的库存「科技地球 / 机器人握手」图
+
+Dark 主题下列表卡会叠墨色渐变浮层；封面本身按 **浅色纸感** 制作即可，不必出双套。
+
+### 8.4 构图与层级
+
+一张合格封面只做 **一件视觉事**：
+
+1. **一个主形**（物件 / 符号 / 几何结构 / 场景局部）
+2. **大留白**（≥ 35% 面积接近 canvas 或低对比纹理）
+3. **一条琥珀线或一个静点** 作焦点（呼应 Logo 语言）
+
+安全区：
+
+```text
+┌──────────────────────────────────┐
+│  外缘 6% 勿放关键信息              │
+│  ┌────────────────────────────┐  │
+│  │                            │  │
+│  │     主形偏一侧或偏下        │  │
+│  │     上半或对角留呼吸        │  │
+│  │                            │  │
+│  │  ░░ 下 28%：可叠标题暗区 ░░ │  │
+│  └────────────────────────────┘  │
+└──────────────────────────────────┘
+```
+
+- WorkCard 默认 **hover 才出字**：下 28% 可略加深，保证白字可读；不要在图上烤死大标题（站点会叠 HTML 文案）。
+- 内容页顶图：图上 **不要** 再写文章标题（页眉已有）。
+
+### 8.5 字体（仅当封面自带字时）
+
+多数封面 **无字** 更好。若必须有字：
+
+- 拉丁：偏 Syne / 几何无衬线；中文：干净黑体，字重 1–2 档即可
+- 字数：主句 ≤ 12 字；不要段落
+- 字色：ink 或 primary；禁止白字描黑边的「海报体」
+
+### 8.6 内容语义（贴文章，不贴关键词堆砌）
+
+| 文章类型 | 封面方向 | 避免 |
+|---|---|---|
+| 方法论 / 产品判断 | 结构、路径、边界、天平、地图局部 | 抽象「大脑发光」 |
+| Agent / 工程 | 本机、终端、链路、开关、证据纸 | 人形机器人 |
+| 设计系统 / Cream | 纸、色票、排版网格、暖光 | UI 假界面堆砌 |
+| 工具 / Skill | 单个工具静物、卡片、剪影 | logo 墙 |
+| 个人叙事 / 复盘 | 桌面一角、手稿、窗光、物件 | 自拍主视觉 |
+| 游戏 / 兴趣 | 氛围局部、符号，克制 | 官方海报翻拍 |
+
+原则：**用「现场的一件证物」代替「主题的百科插图」**。
+
+### 8.7 视觉体验检查清单
+
+发布前自问：
+
+- [ ] 缩到 320px 宽仍能认主形
+- [ ] 与站点 canvas 并置不跳色
+- [ ] 去掉图上的字后，仍能感到「这是同一品牌站点」
+- [ ] 列表 3–6 张并排时，色温与留白节奏一致，不单张特别吵
+- [ ] 无封面时，站内渐变占位仍可接受（不强制每篇都有图）
+
+### 8.8 无封面占位
+
+无 `cover` 时沿用站点默认：径向琥珀雾 + 轻 teal，底为 canvas。不要用随机库存图充数。
+
+### 8.9 生成提示词骨架（给 AI 出图时）
+
+```text
+Quiet editorial still-life cover for a personal blog.
+Warm cream paper background #f5f3e9, charcoal ink #29271d,
+single amber accent #b7791f, generous negative space,
+soft daylight, no purple, no neon, no glossy 3D mascot,
+16:10, minimal, calm, design-system consistent.
+Subject: {用一件证物概括文章核心}.
+```

@@ -1,0 +1,23 @@
+---
+export interface Props {
+  title: string;
+  description: string;
+  href: string;
+  date?: Date;
+  meta?: string;
+}
+
+const { title, description, href, date, meta } = Astro.props;
+
+const dateLabel = date
+  ? date.toLocaleDateString("en-CA").replace(/-/g, ".")
+  : meta;
+---
+
+<a href={href} class="article-row">
+  <div>
+    <h3 class="article-row__title">{title}</h3>
+    <p class="article-row__desc">{description}</p>
+  </div>
+  {dateLabel ? <time class="article-row__meta">{dateLabel}</time> : null}
+</a>

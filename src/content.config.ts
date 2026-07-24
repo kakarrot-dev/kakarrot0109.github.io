@@ -35,6 +35,7 @@ const vibeCoding = defineCollection({
     description: z.string(),
     publishedAt: z.date(),
     topics: z.array(z.string()),
+    cover: z.string().optional(),
     featured: z.boolean().default(false),
     draft: z.boolean().default(false),
   }),

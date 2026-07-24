@@ -1,34 +1,12 @@
 ---
-import ProseLayout from "@/layouts/ProseLayout.astro";
-import { getCollection, render } from "astro:content";
+import { getCollection } from "astro:content";
 
 export async function getStaticPaths() {
   const projects = await getCollection("projects");
-  return projects
-    .filter((p) => !p.data.draft)
-    .map((p) => ({
-      params: { slug: p.id },
-      props: { project: p },
-    }));
+  return projects.map((p) => ({
+    params: { slug: p.id },
+  }));
 }
 
-const { project } = Astro.props;
-const { Content } = await render(project);
-const canonical = `/projects/${project.id}/`;
+return Astro.redirect("/vibe-coding/", 301);
 ---
-
-<ProseLayout
-  title={project.data.title}
-  description={project.data.description}
-  canonical={canonical}
-  publishedAt={project.data.publishedAt}
-  tags={project.data.topics}
->
-  <p class="text-xs text-[var(--color-text-muted)] font-mono">
-    发布时间：{project.data.publishedAt.toLocaleDateString("zh-CN")}
-  </p>
-  <p class="text-xs text-[var(--color-text-muted)] font-mono mb-4">
-    公开级别：{project.data.disclosureLevel}
-  </p>
-  <Content />
-</ProseLayout>

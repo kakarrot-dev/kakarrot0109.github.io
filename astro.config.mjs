@@ -8,6 +8,18 @@ export default defineConfig({
   trailingSlash: 'always',
   outDir: 'docs',
   integrations: [sitemap()],
+  redirects: {
+    '/projects': '/vibe-coding/',
+  },
+  markdown: {
+    shikiConfig: {
+      themes: {
+        light: 'github-light',
+        dark: 'github-dark',
+      },
+      defaultColor: false,
+    },
+  },
   vite: {
     plugins: [tailwindcss()],
   },

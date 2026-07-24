@@ -1,0 +1,41 @@
+---
+export interface Props {
+  title: string;
+  description: string;
+  href: string;
+  cover?: string;
+  meta?: string;
+  /** 列表页：文案常显；首页跑马：默认 hover 显 */
+  alwaysMeta?: boolean;
+  class?: string;
+}
+
+const {
+  title,
+  description,
+  href,
+  cover,
+  meta,
+  alwaysMeta = false,
+  class: className = "",
+} = Astro.props;
+---
+
+<a
+  href={href}
+  class:list={[
+    "work-card",
+    alwaysMeta && "work-card--list work-card--always-meta",
+    className,
+  ]}
+>
+  <div class="work-card__media">
+    {cover ? <img src={cover} alt="" loading="lazy" /> : null}
+  </div>
+  <div class="work-card__scrim" aria-hidden="true"></div>
+  <div class="work-card__body">
+    {meta ? <p class="work-card__meta">{meta}</p> : null}
+    <h3 class="work-card__title">{title}</h3>
+    <p class="work-card__desc">{description}</p>
+  </div>
+</a>
