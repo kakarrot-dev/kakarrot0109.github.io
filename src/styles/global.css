@@ -397,6 +397,16 @@ html[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
   color: var(--color-muted);
   letter-spacing: 0.04em;
 }
+.site-footer-project {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid color-mix(in srgb, var(--color-muted) 45%, transparent);
+  transition: color var(--dur-fast), border-color var(--dur-fast);
+}
+.site-footer-project:hover {
+  color: var(--color-primary);
+  border-bottom-color: var(--color-primary);
+}
 .site-footer-social {
   display: flex;
   flex-wrap: wrap;

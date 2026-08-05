@@ -50,11 +50,11 @@ import SocialIcon from "@/components/SocialIcon.astro";
           document.documentElement.getAttribute("data-theme") === "dark"
             ? { canvas: "#2d2e2d", primary: "#e6bf7a" }
             : { canvas: "#f5f3e9", primary: "#b7791f" };
-        const points = Array.from({ length: 180 }, () => ({
+        const points = Array.from({ length: 320 }, () => ({
           x: Math.random(),
           y: Math.random(),
           depth: 0.35 + Math.random() * 0.65,
-          size: 0.6 + Math.random() * 1.4,
+          size: 1.4 + Math.random() * 2.4,
         }));
         const pointer = { x: 0, y: 0 };
         const target = { x: 0, y: 0 };
@@ -89,7 +89,7 @@ import SocialIcon from "@/components/SocialIcon.astro";
           const gridSize = Math.max(56, width / 24);
           const gridOffsetX = (pointer.x * 24) % gridSize;
           const gridOffsetY = (-pointer.y * 16) % gridSize;
-          context.strokeStyle = `${colors.primary}1f`;
+          context.strokeStyle = `${colors.primary}33`;
           context.lineWidth = 1;
           context.beginPath();
           for (let x = gridOffsetX; x <= width; x += gridSize) {
@@ -102,7 +102,7 @@ import SocialIcon from "@/components/SocialIcon.astro";
           }
           context.stroke();
 
-          context.fillStyle = `${colors.primary}b3`;
+          context.fillStyle = `${colors.primary}f2`;
           for (const point of points) {
             // 粒子漂移：约 4× 原速，桌面与 iOS 同一套
             const drift = time * 0.000024 * point.depth;
@@ -110,7 +110,7 @@ import SocialIcon from "@/components/SocialIcon.astro";
               ((point.x + drift) % 1) * width +
               pointer.x * 28 * point.depth;
             const y = point.y * height - pointer.y * 18 * point.depth;
-            context.globalAlpha = 0.35 + point.depth * 0.4;
+            context.globalAlpha = 0.55 + point.depth * 0.45;
             context.fillRect(x, y, point.size, point.size);
           }
           context.globalAlpha = 1;
