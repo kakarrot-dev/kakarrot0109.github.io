@@ -18,6 +18,8 @@ draft: false
   </a>
 </p>
 
+![Tampermonkey Scripts 项目横幅](https://raw.githubusercontent.com/kakarrot-dev/tampermonkey/main/assets/repository-banner.png)
+
 这是我的个人 Tampermonkey / Violentmonkey 用户脚本仓库。它用原生 JavaScript 按站点管理脚本，`.user.js` 源文件就是安装产物，不需要构建工具或包管理器。
 
 ## 为什么做
