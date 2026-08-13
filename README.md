@@ -39,8 +39,8 @@
 
 - **Content Collections**：Markdown 驱动的 Writing / Vibe Coding
 - **Quiet Studio UI**：Cream light/dark、粘性顶栏、品牌 Logo、主题切换防闪
-- **首页**：Three.js 琥珀雾场 Hero、Vibe 封面横向跑马、Writing 精选行列表
-- **阅读体验**：760px 居中阅读柱、右侧线条 TOC、代码复制、Mermaid、表格 hover
+- **首页**：Canvas 琥珀雾场 Hero、桌面 Vibe 封面跑马、触控横滑、Writing 精选行列表
+- **阅读体验**：760px 居中阅读柱、宽屏右侧 TOC、移动端折叠目录、代码复制、Mermaid、表格 hover
 - **信息架构**：`Vibe Coding · Writing · About`；旧 `/projects/*` 重定向至 `/vibe-coding/`
 - **纯静态部署**：构建产物写入 `docs/`，由 GitHub Actions 发布
 
@@ -52,7 +52,7 @@
 | Styling | Tailwind CSS 4 + `src/styles/global.css` design tokens |
 | Content | Astro Content Collections (Markdown) |
 | Fonts | Noto Sans SC · Syne · JetBrains Mono（自托管） |
-| Motion / 3D | CSS transitions · Three.js（首页 Hero） |
+| Motion | CSS transitions · Canvas 2D（首页 Hero） |
 | Diagrams | Mermaid（客户端渲染） |
 | Deploy | GitHub Pages + GitHub Actions |
 

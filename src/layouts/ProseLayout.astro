@@ -83,6 +83,17 @@ const hasToc = tocItems.length > 0;
           )
         }
       </header>
+      {
+        hasToc && (
+          <details class="toc-mobile">
+            <summary>
+              <span>目录</span>
+              <span>{tocItems.length} 节</span>
+            </summary>
+            <TableOfContents headings={headings} showTitle={false} />
+          </details>
+        )
+      }
       <slot />
     </article>
     {
@@ -195,5 +206,11 @@ const hasToc = tocItems.length > 0;
       );
       sections.forEach((s) => io.observe(s));
     }
+
+    document.querySelectorAll<HTMLAnchorElement>(".toc-mobile a").forEach((link) => {
+      link.addEventListener("click", () => {
+        link.closest("details")?.removeAttribute("open");
+      });
+    });
   });
 </script>

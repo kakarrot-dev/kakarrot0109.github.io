@@ -44,8 +44,8 @@ function formatMeta(date: Date, topics?: string[]) {
     <div class="marquee" aria-label="精选作品横向展示">
       <div class="marquee__track">
         {
-          vibeForMarquee.map((p) => (
-            <div class="marquee__item">
+          vibeForMarquee.map((p, index) => (
+            <div class:list={["marquee__item", index >= vibeFeatured.length && "marquee__item--duplicate"]}>
               <WorkCard
                 title={p.data.title}
                 description={p.data.description}
@@ -53,6 +53,7 @@ function formatMeta(date: Date, topics?: string[]) {
                 cover={p.data.cover}
                 meta={formatMeta(p.data.publishedAt, p.data.topics)}
                 alwaysMeta={true}
+                isDuplicate={index >= vibeFeatured.length}
               />
             </div>
           ))

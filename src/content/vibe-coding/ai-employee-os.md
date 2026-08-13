@@ -14,7 +14,7 @@ draft: false
 
 <p align="center">
   <a href="https://github.com/kakarrot-dev/AI-Employee-OS">
-    <img src="/images/vibe-coding/ai-employee-os/logo.png" width="128" alt="AI Employee OS 产品图标">
+    <img src="/images/vibe-coding/ai-employee-os/logo.webp" width="128" height="128" alt="AI Employee OS 产品图标" decoding="async">
   </a>
 </p>
 

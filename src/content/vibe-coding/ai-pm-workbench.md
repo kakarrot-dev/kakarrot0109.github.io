@@ -14,7 +14,7 @@ draft: false
 
 <p align="center">
   <a href="https://github.com/kakarrot-dev/ai-pm-workbench">
-    <img src="/images/vibe-coding/ai-pm-workbench/logo.png" width="112" alt="AI PM Workbench Logo">
+    <img src="/images/vibe-coding/ai-pm-workbench/logo.webp" width="112" height="112" alt="AI PM Workbench Logo" decoding="async">
   </a>
 </p>
 

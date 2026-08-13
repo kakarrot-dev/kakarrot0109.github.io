@@ -5,7 +5,8 @@
 <button
   type="button"
   class="theme-toggle"
-  aria-label="切换主题"
+  aria-label="切换到深色模式"
+  aria-pressed="false"
   data-theme-toggle
 >
   <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
@@ -27,10 +28,22 @@
     }
   }
 
+  function syncThemeButton(btn: Element, theme: "light" | "dark") {
+    const isDark = theme === "dark";
+    const label = isDark ? "切换到浅色模式" : "切换到深色模式";
+    btn.setAttribute("aria-label", label);
+    btn.setAttribute("aria-pressed", String(isDark));
+    btn.setAttribute("title", label);
+  }
+
   document.querySelectorAll("[data-theme-toggle]").forEach((btn) => {
+    const initial = document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light";
+    syncThemeButton(btn, initial);
     btn.addEventListener("click", () => {
       const current = document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light";
-      applyTheme(current === "dark" ? "light" : "dark");
+      const next = current === "dark" ? "light" : "dark";
+      applyTheme(next);
+      syncThemeButton(btn, next);
     });
   });
 </script>

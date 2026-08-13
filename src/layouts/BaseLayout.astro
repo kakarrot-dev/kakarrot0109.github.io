@@ -3,7 +3,6 @@ import "@/styles/global.css";
 import SeoHead from "@/components/SeoHead.astro";
 import Nav from "@/components/Nav.astro";
 import Footer from "@/components/Footer.astro";
-import notoSansSc400 from "@fontsource/noto-sans-sc/files/noto-sans-sc-chinese-simplified-400-normal.woff2?url";
 
 export interface Props {
   title: string;
@@ -61,13 +60,6 @@ const {
       {updatedAt}
       {tags}
     />
-    <link
-      rel="preload"
-      href={notoSansSc400}
-      as="font"
-      type="font/woff2"
-      crossorigin
-    />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32" />
     <link rel="shortcut icon" href="/favicon.ico" />
@@ -93,18 +85,24 @@ const {
     </main>
     <Footer />
     <script>
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add("visible");
-              observer.unobserve(entry.target);
-            }
-          });
-        },
-        { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
-      );
-      document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+      const revealElements = document.querySelectorAll(".reveal");
+      if ("IntersectionObserver" in window) {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("visible");
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          // 只要内容进入可视区就显示，不能按超长列表的总高度计算比例。
+          { threshold: 0, rootMargin: "0px 0px -8% 0px" }
+        );
+        revealElements.forEach((el) => observer.observe(el));
+      } else {
+        revealElements.forEach((el) => el.classList.add("visible"));
+      }
     </script>
   </body>
 </html>

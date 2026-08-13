@@ -20,15 +20,16 @@ const links = [
       type="button"
       aria-label="菜单"
       aria-expanded="false"
+      aria-controls="site-nav-links"
       data-nav-toggle
     >
       <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.75">
-        <line x1="4" y1="7" x2="20" y2="7"></line>
-        <line x1="4" y1="12" x2="20" y2="12"></line>
-        <line x1="4" y1="17" x2="20" y2="17"></line>
+        <line class="nav-toggle-line nav-toggle-line--top" x1="4" y1="7" x2="20" y2="7"></line>
+        <line class="nav-toggle-line nav-toggle-line--middle" x1="4" y1="12" x2="20" y2="12"></line>
+        <line class="nav-toggle-line nav-toggle-line--bottom" x1="4" y1="17" x2="20" y2="17"></line>
       </svg>
     </button>
-    <ul class="nav-links" data-nav-links>
+    <ul id="site-nav-links" class="nav-links" data-nav-links>
       {
         links.map(({ href, label }) => {
           const isActive = currentPath === href || currentPath.startsWith(href);
@@ -50,20 +51,40 @@ const links = [
 
 <script>
   document.addEventListener("DOMContentLoaded", () => {
-    const toggle = document.querySelector("[data-nav-toggle]");
-    const links = document.querySelector("[data-nav-links]");
+    const toggle = document.querySelector<HTMLButtonElement>("[data-nav-toggle]");
+    const links = document.querySelector<HTMLElement>("[data-nav-links]");
     if (!toggle || !links) return;
+
+    const closeMenu = () => {
+      links.classList.remove("open");
+      toggle.classList.remove("open");
+      toggle.setAttribute("aria-expanded", "false");
+      toggle.setAttribute("aria-label", "菜单");
+    };
 
     toggle.addEventListener("click", () => {
       const open = links.classList.toggle("open");
+      toggle.classList.toggle("open", open);
       toggle.setAttribute("aria-expanded", String(open));
+      toggle.setAttribute("aria-label", open ? "关闭菜单" : "菜单");
     });
 
     links.querySelectorAll("a").forEach((a) => {
-      a.addEventListener("click", () => {
-        links.classList.remove("open");
-        toggle.setAttribute("aria-expanded", "false");
-      });
+      a.addEventListener("click", closeMenu);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && links.classList.contains("open")) {
+        closeMenu();
+        toggle.focus();
+      }
+    });
+
+    document.addEventListener("pointerdown", (event) => {
+      if (!(event.target instanceof Node)) return;
+      if (links.classList.contains("open") && !toggle.closest(".nav-inner")?.contains(event.target)) {
+        closeMenu();
+      }
     });
   });
 </script>

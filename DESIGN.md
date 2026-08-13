@@ -19,6 +19,7 @@
 | `--color-body` | `#403d36` | `#ddd9cd` | 正文 |
 | `--color-muted` | `#6d675b` | `#bbb6a8` | 元信息 |
 | `--color-primary` | `#b7791f` | `#e6bf7a` | 强调 / 链接 / CTA |
+| `--color-primary-text` | `#8a5a14` | `#e6bf7a` | 小字号强调文字，保证浅色主题对比度 |
 | `--color-hairline` | `#d8d2c3` | `#3d3d3a` | 细线 |
 | `--color-surface` | `#ffffff` | `#303030` | 卡片/浮层底 |
 | `--color-teal` | `#2c6f75` | `#75b5bc` | 极少点缀 |
@@ -45,7 +46,7 @@
 
 - Noto Sans SC 只引 `chinese-simplified-400`（700 全量 CJK ~1.1MB；粗体优先靠系统字体）
 - JetBrains Mono / Syne 只引 `latin-*` 子集
-- 首页对 Noto 400 woff2 做 `rel=preload`
+- 不主动 preload Noto 单体字体；系统中文字体命中时不应额外下载 1MB+ 回退资源
 
 字号阶梯：display / title / body / meta。正文行宽约 `65ch`（阅读柱 760px）。
 
@@ -80,8 +81,8 @@ Header / Footer 全站一份，经 `BaseLayout` 注入。
 
 - **WorkCard**：封面主导；标题叠在封面上；无封面用渐变占位。
 - **ArticleRow**：整行可点；hover = 浅琥珀底 + 左侧 primary 竖条。
-- **TOC**：右侧线条常驻，无折叠；窄屏叠到正文上方。
-- **Hero**：琥珀雾场（Three.js）；无头像、无「作品/写作」CTA；社交图标+文字。
+- **TOC**：宽屏右侧线条常驻；窄屏放在文章标题与正文之间，默认折叠。
+- **Hero**：琥珀雾场（Canvas 2D）；无头像、无「作品/写作」CTA；社交图标+文字。
 - 区头：`01` / `02` + 大写英文标题 + 描述 + VIEW ALL。
 
 文案：栏目/区头/chips 优先大写英文；长文中文标题可保留。
@@ -104,7 +105,8 @@ Header / Footer 全站一份，经 `BaseLayout` 注入。
 - 滚动渐入：短 opacity（可关）。
 - 链接：下划线生长。
 - 主题：背景/文字 150–200ms。
-- Hero：指针视差；`prefers-reduced-motion` 销毁 WebGL → 静态径向渐变。
+- Hero：指针视差；离开视口时暂停绘制；`prefers-reduced-motion` 使用静态径向渐变。
+- Vibe 跑马：桌面可自动缓慢移动并在 hover/focus 时暂停；触控端改为手势横滑与 scroll snap，不自动播放。
 
 ---
 

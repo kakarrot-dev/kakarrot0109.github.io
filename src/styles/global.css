@@ -16,6 +16,7 @@ html[data-theme="light"],
   --color-body: #403d36;
   --color-muted: #6d675b;
   --color-primary: #b7791f;
+  --color-primary-text: #8a5a14;
   --color-hairline: #d8d2c3;
   --color-surface: #ffffff;
   --color-teal: #2c6f75;
@@ -42,6 +43,7 @@ html[data-theme="dark"] {
   --color-body: #ddd9cd;
   --color-muted: #bbb6a8;
   --color-primary: #e6bf7a;
+  --color-primary-text: #e6bf7a;
   --color-hairline: #3d3d3a;
   --color-surface: #303030;
   --color-teal: #75b5bc;
@@ -106,7 +108,7 @@ body {
 }
 
 a {
-  color: var(--color-primary);
+  color: var(--color-primary-text);
   text-decoration-color: color-mix(in oklab, var(--color-primary) 40%, transparent);
   text-underline-offset: 3px;
   transition: color var(--dur-fast) ease, text-decoration-color var(--dur-fast) ease;
@@ -114,6 +116,11 @@ a {
 a:hover {
   color: var(--color-accent-dim);
   text-decoration-color: var(--color-primary);
+}
+
+:where(a, button, summary):focus-visible {
+  outline: 2px solid var(--color-primary-text);
+  outline-offset: 3px;
 }
 
 ::selection {
@@ -171,7 +178,7 @@ a:hover {
   font: 500 var(--text-meta)/1 var(--font-mono);
   letter-spacing: var(--ls-meta);
   text-transform: uppercase;
-  color: var(--color-primary);
+  color: var(--color-primary-text);
 }
 
 .section-title {
@@ -204,7 +211,7 @@ a:hover {
   transition: color var(--dur-fast), border-color var(--dur-fast);
 }
 .section-link:hover {
-  color: var(--color-primary);
+  color: var(--color-primary-text);
   border-bottom-color: var(--color-primary);
 }
 
@@ -221,7 +228,7 @@ a:hover {
   font: 500 var(--text-meta)/1 var(--font-mono);
   letter-spacing: var(--ls-meta);
   text-transform: uppercase;
-  color: var(--color-primary);
+  color: var(--color-primary-text);
 }
 
 .page-title {
@@ -322,8 +329,8 @@ a:hover {
 .nav-toggle-btn {
   display: none;
   margin-left: auto;
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   border: 1px solid var(--color-hairline);
   background: transparent;
   color: var(--color-ink);
@@ -331,9 +338,18 @@ a:hover {
   padding: 0;
 }
 
+.nav-toggle-line {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform var(--dur-med) var(--ease-out), opacity var(--dur-fast) ease;
+}
+.nav-toggle-btn.open .nav-toggle-line--top { transform: translateY(5px) rotate(45deg); }
+.nav-toggle-btn.open .nav-toggle-line--middle { opacity: 0; }
+.nav-toggle-btn.open .nav-toggle-line--bottom { transform: translateY(-5px) rotate(-45deg); }
+
 .theme-toggle {
-  width: 36px;
-  height: 36px;
+  width: 44px;
+  height: 44px;
   border: none;
   background: transparent;
   color: var(--color-ink);
@@ -341,10 +357,11 @@ a:hover {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  transition: color var(--dur-fast);
+  transition: color var(--dur-fast), transform var(--dur-med) var(--ease-out);
 }
 .theme-toggle:hover {
   color: var(--color-primary);
+  transform: rotate(10deg);
 }
 .theme-toggle svg { width: 16px; height: 16px; }
 html[data-theme="light"] .theme-toggle .icon-sun { display: none; }
@@ -404,7 +421,7 @@ html[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
   transition: color var(--dur-fast), border-color var(--dur-fast);
 }
 .site-footer-project:hover {
-  color: var(--color-primary);
+  color: var(--color-primary-text);
   border-bottom-color: var(--color-primary);
 }
 .site-footer-social {
@@ -417,8 +434,8 @@ html[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
+  width: 44px;
+  height: 44px;
   text-decoration: none;
   color: var(--color-muted);
   transition: color var(--dur-fast);
@@ -441,6 +458,7 @@ html[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
   align-items: center;
   gap: 8px;
   padding: 0;
+  min-height: 44px;
   border: none;
   background: transparent;
   color: var(--color-muted);
@@ -450,7 +468,7 @@ html[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
   transition: color var(--dur-fast);
 }
 .social-pill:hover {
-  color: var(--color-primary);
+  color: var(--color-primary-text);
 }
 .social-pill svg,
 .social-pill .social-icon-mask {
@@ -679,12 +697,25 @@ html[data-theme="dark"] .work-card:hover .work-card__media img {
   from { transform: translate3d(0, 0, 0); }
   to { transform: translate3d(-50%, 0, 0); }
 }
-@media (hover: none), (pointer: coarse) {
-  /* 触控无可靠 hover：封面文案常显；手机端明显加快，桌面仍 48s */
-  .marquee__track {
-    animation-duration: 24s;
-    will-change: auto;
+@media (hover: none), (pointer: coarse), (max-width: 768px) {
+  /* 触控端改为用户控制的横滑，不让自动动画与 Hero 同时长期运行。 */
+  .marquee {
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
   }
+  .marquee::-webkit-scrollbar { display: none; }
+  .marquee__track {
+    animation: none;
+    transform: none;
+    will-change: auto;
+    padding-inline: var(--page-pad);
+  }
+  .marquee__item { scroll-snap-align: start; }
+  .marquee__item--duplicate { display: none; }
   .marquee .work-card__scrim,
   .marquee .work-card__body {
     opacity: 1;
@@ -804,7 +835,7 @@ html[data-theme="dark"] .work-card:hover .work-card__media img {
   font: 500 11px/1 var(--font-mono);
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--color-primary);
+  color: var(--color-primary-text);
 }
 .about-note p {
   margin: 0 0 12px;
@@ -865,6 +896,9 @@ html.js .reveal-delay-3 { transition-delay: 180ms; }
   padding-left: 16px;
   border-left: 1px solid var(--color-hairline);
 }
+
+.toc-mobile { display: none; }
+
 @media (max-width: 1100px) {
   .prose-layout {
     grid-template-columns: 1fr;
@@ -878,15 +912,39 @@ html.js .reveal-delay-3 { transition-delay: 180ms; }
     margin-left: 0;
   }
   .prose-layout__toc {
-    position: static;
-    max-height: none;
-    width: 100%;
-    margin-bottom: 28px;
-    order: -1;
-    padding: 0 0 16px;
-    border-left: none;
+    display: none;
+  }
+  .toc-mobile {
+    display: block;
+    margin: 0 0 28px;
+    border-top: 1px solid var(--color-hairline);
     border-bottom: 1px solid var(--color-hairline);
   }
+  .toc-mobile summary {
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    cursor: pointer;
+    list-style: none;
+    font: 500 12px/1 var(--font-mono);
+    letter-spacing: var(--ls-meta);
+    text-transform: uppercase;
+    color: var(--color-primary-text);
+  }
+  .toc-mobile summary::-webkit-details-marker { display: none; }
+  .toc-mobile summary span:last-child { color: var(--color-muted); }
+  .toc-mobile summary span:last-child::after {
+    content: "+";
+    display: inline-block;
+    width: 1em;
+    margin-left: 10px;
+    color: var(--color-primary-text);
+    text-align: center;
+  }
+  .toc-mobile[open] summary span:last-child::after { content: "−"; }
+  .toc-mobile .toc { padding-bottom: 16px; }
 }
 
 .toc-title {
@@ -913,7 +971,7 @@ html.js .reveal-delay-3 { transition-delay: 180ms; }
 }
 .toc-list a:hover,
 .toc-list a[aria-current="true"] {
-  color: var(--color-primary);
+  color: var(--color-primary-text);
 }
 .toc-list .toc-depth-3 { padding-left: 12px; font-size: 12px; }
 
@@ -954,7 +1012,7 @@ html.js .reveal-delay-3 { transition-delay: 180ms; }
   padding: 6px 10px;
 }
 .prose-tag:hover {
-  color: var(--color-primary);
+  color: var(--color-primary-text);
   border-color: var(--color-primary);
 }
 
@@ -979,7 +1037,7 @@ html.js .reveal-delay-3 { transition-delay: 180ms; }
   font-weight: 500;
   font-size: 0.72em;
   letter-spacing: 0.04em;
-  color: var(--color-primary);
+  color: var(--color-primary-text);
   margin-right: 0.45em;
   vertical-align: 0.08em;
 }
@@ -1005,6 +1063,9 @@ html.js .reveal-delay-3 { transition-delay: 180ms; }
   border-left: 3px solid var(--color-primary);
   letter-spacing: -0.01em;
   line-height: 1.4;
+}
+.prose :is(h1, h2, h3)[id] {
+  scroll-margin-top: calc(var(--nav-h) + 24px);
 }
 .prose h4 {
   font-size: 0.95rem;
@@ -1057,7 +1118,7 @@ html[data-theme="dark"] .prose b {
   margin: 1.5rem 0;
   border: 1px solid var(--color-hairline);
 }
-.prose a { color: var(--color-primary); }
+.prose a { color: var(--color-primary-text); }
 
 .prose code:not(pre code) {
   font-family: var(--font-mono);
@@ -1179,7 +1240,7 @@ html[data-theme="dark"] .astro-code span {
   background: transparent;
 }
 .chip--active {
-  color: var(--color-primary);
+  color: var(--color-primary-text);
   border-color: var(--color-primary);
 }
 

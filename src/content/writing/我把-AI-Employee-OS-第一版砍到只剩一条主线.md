@@ -12,7 +12,7 @@ featured: true
 draft: false
 ---
 
-![AI Employee OS 第一版 Demo](/images/vibe-coding/ai-employee-os/cover.webp)
+<img src="/images/vibe-coding/ai-employee-os/cover.webp" alt="AI Employee OS 第一版 Demo" width="1600" height="1000" decoding="async">
 
 做 AI Employee OS 的时候，我最早面对的不是技术选型，而是一个更容易失控的问题：**第一版到底要证明什么？**
 

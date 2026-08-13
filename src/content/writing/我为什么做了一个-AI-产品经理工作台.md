@@ -12,7 +12,7 @@ featured: true
 draft: false
 ---
 
-![AI PM Workbench](/images/writing/ai-pm-workbench/cover.webp)
+<img src="/images/writing/ai-pm-workbench/cover.webp" alt="AI PM Workbench" width="1600" height="1000" decoding="async">
 
 我在 Codex 里讨论产品需求时，经常会走过一条很熟悉的路径：先聊用户和问题，再拆功能，接着做页面，最后补一份 PRD。
 

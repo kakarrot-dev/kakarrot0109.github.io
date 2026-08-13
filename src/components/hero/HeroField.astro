@@ -50,7 +50,8 @@ import SocialIcon from "@/components/SocialIcon.astro";
           document.documentElement.getAttribute("data-theme") === "dark"
             ? { canvas: "#2d2e2d", primary: "#e6bf7a" }
             : { canvas: "#f5f3e9", primary: "#b7791f" };
-        const points = Array.from({ length: 320 }, () => ({
+        const coarsePointer = window.matchMedia("(pointer: coarse)").matches;
+        const points = Array.from({ length: coarsePointer ? 160 : 320 }, () => ({
           x: Math.random(),
           y: Math.random(),
           depth: 0.35 + Math.random() * 0.65,
@@ -117,6 +118,15 @@ import SocialIcon from "@/components/SocialIcon.astro";
           raf = requestAnimationFrame(draw);
         };
 
+        const start = () => {
+          if (!raf && !document.hidden) raf = requestAnimationFrame(draw);
+        };
+
+        const stop = () => {
+          if (raf) cancelAnimationFrame(raf);
+          raf = 0;
+        };
+
         resize();
         window.addEventListener("resize", resize);
         root.addEventListener("pointermove", (event) => {
@@ -125,11 +135,22 @@ import SocialIcon from "@/components/SocialIcon.astro";
           target.x = ((pointerEvent.clientX - rect.left) / rect.width - 0.5) * 2;
           target.y = ((pointerEvent.clientY - rect.top) / rect.height - 0.5) * 2;
         });
-        raf = requestAnimationFrame(draw);
+        if ("IntersectionObserver" in window) {
+          const visibilityObserver = new IntersectionObserver((entries) => {
+            if (entries.some((entry) => entry.isIntersecting)) start();
+            else stop();
+          });
+          visibilityObserver.observe(root);
+        } else {
+          start();
+        }
 
         document.addEventListener("visibilitychange", () => {
-          if (document.hidden) cancelAnimationFrame(raf);
-          else raf = requestAnimationFrame(draw);
+          if (document.hidden) stop();
+          else {
+            const rect = root.getBoundingClientRect();
+            if (rect.bottom > 0 && rect.top < window.innerHeight) start();
+          }
         });
       }
     }

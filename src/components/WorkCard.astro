@@ -7,6 +7,7 @@ export interface Props {
   meta?: string;
   /** 列表页：文案常显；首页跑马：默认 hover 显 */
   alwaysMeta?: boolean;
+  isDuplicate?: boolean;
   class?: string;
 }
 
@@ -17,12 +18,15 @@ const {
   cover,
   meta,
   alwaysMeta = false,
+  isDuplicate = false,
   class: className = "",
 } = Astro.props;
 ---
 
 <a
   href={href}
+  aria-hidden={isDuplicate ? "true" : undefined}
+  tabindex={isDuplicate ? -1 : undefined}
   class:list={[
     "work-card",
     alwaysMeta && "work-card--list work-card--always-meta",
@@ -30,7 +34,7 @@ const {
   ]}
 >
   <div class="work-card__media">
-    {cover ? <img src={cover} alt="" loading="lazy" /> : null}
+    {cover ? <img src={cover} alt="" loading="lazy" decoding="async" /> : null}
   </div>
   <div class="work-card__scrim" aria-hidden="true"></div>
   <div class="work-card__body">
