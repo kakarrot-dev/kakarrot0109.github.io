@@ -8,6 +8,7 @@ export interface Props {
   /** 列表页：文案常显；首页跑马：默认 hover 显 */
   alwaysMeta?: boolean;
   isDuplicate?: boolean;
+  transitionName?: string;
   class?: string;
 }
 
@@ -19,6 +20,7 @@ const {
   meta,
   alwaysMeta = false,
   isDuplicate = false,
+  transitionName,
   class: className = "",
 } = Astro.props;
 ---
@@ -33,7 +35,10 @@ const {
     className,
   ]}
 >
-  <div class="work-card__media">
+  <div
+    class="work-card__media"
+    style={transitionName && cover ? `view-transition-name:${transitionName}` : undefined}
+  >
     {cover ? <img src={cover} alt="" loading="lazy" decoding="async" /> : null}
   </div>
   <div class="work-card__scrim" aria-hidden="true"></div>

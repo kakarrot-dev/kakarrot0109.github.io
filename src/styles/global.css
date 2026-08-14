@@ -127,6 +127,21 @@ a:hover {
   background-color: color-mix(in oklab, var(--color-primary) 28%, transparent);
 }
 
+/* 同源页面渐进增强：不接管路由，只让 Vibe 封面在列表与详情之间连续。 */
+@view-transition {
+  navigation: auto;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+}
+
+::view-transition-group(*) {
+  animation-duration: 300ms;
+  animation-timing-function: var(--ease-out);
+}
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after {
@@ -137,6 +152,9 @@ a:hover {
   html.js .reveal {
     opacity: 1 !important;
     transform: none !important;
+  }
+  ::view-transition-group(*) {
+    animation-duration: 0.01ms !important;
   }
 }
 
@@ -488,6 +506,7 @@ html[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
   border: 1px solid var(--color-hairline);
   background: var(--color-surface);
   transition: border-color var(--dur-med), transform var(--dur-med) var(--ease-out);
+  touch-action: manipulation;
 }
 .work-card:hover {
   border-color: var(--color-primary);
@@ -496,6 +515,11 @@ html[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
 /* 栏目页常显文案：悬停只缩放图片 + 文字明暗，不抬卡片、不显隐文案 */
 .work-card--always-meta:hover {
   transform: none;
+}
+.work-card:active,
+.work-card--always-meta:active {
+  transform: scale(0.985);
+  transition-duration: var(--dur-fast);
 }
 .work-card__media {
   position: absolute;
@@ -1001,6 +1025,22 @@ html.js .reveal-delay-3 { transition-delay: 180ms; }
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
+}
+
+.project-cover {
+  aspect-ratio: 16 / 10;
+  margin: 0 0 40px;
+  overflow: hidden;
+  background: var(--color-surface);
+  border: 1px solid var(--color-hairline);
+}
+.prose .project-cover img {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  border: 0;
+  display: block;
+  object-fit: cover;
 }
 .prose-tag {
   font: 500 11px/1 var(--font-mono);

@@ -57,6 +57,7 @@ function formatMeta(date: Date, t?: string[]) {
               cover={p.data.cover}
               meta={formatMeta(p.data.publishedAt, p.data.topics)}
               alwaysMeta={true}
+              transitionName={`project-cover-${p.id}`}
             />
           </div>
         ))

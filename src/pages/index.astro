@@ -54,6 +54,7 @@ function formatMeta(date: Date, topics?: string[]) {
                 meta={formatMeta(p.data.publishedAt, p.data.topics)}
                 alwaysMeta={true}
                 isDuplicate={index >= vibeFeatured.length}
+                transitionName={index < vibeFeatured.length ? `project-cover-${p.id}` : undefined}
               />
             </div>
           ))
