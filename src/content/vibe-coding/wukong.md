@@ -1,6 +1,6 @@
 ---
-title: "悟空（Wukong）— 跑在本机的个人智能体"
-description: "以 Telegram 和 Dashboard 为双入口，把长期记忆、受控工具、可靠执行与本机运维组合成真正可持续使用的个人 Agent"
+title: "悟空（Wukong）— 少即是多的本机个人智能体"
+description: "一个主人、一台 Mac、一个 Telegram 入口、一个 Agent Loop 和一个 SQLite 事实源，只保留经真实使用验证的个人 Agent 能力"
 publishedAt: 2026-07-06
 topics:
   - "AI Agent"
@@ -11,34 +11,34 @@ featured: true
 draft: false
 ---
 
-Wukong 是我为自己构建的本机个人智能体服务。它不是一个面向公众的多租户 SaaS，也不只是聊天机器人，而是一个能够在手机上随时接收任务、在本机调用受控工具，并持续积累上下文的个人 Agent。
+Wukong 是我为自己构建的本机个人智能体。它不是面向公众的多租户 SaaS，也不是功能无限扩张的 Agent 平台，而是一个住在 Telegram 里、只服务唯一主人的本机系统。
 
 ## 为什么做
 
-我需要的不是另一个必须坐在电脑前打开的 AI 对话框，而是一个可以 7×24 小时触达的个人服务：临时想到一件事时，直接从 Telegram 发出指令；需要检查状态、管理配置时，再回到本机 Dashboard。
+我需要的不是另一个必须坐在电脑前打开的 AI 对话框，而是一个可以随时触达的个人服务：从 Telegram 发出需求，让它查资料、核对信息、形成判断，再把回复或文件可靠送回来。
 
-与此同时，我不希望长期记忆、本地文件和运行凭据离开自己的机器。更重要的是，Agent 不能只“看起来完成了”，它需要知道一个任务执行到哪一步、工具是否重复调用、最终结果是否已经送达。
+我也不希望长期记忆、本地文件和运行凭据离开自己的机器。更重要的是，Agent 不能只「看起来完成了」：它必须记录任务执行到哪一步，工具是否真的成功，结果是否已经送达。
 
 ## 关键产品决策
 
-- **Telegram + Dashboard 双入口** — Telegram 负责低摩擦对话和移动访问，Dashboard 负责本机管理，两者服务不同场景
-- **本地优先，而不是云端托管** — MongoDB、向量记忆、日志和备份都留在本机，核心数据边界清晰可控
-- **把可靠性设计成运行时能力** — Run、Step、Attempt、Event 持久化记录执行过程，Tool 幂等和验证恢复避免重复副作用，Outbox 保证最终消息去重投递
-- **限制工具权限** — 本地文件工具只开放查看、新增和编辑等受控操作；Git 工具只读检查状态、历史和 diff，不提供通用 Shell
-- **学习不等于自动改写能力** — 任务结果可以沉淀为 Episode 和 Reasoning Entry，但不会自动生成或晋升 Skill；Skill 保持人工维护和明确审核
+- **用五个「一」限定系统** — 一个主人、一台 Mac、一个 Telegram 入口、一个 Agent Loop、一个 SQLite 事实源
+- **删除未被当前场景证明的复杂度** — 不再包含 Dashboard、MongoDB、Chroma、Knowledge、Workflow、Worker、OpenTelemetry 和服务器部署路径
+- **保留可靠执行契约** — Run、Step、Attempt、Event、Artifact 和 Delivery 持久化状态；进程中断后可以恢复，`result_unknown` 不会被盲目重试
+- **记忆必须回到主人原文** — 只有带可定位原消息证据的 active Claim 才能进入 Current Profile，网页和工具结果不能污染个人记忆
+- **场景策略外置到 Skill** — 内核只维护通用闭环；Research Skill 通过受控 Tool 完成公开网页、GitHub、X 和 URL 读取
 
 ## 核心能力
 
-Wukong 把长期记忆、Agent-Reach 网络搜索与网页读取、本地文件操作、只读 Git 检查、子代理资产和定时任务放进同一个运行环境。备份、恢复、健康检查和 macOS launchd 配置则让它不只是一段能跑的代码，而是一个可以持续维护的本机服务。
+Wukong 通过 Telegram 接收文本和受支持的 UTF-8 附件，使用 `agent-reach` 完成有界的只读研究，并把长结果以分片消息或经校验的 Markdown Artifact 交付。Poe 作为主 Provider，DeepSeek 只在 Run 固定前备用。
 
-技术上使用 Python、FastAPI、Telegram Bot、MongoDB、Chroma 和 fastembed。对我来说，这些选型的意义不是堆叠技术栈，而是分别支撑快速交互、本地数据管理、语义检索和可观察的可靠执行。
+技术上使用 Python、Telegram Bot、SQLite、Poe、DeepSeek、`agent-reach` 和 macOS `launchd`。运行、Session、Memory、Scheduler、Artifact 和 Delivery 的元数据统一落在 SQLite，日常不需要 Web 服务器、向量数据库或容器栈。
 
 ## 项目价值
 
-这个项目让我不断验证一个判断：个人 Agent 的价值不取决于功能数量，而取决于它能否长期存在于真实工作流中。入口要足够自然，记忆要能够追溯，工具权限要受到约束，失败也必须留下可以恢复的状态。
+这个项目让我不断验证一个判断：个人 Agent 的价值不取决于功能数量，而取决于它能否长期闭合真实任务。少一个事实源，就少一类漂移；少一条执行路径，就少一套恢复语义。少即是多，意味着每一个留下的模块都必须对最终交付负责。
 
 ## 当前状态
 
-Wukong 当前定位为个人本机服务，核心对话、记忆、工具、执行记录和运维能力都围绕这一边界持续迭代，不计划扩展为公网多租户平台。
+2026 年 8 月，Wukong vNext 已完成生产主链切换。它当前是 macOS 上的单主人本机服务，专注 Telegram 对话、只读研究、可回查记忆、可验证交付与中断恢复，不计划扩展为公网多租户平台。
 
 [查看 GitHub 仓库](https://github.com/kakarrot-dev/Wukong)
