@@ -140,25 +140,25 @@ const deskMobile = [
 
   .about-content {
     font-size: var(--text-body);
-    line-height: var(--lh-body);
-    color: var(--color-body);
+    line-height: var(--lh-reading);
+    color: var(--color-muted);
   }
 
   .about-content p {
-    margin: 0 0 16px;
+    margin: 0 0 24px;
   }
 
   .about-content strong,
   .about-content h2,
   .about-content h3 {
     color: var(--color-ink);
+    font-weight: 500;
   }
 
   .about-content h2 {
     margin: 40px 0 16px;
     font-size: var(--text-section);
-    font-weight: 600;
-    line-height: var(--lh-title);
+    line-height: 1.6;
   }
 
   .about-principles {
@@ -186,28 +186,31 @@ const deskMobile = [
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 32px;
     margin-top: 20px;
-    overflow-wrap: anywhere;
+  }
+
+  .about-desk > div {
+    min-width: 0;
   }
 
   .about-desk h3 {
     margin: 0 0 12px;
     font-size: var(--text-subheading);
-    font-weight: 600;
   }
 
   .about-desk ul {
     list-style: none;
     padding: 0;
     margin: 0;
-    font-size: 1rem;
+    overflow-x: auto;
+    font-size: var(--text-meta);
+  }
+
+  .about-desk li {
+    white-space: nowrap;
   }
 
   .about-desk li + li {
     margin-top: 6px;
-  }
-
-  .about-desk strong {
-    font-weight: 600;
   }
 
   @media (max-width: 640px) {

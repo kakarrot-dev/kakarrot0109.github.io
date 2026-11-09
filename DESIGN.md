@@ -17,7 +17,7 @@
 | `--color-canvas` | `#f5f3e9` | `#2d2e2d` | 页面底 |
 | `--color-ink` | `#29271d` | `#e9e6dc` | 主文字 |
 | `--color-body` | `#403d36` | `#ddd9cd` | 正文 |
-| `--color-muted` | `#6d675b` | `#bbb6a8` | 元信息 |
+| `--color-muted` | `#6d675b` | `#bbb6a8` | 个人介绍、导语与元信息 |
 | `--color-primary` | `#b7791f` | `#e6bf7a` | 强调与交互状态 |
 | `--color-primary-text` | `#8a5a14` | `#e6bf7a` | 小字号链接、强调文字与焦点 |
 | `--color-hairline` | `#d8d2c3` | `#3d3d3a` | 细线 |
@@ -27,6 +27,8 @@
 兼容别名（过渡期）：`--color-bg-warm` → canvas；`--color-text-primary` → ink；`--color-accent` → primary；`--color-border` → hairline。
 
 强调色主要服务链接、当前状态和焦点，使用现有 tokens，不引入另一套色板。两种主题都检查正文、元信息、细线、控件与代码高亮的可读性。
+
+社交图标允许小面积品牌色点缀：Instagram 使用 `--color-social-instagram`（`#e4405f`），小红书使用 `--color-social-xiaohongshu`（`#ff2442`）；邮箱沿用 primary，X 与 GitHub 使用随主题变化的 ink。颜色仅用于图形，不增加彩色底座、渐变或光效。
 
 主题初始化优先采用 `localStorage` 中的用户选择，否则采用系统偏好；head 内联 boot 防闪。主题切换继续记忆用户选择。
 
@@ -60,6 +62,10 @@
 | 正文 `h2` / `h3` | 约 18px / 17px，以字重和章节间距建立层级 |
 
 首页与内页均使用紧凑页头，名字、身份和栏目标题保持自然的正文比例。
+
+界面正文以 400 字重呈现，栏目标题、列表标题和章节标题采用 500，主要通过 ink / muted 的深浅与间距建立层级。首页身份保持 400 与 ink；介绍文字、栏目导语和详情摘要采用 muted。长文章正文继续使用 body，原文加粗保持 700。
+
+首页、About 与文章共用 `--lh-reading: 1.85`。首页段落间距 28px，About 段落间距 24px；About 的重点文字使用 500 与 ink，h2 行高为 1.6。
 
 ---
 
@@ -103,7 +109,7 @@ Header / Footer 经 `BaseLayout` 注入并共用内容边界。Header 使用现�
 - **Vibe Coding / WorkCard**：静态单列条目，只展示完整标题、日期等元信息与占满内容列宽的现有封面 banner，不展示摘要。文字与图片上下分开排布，不叠字、不加遮罩、不依赖 hover 显示信息；桌面与手机均沿同一单列排列。没有封面时只显示完整文字，不保留空图区域。
 - **TOC / TableOfContents**：所有屏幕使用同一位置和同一个原生 `details`，初始不设置 `open`。折叠显示“目录”入口，展开显示 h2/h3 章节链接；没有章节时不渲染空目录。保留展开状态、键盘焦点、章节跳转与当前节提示，锚点不被导航遮挡。
 - **栏目页页头**：20px 栏目标题、简短说明与必要统计保持清楚层级，使用紧凑间距，不叠加装饰性编号和标签。
-- **About / ArticleNav / 404**：沿用统一宽度、字体、留白与链接反馈；保留 About 介绍、Timeline、Principles、设备清单及 Writing 上下篇内容。
+- **About / ArticleNav / 404**：沿用统一宽度、字体、留白与链接反馈；保留 About 介绍、Timeline、Principles、设备清单及 Writing 上下篇内容。Desk & kit 清单采用 13px，每条设备信息保持一行；过长内容在各列清单内横向滚动，桌面双列、手机单列。
 
 文案使用原有栏目名与内容标题，元信息简洁。避免将全部 UI 标签大写化或用装饰文字制造层级。
 

@@ -11,6 +11,9 @@
 /* ——— Claude Cream 双主题 ——— */
 html[data-theme="light"],
 :root {
+  --color-social-instagram: #e4405f;
+  --color-social-xiaohongshu: #ff2442;
+
   --color-canvas: #f5f3e9;
   --color-ink: #29271d;
   --color-body: #403d36;
@@ -72,6 +75,7 @@ html[data-theme="dark"] {
   --lh-display: 0.95;
   --lh-title: 1.15;
   --lh-body: 1.7;
+  --lh-reading: 1.85;
 
   --ls-display: -0.04em;
   --ls-meta: 0.02em;
@@ -142,14 +146,14 @@ a:hover {
 .page-title {
   margin: 0 0 12px;
   font-size: var(--text-title);
-  font-weight: 600;
+  font-weight: 500;
   line-height: 1.6;
-  letter-spacing: -0.02em;
+  letter-spacing: normal;
 }
 .page-lead {
   margin: 0;
   font-size: var(--text-body);
-  color: var(--color-body);
+  color: var(--color-muted);
   line-height: 1.8;
 }
 .section-link {
@@ -197,7 +201,7 @@ a:hover {
 }
 .nav-name {
   font-size: 15px;
-  font-weight: 600;
+  font-weight: 500;
 }
 .nav-brand {
   display: inline-flex;
@@ -314,7 +318,8 @@ html[data-theme="light"] .theme-toggle .icon-sun, html[data-theme="dark"] .theme
   height: 44px;
   color: var(--color-muted);
 }
-.site-footer-social a:hover {
+.site-footer-social a:hover,
+.site-footer-social a:hover :is(svg, .social-icon-mask) {
   color: var(--color-primary-text);
 }
 .site-footer-social svg, .site-footer-social .social-icon-mask {
@@ -382,23 +387,27 @@ html[data-theme="light"] .theme-toggle .icon-sun, html[data-theme="dark"] .theme
   margin: 0 0 28px;
   color: var(--color-ink);
   font-size: var(--text-body);
-  font-weight: 500;
-  line-height: 1.85;
+  font-weight: 400;
+  line-height: var(--lh-reading);
 }
 .home-letter__body {
-  color: var(--color-body);
+  color: var(--color-muted);
   font-size: var(--text-body);
-  line-height: 1.85;
+  line-height: var(--lh-reading);
 }
 .home-letter__body p {
-  margin: 0 0 24px;
+  margin: 0 0 28px;
 }
 .home-letter__body p:last-child {
   margin-bottom: 0;
 }
 .home-letter__body a {
+  color: var(--color-ink);
   text-decoration-line: underline;
-  text-decoration-color: color-mix(in oklab, var(--color-primary) 45%, transparent);
+  text-decoration-color: var(--color-hairline);
+}
+.home-letter__body a:hover {
+  color: var(--color-primary-text);
 }
 .home-letter__social {
   display: flex;
@@ -435,7 +444,7 @@ html[data-theme="light"] .theme-toggle .icon-sun, html[data-theme="dark"] .theme
 .article-row__title, .work-card__title {
   margin: 0;
   font-size: var(--text-subheading);
-  font-weight: 600;
+  font-weight: 500;
   line-height: 1.6;
   color: var(--color-ink);
   overflow-wrap: anywhere;
@@ -496,14 +505,14 @@ html[data-theme="light"] .theme-toggle .icon-sun, html[data-theme="dark"] .theme
   padding: 0;
   font-size: var(--text-article-title);
   line-height: 1.6;
-  font-weight: 600;
-  letter-spacing: -0.02em;
+  font-weight: 500;
+  letter-spacing: normal;
 }
 .prose-header__desc {
   margin: 0 0 20px;
-  color: var(--color-body);
+  color: var(--color-muted);
   font-size: var(--text-body);
-  line-height: 1.85;
+  line-height: var(--lh-reading);
 }
 .prose-header__time {
   margin: 0 0 12px;
@@ -614,26 +623,26 @@ a.prose-tag:hover {
 /* ——— Prose 正文 ——— */
 .prose {
   font-size: var(--text-body);
-  line-height: 1.85;
+  line-height: var(--lh-reading);
   color: var(--color-body);
 }
 .prose h1 {
   font-size: var(--text-title);
-  font-weight: 600;
+  font-weight: 500;
   color: var(--color-ink);
   margin: 2.5rem 0 0.85rem;
   line-height: 1.6;
 }
 .prose h2 {
   font-size: var(--text-section);
-  font-weight: 600;
+  font-weight: 500;
   color: var(--color-ink);
   margin: 2.5rem 0 0.85rem;
   line-height: 1.6;
 }
 .prose h3 {
   font-size: var(--text-subheading);
-  font-weight: 600;
+  font-weight: 500;
   color: var(--color-ink);
   margin: 2rem 0 0.75rem;
   line-height: 1.6;
@@ -643,7 +652,7 @@ a.prose-tag:hover {
 }
 .prose h4 {
   font-size: var(--text-body);
-  font-weight: 600;
+  font-weight: 500;
   color: var(--color-ink);
   margin: 1.75rem 0 0.75rem;
   line-height: 1.6;
