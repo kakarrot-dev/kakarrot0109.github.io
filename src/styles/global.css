@@ -62,10 +62,11 @@ html[data-theme="dark"] {
   --page-top: 48px;
   --nav-h: 44px;
 
-  --text-article-title: 24px;
-  --text-title: 22px;
-  --text-section: 20px;
-  --text-body: 17px;
+  --text-article-title: 22px;
+  --text-title: 20px;
+  --text-section: 18px;
+  --text-subheading: 17px;
+  --text-body: 16px;
   --text-meta: 13px;
 
   --lh-display: 0.95;
@@ -147,7 +148,7 @@ a:hover {
 }
 .page-lead {
   margin: 0;
-  font-size: 16px;
+  font-size: var(--text-body);
   color: var(--color-body);
   line-height: 1.8;
 }
@@ -433,7 +434,7 @@ html[data-theme="light"] .theme-toggle .icon-sun, html[data-theme="dark"] .theme
 }
 .article-row__title, .work-card__title {
   margin: 0;
-  font-size: 18px;
+  font-size: var(--text-subheading);
   font-weight: 600;
   line-height: 1.6;
   color: var(--color-ink);
@@ -490,7 +491,7 @@ html[data-theme="light"] .theme-toggle .icon-sun, html[data-theme="dark"] .theme
 .prose-header {
   margin-bottom: 28px;
 }
-.prose-header h1 {
+.prose .prose-header h1 {
   margin: 0 0 20px;
   padding: 0;
   font-size: var(--text-article-title);
@@ -612,7 +613,7 @@ a.prose-tag:hover {
 
 /* ——— Prose 正文 ——— */
 .prose {
-  font-size: 1.0625rem;
+  font-size: var(--text-body);
   line-height: 1.85;
   color: var(--color-body);
 }
@@ -631,7 +632,7 @@ a.prose-tag:hover {
   line-height: 1.6;
 }
 .prose h3 {
-  font-size: 18px;
+  font-size: var(--text-subheading);
   font-weight: 600;
   color: var(--color-ink);
   margin: 2rem 0 0.75rem;
