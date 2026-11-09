@@ -3,11 +3,12 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 ---
 
 <BaseLayout title="404" description="页面不存在">
-  <div class="container section" style="text-align:center;padding-block:120px">
-    <p class="page-eyebrow">Error</p>
-    <h1 class="page-title" style="font-size:clamp(64px,12vw,120px);letter-spacing:-0.04em">404</h1>
-    <p class="page-lead" style="margin-inline:auto">页面不存在</p>
-    <p style="margin-top:32px">
+  <div class="container section page-shell">
+    <header class="page-header">
+      <h1 class="page-title">404</h1>
+      <p class="page-lead">页面不存在</p>
+    </header>
+    <p>
       <a href="/" class="section-link">← Home</a>
     </p>
   </div>

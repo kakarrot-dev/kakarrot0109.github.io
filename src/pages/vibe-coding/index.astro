@@ -37,8 +37,7 @@ function formatMeta(date: Date, t?: string[]) {
 >
   <div class="container section page-shell">
     <header class="page-header">
-      <p class="page-eyebrow">Vibe Coding</p>
-      <h1 class="page-title">Built with AI</h1>
+      <h1 class="page-title">Vibe Coding</h1>
       <p class="page-lead">从想法到上线：用 AI 协作做出来的工具、站点与实验</p>
       <div class="stat-bar">
         <span><strong>{items.length}</strong> works</span>
@@ -46,20 +45,16 @@ function formatMeta(date: Date, t?: string[]) {
       </div>
     </header>
 
-    <div class="work-grid">
+    <div class="work-list">
       {
-        items.map((p, i) => (
-          <div class={`reveal reveal-delay-${(i % 3) + 1}`}>
-            <WorkCard
-              title={p.data.title}
-              description={p.data.description}
-              href={`/vibe-coding/${p.id}/`}
-              cover={p.data.cover}
-              meta={formatMeta(p.data.publishedAt, p.data.topics)}
-              alwaysMeta={true}
-              transitionName={`project-cover-${p.id}`}
-            />
-          </div>
+        items.map((p) => (
+          <WorkCard
+            title={p.data.title}
+            description={p.data.description}
+            href={`/vibe-coding/${p.id}/`}
+            cover={p.data.cover}
+            meta={formatMeta(p.data.publishedAt, p.data.topics)}
+          />
         ))
       }
     </div>

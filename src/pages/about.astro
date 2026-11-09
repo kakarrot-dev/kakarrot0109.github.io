@@ -32,11 +32,10 @@ const deskMobile = [
 ---
 
 <BaseLayout title="About" description="AI 产品经理 · 从第一性原理做可落地的产品" canonical="/about/">
-  <div class="container section page-shell" style="max-width:760px;margin-inline:auto">
+  <div class="container section page-shell">
     <header class="page-header">
       <div class="about-header__row">
         <div class="about-header__text">
-          <p class="page-eyebrow">About</p>
           <h1 class="page-title">Kakarrot</h1>
           <p class="page-lead">AI 产品经理 · 从第一性原理做可落地的产品</p>
           <div class="prose-header__tags about-header__tags">
@@ -47,16 +46,16 @@ const deskMobile = [
           class="about-avatar"
           src="/avatar.png"
           alt="Kakarrot"
-          width="200"
-          height="200"
+          width="120"
+          height="120"
           decoding="async"
         />
       </div>
     </header>
 
-    <div class="reveal" style="font-size:17px;line-height:1.75;color:var(--color-body)">
+    <div class="about-content">
       <p>
-        大家好，我是 Kakarrot，一名拥有 <strong style="color:var(--color-ink)">10 年+经验</strong> 的产品经理。履历涵盖互联网产品、To
+        大家好，我是 Kakarrot，一名拥有 <strong>10 年+经验</strong> 的产品经理。履历涵盖互联网产品、To
         B 产品、To C 产品， To G 产品，Web 产品、移动产品、桌面产品，熟悉 0→1 创业与 1→∞ 迭代。
       </p>
       <p>
@@ -65,70 +64,40 @@ const deskMobile = [
         技术与直觉洞察，加速开发并激发协作。
       </p>
 
-      <h2
-        style="font-size:13px;font-family:var(--font-mono);letter-spacing:0.08em;text-transform:uppercase;color:var(--color-primary);margin:48px 0 16px"
-      >
-        Timeline
-      </h2>
-      <p><strong style="color:var(--color-ink)">2020 前</strong> — 积累做事方法与阅读写作习惯。</p>
-      <p><strong style="color:var(--color-ink)">2020 后</strong> — 系统梳理产品专业知识。</p>
-      <p><strong style="color:var(--color-ink)">2022 后</strong> — 认识、拥抱、学习、研究 AI。</p>
+      <h2>Timeline</h2>
+      <p><strong>2020 前</strong> — 积累做事方法与阅读写作习惯。</p>
+      <p><strong>2020 后</strong> — 系统梳理产品专业知识。</p>
+      <p><strong>2022 后</strong> — 认识、拥抱、学习、研究 AI。</p>
 
-      <h2
-        style="font-size:13px;font-family:var(--font-mono);letter-spacing:0.08em;text-transform:uppercase;color:var(--color-primary);margin:48px 0 16px"
-      >
-        Principles
-      </h2>
-      <ul style="padding-left:1.2rem;margin:0">
+      <h2>Principles</h2>
+      <ul class="about-principles">
         <li>先理解问题，再设计方案。</li>
         <li>技术是手段，不是目的。</li>
         <li>最好的产品是那些用户感觉不到的产品。</li>
       </ul>
 
-      <details
-        style="margin-top:56px;border-top:1px solid var(--color-hairline);padding-top:24px"
-        open
-      >
-        <summary
-          style="cursor:pointer;font:500 12px/1 var(--font-mono);letter-spacing:0.08em;text-transform:uppercase;color:var(--color-muted)"
-        >
-          Desk &amp; kit
-        </summary>
-        <div
-          class="about-desk"
-          style="display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:24px"
-        >
+      <details class="about-kit" open>
+        <summary>Desk &amp; kit</summary>
+        <div class="about-desk">
           <div>
-            <p
-              style="font:500 12px/1 var(--font-mono);letter-spacing:0.06em;text-transform:uppercase;color:var(--color-ink);margin:0 0 14px"
-            >
-              桌面
-            </p>
-            <ul
-              style="list-style:none;padding:0;margin:0;font-size:14px;line-height:1.75;color:var(--color-muted)"
-            >
+            <h3>桌面</h3>
+            <ul>
               {
                 deskDesktop.map(([k, v]) => (
                   <li>
-                    <strong style="color:var(--color-ink);font-weight:600">{k}</strong> {v}
+                    <strong>{k}</strong> {v}
                   </li>
                 ))
               }
             </ul>
           </div>
           <div>
-            <p
-              style="font:500 12px/1 var(--font-mono);letter-spacing:0.06em;text-transform:uppercase;color:var(--color-ink);margin:0 0 14px"
-            >
-              移动
-            </p>
-            <ul
-              style="list-style:none;padding:0;margin:0;font-size:14px;line-height:1.75;color:var(--color-muted)"
-            >
+            <h3>移动</h3>
+            <ul>
               {
                 deskMobile.map(([k, v]) => (
                   <li>
-                    <strong style="color:var(--color-ink);font-weight:600">{k}</strong> {v}
+                    <strong>{k}</strong> {v}
                   </li>
                 ))
               }
@@ -152,39 +121,103 @@ const deskMobile = [
     margin-bottom: 0;
   }
 
+  .about-header__text {
+    min-width: 0;
+  }
+
   .about-header__tags {
     margin-top: 14px;
   }
 
   .about-avatar {
-    width: 200px;
-    height: 200px;
-    margin-top: 10px;
+    width: 120px;
+    height: 120px;
     border-radius: 50%;
     object-fit: cover;
     border: 1px solid var(--color-hairline);
     flex-shrink: 0;
-    cursor: default;
-    transition:
-      transform var(--dur-med) var(--ease-out),
-      border-color var(--dur-fast) ease,
-      box-shadow var(--dur-med) var(--ease-out);
   }
 
-  .about-avatar:hover {
-    transform: scale(1.06);
-    border-color: var(--color-primary);
-    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 28%, transparent);
+  .about-content {
+    font-size: var(--text-body);
+    line-height: var(--lh-body);
+    color: var(--color-body);
+  }
+
+  .about-content p {
+    margin: 0 0 16px;
+  }
+
+  .about-content strong,
+  .about-content h2,
+  .about-content h3 {
+    color: var(--color-ink);
+  }
+
+  .about-content h2 {
+    margin: 40px 0 16px;
+    font-size: var(--text-section);
+    font-weight: 600;
+    line-height: var(--lh-title);
+  }
+
+  .about-principles {
+    margin: 0;
+    padding-left: 1.2rem;
+    list-style: disc;
+  }
+
+  .about-kit {
+    margin-top: 40px;
+    border-top: 1px solid var(--color-hairline);
+    padding-top: 12px;
+  }
+
+  .about-kit summary {
+    cursor: pointer;
+    min-height: 44px;
+    align-content: center;
+    font: 500 var(--text-meta)/1.5 var(--font-mono);
+    color: var(--color-muted);
+  }
+
+  .about-desk {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 32px;
+    margin-top: 20px;
+    overflow-wrap: anywhere;
+  }
+
+  .about-desk h3 {
+    margin: 0 0 12px;
+    font-size: var(--text-body);
+    font-weight: 600;
+  }
+
+  .about-desk ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 1rem;
+  }
+
+  .about-desk li + li {
+    margin-top: 6px;
+  }
+
+  .about-desk strong {
+    font-weight: 600;
   }
 
   @media (max-width: 640px) {
     .about-avatar {
-      width: 120px;
-      height: 120px;
+      width: 96px;
+      height: 96px;
     }
 
     .about-desk {
-      grid-template-columns: 1fr !important;
+      grid-template-columns: 1fr;
     }
   }
 </style>

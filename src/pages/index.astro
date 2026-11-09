@@ -1,27 +1,6 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import HeroField from "@/components/hero/HeroField.astro";
-import WorkCard from "@/components/WorkCard.astro";
-import ArticleRow from "@/components/ArticleRow.astro";
-import { getCollection } from "astro:content";
-
-const vibeFeatured = (await getCollection("vibe-coding"))
-  .filter((p) => !p.data.draft && p.data.featured)
-  .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf())
-  .slice(0, 6);
-
-const vibeForMarquee = [...vibeFeatured, ...vibeFeatured];
-
-const writingFeatured = (await getCollection("writing"))
-  .filter((p) => !p.data.draft)
-  .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf())
-  .slice(0, 5);
-
-function formatMeta(date: Date, topics?: string[]) {
-  const d = date.toLocaleDateString("en-CA").replace(/-/g, ".");
-  const t = topics?.[0];
-  return t ? `${d} · ${t}` : d;
-}
+import { socialLinks } from "@/data/social";
 ---
 
 <BaseLayout
@@ -29,80 +8,44 @@ function formatMeta(date: Date, topics?: string[]) {
   description="AI 产品经理 — 从第一性原理拆解复杂业务，用 AI 原生方式做成可落地的产品系统。"
   canonical="/"
 >
-  <HeroField />
-
-  <section class="section">
-    <div class="container section-head reveal">
-      <div class="section-head__left">
-        <span class="section-num">01</span>
-        <h2 class="section-title">Vibe Coding</h2>
-        <p class="section-desc">用 AI 原生方式做出来的工具、站点与实验</p>
-      </div>
-      <a class="section-link" href="/vibe-coding/">View all →</a>
-    </div>
-    {/* 跑马灯不进 .reveal：祖先 filter/transform 会在 iOS 上冻住子级 CSS 动画 */}
-    <div class="marquee" aria-label="精选作品横向展示">
-      <div class="marquee__track">
-        {
-          vibeForMarquee.map((p, index) => (
-            <div class:list={["marquee__item", index >= vibeFeatured.length && "marquee__item--duplicate"]}>
-              <WorkCard
-                title={p.data.title}
-                description={p.data.description}
-                href={`/vibe-coding/${p.id}/`}
-                cover={p.data.cover}
-                meta={formatMeta(p.data.publishedAt, p.data.topics)}
-                alwaysMeta={true}
-                isDuplicate={index >= vibeFeatured.length}
-                transitionName={index < vibeFeatured.length ? `project-cover-${p.id}` : undefined}
-              />
-            </div>
-          ))
-        }
-      </div>
-    </div>
-  </section>
-
-  <section class="section reveal" style="padding-top:0">
-    <div class="container">
-      <div class="section-head">
-        <div class="section-head__left">
-          <span class="section-num">02</span>
-          <h2 class="section-title">Writing</h2>
-          <p class="section-desc">关于 AI 产品、方法论与实践的思考</p>
-        </div>
-        <a class="section-link" href="/writing/">View all →</a>
-      </div>
+  <section class="container home-profile" aria-labelledby="home-name">
+    <div class="home-profile__heading">
+      <img
+        class="home-profile__avatar"
+        src="/avatar.png"
+        alt="Kakarrot"
+        width="96"
+        height="96"
+        decoding="async"
+      />
       <div>
-        {
-          writingFeatured.map((a) => (
-            <ArticleRow
-              title={a.data.title}
-              description={a.data.description}
-              href={`/writing/${a.id}/`}
-              date={a.data.publishedAt}
-            />
-          ))
-        }
+        <h1 id="home-name" class="home-profile__name">Kakarrot</h1>
+        <p class="home-profile__role">AI 产品经理</p>
       </div>
     </div>
-  </section>
-
-  <section class="section reveal" style="padding-top:0;padding-bottom:96px">
-    <div class="container">
-      <div class="about-note">
-        <div class="about-note__rail" aria-hidden="true"></div>
-        <div>
-          <p class="about-note__label">Note</p>
-          <p>
-            10 年+ 产品经理，坐标郑州。热衷把业务问题拆回第一性原理，再用 AI 原生方式重做产品与工作流。
-          </p>
-          <p>
-            这里记录 vibe coding 实验与方法论沉淀。
-            <a href="/about/">About →</a>
-          </p>
-        </div>
-      </div>
+    <div class="home-profile__intro">
+      <p>
+        10 年+产品经理，坐标郑州。热衷把业务问题拆回第一性原理，再用 AI 原生方式重做产品与工作流。
+      </p>
+      <p>这里记录 Vibe Coding 实验与方法论沉淀。</p>
     </div>
+    <nav class="home-profile__links" aria-label="探索本站">
+      <a class="home-profile__link" href="/writing/">Writing</a>
+      <a class="home-profile__link" href="/vibe-coding/">Vibe Coding</a>
+      <a class="home-profile__link" href="/about/">About</a>
+    </nav>
+    <nav class="home-profile__social" aria-label="社交与联系">
+      {
+        socialLinks.map(({ label, href, external }) => (
+          <a
+            class="home-profile__social-link"
+            href={href}
+            {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+          >
+            <span>{label}</span>
+          </a>
+        ))
+      }
+    </nav>
   </section>
 </BaseLayout>

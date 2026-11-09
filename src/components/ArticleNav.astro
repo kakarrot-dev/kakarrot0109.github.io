@@ -16,67 +16,70 @@ const { prev, next } = Astro.props;
   <nav
     class="article-nav"
     aria-label="文章导航"
-    style="margin-top:2.5rem;padding-top:2rem;border-top:1px solid var(--color-hairline);display:grid;grid-template-columns:1fr 1fr;gap:24px"
   >
-    {prev ? (
+    {prev && (
       <a href={prev.href} class="article-nav-link" data-direction="prev">
         <span class="article-nav-label">← 上一篇</span>
         <span class="article-nav-title">{prev.title}</span>
       </a>
-    ) : (
-      <span />
     )}
-    {next ? (
+    {next && (
       <a
         href={next.href}
         class="article-nav-link"
         data-direction="next"
-        style="text-align:right"
       >
         <span class="article-nav-label">下一篇 →</span>
         <span class="article-nav-title">{next.title}</span>
       </a>
-    ) : (
-      <span />
     )}
   </nav>
 )}
 
 <style>
+  .article-nav {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--color-hairline);
+  }
   .article-nav-link {
     text-decoration: none;
     color: inherit;
     display: flex;
     flex-direction: column;
-    gap: 6px;
-    padding: 16px;
-    border: 1px solid var(--color-hairline);
-    transition:
-      border-color 0.15s,
-      background 0.15s;
+    min-width: 0;
+    gap: 0.5rem;
+    padding-block: 0.25rem;
   }
-  .article-nav-link:hover {
-    border-color: var(--color-accent);
-    background: color-mix(in oklab, var(--color-accent) 5%, transparent);
+  .article-nav-link[data-direction="next"] {
+    grid-column: 2;
+    text-align: right;
   }
   .article-nav-label {
-    font: 700 12px/1 var(--font-mono);
-    color: var(--color-text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
+    font: 400 var(--text-meta)/1.5 var(--font-mono);
+    color: var(--color-muted);
   }
   .article-nav-title {
-    font-size: 15px;
-    font-weight: 700;
-    line-height: 1.4;
-    color: var(--color-text-primary);
+    font-size: var(--text-body);
+    font-weight: 600;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+    color: var(--color-ink);
+    transition: color var(--dur-fast) ease;
+  }
+  .article-nav-link:hover .article-nav-title {
+    color: var(--color-primary-text);
   }
   @media (max-width: 640px) {
     .article-nav {
-      grid-template-columns: 1fr !important;
+      grid-template-columns: minmax(0, 1fr);
     }
     .article-nav-link[data-direction="next"] {
-      text-align: left !important;
+      grid-column: auto;
+      text-align: left;
     }
   }
 </style>

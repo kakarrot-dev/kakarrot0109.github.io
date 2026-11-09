@@ -27,20 +27,22 @@
 
 <p align="center">
   <a href="https://kakarrot.com">
-    <img src="./public/images/readme/home-themes.webp" alt="kakarrot.com homepage in light and dark themes" width="960" />
+    <img src="./public/images/readme/home-themes.webp" alt="kakarrot.com 技术手记首页，浅色与深色主题实际截图" width="960" />
   </a>
 </p>
 
-<p align="center"><em>Quiet Studio 首页 · Light / Dark</em></p>
+<p align="center"><em>技术手记首页 · Claude Cream Light / Dark · 实际页面截图</em></p>
 
 ---
 
 ## Features
 
 - **Content Collections**：Markdown 驱动的 Writing / Vibe Coding
-- **Quiet Studio UI**：Cream light/dark、粘性顶栏、品牌 Logo、主题切换防闪
-- **首页**：Canvas 琥珀雾场 Hero、桌面 Vibe 封面跑马、触控横滑、Writing 精选行列表
-- **阅读体验**：760px 居中阅读柱、宽屏右侧 TOC、移动端折叠目录、代码复制、Mermaid、表格 hover
+- **Quiet Studio UI**：Claude Cream light/dark、文字主导的技术手记排版、细线分隔、粘性顶栏、主题切换防闪
+- **首页**：现有头像、名字与职业定位、个人介绍、Writing / Vibe Coding / About 栏目入口及社交联系
+- **栏目浏览**：Writing 为纯文字列表；Vibe Coding 为纵向文字条目搭配小封面，字图分开、信息直接可见
+- **阅读体验**：全站共用 720px 内容净宽上限、手机两侧约 20px、17px 正文；所有屏幕的目录均在标题元信息之后、作品封面之前默认折叠，保留代码复制、Mermaid 和局部表格滚动
+- **交互**：静态内容直接可见，仅保留必要控件与链接反馈，支持减少动态效果偏好
 - **信息架构**：`Vibe Coding · Writing · About`；旧 `/projects/*` 重定向至 `/vibe-coding/`
 - **纯静态部署**：构建产物写入 `docs/`，由 GitHub Actions 发布
 
@@ -52,7 +54,7 @@
 | Styling | Tailwind CSS 4 + `src/styles/global.css` design tokens |
 | Content | Astro Content Collections (Markdown) |
 | Fonts | Noto Sans SC · Syne · JetBrains Mono（自托管） |
-| Motion | CSS transitions · Canvas 2D（首页 Hero） |
+| Motion | CSS transitions（必要交互反馈，支持 reduced-motion） |
 | Diagrams | Mermaid（客户端渲染） |
 | Deploy | GitHub Pages + GitHub Actions |
 
@@ -87,7 +89,7 @@ npm run check && npm run build
 ```text
 src/
   content.config.ts     Content Collections schema
-  components/           UI（Nav、WorkCard、Hero、TOC…）
+  components/           UI（Nav、WorkCard、ArticleRow、TOC…）
   content/
     writing/            博客文章
     vibe-coding/        Vibe Coding 作品
@@ -126,8 +128,10 @@ RSS 聚合 Writing 与 Vibe Coding；不再包含 projects。
 视觉与交互以 [`DESIGN.md`](./DESIGN.md) 为准：
 
 - 色彩：Claude Cream（light / dark）
-- 气质：克制、干净、有呼吸感
-- 封面：16:10 母版、站点色约束、静物式构图
+- 排版：720px 内容净宽上限、17px 正文、少量等宽元信息与细线
+- 首页：个人介绍与栏目、社交入口；不展示文章或作品列表，不放 banner
+- 封面：保留现有作品资源，列表小图与文字分开，无封面时直接显示文字
+- 动效：静态阅读，无 Canvas、跑马、滚动渐入或跨页封面动画
 
 UI 改动请优先使用 `global.css` 令牌，勿引入与静室冲突的视觉语言。
 

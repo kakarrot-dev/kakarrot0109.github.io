@@ -27,11 +27,7 @@ const canonical = `/vibe-coding/${item.id}/`;
 >
   {
     item.data.cover && (
-      <figure
-        slot="hero"
-        class="project-cover"
-        style={`view-transition-name:project-cover-${item.id}`}
-      >
+      <figure slot="hero" class="project-cover">
         <img
           src={item.data.cover}
           alt=""

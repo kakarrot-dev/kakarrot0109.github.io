@@ -51,7 +51,7 @@ const hasToc = tocItems.length > 0;
   {updatedAt}
   {tags}
 >
-  <div class:list={["prose-layout", !hasToc && "prose-layout--solo"]}>
+  <div class="prose-layout">
     <article class="prose-layout__main prose">
       <header class="prose-header">
         <h1>{title}</h1>
@@ -83,27 +83,20 @@ const hasToc = tocItems.length > 0;
           )
         }
       </header>
-      <slot name="hero" />
       {
         hasToc && (
-          <details class="toc-mobile">
+          <details class="prose-toc">
             <summary>
               <span>目录</span>
               <span>{tocItems.length} 节</span>
             </summary>
-            <TableOfContents headings={headings} showTitle={false} />
+            <TableOfContents headings={headings} />
           </details>
         )
       }
+      <slot name="hero" />
       <slot />
     </article>
-    {
-      hasToc && (
-        <aside class="prose-layout__toc">
-          <TableOfContents headings={headings} />
-        </aside>
-      )
-    }
   </div>
 </BaseLayout>
 
@@ -184,33 +177,71 @@ const hasToc = tocItems.length > 0;
     }
 
     // TOC 当前节
-    const tocLinks = [...document.querySelectorAll<HTMLAnchorElement>(".toc-list a")];
+    const tocLinks = [...document.querySelectorAll<HTMLAnchorElement>(".prose-toc .toc-list a")];
     const ids = tocLinks
       .map((a) => decodeURIComponent(a.getAttribute("href")?.slice(1) || ""))
       .filter(Boolean);
     const sections = ids
       .map((id) => document.getElementById(id))
       .filter((el): el is HTMLElement => !!el);
-    if (sections.length && "IntersectionObserver" in window) {
-      const io = new IntersectionObserver(
-        (entries) => {
-          const visible = entries
-            .filter((e) => e.isIntersecting)
-            .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-          if (!visible?.target?.id) return;
-          tocLinks.forEach((a) => {
-            const on = a.getAttribute("href") === `#${visible.target.id}`;
-            a.setAttribute("aria-current", on ? "true" : "false");
-          });
-        },
-        { rootMargin: "-20% 0px -60% 0px", threshold: [0, 0.25, 0.5, 1] }
-      );
-      sections.forEach((s) => io.observe(s));
+    if (sections.length) {
+      let pending = false;
+      const syncCurrentSection = () => {
+        const offset = (document.querySelector(".nav-bar")?.getBoundingClientRect().bottom || 0) + 25;
+        let current = sections[0];
+        for (const section of sections) {
+          if (section.getBoundingClientRect().top > offset) break;
+          current = section;
+        }
+        tocLinks.forEach((link) => {
+          link.setAttribute("aria-current", String(link.getAttribute("href") === `#${current.id}`));
+        });
+      };
+      // 与锚点的导航偏移一致，避免跳转后把下一节误标为当前节。
+      window.addEventListener("scroll", () => {
+        if (pending) return;
+        pending = true;
+        requestAnimationFrame(() => {
+          pending = false;
+          syncCurrentSection();
+        });
+      }, { passive: true });
+      window.addEventListener("resize", syncCurrentSection);
+      syncCurrentSection();
     }
 
-    document.querySelectorAll<HTMLAnchorElement>(".toc-mobile a").forEach((link) => {
-      link.addEventListener("click", () => {
-        link.closest("details")?.removeAttribute("open");
+    document.querySelectorAll<HTMLDetailsElement>(".prose-toc").forEach((details) => {
+      const summary = details.querySelector("summary");
+
+      details.addEventListener("toggle", () => {
+        if (
+          !details.open &&
+          details.contains(document.activeElement) &&
+          document.activeElement !== summary
+        ) {
+          summary?.focus({ preventScroll: true });
+        }
+      });
+
+      details.querySelectorAll<HTMLAnchorElement>(".toc-list a").forEach((link) => {
+        link.addEventListener("click", (event) => {
+          if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+
+          tocLinks.forEach((item) => item.setAttribute("aria-current", String(item === link)));
+          const id = decodeURIComponent(link.hash.slice(1));
+          const target = document.getElementById(id);
+          if (target) {
+            // 折叠前把焦点移出目录，让键盘从目标章节继续阅读。
+            if (!target.hasAttribute("tabindex")) {
+              target.setAttribute("tabindex", "-1");
+              target.addEventListener("blur", () => target.removeAttribute("tabindex"), { once: true });
+            }
+            target.focus({ preventScroll: true });
+          } else {
+            summary?.focus({ preventScroll: true });
+          }
+          details.open = false;
+        });
       });
     });
   });

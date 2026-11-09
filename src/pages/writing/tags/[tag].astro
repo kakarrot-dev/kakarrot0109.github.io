@@ -31,13 +31,13 @@ const canonical = `/writing/tags/${encodeURIComponent(tag)}/`;
 >
   <div class="container section page-shell">
     <header class="page-header">
-      <p class="page-eyebrow">
-        <a href="/writing/" class="section-link">Writing</a> / Tag
+      <p class="page-back">
+        <a href="/writing/" class="section-link">← Writing</a>
       </p>
       <h1 class="page-title">{tag}</h1>
       <p class="page-lead">{articles.length} articles</p>
     </header>
-    <div class="reveal">
+    <div class="article-list">
       {
         articles.map((a) => (
           <ArticleRow

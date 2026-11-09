@@ -34,7 +34,7 @@ const {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script is:inline>
       (function () {
-        // 尽早标记 JS：.reveal 仅在 html.js 下才隐藏，避免 deferred 脚本前首屏空白
+        // 导航只在支持脚本时折叠；主题在首帧前初始化。
         document.documentElement.classList.add("js");
         try {
           var stored = localStorage.getItem("theme");
@@ -84,25 +84,5 @@ const {
       <slot />
     </main>
     <Footer />
-    <script>
-      const revealElements = document.querySelectorAll(".reveal");
-      if ("IntersectionObserver" in window) {
-        const observer = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((entry) => {
-              if (entry.isIntersecting) {
-                entry.target.classList.add("visible");
-                observer.unobserve(entry.target);
-              }
-            });
-          },
-          // 只要内容进入可视区就显示，不能按超长列表的总高度计算比例。
-          { threshold: 0, rootMargin: "0px 0px -8% 0px" }
-        );
-        revealElements.forEach((el) => observer.observe(el));
-      } else {
-        revealElements.forEach((el) => el.classList.add("visible"));
-      }
-    </script>
   </body>
 </html>
