@@ -40,7 +40,7 @@
 - **Content Collections**：Markdown 驱动的 Writing / Vibe Coding
 - **Quiet Studio UI**：Claude Cream light/dark、文字主导的技术手记排版、段落留白与紧凑页头、主题切换防闪
 - **首页**：小头像与普通字号名字、介绍信式个人简介，Writing / Vibe Coding / About 链接融入正文，保留社交联系
-- **栏目浏览**：Writing 为纯文字列表；Vibe Coding 为单列标题说明搭配整列封面 banner，字图分开、信息直接可见
+- **栏目浏览**：Writing 展示标题与日期；Vibe Coding 展示标题、元信息与整列封面 banner，列表均不展示摘要
 - **阅读体验**：全站共用 600px 内容净宽上限、手机两侧约 20px、17px 正文；所有屏幕的目录均在标题元信息之后、作品封面之前默认折叠，保留代码复制、Mermaid 和局部表格滚动
 - **交互**：静态内容直接可见，仅保留必要控件与链接反馈，支持减少动态效果偏好
 - **信息架构**：内页保留 `Vibe Coding · Writing · About` 导航，首页通过介绍正文进入栏目；旧 `/projects/*` 重定向至 `/vibe-coding/`

@@ -50,7 +50,6 @@ function formatMeta(date: Date, t?: string[]) {
         items.map((p) => (
           <WorkCard
             title={p.data.title}
-            description={p.data.description}
             href={`/vibe-coding/${p.id}/`}
             cover={p.data.cover}
             meta={formatMeta(p.data.publishedAt, p.data.topics)}

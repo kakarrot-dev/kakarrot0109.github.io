@@ -1,7 +1,6 @@
 ---
 export interface Props {
   title: string;
-  description: string;
   href: string;
   cover?: string;
   meta?: string;
@@ -10,7 +9,6 @@ export interface Props {
 
 const {
   title,
-  description,
   href,
   cover,
   meta,
@@ -22,7 +20,6 @@ const {
   <div class="work-card__body">
     {meta ? <p class="work-card__meta">{meta}</p> : null}
     <h2 class="work-card__title">{title}</h2>
-    <p class="work-card__desc">{description}</p>
   </div>
   {
     cover && (

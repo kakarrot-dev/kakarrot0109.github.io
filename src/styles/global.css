@@ -432,18 +432,11 @@ html[data-theme="light"] .theme-toggle .icon-sun, html[data-theme="dark"] .theme
   color: inherit;
 }
 .article-row__title, .work-card__title {
-  margin: 0 0 10px;
+  margin: 0;
   font-size: 18px;
   font-weight: 600;
   line-height: 1.6;
   color: var(--color-ink);
-  overflow-wrap: anywhere;
-}
-.article-row__desc, .work-card__desc {
-  margin: 0;
-  font-size: 16px;
-  line-height: 1.7;
-  color: var(--color-body);
   overflow-wrap: anywhere;
 }
 .article-row__meta, .work-card__meta {

@@ -26,7 +26,6 @@ const articles = (await getCollection("writing"))
         articles.map((a) => (
           <ArticleRow
             title={a.data.title}
-            description={a.data.description}
             href={`/writing/${a.id}/`}
             date={a.data.publishedAt}
           />
