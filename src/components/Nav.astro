@@ -1,8 +1,8 @@
 ---
 import ThemeToggle from "@/components/ThemeToggle.astro";
-import Logo from "@/components/Logo.astro";
 
 const currentPath = Astro.url.pathname;
+const isHome = currentPath === "/";
 const links = [
   { href: "/vibe-coding/", label: "Vibe Coding" },
   { href: "/writing/", label: "Writing" },
@@ -10,39 +10,48 @@ const links = [
 ];
 ---
 
-<nav class="nav-bar">
-  <div class="nav-inner">
+<nav class="nav-bar" aria-label="主导航">
+  <div class:list={["nav-inner", isHome && "nav-inner--home"]}>
     <a href="/" class="nav-brand" aria-label="Kakarrot 首页">
-      <Logo />
+      <img class="nav-avatar" src="/avatar.png" alt="" width="28" height="28" decoding="async" />
+      <span class="nav-name">Kakarrot</span>
     </a>
-    <button
-      class="nav-toggle-btn"
-      type="button"
-      aria-label="菜单"
-      aria-expanded="false"
-      aria-controls="site-nav-links"
-      data-nav-toggle
-    >
-      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.75">
-        <line class="nav-toggle-line nav-toggle-line--top" x1="4" y1="7" x2="20" y2="7"></line>
-        <line class="nav-toggle-line nav-toggle-line--middle" x1="4" y1="12" x2="20" y2="12"></line>
-        <line class="nav-toggle-line nav-toggle-line--bottom" x1="4" y1="17" x2="20" y2="17"></line>
-      </svg>
-    </button>
-    <ul id="site-nav-links" class="nav-links" data-nav-links>
-      {
-        links.map(({ href, label }) => {
-          const isActive = currentPath === href || currentPath.startsWith(href);
-          return (
-            <li>
-              <a href={href} class:list={["nav-link", isActive && "nav-link--active"]}>
-                {label}
-              </a>
-            </li>
-          );
-        })
-      }
-    </ul>
+    {
+      !isHome && (
+        <>
+          <button
+            class="nav-toggle-btn"
+            type="button"
+            aria-label="菜单"
+            aria-expanded="false"
+            aria-controls="site-nav-links"
+            data-nav-toggle
+          >
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.75">
+              <line class="nav-toggle-line nav-toggle-line--top" x1="4" y1="7" x2="20" y2="7" />
+              <line class="nav-toggle-line nav-toggle-line--middle" x1="4" y1="12" x2="20" y2="12" />
+              <line class="nav-toggle-line nav-toggle-line--bottom" x1="4" y1="17" x2="20" y2="17" />
+            </svg>
+          </button>
+          <ul id="site-nav-links" class="nav-links" data-nav-links>
+            {links.map(({ href, label }) => {
+              const isActive = currentPath === href || currentPath.startsWith(href);
+              return (
+                <li>
+                  <a
+                    href={href}
+                    class:list={["nav-link", isActive && "nav-link--active"]}
+                    aria-current={isActive ? "page" : undefined}
+                  >
+                    {label}
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
+        </>
+      )
+    }
     <div class="nav-actions">
       <ThemeToggle />
     </div>

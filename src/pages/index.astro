@@ -8,37 +8,25 @@ import { socialLinks } from "@/data/social";
   description="AI 产品经理 — 从第一性原理拆解复杂业务，用 AI 原生方式做成可落地的产品系统。"
   canonical="/"
 >
-  <section class="container home-profile" aria-labelledby="home-name">
-    <div class="home-profile__heading">
-      <img
-        class="home-profile__avatar"
-        src="/avatar.png"
-        alt="Kakarrot"
-        width="96"
-        height="96"
-        decoding="async"
-      />
-      <div>
-        <h1 id="home-name" class="home-profile__name">Kakarrot</h1>
-        <p class="home-profile__role">AI 产品经理</p>
-      </div>
-    </div>
-    <div class="home-profile__intro">
+  <section class="container home-letter" aria-labelledby="home-introduction">
+    <h1 id="home-introduction">你好，我是 Kakarrot，一名 AI 产品经理。</h1>
+    <div class="home-letter__body">
       <p>
-        10 年+产品经理，坐标郑州。热衷把业务问题拆回第一性原理，再用 AI 原生方式重做产品与工作流。
+        我在郑州，有 10 年+产品经理经验。热衷把业务问题拆回第一性原理，再用 AI 原生方式重做产品与工作流。
       </p>
-      <p>这里记录 Vibe Coding 实验与方法论沉淀。</p>
+      <p>
+        我把产品思考与方法论整理在 <a href="/writing/">Writing</a>，也通过
+        <a href="/vibe-coding/">Vibe Coding</a> 做实验，把想法落到具体的产品实践里。
+      </p>
+      <p>
+        更多个人经历、做事原则和常用设备，放在 <a href="/about/">About</a>。
+      </p>
     </div>
-    <nav class="home-profile__links" aria-label="探索本站">
-      <a class="home-profile__link" href="/writing/">Writing</a>
-      <a class="home-profile__link" href="/vibe-coding/">Vibe Coding</a>
-      <a class="home-profile__link" href="/about/">About</a>
-    </nav>
-    <nav class="home-profile__social" aria-label="社交与联系">
+    <nav class="home-letter__social" aria-label="社交与联系">
       {
         socialLinks.map(({ label, href, external }) => (
           <a
-            class="home-profile__social-link"
+            class="home-letter__social-link"
             href={href}
             {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
           >
