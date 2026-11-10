@@ -1,6 +1,5 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { socialLinks } from "@/data/social";
 ---
 
 <BaseLayout
@@ -22,18 +21,5 @@ import { socialLinks } from "@/data/social";
         更多个人经历、做事原则和常用设备，放在 <a href="/about/">About</a>。
       </p>
     </div>
-    <nav class="home-letter__social" aria-label="社交与联系">
-      {
-        socialLinks.map(({ label, href, external }) => (
-          <a
-            class="home-letter__social-link"
-            href={href}
-            {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-          >
-            <span>{label}</span>
-          </a>
-        ))
-      }
-    </nav>
   </section>
 </BaseLayout>
