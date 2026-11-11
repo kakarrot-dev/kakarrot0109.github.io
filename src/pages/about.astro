@@ -1,8 +1,6 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 
-const personaTags = ["PM", "郑州", "暴雪粉", "音乐狂", "收集癖", "强迫症"];
-
 const deskDesktop = [
   ["CPU", "Intel i5-13600kf"],
   ["主板", "Asus TUF B760M-PLUS WIFI II"],
@@ -29,136 +27,102 @@ const deskMobile = [
   ["耳机", "Bose QC35 II"],
   ["阅读", "Kindle Paperwhite 4"],
 ] as const;
+
+const deskGroups = [
+  { title: "桌面", items: deskDesktop },
+  { title: "移动", items: deskMobile },
+];
 ---
 
-<BaseLayout title="About" description="AI 产品经理 · 从第一性原理做可落地的产品" canonical="/about/">
-  <div class="container section page-shell">
-    <header class="page-header">
-      <div class="about-header__row">
-        <div class="about-header__text">
-          <h1 class="page-title">Kakarrot</h1>
-          <p class="page-lead">AI 产品经理 · 从第一性原理做可落地的产品</p>
-          <div class="prose-header__tags about-header__tags">
-            {personaTags.map((tag) => <span class="prose-tag">{tag}</span>)}
-          </div>
-        </div>
-        <img
-          class="about-avatar"
-          src="/avatar.png"
-          alt="Kakarrot"
-          width="120"
-          height="120"
-          decoding="async"
-        />
-      </div>
+<BaseLayout
+  title="About"
+  description="Kakarrot 的经历、做事原则与常用设备"
+  canonical="/about/"
+>
+  <div class="container section page-shell editorial-page">
+    <header class="editorial-header">
+      <h1 class="editorial-title">About</h1>
     </header>
 
-    <div class="about-content">
-      <p>
-        大家好，我是 Kakarrot，一名拥有 <strong>10 年+经验</strong> 的产品经理。履历涵盖互联网产品、To
-        B 产品、To C 产品， To G 产品，Web 产品、移动产品、桌面产品，熟悉 0→1 创业与 1→∞ 迭代。
-      </p>
-      <p>
-        我擅长从第一性原理识别业务真正的问题，用 AI
-        原生方式重新设计产品与增长系统。当前也在整理全新的工作流——结合 AI
-        技术与直觉洞察，加速开发并激发协作。
-      </p>
-
+    <section class="about-section">
       <h2>Timeline</h2>
-      <p><strong>2020 前</strong> — 积累做事方法与阅读写作习惯。</p>
-      <p><strong>2020 后</strong> — 系统梳理产品专业知识。</p>
-      <p><strong>2022 后</strong> — 认识、拥抱、学习、研究 AI。</p>
+      <dl class="about-timeline">
+        <dt>2020 前</dt>
+        <dd>积累做事方法与阅读写作习惯。</dd>
+        <dt>2020 后</dt>
+        <dd>系统梳理产品专业知识。</dd>
+        <dt>2022 后</dt>
+        <dd>认识、拥抱、学习、研究 AI。</dd>
+      </dl>
+    </section>
 
+    <section class="about-section">
       <h2>Principles</h2>
       <ul class="about-principles">
         <li>先理解问题，再设计方案。</li>
         <li>技术是手段，不是目的。</li>
         <li>最好的产品是那些用户感觉不到的产品。</li>
       </ul>
+    </section>
 
-      <details class="about-kit" open>
-        <summary>Desk &amp; kit</summary>
-        <div class="about-desk">
-          <div>
-            <h3>桌面</h3>
-            <ul>
-              {
-                deskDesktop.map(([k, v]) => (
-                  <li>
-                    <strong>{k}</strong> {v}
-                  </li>
-                ))
-              }
-            </ul>
-          </div>
-          <div>
-            <h3>移动</h3>
-            <ul>
-              {
-                deskMobile.map(([k, v]) => (
-                  <li>
-                    <strong>{k}</strong> {v}
-                  </li>
-                ))
-              }
-            </ul>
-          </div>
-        </div>
-      </details>
-    </div>
+    <details class="about-section about-kit" open>
+      <summary>Desk &amp; kit</summary>
+      <div class="about-desk">
+        {
+          deskGroups.map(({ title, items }) => (
+            <div>
+              <h3>{title}</h3>
+              <ul>
+                {items.map(([label, model]) => (
+                  <li><strong>{label}</strong> {model}</li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
+      </div>
+    </details>
   </div>
 </BaseLayout>
 
 <style>
-  .about-header__row {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 24px;
+  .about-section + .about-section {
+    margin-top: 36px;
   }
 
-  .about-header__row .page-title {
-    margin-bottom: 0;
-  }
-
-  .about-header__text {
-    min-width: 0;
-  }
-
-  .about-header__tags {
-    margin-top: 14px;
-  }
-
-  .about-avatar {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 1px solid var(--color-hairline);
-    flex-shrink: 0;
-  }
-
-  .about-content {
-    font-size: var(--text-body);
+  .about-section {
+    border-top: var(--line-hairline);
+    padding-top: 16px;
+    color: var(--color-body);
     line-height: var(--lh-reading);
-    color: var(--color-muted);
   }
 
-  .about-content p {
-    margin: 0 0 24px;
-  }
-
-  .about-content strong,
-  .about-content h2,
-  .about-content h3 {
+  .about-section :is(h2, h3, strong, summary) {
     color: var(--color-ink);
     font-weight: 500;
   }
 
-  .about-content h2 {
-    margin: 40px 0 16px;
+  .about-section h2 {
+    margin: 0 0 14px;
     font-size: var(--text-section);
     line-height: 1.6;
+  }
+
+  .about-timeline {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: baseline;
+    gap: 8px 20px;
+    margin: 0;
+  }
+
+  .about-timeline dt {
+    color: var(--color-muted);
+    font: 400 var(--text-meta)/1.6 var(--font-mono);
+  }
+
+  .about-timeline dd {
+    margin: 0;
   }
 
   .about-principles {
@@ -167,29 +131,36 @@ const deskMobile = [
     list-style: disc;
   }
 
+  .about-principles li + li {
+    margin-top: 4px;
+  }
+
+  .about-principles li::marker {
+    color: var(--color-muted);
+  }
+
   .about-kit {
-    margin-top: 40px;
-    border-top: 1px solid var(--color-hairline);
-    padding-top: 12px;
+    padding-top: 8px;
   }
 
   .about-kit summary {
-    cursor: pointer;
     min-height: 44px;
     align-content: center;
-    font: 500 var(--text-meta)/1.5 var(--font-mono);
+    cursor: pointer;
+    font-size: var(--text-section);
+    line-height: 1.6;
+  }
+
+  .about-kit summary::marker {
     color: var(--color-muted);
+    font-size: var(--text-meta);
   }
 
   .about-desk {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 32px;
-    margin-top: 20px;
-  }
-
-  .about-desk > div {
-    min-width: 0;
+    margin-top: 12px;
   }
 
   .about-desk h3 {
@@ -214,13 +185,9 @@ const deskMobile = [
   }
 
   @media (max-width: 640px) {
-    .about-avatar {
-      width: 96px;
-      height: 96px;
-    }
-
     .about-desk {
-      grid-template-columns: 1fr;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 24px;
     }
   }
 </style>

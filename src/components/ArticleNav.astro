@@ -43,7 +43,7 @@ const { prev, next } = Astro.props;
     gap: 1.5rem;
     margin-top: 2.5rem;
     padding-top: 2rem;
-    border-top: 1px solid var(--color-hairline);
+    border-top: var(--line-hairline);
   }
   .article-nav-link {
     text-decoration: none;
@@ -63,15 +63,17 @@ const { prev, next } = Astro.props;
     color: var(--color-muted);
   }
   .article-nav-title {
-    font-size: var(--text-body);
+    font-size: var(--text-subheading);
     font-weight: 500;
     line-height: 1.6;
     overflow-wrap: anywhere;
     color: var(--color-ink);
     transition: color var(--dur-fast) ease;
   }
-  .article-nav-link:hover .article-nav-title {
+  .article-nav-link:is(:hover, :focus-visible) .article-nav-title {
     color: var(--color-primary-text);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
   }
   @media (max-width: 640px) {
     .article-nav {

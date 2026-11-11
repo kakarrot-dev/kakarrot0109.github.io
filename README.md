@@ -27,23 +27,24 @@
 
 <p align="center">
   <a href="https://kakarrot.com">
-    <img src="./public/images/readme/home-themes.webp" alt="kakarrot.com 个人介绍首页，浅色与深色主题实际截图" width="960" />
+    <img src="./public/images/readme/home-themes.webp" alt="kakarrot.com 的 Claude Cream 浅色与深色主题示意" width="960" />
   </a>
 </p>
 
-<p align="center"><em>个人介绍首页 · Claude Cream Light / Dark · 实际页面截图</em></p>
+<p align="center"><em>Claude Cream Light / Dark · 主题示意</em></p>
 
 ---
 
 ## Features
 
 - **Content Collections**：Markdown 驱动的 Writing / Vibe Coding
-- **Quiet Studio UI**：Claude Cream light/dark、以文字深浅和段落留白建立层级、轻字重标题与紧凑页头、少量品牌色社交图标、主题切换防闪
-- **首页**：小头像与普通字号名字、介绍信式个人简介，Writing / Vibe Coding / About 链接融入正文，社交联系统一放在页脚
-- **栏目浏览**：Writing 展示标题与日期；Vibe Coding 展示标题、元信息与整列封面 banner，列表均不展示摘要
+- **Quiet Studio UI**：全站共用 Claude Cream 明暗主题、轻字重标题、暖灰文字和 1px 实线，主题切换在首帧前初始化
+- **首页**：呈现个人经历、工作方法和兴趣。Writing、Vibe Coding 与 About 链接融入正文，社交联系放在页脚
+- **栏目浏览**：Writing 按年份分组，展示标题与日期。Vibe Coding 展示标题、元信息与整列封面
+- **About**：以发丝线分隔时间线、做事原则和可折叠的设备清单
 - **阅读体验**：全站共用 600px 内容净宽上限、手机两侧约 20px、16px 正文；所有屏幕的目录均在标题元信息之后、作品封面之前默认折叠，保留代码复制、Mermaid 和局部表格滚动
 - **交互**：静态内容直接可见，仅保留必要控件与链接反馈，支持减少动态效果偏好
-- **信息架构**：内页保留 `Vibe Coding · Writing · About` 导航，首页通过介绍正文进入栏目；旧 `/projects/*` 重定向至 `/vibe-coding/`
+- **信息架构**：内页导航包含 `Vibe Coding · Writing · About`，首页通过介绍正文进入栏目。旧 `/projects/*` 跳转到 `/vibe-coding/`
 - **纯静态部署**：构建产物写入 `docs/`，由 GitHub Actions 发布
 
 ## Stack
@@ -119,7 +120,7 @@ CLAUDE.md               Claude Code 入口
 4. `npm run build` 验证
 
 Writing 常用字段：`title` · `description` · `publishedAt` · `tags` · `featured` · `draft`  
-Vibe Coding 另支持可选 `cover`（见 `DESIGN.md` §8 封面规范）
+Vibe Coding 另支持可选 `cover`（见 [DESIGN.md 的组件规范](./DESIGN.md#components)）
 
 RSS 聚合 Writing 与 Vibe Coding；不再包含 projects。
 
@@ -127,9 +128,10 @@ RSS 聚合 Writing 与 Vibe Coding；不再包含 projects。
 
 视觉与交互以 [`DESIGN.md`](./DESIGN.md) 为准：
 
-- 色彩：Claude Cream（light / dark）
-- 排版：600px 内容净宽上限、16px 正文、紧凑标题、少量等宽元信息；以间距建立层级，页脚保留轻分隔线
-- 首页：介绍信式正文与栏目内链、小头像名字及页脚社交入口；不展示文章或作品列表，不放 banner
+- 全站使用 Claude Cream 明暗令牌，以暖灰深浅和留白建立层级，必要边界使用 1px 发丝线
+- 内容净宽上限 600px，正文 16px，文章与作品列表标题链接 14px，日期等元信息少量使用等宽字体
+- 首页：小头像与名字、个人介绍与兴趣、正文栏目内链、页脚社交入口
+- About：独立阅读列，发丝线区分时间线、原则和可折叠的设备清单
 - 封面：保留现有作品资源，列表使用整列 banner 并与文字上下分开，无封面时直接显示文字
 - 动效：静态阅读，无 Canvas、跑马、滚动渐入或跨页封面动画
 

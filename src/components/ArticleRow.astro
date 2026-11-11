@@ -4,18 +4,19 @@ export interface Props {
   href: string;
   date?: Date;
   meta?: string;
+  groupedByYear?: boolean;
 }
 
-const { title, href, date, meta } = Astro.props;
+const { title, href, date, meta, groupedByYear = false } = Astro.props;
+const Title = groupedByYear ? "span" : "h2";
 
-const dateLabel = date
-  ? date.toLocaleDateString("en-CA").replace(/-/g, ".")
+const isoDate = date?.toISOString().slice(0, 10);
+const dateLabel = isoDate
+  ? (groupedByYear ? isoDate.slice(5) : isoDate).replace(/-/g, ".")
   : meta;
 ---
 
 <a href={href} class="article-row">
-  <div>
-    <h2 class="article-row__title">{title}</h2>
-  </div>
-  {dateLabel ? <time class="article-row__meta">{dateLabel}</time> : null}
+  <Title class="article-row__title">{title}</Title>
+  {dateLabel ? <time class="article-row__meta" datetime={isoDate}>{dateLabel}</time> : null}
 </a>

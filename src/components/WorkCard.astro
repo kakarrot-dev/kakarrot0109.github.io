@@ -3,24 +3,19 @@ export interface Props {
   title: string;
   href: string;
   cover?: string;
-  meta?: string;
-  class?: string;
+  date: Date;
+  topic?: string;
 }
 
-const {
-  title,
-  href,
-  cover,
-  meta,
-  class: className = "",
-} = Astro.props;
+const { title, href, cover, date, topic } = Astro.props;
+const isoDate = date.toISOString().slice(0, 10);
 ---
 
-<a href={href} class:list={["work-card", className]}>
-  <div class="work-card__body">
-    {meta ? <p class="work-card__meta">{meta}</p> : null}
-    <h2 class="work-card__title">{title}</h2>
-  </div>
+<a href={href} class="work-card">
+  <h2 class="work-card__title">{title}</h2>
+  <p class="work-card__meta">
+    <time datetime={isoDate}>{isoDate.replace(/-/g, ".")}</time>{topic ? ` · ${topic}` : ""}
+  </p>
   {
     cover && (
       <div class="work-card__media">
@@ -36,3 +31,47 @@ const {
     )
   }
 </a>
+
+<style>
+  .work-card {
+    display: block;
+    padding-top: 20px;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .work-card__title {
+    margin: 0;
+    font-size: var(--text-subheading);
+    font-weight: 500;
+    line-height: 1.55;
+    color: var(--color-ink);
+    overflow-wrap: anywhere;
+    text-wrap: pretty;
+  }
+
+  .work-card:is(:hover, :focus-visible) .work-card__title {
+    color: var(--color-primary-text);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+  }
+
+  .work-card__meta {
+    margin: 6px 0 0;
+    font: 400 var(--text-meta)/1.6 var(--font-mono);
+    color: var(--color-muted);
+  }
+
+  .work-card__media {
+    margin-top: 18px;
+    aspect-ratio: 16 / 10;
+    background: var(--color-surface);
+  }
+
+  .work-card__media img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+</style>

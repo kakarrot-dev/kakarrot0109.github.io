@@ -6,6 +6,14 @@ import { getCollection } from "astro:content";
 const articles = (await getCollection("writing"))
   .filter((a) => !a.data.draft)
   .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
+
+const years = new Map<number, typeof articles>();
+for (const article of articles) {
+  const year = article.data.publishedAt.getUTCFullYear();
+  const group = years.get(year);
+  if (group) group.push(article);
+  else years.set(year, [article]);
+}
 ---
 
 <BaseLayout
@@ -13,24 +21,57 @@ const articles = (await getCollection("writing"))
   description="关于 AI 产品、方法论与实践的笔记与长文"
   canonical="/writing/"
 >
-  <div class="container section page-shell">
-    <header class="page-header">
-      <h1 class="page-title">Writing</h1>
-      <p class="page-lead">关于 AI 产品、方法论与实践的笔记与长文</p>
-      <div class="stat-bar">
-        <span><strong>{articles.length}</strong> articles</span>
+  <div class="container section page-shell editorial-page">
+    <header class="editorial-header">
+      <h1 class="editorial-title">Writing</h1>
+      <div class="editorial-header__details">
+        <p class="editorial-lead">关于 AI 产品、方法论与实践的笔记与长文</p>
+        <p class="editorial-count">{articles.length} articles</p>
       </div>
     </header>
-    <div class="article-list">
-      {
-        articles.map((a) => (
-          <ArticleRow
-            title={a.data.title}
-            href={`/writing/${a.id}/`}
-            date={a.data.publishedAt}
-          />
-        ))
-      }
-    </div>
+
+    {
+      [...years].map(([year, entries]) => (
+        <section class="writing-year">
+          <h2>{year}</h2>
+          <ul class="article-list" role="list">
+            {entries.map((article) => (
+              <li>
+                <ArticleRow
+                  title={article.data.title}
+                  href={`/writing/${article.id}/`}
+                  date={article.data.publishedAt}
+                  groupedByYear
+                />
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))
+    }
   </div>
 </BaseLayout>
+
+<style>
+  .writing-year {
+    border-top: var(--line-hairline);
+    padding-top: 16px;
+  }
+
+  .writing-year + .writing-year {
+    margin-top: 28px;
+  }
+
+  .writing-year h2 {
+    margin: 0 0 8px;
+    font-size: var(--text-section);
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .article-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+</style>
