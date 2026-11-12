@@ -1,6 +1,7 @@
 ---
 title: "Claude Cream：为创作工具建立统一的暖色体验"
 description: "用共享设计 Token 连接 Codex、Cursor、VS Code、Zed、Typora、Obsidian 与 Ghostty，再把 Website 和图像生成收进同一套暖色视觉语言"
+summary: "用一套暖色令牌给编辑器和写作工具配色。"
 publishedAt: 2026-07-06
 topics:
   - "Design System"

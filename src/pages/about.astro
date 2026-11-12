@@ -47,12 +47,14 @@ const deskGroups = [
     <section class="about-section">
       <h2>Timeline</h2>
       <dl class="about-timeline">
-        <dt>2020 前</dt>
-        <dd>积累做事方法与阅读写作习惯。</dd>
-        <dt>2020 后</dt>
-        <dd>系统梳理产品专业知识。</dd>
-        <dt>2022 后</dt>
-        <dd>认识、拥抱、学习、研究 AI。</dd>
+        <dt>2022 起</dt>
+        <dd>开始学习和研究 AI。</dd>
+        <dt><time datetime="2026-05">2026.05</time></dt>
+        <dd>做出<a href="/vibe-coding/wukong/">悟空</a>，一个在 Mac 上运行的个人智能体。</dd>
+        <dt><time datetime="2026-07">2026.07</time></dt>
+        <dd>把个人站<a href="/writing/从hexo迁移到astro的心路历程/">从 Hexo 迁到 Astro</a>。</dd>
+        <dt><time datetime="2026-07">2026.07</time></dt>
+        <dd>发布 <a href="/vibe-coding/claude-cream/">Claude Cream</a>，给编辑器、写作工具和个人站统一配色。</dd>
       </dl>
     </section>
 
@@ -65,7 +67,7 @@ const deskGroups = [
       </ul>
     </section>
 
-    <details class="about-section about-kit" open>
+    <details class="about-section about-kit">
       <summary>Desk &amp; kit</summary>
       <div class="about-desk">
         {
@@ -125,6 +127,10 @@ const deskGroups = [
     margin: 0;
   }
 
+  .about-timeline a {
+    text-decoration-line: underline;
+  }
+
   .about-principles {
     margin: 0;
     padding-left: 1.2rem;
@@ -172,12 +178,11 @@ const deskGroups = [
     list-style: none;
     padding: 0;
     margin: 0;
-    overflow-x: auto;
     font-size: var(--text-meta);
   }
 
   .about-desk li {
-    white-space: nowrap;
+    overflow-wrap: anywhere;
   }
 
   .about-desk li + li {

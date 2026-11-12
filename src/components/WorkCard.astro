@@ -1,21 +1,25 @@
 ---
 export interface Props {
   title: string;
+  summary: string;
   href: string;
   cover?: string;
   date: Date;
   topic?: string;
 }
 
-const { title, href, cover, date, topic } = Astro.props;
+const { title, summary, href, cover, date, topic } = Astro.props;
 const isoDate = date.toISOString().slice(0, 10);
 ---
 
-<a href={href} class="work-card">
-  <h2 class="work-card__title">{title}</h2>
-  <p class="work-card__meta">
-    <time datetime={isoDate}>{isoDate.replace(/-/g, ".")}</time>{topic ? ` · ${topic}` : ""}
-  </p>
+<a href={href} class:list={["work-card", cover && "work-card--with-cover"]}>
+  <div class="work-card__body">
+    <h2 class="work-card__title">{title}</h2>
+    <p class="work-card__summary">{summary}</p>
+    <p class="work-card__meta">
+      <time datetime={isoDate}>{isoDate.replace(/-/g, ".")}</time>{topic ? ` · ${topic}` : ""}
+    </p>
+  </div>
   {
     cover && (
       <div class="work-card__media">
@@ -34,15 +38,22 @@ const isoDate = date.toISOString().slice(0, 10);
 
 <style>
   .work-card {
-    display: block;
-    padding-top: 20px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    align-items: center;
+    gap: 20px;
+    padding-block: 16px;
     text-decoration: none;
     color: inherit;
   }
 
+  .work-card--with-cover {
+    grid-template-columns: minmax(0, 1fr) 160px;
+  }
+
   .work-card__title {
     margin: 0;
-    font-size: var(--text-subheading);
+    font-size: var(--text-body);
     font-weight: 500;
     line-height: 1.55;
     color: var(--color-ink);
@@ -56,14 +67,26 @@ const isoDate = date.toISOString().slice(0, 10);
     text-decoration-thickness: 1px;
   }
 
+  .work-card__summary {
+    margin: 4px 0 0;
+    color: var(--color-body);
+    font-size: var(--text-subheading);
+    line-height: 1.55;
+    overflow-wrap: anywhere;
+  }
+
   .work-card__meta {
-    margin: 6px 0 0;
+    margin: 4px 0 0;
     font: 400 var(--text-meta)/1.6 var(--font-mono);
     color: var(--color-muted);
+    overflow-wrap: anywhere;
+  }
+
+  .work-card__meta time {
+    white-space: nowrap;
   }
 
   .work-card__media {
-    margin-top: 18px;
     aspect-ratio: 16 / 10;
     background: var(--color-surface);
   }
@@ -73,5 +96,16 @@ const isoDate = date.toISOString().slice(0, 10);
     width: 100%;
     height: 100%;
     object-fit: contain;
+  }
+
+  @media (max-width: 640px) {
+    .work-card {
+      gap: 12px;
+      align-items: start;
+    }
+
+    .work-card--with-cover {
+      grid-template-columns: minmax(0, 1fr) 88px;
+    }
   }
 </style>

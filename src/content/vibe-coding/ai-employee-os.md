@@ -1,6 +1,7 @@
 ---
 title: "AI Employee OS：跑在 macOS 上的本地 AI 员工系统"
 description: "从员工档案和多轮对话开始，把任务、工具、审批、审计与成果交付收进一套可验证的本地运行系统"
+summary: "在 Mac 上给 AI 员工派任务、审批并查看交付。"
 publishedAt: 2026-08-06
 topics:
   - "AI Agent"

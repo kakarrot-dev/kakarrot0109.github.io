@@ -1,6 +1,7 @@
 ---
 title: "Obsidian Wiki — 让个人知识同时对人和 Agent 可用"
 description: "以 raw 原文层、LLM 编译层、MOC 索引和可执行工作流，构建可追溯、可检索、可持续维护的本地知识系统"
+summary: "让笔记和原始资料能被人和 Agent 一起检索。"
 publishedAt: 2026-06-20
 topics:
   - "知识管理"

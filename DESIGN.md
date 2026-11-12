@@ -33,9 +33,20 @@ typography:
     lineHeight: 1.15
     letterSpacing: -0.035em
   article-title:
-    fontSize: 22px
+    fontSize: 32px
     fontWeight: 500
-    lineHeight: 1.6
+    lineHeight: 1.28
+  article-title-small:
+    fontSize: 26px
+    fontWeight: 500
+    lineHeight: 1.28
+  archive-title:
+    fontSize: 15px
+    lineHeight: 1.55
+  archive-date:
+    fontFamily: 'JetBrains Mono, ui-monospace, SF Mono, Cascadia Code, Consolas, monospace'
+    fontSize: 12px
+    fontWeight: 400
   title:
     fontSize: 20px
     fontWeight: 500
@@ -81,20 +92,20 @@ components:
     typography: "{typography.reading}"
   article-link:
     textColor: "{colors.ink}"
-    typography: "{typography.subheading}"
+    typography: "{typography.archive-title}"
   article-link-dark:
     textColor: "{colors.ink-dark}"
-    typography: "{typography.subheading}"
+    typography: "{typography.archive-title}"
   article-link-hover:
     textColor: "{colors.primary-text}"
   article-link-dark-hover:
     textColor: "{colors.primary-text-dark}"
   article-date:
     textColor: "{colors.muted}"
-    typography: "{typography.metadata}"
+    typography: "{typography.archive-date}"
   article-date-dark:
     textColor: "{colors.muted-dark}"
-    typography: "{typography.metadata}"
+    typography: "{typography.archive-date}"
   divider:
     backgroundColor: "{colors.hairline}"
     height: "{spacing.hairline-width}"
@@ -148,12 +159,13 @@ kakarrot.com 是面向技术读者和潜在合作方的个人站。首屏先交�
 | 角色 | 用法 |
 | --- | --- |
 | `editorial-title` | Writing、Vibe Coding 与 About 页首标题。在 `editorial-title-small` 与 `editorial-title` 之间随视口缩放。 |
-| `article-title` | 文章与作品详情页的主标题。 |
-| `title` / `section` | 标签页与错误页的标题。更小一级用于年份、About 分节和正文二级标题。 |
+| `article-title` | 文章与作品详情页的主标题，在 26px 与 32px 间缩放，长标题均衡换行。 |
+| `title` / `section` | 标签页与错误页的标题。正文二级标题为 20px、600 字重，年份和 About 分节为 18px。 |
 | `prose-subheading` | 正文三级标题。 |
 | `reading` | 首页介绍、About 与详情正文。段落留足呼吸空间，正文中的重点保留真实粗体。 |
 | `small` | 导航中的名字、返回链接、目录入口及条目、正文表格。 |
-| `subheading` | Writing、标签页、Vibe Coding 的标题链接，以及文章详情的上下篇入口。About 的设备分类标题也沿用此字号。CSS 使用 `--text-subheading`。 |
+| `archive-title` / `archive-date` | Writing 归档的 15px 标题和右侧 12px 等宽月日。原有文章编号以次要文字显示。 |
+| `subheading` | 标签页标题、Vibe Coding 的短说明、文章详情的上下篇入口，以及 About 的设备分类标题。作品列表的标题为 16px。 |
 | `metadata` | 日期、计数、代码语言标签和少量辅助文字。 |
 
 长标题和标签自然换行，展示完整内容。链接的可点击面积由整行与内边距提供。
@@ -162,9 +174,9 @@ kakarrot.com 是面向技术读者和潜在合作方的个人站。首屏先交�
 
 页头、内容和页脚沿同一对左右边界对齐。桌面内容净宽取 `content-width`，窄屏在视口宽度中各扣一侧 `page-inset`。桌面和手机都采用单栏阅读。页面顶部间距随视口缩小调整，首屏之后随内容自然滚动。
 
-首页介绍沿居中的内容列展开，正文左对齐。高度允许时，介绍在页头与页脚之间垂直居中。内容超过可用高度时，页面自然滚动。
+首页介绍和栏目页从同一位置开始，正文左对齐。首页标题为 26–30px，页脚在内容较短时靠近视口底部。
 
-同一条目内的标题与日期、主题等元信息靠近。条目之间、年份之间和章节之间逐级增加间距。窄屏按内容顺序叠放元信息和多列内容。宽表格、代码、图表和设备清单在所属区域内横向滚动。
+同一条目内的标题与日期、主题等元信息靠近。条目之间、年份之间和章节之间逐级增加间距。窄屏保留 Writing 月日列和作品缩图，设备清单改为单列。宽表格、代码和图表在所属区域内横向滚动。
 
 ## Elevation & Depth
 
@@ -174,16 +186,16 @@ kakarrot.com 是面向技术读者和潜在合作方的个人站。首屏先交�
 
 ## Shapes
 
-阅读区域、作品封面、代码与表格采用直角。头像保留圆形裁切，头像与作品封面沿用素材原色。交互控件以文字或现有图标表达，标签直接显示为文字。封面与标题分开，沿内容列边界对齐。
+阅读区域、作品封面、代码与表格采用直角。头像保留圆形裁切，头像与作品封面沿用素材原色。交互控件以文字或现有图标表达，标签直接显示为文字。详情封面沿内容列边界对齐，作品索引使用右侧缩图。
 
 ## Components
 
-- **导航与页脚**。页头使用同一张小头像和名字，并提供主题切换。首页在介绍正文里链接到栏目，内页导航显示 Vibe Coding、Writing 与 About，标记当前栏目，手机上使用折叠菜单。页脚用一条细线承接内容，放置版权、主题来源与社交链接。
-- **Writing**。目录按发表年份分组，同年按日期倒序。行内显示完整文章标题和月日。桌面日期靠右，手机放到标题下方。标签页沿用标题链接样式，显示完整日期。
-- **Vibe Coding**。作品依次显示完整标题、日期、首个主题与整列封面。没有封面的条目直接呈现文字。封面沿用原有图片，文字位于图片上方。
-- **首页**。以个人经历、产品工作方法与兴趣介绍自己，Writing、Vibe Coding 与 About 的入口融入正文。
-- **About**。独立页面沿用栏目页标题和阅读列，按 Timeline、Principles 与 Desk & kit 分节。时间线的年份和说明对齐。设备清单使用默认展开的原生折叠控件，支持键盘操作，桌面双列，手机单列。
-- **详情页**。按标题、导语与元信息、目录、可选封面、正文的顺序阅读。目录使用原生折叠控件，默认关闭，存在章节时才显示。保留章节跳转、可见焦点、代码复制和文章上下篇。
+- **导航与页脚**。页头使用同一张小头像和名字，并提供主题切换。内页导航显示 Vibe Coding、Writing 与 About，标记当前栏目，手机上使用折叠菜单。页脚用一条细线承接内容，放置版权、主题来源与社交链接。
+- **Writing**。目录按发表年份分组，同年按日期倒序。标题完整换行，月日在桌面和手机上都靠右。标签页显示完整日期。
+- **Vibe Coding**。索引行显示完整标题、短用途、日期和首个主题，右侧用原图按 16:10 缩放到桌面 160px、手机 88px。详情页使用整列封面。
+- **首页**。标题下交代地点和职业。两段介绍之后是 Writing、Vibe Coding 和 About 的文字入口，个人兴趣收尾。
+- **About**。沿用栏目页标题和阅读列，按 Timeline、Principles 与 Desk & kit 分节。时间线把日期和具体经历对齐，相关经历链接到文章或作品。设备清单默认折叠，桌面双列，手机单列。
+- **详情页**。按标题、导语、元信息、目录、可选封面、正文的顺序阅读。日期和标签放在同一组并可换行。目录默认关闭，有章节时才显示，触发区域至少 44px 高，当前章节用琥珀色下划线标记。表格用横向细线分行，640px 及以下列宽至少 8rem，超宽时在表格内横向滚动。
 - **图像**。作品封面优先使用 WebP 和 sRGB，母版比例 16:10。OG 图片单独准备。标题保留为可读、可换行的 HTML 文本，封面图中避免重复烘焙大标题。
 
 ## Do's and Don'ts

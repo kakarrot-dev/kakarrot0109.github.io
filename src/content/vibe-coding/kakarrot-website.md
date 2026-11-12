@@ -1,6 +1,7 @@
 ---
 title: "kakarrot.com：把个人品牌做成一个持续迭代的产品"
 description: "从 Hexo 迁到 Astro，再把站收进 Claude Cream 的 Quiet Studio：Writing 与 Vibe Coding 双入口，亮暗双主题，纯静态部署，持续对外表达"
+summary: "用 Astro 维护我的写作和项目档案。"
 publishedAt: 2026-07-06
 topics:
   - "Astro"

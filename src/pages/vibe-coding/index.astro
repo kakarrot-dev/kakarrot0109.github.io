@@ -21,8 +21,6 @@ const ordered = orderedSlugs
   .filter((item): item is (typeof publishedItems)[number] => !!item);
 const rest = publishedItems.filter((item) => !orderedSlugs.includes(item.id as (typeof orderedSlugs)[number]));
 const items = [...ordered, ...rest];
-
-const topics = [...new Set(items.flatMap((i) => i.data.topics))];
 ---
 
 <BaseLayout
@@ -35,7 +33,7 @@ const topics = [...new Set(items.flatMap((i) => i.data.topics))];
       <h1 class="editorial-title">Vibe Coding</h1>
       <div class="editorial-header__details">
         <p class="editorial-lead">从想法到上线：用 AI 协作做出来的工具、站点与实验</p>
-        <p class="editorial-count">{items.length} works · {topics.length} topics</p>
+        <p class="editorial-count">{items.length} works</p>
       </div>
     </header>
 
@@ -45,6 +43,7 @@ const topics = [...new Set(items.flatMap((i) => i.data.topics))];
           <li>
             <WorkCard
               title={work.data.title}
+              summary={work.data.summary ?? work.data.description}
               href={`/vibe-coding/${work.id}/`}
               cover={work.data.cover}
               date={work.data.publishedAt}
@@ -66,9 +65,5 @@ const topics = [...new Set(items.flatMap((i) => i.data.topics))];
 
   .work-list li {
     border-top: var(--line-hairline);
-  }
-
-  .work-list li + li {
-    margin-top: 36px;
   }
 </style>

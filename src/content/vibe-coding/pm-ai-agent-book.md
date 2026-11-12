@@ -1,6 +1,7 @@
 ---
 title: "AI Agent 产品经理实战 — 从机会识别到上线运营"
 description: "面向 AI 产品经理的开源中文教程，分为产品方法与产品工程两篇，覆盖场景选择、产品边界、工程判断、评估上线和持续运营"
+summary: "一份面向产品经理的开源中文教程，讲怎么设计、评估和上线 Agent。"
 publishedAt: 2026-07-21
 topics:
   - "AI Agent"

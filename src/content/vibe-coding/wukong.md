@@ -1,6 +1,7 @@
 ---
 title: "悟空（Wukong）— 少即是多的本机个人智能体"
 description: "一个主人、一台 Mac、一个 Telegram 入口、一个 Agent Loop 和一个 SQLite 事实源，只保留经真实使用验证的个人 Agent 能力"
+summary: "用 Telegram 操作本机的个人 AI 助手。"
 publishedAt: 2026-07-06
 topics:
   - "AI Agent"

@@ -33,6 +33,7 @@ const vibeCoding = defineCollection({
   schema: z.object({
     title: z.string(),
     description: z.string(),
+    summary: z.string().optional(),
     publishedAt: z.date(),
     topics: z.array(z.string()),
     cover: z.string().optional(),

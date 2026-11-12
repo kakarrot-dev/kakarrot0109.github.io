@@ -1,6 +1,7 @@
 ---
 title: "Tampermonkey Scripts：为常用网页补上一层自己的体验"
 description: "用原生 JavaScript 按站点维护 X、2Libra 与 V2EX 用户脚本，把反复出现的网页体验摩擦沉淀成低权限、可关闭的个人工具"
+summary: "给 X、2Libra 和 V2EX 写可独立启停的用户脚本。"
 publishedAt: 2026-07-21
 topics:
   - "Tampermonkey"

@@ -1,6 +1,7 @@
 ---
 title: "XHS Data Helper：把公开内容整理成自己的本地资料"
 description: "一个 local-first 的 Chrome 扩展，在小红书网页中采集当前可见的笔记、评论、博主资料和搜索下拉词，经侧边栏筛选后导出为 ZIP、JSON、Markdown 或 TXT"
+summary: "把小红书网页上可见的笔记和评论导出到本地。"
 publishedAt: 2026-08-03
 topics:
   - "Chrome Extension"

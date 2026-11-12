@@ -57,16 +57,14 @@ const hasToc = tocItems.length > 0;
         <h1>{title}</h1>
         <p class="prose-header__desc">{description}</p>
         {
-          timeLabel && (
-            <p class="prose-header__time">
-              {timeLabel}
-              {updatedLabel ? ` · Updated ${updatedLabel}` : ""}
-            </p>
-          )
-        }
-        {
-          tags.length > 0 && (
-            <div class="prose-header__tags">
+          (timeLabel || tags.length > 0) && (
+            <div class="prose-header__meta">
+              {timeLabel && (
+                <span class="prose-header__time">
+                  {timeLabel}
+                  {updatedLabel ? ` · Updated ${updatedLabel}` : ""}
+                </span>
+              )}
               {tags.map((tag) =>
                 tagBase ? (
                   <a
@@ -95,7 +93,9 @@ const hasToc = tocItems.length > 0;
         )
       }
       <slot name="hero" />
-      <slot />
+      <div class="prose-body">
+        <slot />
+      </div>
     </article>
   </div>
 </BaseLayout>

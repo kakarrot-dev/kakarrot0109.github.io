@@ -9,6 +9,7 @@ export interface Props {
 
 const { title, href, date, meta, groupedByYear = false } = Astro.props;
 const Title = groupedByYear ? "span" : "h2";
+const numberedTitle = groupedByYear ? title.match(/^(No\. \d+:) (.+)$/) : null;
 
 const isoDate = date?.toISOString().slice(0, 10);
 const dateLabel = isoDate
@@ -16,7 +17,36 @@ const dateLabel = isoDate
   : meta;
 ---
 
-<a href={href} class="article-row">
-  <Title class="article-row__title">{title}</Title>
+<a href={href} class:list={["article-row", groupedByYear && "article-row--grouped"]}>
+  <Title class="article-row__title">
+    {numberedTitle ? (
+      <><span class="article-row__issue">{numberedTitle[1]}</span>{" "}{numberedTitle[2]}</>
+    ) : title}
+  </Title>
   {dateLabel ? <time class="article-row__meta" datetime={isoDate}>{dateLabel}</time> : null}
 </a>
+
+<style>
+  .article-row--grouped .article-row__title {
+    font-size: var(--text-small);
+    line-height: 1.55;
+  }
+
+  .article-row__issue {
+    font: 400 var(--text-meta)/1 var(--font-mono);
+    color: var(--color-muted);
+    white-space: nowrap;
+  }
+
+  .article-row--grouped .article-row__meta {
+    font-size: 12px;
+    text-align: right;
+  }
+
+  @media (max-width: 640px) {
+    .article-row--grouped {
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 12px;
+    }
+  }
+</style>

@@ -1,6 +1,7 @@
 ---
 title: "AI PM Workbench：把产品讨论变成可评审的交互原型"
 description: "把 Codex 中的需求讨论、产品图稿、可交互原型、区域标注和 Markdown PRD 放进同一套本地评审工作台"
+summary: "把 Codex 里的需求讨论变成可点击、可标注的评审原型。"
 publishedAt: 2026-08-08
 topics:
   - "AI 产品经理"

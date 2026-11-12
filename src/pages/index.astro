@@ -8,27 +8,53 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
   canonical="/"
 >
   <section class="container home-letter" aria-labelledby="home-introduction">
-    <h1 id="home-introduction">你好，我是 Kakarrot，一名 AI 产品经理。</h1>
+    <h1 id="home-introduction">你好，我是 Kakarrot。</h1>
+    <p class="home-role">郑州 · AI 产品经理</p>
     <div class="home-letter__body">
       <p>
-        我在郑州，有 <strong>10 年以上的产品经理经验</strong>，做过互联网、To B、To C 和 To G 产品，覆盖 Web、移动端和桌面端。我熟悉从 0 到 1 的创业，也做过产品上线后的持续迭代。
+        我有 <strong>10 年以上的产品经理经验</strong>，做过互联网、To B、To C 和 To G 产品，覆盖 Web、移动端和桌面端。我熟悉从 0 到 1 的创业，也做过产品上线后的持续迭代。
       </p>
       <p>
         我擅长从第一性原理拆解业务问题，用 AI 原生方式重新设计产品与增长系统。最近也在整理自己的工作流，试着把 AI 和产品直觉结合起来，让开发和协作更顺畅。
       </p>
-      <p>
-        我把产品思考与方法论整理在 <a href="/writing/">Writing</a>，也通过
-        <a href="/vibe-coding/">Vibe Coding</a> 做实验，把想法落到具体的产品实践里。
-        我的经历、做事原则和常用设备放在 <a href="/about/">About</a>。
-      </p>
     </div>
+    <nav class="home-links" aria-label="内容栏目">
+      <ul role="list">
+        <li><a href="/writing/">Writing</a></li>
+        <li><a href="/vibe-coding/">Vibe Coding</a></li>
+        <li><a href="/about/">About</a></li>
+      </ul>
+    </nav>
     <p class="home-interests">暴雪粉 · 音乐狂 · 收集癖 · 强迫症</p>
   </section>
 </BaseLayout>
 
 <style>
+  .home-role {
+    margin: 0 0 22px;
+    color: var(--color-muted);
+    font-size: var(--text-meta);
+  }
+
+  .home-links ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 20px;
+    margin: 12px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .home-links a {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--nav-h);
+    font-size: var(--text-small);
+    text-decoration-line: underline;
+  }
+
   .home-interests {
-    margin: 16px 0 0;
+    margin: 8px 0 0;
     color: var(--color-muted);
     font-size: var(--text-meta);
   }
