@@ -13,7 +13,7 @@ export async function getStaticPaths() {
 }
 
 const { item } = Astro.props;
-const { Content, headings } = await render(item);
+const { Content } = await render(item);
 const canonical = `/vibe-coding/${item.id}/`;
 ---
 
@@ -23,7 +23,9 @@ const canonical = `/vibe-coding/${item.id}/`;
   canonical={canonical}
   publishedAt={item.data.publishedAt}
   tags={item.data.topics}
-  headings={headings}
+  backHref="/vibe-coding/"
+  backLabel="作品"
+  showDescription
 >
   {
     item.data.cover && (
@@ -41,7 +43,4 @@ const canonical = `/vibe-coding/${item.id}/`;
     )
   }
   <Content />
-  <p style="margin-top:2.5rem">
-    <a href="/vibe-coding/" class="section-link">← Vibe Coding</a>
-  </p>
 </ProseLayout>

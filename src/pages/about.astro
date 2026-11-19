@@ -42,11 +42,17 @@ const deskGroups = [
   <div class="container section page-shell editorial-page">
     <header class="editorial-header">
       <h1 class="editorial-title">About</h1>
+      <p class="editorial-lead">
+        Kakarrot 的经历、做事原则与常用设备<br />
+        暴雪粉 · 音乐狂 · 收集癖 · 强迫症
+      </p>
     </header>
 
     <section class="about-section">
       <h2>Timeline</h2>
       <dl class="about-timeline">
+        <dt>2012 起</dt>
+        <dd>开始入门产品经理。</dd>
         <dt>2022 起</dt>
         <dd>开始学习和研究 AI。</dd>
         <dt><time datetime="2026-05">2026.05</time></dt>
@@ -89,12 +95,10 @@ const deskGroups = [
 
 <style>
   .about-section + .about-section {
-    margin-top: 36px;
+    margin-top: clamp(40px, 7vw, 72px);
   }
 
   .about-section {
-    border-top: var(--line-hairline);
-    padding-top: 16px;
     color: var(--color-body);
     line-height: var(--lh-reading);
   }
@@ -105,9 +109,18 @@ const deskGroups = [
   }
 
   .about-section h2 {
-    margin: 0 0 14px;
-    font-size: var(--text-section);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 0 0 18px;
+    font-size: var(--text-prose-subheading);
     line-height: 1.6;
+  }
+
+  .about-section h2::after {
+    flex: 1;
+    border-top: var(--line-hairline);
+    content: "";
   }
 
   .about-timeline {
@@ -146,14 +159,14 @@ const deskGroups = [
   }
 
   .about-kit {
-    padding-top: 8px;
+    border-block-start: var(--line-hairline);
   }
 
   .about-kit summary {
     min-height: 44px;
     align-content: center;
     cursor: pointer;
-    font-size: var(--text-section);
+    font-size: var(--text-body);
     line-height: 1.6;
   }
 
@@ -167,6 +180,7 @@ const deskGroups = [
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 32px;
     margin-top: 12px;
+    padding-bottom: 20px;
   }
 
   .about-desk h3 {

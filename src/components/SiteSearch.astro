@@ -1,0 +1,503 @@
+<dialog class="site-search" id="site-search" aria-labelledby="site-search-title">
+  <header class="site-search__header">
+    <h2 class="sr-only" id="site-search-title">站内搜索</h2>
+    <div class="site-search__field">
+      <label class="sr-only" for="site-search-input">搜索项目和文章</label>
+      <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.65" aria-hidden="true">
+        <circle cx="10.5" cy="10.5" r="5.75" />
+        <path d="m15 15 4.25 4.25" stroke-linecap="round" />
+      </svg>
+      <input
+        id="site-search-input"
+        type="text"
+        role="combobox"
+        aria-autocomplete="list"
+        aria-expanded="false"
+        aria-controls="site-search-results"
+        placeholder="搜索标题、主题或章节"
+        autocomplete="off"
+        spellcheck="false"
+        inputmode="search"
+        enterkeyhint="search"
+      />
+    </div>
+    <form method="dialog" class="site-search__close-form">
+      <button type="submit" class="site-search__close" aria-label="关闭搜索">
+        <span aria-hidden="true">×</span>
+      </button>
+    </form>
+  </header>
+
+  <div class="site-search__scroll">
+    <p class="site-search__message" data-search-status role="status"></p>
+    <button type="button" class="site-search__retry" data-search-retry hidden>重试</button>
+    <div id="site-search-results" role="listbox" aria-label="搜索结果" hidden></div>
+  </div>
+
+  <footer class="site-search__keys" aria-hidden="true">
+    <span><kbd>↑</kbd> <kbd>↓</kbd> 选择</span>
+    <span><kbd>↵</kbd> 打开</span>
+    <span><kbd>Esc</kbd> 关闭</span>
+  </footer>
+</dialog>
+
+<script>
+  import type { SearchEntry } from "../pages/search.json.ts";
+
+  const dialog = document.querySelector<HTMLDialogElement>("#site-search")!;
+  const input = dialog.querySelector<HTMLInputElement>("#site-search-input")!;
+  const results = dialog.querySelector<HTMLElement>("#site-search-results")!;
+  const status = dialog.querySelector<HTMLElement>("[data-search-status]")!;
+  const retry = dialog.querySelector<HTMLButtonElement>("[data-search-retry]")!;
+  const groups = { "vibe-coding": "Vibe Coding", writing: "Writing" } as const;
+
+  type SearchResult = Pick<SearchEntry, "title" | "href" | "summary" | "group"> & {
+    keywords?: string[];
+  };
+
+  function normalize(value: string) {
+    return value.normalize("NFKC").trim().toLowerCase();
+  }
+
+  function findResults(entries: SearchEntry[], query: string) {
+    if (!query) return entries;
+
+    const terms = query.split(/\s+/);
+    const matches: (SearchResult & { rank: number })[] = [];
+    for (const entry of entries) {
+      const title = normalize(entry.title);
+      const metadata = normalize(`${entry.summary} ${entry.keywords.join(" ")}`);
+      if (terms.every((term) => title.includes(term))) {
+        matches.push({ ...entry, rank: title.includes(query) ? 4 : 3 });
+      } else if (terms.every((term) => title.includes(term) || metadata.includes(term))) {
+        matches.push({ ...entry, rank: 1 });
+      }
+
+      for (const section of entry.sections) {
+        const label = normalize(section.title);
+        if (terms.some((term) => label.includes(term)) &&
+            terms.every((term) => label.includes(term) || title.includes(term))) {
+          matches.push({
+            title: section.title,
+            summary: entry.title,
+            href: `${entry.href}#${encodeURIComponent(section.slug)}`,
+            group: entry.group,
+            rank: 2,
+          });
+        }
+      }
+    }
+
+    return matches.sort((a, b) => b.rank - a.rank);
+  }
+
+  let entries: SearchEntry[] | undefined;
+  let loading = false;
+  let restoreFocus: HTMLElement | undefined;
+  let options: HTMLElement[] = [];
+  let active = -1;
+
+  function setActive(index: number, scroll = false) {
+    options[active]?.setAttribute("aria-selected", "false");
+    active = index;
+    const option = options[index];
+    if (option) {
+      option.setAttribute("aria-selected", "true");
+      input.setAttribute("aria-activedescendant", option.id);
+      if (scroll) option.scrollIntoView({ block: "nearest" });
+    } else {
+      input.removeAttribute("aria-activedescendant");
+    }
+  }
+
+  function renderResults() {
+    if (!entries) return;
+
+    const query = normalize(input.value);
+    const matches = findResults(entries, query);
+    const groupOrder = query
+      ? new Set(matches.map(({ group }) => group))
+      : (Object.keys(groups) as SearchEntry["group"][]);
+    const fragment = document.createDocumentFragment();
+    options = [];
+    active = -1;
+    for (const group of groupOrder) {
+      const items = matches.filter((item) => item.group === group).slice(0, query ? 6 : 3);
+      if (!items.length) continue;
+
+      const container = document.createElement("div");
+      container.setAttribute("role", "group");
+      container.setAttribute("aria-label", groups[group]);
+      const label = document.createElement("p");
+      label.className = "site-search__label";
+      label.setAttribute("aria-hidden", "true");
+      label.textContent = groups[group];
+      container.append(label);
+
+      for (const item of items) {
+        const option = document.createElement("div");
+        option.id = `site-search-option-${options.length}`;
+        option.className = "site-search__option";
+        option.dataset.href = item.href;
+        option.setAttribute("role", "option");
+        option.setAttribute("aria-selected", "false");
+
+        const title = document.createElement("span");
+        title.textContent = item.title;
+        option.append(title);
+
+        const context = item.href.includes("#")
+          ? item.summary
+          : item.group === "vibe-coding" ? item.keywords?.[0] : undefined;
+        if (context) {
+          const note = document.createElement("small");
+          if (!query) note.className = "site-search__default-topic";
+          note.textContent = context;
+          option.append(note);
+        }
+        container.append(option);
+        options.push(option);
+      }
+      fragment.append(container);
+    }
+
+    results.replaceChildren(fragment);
+    results.parentElement?.scrollTo(0, 0);
+    results.hidden = !options.length;
+    input.setAttribute("aria-expanded", String(!results.hidden));
+    status.classList.toggle("sr-only", !results.hidden);
+    status.textContent = results.hidden ? "没有找到匹配的项目或文章。" : `显示 ${options.length} 条结果。`;
+    setActive(results.hidden ? -1 : 0);
+  }
+
+  async function loadIndex() {
+    if (entries) {
+      renderResults();
+      return;
+    }
+    if (loading) return;
+    loading = true;
+    retry.hidden = true;
+    status.classList.remove("sr-only");
+    status.textContent = "正在加载搜索…";
+
+    try {
+      const response = await fetch("/search.json");
+      if (!response.ok) throw new Error("Search index request failed");
+      const index: SearchEntry[] = await response.json();
+      if (!Array.isArray(index)) throw new Error("Search index format is invalid");
+      entries = index;
+      renderResults();
+    } catch {
+      entries = undefined;
+      status.textContent = "搜索暂时无法加载。";
+      retry.hidden = false;
+    } finally {
+      loading = false;
+    }
+  }
+
+  function findVisibleControl(selector: string) {
+    return [...document.querySelectorAll<HTMLElement>(selector)].find((control) =>
+      !control.closest("details:not([open])") && control.getClientRects().length > 0 &&
+      getComputedStyle(control).visibility === "visible");
+  }
+
+  function openSearch(trigger?: HTMLElement) {
+    if (dialog.open) {
+      input.focus();
+      return;
+    }
+    restoreFocus = trigger ?? (document.activeElement instanceof HTMLElement ? document.activeElement : undefined);
+    if (!restoreFocus || restoreFocus === document.body) {
+      restoreFocus = findVisibleControl("[data-site-search-open]") ??
+        findVisibleControl("[data-site-search-fallback]");
+    }
+    input.value = "";
+    dialog.showModal();
+    input.focus();
+    void loadIndex();
+  }
+
+  function openResult(option?: HTMLElement) {
+    if (!option?.dataset.href) return;
+    const target = new URL(option.dataset.href, window.location.origin);
+    if (target.origin === window.location.origin) {
+      restoreFocus = undefined;
+      dialog.close();
+      window.location.assign(target.href);
+    }
+  }
+
+  document.querySelectorAll<HTMLButtonElement>("[data-site-search-open]").forEach((trigger) => {
+    trigger.addEventListener("click", () => openSearch(trigger));
+  });
+
+  if (/Mac|iPhone|iPad/.test(navigator.userAgent)) {
+    document.querySelectorAll<HTMLElement>("[data-site-search-shortcut]").forEach((key) => {
+      key.textContent = "⌘ K";
+    });
+  }
+
+  document.addEventListener("keydown", (event) => {
+    if (event.defaultPrevented || event.isComposing || !(event.metaKey || event.ctrlKey) ||
+        event.altKey || event.shiftKey || event.key.toLowerCase() !== "k") return;
+    event.preventDefault();
+    openSearch();
+  });
+
+  dialog.addEventListener("close", () => {
+    if (restoreFocus?.isConnected) restoreFocus.focus({ preventScroll: true });
+  });
+
+  dialog.addEventListener("click", (event) => {
+    if (event.target !== dialog) return;
+    const rect = dialog.getBoundingClientRect();
+    if (event.clientX < rect.left || event.clientX > rect.right ||
+        event.clientY < rect.top || event.clientY > rect.bottom) dialog.close();
+  });
+
+  input.addEventListener("input", (event) => {
+    if (!(event instanceof InputEvent && event.isComposing)) renderResults();
+  });
+  input.addEventListener("compositionend", renderResults);
+  input.addEventListener("keydown", (event) => {
+    if (event.isComposing || !options.length) return;
+    if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+      event.preventDefault();
+      const delta = event.key === "ArrowDown" ? 1 : -1;
+      setActive((active + delta + options.length) % options.length, true);
+    } else if (event.key === "Enter") {
+      event.preventDefault();
+      openResult(options[active]);
+    }
+  });
+
+  retry.addEventListener("click", () => {
+    input.focus();
+    void loadIndex();
+  });
+
+  results.addEventListener("click", (event) => {
+    if (event.target instanceof Element) {
+      openResult(event.target.closest<HTMLElement>("[role=option]") ?? undefined);
+    }
+  });
+</script>
+
+<style>
+  :global(html:has(.site-search[open])) {
+    overflow: hidden;
+    background: color-mix(in srgb, black 16%, var(--color-canvas));
+  }
+
+  :global(html[data-theme="dark"]:has(.site-search[open])) {
+    background: color-mix(in srgb, black 38%, var(--color-canvas));
+  }
+
+  .site-search {
+    --search-offset: clamp(20px, 15dvh, 156px);
+    position: fixed;
+    inset: var(--search-offset) 0 auto;
+    width: min(var(--container), calc(100% - 2 * var(--page-pad)));
+    max-height: min(640px, calc(100dvh - var(--search-offset) - 20px));
+    margin: 0 auto;
+    padding: 0;
+    overflow: hidden;
+    border: var(--line-hairline);
+    border-radius: 8px;
+    background: var(--color-surface);
+    color: var(--color-ink);
+    box-shadow: var(--shadow-floating);
+  }
+
+  .site-search[open] {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .site-search::backdrop {
+    background: rgb(0 0 0 / 16%);
+  }
+
+  :global(html[data-theme="dark"]) .site-search::backdrop {
+    background: rgb(0 0 0 / 38%);
+  }
+
+  .site-search__header {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding-inline: 8px;
+    border-bottom: var(--line-hairline);
+  }
+
+  .site-search__close-form {
+    position: absolute;
+    inset-block-start: 5px;
+    inset-inline-end: 8px;
+    pointer-events: none;
+  }
+
+  .site-search__close {
+    width: 44px;
+    height: 44px;
+    color: var(--color-muted);
+    font-size: 22px;
+    line-height: 1;
+    cursor: pointer;
+  }
+
+  .site-search__close:not(:focus-visible) {
+    clip-path: inset(50%);
+  }
+
+  .site-search__close:focus-visible {
+    background: var(--color-surface);
+    outline-offset: -4px;
+    pointer-events: auto;
+  }
+
+  .site-search__field {
+    display: flex;
+    align-items: center;
+    align-self: stretch;
+    flex: 1;
+    gap: 10px;
+    min-width: 0;
+    padding-inline: 8px;
+    color: var(--color-muted);
+  }
+
+  .site-search__field:focus-within {
+    box-shadow: inset 0 -1px var(--color-focus);
+  }
+
+  .site-search__field svg {
+    flex: none;
+  }
+
+  .site-search__field input {
+    min-width: 0;
+    width: 100%;
+    min-height: 54px;
+    padding: 0;
+    outline: none;
+    background: transparent;
+    color: var(--color-ink);
+    font-size: var(--text-body);
+  }
+
+  .site-search__field input::placeholder {
+    color: var(--color-muted);
+    opacity: 1;
+  }
+
+  .site-search__scroll {
+    min-height: 0;
+    padding: 12px 8px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  .site-search__message {
+    margin: 8px;
+    color: var(--color-muted);
+    font-size: var(--text-small);
+  }
+
+  .site-search__retry {
+    min-height: 44px;
+    margin-inline: 8px;
+    color: var(--color-primary-text);
+    font-size: var(--text-small);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    cursor: pointer;
+  }
+
+  .site-search :global([role="group"] + [role="group"]) {
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: var(--line-divider);
+  }
+
+  .site-search :global(.site-search__label) {
+    margin: 0;
+    padding: 4px 8px;
+    color: var(--color-muted);
+    font-size: var(--text-meta);
+  }
+
+  .site-search :global(.site-search__option) {
+    display: grid;
+    align-content: center;
+    gap: 1px;
+    min-height: 44px;
+    padding: 6px 8px;
+    border-radius: 4px;
+    font-size: var(--text-small);
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+    cursor: pointer;
+  }
+
+  .site-search :global(.site-search__option small) {
+    color: var(--color-muted);
+    font-size: var(--text-meta);
+  }
+
+  .site-search :global(.site-search__option[aria-selected="true"]) {
+    background: color-mix(in srgb, var(--color-ink) 7%, var(--color-surface));
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .site-search :global(.site-search__option[aria-selected="false"]:hover) {
+      background: color-mix(in srgb, var(--color-ink) 4%, var(--color-surface));
+    }
+
+    .site-search__close:hover {
+      color: var(--color-primary-text);
+    }
+  }
+
+  .site-search__keys {
+    display: flex;
+    gap: 16px;
+    padding: 8px 16px;
+    border-top: var(--line-hairline);
+    color: var(--color-muted);
+    font-size: var(--text-meta);
+  }
+
+  .site-search__keys kbd {
+    color: var(--color-body);
+    font: 400 var(--text-meta)/1.5 var(--font-mono);
+  }
+
+  @media (max-width: 640px) {
+    .site-search {
+      --search-offset: clamp(18px, 5dvh, 40px);
+    }
+
+    .site-search :global(.site-search__default-topic) {
+      display: none;
+    }
+  }
+
+  @media (pointer: coarse) {
+    .site-search__close-form {
+      position: static;
+      flex: none;
+      pointer-events: auto;
+    }
+
+    .site-search__close:not(:focus-visible) {
+      clip-path: none;
+    }
+
+    .site-search__keys {
+      display: none;
+    }
+  }
+</style>

@@ -8,7 +8,7 @@
 
 <p align="center">
   <strong>静室 Quiet Studio</strong> · AI 产品经理的个人站与作品集<br/>
-  思考、写作与 Vibe Coding 实践 · 设计系统对齐 Claude Cream
+  思考、写作与 Vibe Coding 实践 · 明暗双主题
 </p>
 
 <p align="center">
@@ -25,27 +25,17 @@
   <a href="https://pages.github.com"><img src="https://img.shields.io/badge/deploy-GitHub%20Pages-222?logo=github" alt="GitHub Pages" /></a>
 </p>
 
-<p align="center">
-  <a href="https://kakarrot.com">
-    <img src="./public/images/readme/home-themes.webp" alt="kakarrot.com 的 Claude Cream 浅色与深色主题示意" width="960" />
-  </a>
-</p>
-
-<p align="center"><em>Claude Cream Light / Dark · 主题示意</em></p>
-
 ---
 
 ## Features
 
-- **Content Collections**：Markdown 驱动的 Writing / Vibe Coding
-- **Quiet Studio UI**：全站共用 Claude Cream 明暗主题、轻字重标题、暖灰文字和 1px 实线，主题切换在首帧前初始化
-- **首页**：呈现个人经历、工作方法和兴趣。Writing、Vibe Coding 与 About 链接融入正文，社交联系放在页脚
-- **栏目浏览**：Writing 按年份分组，展示标题与日期。Vibe Coding 展示标题、元信息与整列封面
-- **About**：以发丝线分隔时间线、做事原则和可折叠的设备清单
-- **阅读体验**：全站共用 600px 内容净宽上限、手机两侧约 20px、16px 正文；所有屏幕的目录均在标题元信息之后、作品封面之前默认折叠，保留代码复制、Mermaid 和局部表格滚动
-- **交互**：静态内容直接可见，仅保留必要控件与链接反馈，支持减少动态效果偏好
-- **信息架构**：内页导航包含 `Vibe Coding · Writing · About`，首页通过介绍正文进入栏目。旧 `/projects/*` 跳转到 `/vibe-coding/`
-- **纯静态部署**：构建产物写入 `docs/`，由 GitHub Actions 发布
+- 首页简介提供 About、GitHub、邮件和搜索入口。**Projects** 展示五项精选作品，**Writing** 展示最近十一篇文章，点击栏目标题可进入完整归档。
+- **Vibe Coding** 归档展示作品标题、简介、日期、主题和封面缩图。旧 `/projects/*` 地址会跳转到 `/vibe-coding/`。
+- **Writing** 归档按年份排列文章，日期放在标题下方。展开「标签」可以浏览各主题的文章。
+- **About** 收录时间线、做事原则和可折叠的设备清单。全站页脚集中放置社交链接、版权信息和 Claude Cream 入口。
+- **站内搜索**覆盖已发布的文章和作品。点搜索或按 `⌘ K`、`Ctrl+K` 打开，用 `↑`、`↓` 选择，按 `Enter` 跳转，按 `Esc` 关闭。同一栏目内，标题和章节匹配排在仅命中简介、标签或主题的结果前，章节结果可直接跳到正文。
+- 文章和作品详情顶部可返回栏目或复制永久链接。Markdown 正文支持行内代码、代码高亮与复制、局部横向滚动表格，以及按需加载的 Mermaid 图表。图表随主题切换重绘，语法有误时保留原始代码。
+- 全站使用中性灰明暗主题，首次访问跟随系统，之后记住手动选择。
 
 ## Stack
 
@@ -55,7 +45,7 @@
 | Styling | Tailwind CSS 4 + `src/styles/global.css` design tokens |
 | Content | Astro Content Collections (Markdown) |
 | Fonts | Noto Sans SC · Syne · JetBrains Mono（自托管） |
-| Motion | CSS transitions（必要交互反馈，支持 reduced-motion） |
+| Motion | CSS transitions 与 Web Animations API（支持 `prefers-reduced-motion`） |
 | Diagrams | Mermaid（客户端渲染） |
 | Deploy | GitHub Pages + GitHub Actions |
 
@@ -67,7 +57,7 @@
 ## Getting started
 
 ```bash
-npm install
+npm ci
 npm run dev          # http://localhost:4321
 ```
 
@@ -77,12 +67,12 @@ npm run dev          # http://localhost:4321
 | `npm run check` | Astro / TypeScript 检查 |
 | `npm run lint` | 同 `check` |
 | `npm run build` | 生产构建 → `docs/` |
-| `npm run preview` | 预览构建产物 |
+| `npm run preview` | 本地预览 `docs/` |
 
-发布前建议：
+发布前在本地检查并预览构建产物。
 
 ```bash
-npm run check && npm run build
+npm run check && npm run build && npm run preview
 ```
 
 ## Repository layout
@@ -90,19 +80,18 @@ npm run check && npm run build
 ```text
 src/
   content.config.ts     Content Collections schema
-  components/           UI（Nav、WorkCard、ArticleRow、TOC…）
+  components/           UI（Nav、WorkCard、ArticleRow、SiteSearch 等）
   content/
     writing/            博客文章
     vibe-coding/        Vibe Coding 作品
     projects/           历史项目 Markdown（站点不再消费，保留数据）
   data/                 共享数据（如社交链接）
   layouts/              BaseLayout · ProseLayout
-  pages/                路由
+  pages/                页面路由、RSS、搜索索引
   styles/global.css     设计令牌与全局样式
 public/                 静态资源（favicon、logo、CNAME、README 展示图）
 docs/                   GitHub Pages 构建产物（勿手改）
 .github/workflows/      部署流水线
-DESIGN.md               设计系统 SSOT
 AGENTS.md               AI Coding Agent 项目规范
 CLAUDE.md               Claude Code 入口
 ```
@@ -119,25 +108,20 @@ CLAUDE.md               Claude Code 入口
 3. `draft: true` 可排除未发布内容
 4. `npm run build` 验证
 
-Writing 常用字段：`title` · `description` · `publishedAt` · `tags` · `featured` · `draft`  
-Vibe Coding 另支持可选 `cover`（见 [DESIGN.md 的组件规范](./DESIGN.md#components)）
+Writing 常用字段有 `title`、`description`、`publishedAt`、`tags`、`featured` 和 `draft`。Vibe Coding 用 `topics` 标记主题，也可填写列表简介 `summary` 和封面 `cover`。
 
-RSS 聚合 Writing 与 Vibe Coding；不再包含 projects。
+`/rss.xml` 汇集已发布的 Writing 和 Vibe Coding。`/search.json` 在构建时生成，包含这些内容的标题、简介、标签或主题，以及二、三级章节的标题和锚点。
 
 ## Design system
 
-视觉与交互以 [`DESIGN.md`](./DESIGN.md) 为准：
+视觉令牌和共用样式见 [`src/styles/global.css`](./src/styles/global.css)。
 
-- 全站使用 Claude Cream 明暗令牌，以暖灰深浅和留白建立层级，必要边界使用 1px 发丝线
-- 内容净宽上限 600px，正文 16px，文章与作品列表标题链接 14px，日期等元信息少量使用等宽字体
-- 首页：小头像与名字、个人介绍与兴趣、正文栏目内链、页脚社交入口
-- About：独立阅读列，发丝线区分时间线、原则和可折叠的设备清单
-- 封面：保留现有作品资源，列表使用整列 banner 并与文字上下分开，无封面时直接显示文字
-- 动效：静态阅读，无 Canvas、跑马、滚动渐入或跨页封面动画
+- 全站以中性灰和留白建立层级，使用 1px 细线区分分区与列表条目
+- 内容净宽上限 640px，窄屏两侧各留 24px，长文正文为 17px
+- 首页作品优先使用项目图标，作品归档左侧放封面缩图，详情页展示整列封面
+- 交互反馈集中在链接、按钮和复制状态，尊重系统的减少动效设置
 
-UI 改动请优先使用 `global.css` 令牌，勿引入与静室冲突的视觉语言。
-
-品牌标识：
+品牌标识
 
 <p align="center">
   <img src="./public/logo.svg" alt="Kakarrot mark" width="72" />
@@ -145,24 +129,19 @@ UI 改动请优先使用 `global.css` 令牌，勿引入与静室冲突的视觉
 
 ## Deployment
 
-推送 `master` 触发 [Deploy to GitHub Pages](.github/workflows/deploy.yml)：
+推送到 `master` 会触发 GitHub Pages 发布，也可以在 Actions 页面手动运行。[Deploy to GitHub Pages](.github/workflows/deploy.yml)
 
-1. `npm ci`
-2. `npm run check`
-3. `npm run build`
-4. 上传并部署 `docs/`
+1. 在 Node.js 24 下运行 `npm ci`。
+2. 运行 `npm run check` 和 `npm run build`。
+3. 上传此次构建的 `docs/` 并部署到 `github-pages` 环境。
 
-自定义域名由 `public/CNAME` 提供。
+发布域名由 [`public/CNAME`](./public/CNAME) 指定。构建文件写入 `docs/`，仓库里的静态快照可按需随源码提交。[kakarrot.com](https://kakarrot.com)
 
-本地等价流程：
+完成本地检查和提交后，推送当前改动。
 
 ```bash
-npm run check && npm run build
-git add -A && git commit -m "deploy: …"   # 仅在需要提交产物时
 git push origin master
 ```
-
-> `docs/` 为构建产物目录。改源码后重新 `build`，不要手改 HTML/CSS 产物。
 
 ## Agent & contribution notes
 
@@ -172,7 +151,6 @@ git push origin master
 |---|---|
 | [`AGENTS.md`](./AGENTS.md) | 项目级 Agent 规范（Codex 等） |
 | [`CLAUDE.md`](./CLAUDE.md) | Claude Code 入口 |
-| [`DESIGN.md`](./DESIGN.md) | 设计系统 |
 
 中大型改动建议：先 Spec → Plan → 实现 → `check` / `build`。
 

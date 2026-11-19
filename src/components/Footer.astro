@@ -7,31 +7,34 @@ const year = new Date().getFullYear();
 
 <footer class="site-footer">
   <div class="site-footer-inner">
-    <p class="site-footer-copy">
-      2016–{year} Kakarrot ·{" "}
-      <a
-        class="site-footer-project"
-        href="https://github.com/kakarrot-dev/claude-cream"
-        target="_blank"
-        rel="noopener noreferrer"
-        title="Claude Cream — 设计系统"
-      >
-        Claude Cream
-      </a>
-    </p>
-    <nav class="site-footer-social" aria-label="社交链接">
-      {
-        socialLinks.map(({ id, label, href, external }) => (
-          <a
-            href={href}
-            aria-label={label}
-            title={label}
-            {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-          >
-            <SocialIcon id={id} />
-          </a>
-        ))
-      }
-    </nav>
+    <div class="site-footer-details">
+      <nav class="site-footer-social" aria-label="社交链接">
+        {
+          socialLinks.map(({ id, label, href, external }) => (
+            <a
+              href={href}
+              aria-label={label}
+              title={label}
+              {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+            >
+              <SocialIcon id={id} />
+            </a>
+          ))
+        }
+      </nav>
+      <p class="site-footer-copy">
+        2016–{year} Kakarrot ·{" "}
+        <a
+          class="site-footer-project"
+          href="https://github.com/kakarrot-dev/claude-cream"
+          target="_blank"
+          rel="noopener noreferrer"
+          title="Claude Cream — 设计系统"
+        >
+          Claude Cream
+        </a>
+      </p>
+    </div>
+    <span class="site-footer-wordmark" aria-hidden="true">Kakarrot</span>
   </div>
 </footer>

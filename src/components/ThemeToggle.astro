@@ -19,15 +19,6 @@
 </button>
 
 <script>
-  function applyTheme(theme: "light" | "dark") {
-    document.documentElement.setAttribute("data-theme", theme);
-    try {
-      localStorage.setItem("theme", theme);
-    } catch {
-      /* ignore */
-    }
-  }
-
   function syncThemeButton(btn: Element, theme: "light" | "dark") {
     const isDark = theme === "dark";
     const label = isDark ? "切换到浅色模式" : "切换到深色模式";
@@ -36,14 +27,36 @@
     btn.setAttribute("title", label);
   }
 
-  document.querySelectorAll("[data-theme-toggle]").forEach((btn) => {
+  const button = document.querySelector("[data-theme-toggle]");
+  if (button) {
+    let hasManualTheme = false;
+    try {
+      const stored = localStorage.getItem("theme");
+      hasManualTheme = stored === "light" || stored === "dark";
+    } catch {
+      /* ignore */
+    }
+
+    const applyTheme = (theme: "light" | "dark") => {
+      document.documentElement.setAttribute("data-theme", theme);
+      syncThemeButton(button, theme);
+    };
+
     const initial = document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light";
-    syncThemeButton(btn, initial);
-    btn.addEventListener("click", () => {
+    syncThemeButton(button, initial);
+    button.addEventListener("click", () => {
       const current = document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light";
       const next = current === "dark" ? "light" : "dark";
+      hasManualTheme = true;
       applyTheme(next);
-      syncThemeButton(btn, next);
+      try {
+        localStorage.setItem("theme", next);
+      } catch {
+        /* ignore */
+      }
     });
-  });
+    window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", ({ matches }) => {
+      if (!hasManualTheme) applyTheme(matches ? "dark" : "light");
+    });
+  }
 </script>

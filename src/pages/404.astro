@@ -2,14 +2,41 @@
 import BaseLayout from "@/layouts/BaseLayout.astro";
 ---
 
-<BaseLayout title="404" description="页面不存在">
-  <div class="container section page-shell">
-    <header class="page-header">
-      <h1 class="page-title">404</h1>
-      <p class="page-lead">页面不存在</p>
-    </header>
-    <p>
-      <a href="/" class="section-link">← Home</a>
-    </p>
-  </div>
+<BaseLayout title="404" description="页面不存在" navigation={false}>
+  <section class="container not-found" aria-labelledby="not-found-title">
+    <h1 id="not-found-title">页面不存在</h1>
+    <a href="/" class="section-link">返回首页</a>
+  </section>
 </BaseLayout>
+
+<style>
+  .not-found {
+    display: grid;
+    min-height: 76svh;
+    justify-items: center;
+    align-content: center;
+    gap: 12px;
+    padding-block: 32px;
+    text-align: center;
+  }
+
+  .not-found h1 {
+    margin: 0;
+    font-size: var(--text-editorial-title);
+    font-weight: 500;
+  }
+
+  .not-found a {
+    padding-inline: 14px;
+    border: var(--line-hairline);
+    border-radius: 6px;
+    background: var(--color-surface);
+    color: var(--color-ink);
+    box-shadow: var(--shadow-edge);
+    text-decoration: none;
+  }
+
+  .not-found a:is(:hover, :focus-visible) {
+    border-color: var(--color-focus);
+  }
+</style>

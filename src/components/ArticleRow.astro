@@ -5,11 +5,12 @@ export interface Props {
   date?: Date;
   meta?: string;
   groupedByYear?: boolean;
+  compact?: boolean;
 }
 
-const { title, href, date, meta, groupedByYear = false } = Astro.props;
-const Title = groupedByYear ? "span" : "h2";
-const numberedTitle = groupedByYear ? title.match(/^(No\. \d+:) (.+)$/) : null;
+const { title, href, date, meta, groupedByYear = false, compact = false } = Astro.props;
+const Title = groupedByYear ? "span" : compact ? "h3" : "h2";
+const numberedTitle = compact ? title.match(/^(No\. \d+:) (.+)$/) : null;
 
 const isoDate = date?.toISOString().slice(0, 10);
 const dateLabel = isoDate
@@ -17,36 +18,75 @@ const dateLabel = isoDate
   : meta;
 ---
 
-<a href={href} class:list={["article-row", groupedByYear && "article-row--grouped"]}>
+<a href={href} class="article-row">
+  <span class="article-row__mark" aria-hidden="true">
+    <svg viewBox="0 0 32 36" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" focusable="false">
+      <path d="M6 8h15M6 14h18M6 20h10" />
+    </svg>
+  </span>
   <Title class="article-row__title">
     {numberedTitle ? (
-      <><span class="article-row__issue">{numberedTitle[1]}</span>{" "}{numberedTitle[2]}</>
-    ) : title}
+      <><span class="sr-only">{numberedTitle[1]}</span>{" "}{numberedTitle[2]}</>
+    ) : title}<span class="row-arrow" aria-hidden="true"></span>
   </Title>
-  {dateLabel ? <time class="article-row__meta" datetime={isoDate}>{dateLabel}</time> : null}
+  {isoDate
+    ? <time class="article-row__meta" datetime={isoDate}>{dateLabel}</time>
+    : dateLabel && <span class="article-row__meta">{dateLabel}</span>}
 </a>
 
 <style>
-  .article-row--grouped .article-row__title {
-    font-size: var(--text-small);
-    line-height: 1.55;
+  .article-row {
+    --article-folio: 64px;
+    position: relative;
+    display: block;
+    min-height: 78px;
+    padding-block: 14px;
+    padding-inline-start: var(--article-folio);
+    color: inherit;
+    font: 400 17px/1.625 var(--font-sans);
+    text-decoration: none;
   }
 
-  .article-row__issue {
-    font: 400 var(--text-meta)/1 var(--font-mono);
+  .article-row__title {
+    display: block;
+    margin: 0;
+    color: var(--color-ink);
+    font-weight: 450;
+    overflow-wrap: anywhere;
+    text-wrap: pretty;
+  }
+
+  .article-row__mark {
+    position: absolute;
+    inset-block-start: 17px;
+    inset-inline-start: 0;
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 48px;
+    border: var(--line-hairline);
+    border-radius: 8px;
+    background: var(--color-canvas);
+    box-shadow: var(--shadow-edge);
+    color: color-mix(in oklab, var(--color-muted) 17%, var(--color-hairline));
+  }
+
+  .article-row__mark svg {
+    width: 34px;
+    height: 38px;
+    border: var(--line-divider);
+    border-radius: 5px;
+    background: var(--color-surface);
+  }
+
+  .article-row__meta {
+    display: block;
     color: var(--color-muted);
-    white-space: nowrap;
-  }
-
-  .article-row--grouped .article-row__meta {
-    font-size: 12px;
-    text-align: right;
   }
 
   @media (max-width: 640px) {
-    .article-row--grouped {
-      grid-template-columns: minmax(0, 1fr) auto;
-      gap: 12px;
+    .article-row {
+      --article-folio: 56px;
     }
   }
 </style>

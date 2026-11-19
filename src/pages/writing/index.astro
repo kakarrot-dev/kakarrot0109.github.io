@@ -6,6 +6,8 @@ import { getCollection } from "astro:content";
 const articles = (await getCollection("writing"))
   .filter((a) => !a.data.draft)
   .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
+const tags = [...new Set(articles.flatMap(({ data }) => data.tags))]
+  .sort((a, b) => a.localeCompare(b, "zh-CN"));
 
 const years = new Map<number, typeof articles>();
 for (const article of articles) {
@@ -28,6 +30,16 @@ for (const article of articles) {
         <p class="editorial-lead">关于 AI 产品、方法论与实践的笔记与长文</p>
         <p class="editorial-count">{articles.length} articles</p>
       </div>
+      {tags.length > 0 && (
+        <details class="writing-tags">
+          <summary>标签</summary>
+          <ul role="list" aria-label="文章标签">
+            {tags.map((tag) => (
+              <li><a href={`/writing/tags/${encodeURIComponent(tag)}/`}>{tag}</a></li>
+            ))}
+          </ul>
+        </details>
+      )}
     </header>
 
     {
@@ -53,25 +65,71 @@ for (const article of articles) {
 </BaseLayout>
 
 <style>
-  .writing-year {
-    border-top: var(--line-hairline);
-    padding-top: 16px;
+  .writing-tags {
+    margin-block-start: 8px;
+  }
+
+  .writing-tags summary {
+    width: fit-content;
+    min-height: var(--nav-h);
+    align-content: center;
+    color: var(--color-muted);
+    font-size: var(--text-small);
+    cursor: pointer;
+  }
+
+  .writing-tags ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 18px;
+    margin: 0;
+    padding: 8px 0 0;
+    border-top: var(--line-divider);
+    list-style: none;
+  }
+
+  .writing-tags a {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--nav-h);
+    color: var(--color-muted);
+    font-size: var(--text-small);
+    text-decoration: underline;
+    text-decoration-color: var(--color-border-strong);
+    overflow-wrap: anywhere;
+  }
+
+  .writing-tags :is(summary, a):is(:hover, :focus-visible) {
+    color: var(--color-ink);
   }
 
   .writing-year + .writing-year {
-    margin-top: 28px;
+    margin-top: 56px;
   }
 
   .writing-year h2 {
-    margin: 0 0 8px;
-    font-size: var(--text-section);
-    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 0 0 12px;
+    color: var(--color-muted);
+    font: 400 var(--text-meta)/1.6 var(--font-mono);
     font-variant-numeric: tabular-nums;
+  }
+
+  .writing-year h2::after {
+    flex: 1;
+    border-top: var(--line-hairline);
+    content: "";
   }
 
   .article-list {
     list-style: none;
     margin: 0;
     padding: 0;
+  }
+
+  .article-list li + li {
+    border-top: var(--line-divider);
   }
 </style>

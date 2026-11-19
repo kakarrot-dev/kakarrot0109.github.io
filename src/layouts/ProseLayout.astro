@@ -1,12 +1,5 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import TableOfContents from "@/components/TableOfContents.astro";
-
-export interface Heading {
-  depth: number;
-  slug: string;
-  text: string;
-}
 
 export interface Props {
   title: string;
@@ -16,8 +9,9 @@ export interface Props {
   publishedAt?: Date;
   updatedAt?: Date;
   tags?: string[];
-  tagBase?: string;
-  headings?: Heading[];
+  backHref: string;
+  backLabel: string;
+  showDescription?: boolean;
 }
 
 const {
@@ -28,18 +22,10 @@ const {
   publishedAt,
   updatedAt,
   tags = [],
-  tagBase,
-  headings = [],
+  backHref,
+  backLabel,
+  showDescription = false,
 } = Astro.props;
-
-const timeLabel = publishedAt
-  ? publishedAt.toLocaleDateString("en-CA").replace(/-/g, ".")
-  : null;
-const updatedLabel = updatedAt
-  ? updatedAt.toLocaleDateString("en-CA").replace(/-/g, ".")
-  : null;
-const tocItems = headings.filter((h) => h.depth >= 2 && h.depth <= 3);
-const hasToc = tocItems.length > 0;
 ---
 
 <BaseLayout
@@ -50,59 +36,263 @@ const hasToc = tocItems.length > 0;
   {publishedAt}
   {updatedAt}
   {tags}
+  navigation={false}
 >
-  <div class="prose-layout">
-    <article class="prose-layout__main prose">
-      <header class="prose-header">
+  <div class="prose-layout reading-layout">
+    <header class="reading-toolbar">
+      <a href={backHref} class="reading-action" aria-label={`返回${backLabel}`} title={`返回${backLabel}`} data-site-search-fallback>
+        <span class="reading-action__mark" aria-hidden="true">
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+            <path d="m8.75 5.25-4.5 4.5 4.5 4.5M4.75 9.75h6.5a4.5 4.5 0 0 1 4.5 4.5" />
+          </svg>
+        </span>
+      </a>
+      <button type="button" class="reading-action" title="复制永久链接" aria-label="复制永久链接" data-copy-permalink hidden>
+        <span class="reading-action__mark" data-permalink-icon aria-hidden="true"></span>
+      </button>
+      <p class="reading-copy-status sr-only" role="status" data-permalink-status></p>
+    </header>
+
+    <article class="reading-article">
+      <header class="reading-heading">
         <h1>{title}</h1>
-        <p class="prose-header__desc">{description}</p>
-        {
-          (timeLabel || tags.length > 0) && (
-            <div class="prose-header__meta">
-              {timeLabel && (
-                <span class="prose-header__time">
-                  {timeLabel}
-                  {updatedLabel ? ` · Updated ${updatedLabel}` : ""}
-                </span>
-              )}
-              {tags.map((tag) =>
-                tagBase ? (
-                  <a
-                    class="prose-tag"
-                    href={`${tagBase}${encodeURIComponent(tag)}/`}
-                  >
-                    {tag}
-                  </a>
-                ) : (
-                  <span class="prose-tag">{tag}</span>
-                )
-              )}
-            </div>
-          )
-        }
+        {showDescription && description && <p class="reading-description">{description}</p>}
       </header>
-      {
-        hasToc && (
-          <details class="prose-toc">
-            <summary>
-              <span>目录</span>
-              <span>{tocItems.length} 节</span>
-            </summary>
-            <TableOfContents headings={headings} />
-          </details>
-        )
-      }
-      <slot name="hero" />
-      <div class="prose-body">
+      <div class="prose prose-body">
+        <slot name="hero" />
         <slot />
       </div>
+      {Astro.slots.has("end") && (
+        <footer class="reading-end">
+          <slot name="end" />
+        </footer>
+      )}
     </article>
   </div>
 </BaseLayout>
 
-<script>
-  // 代码块：语言 + 图标复制（无顶栏背景）
+<style>
+  .reading-layout {
+    --reading-top: clamp(44px, 5vw, 72px);
+    position: relative;
+    padding-block: var(--reading-top) 80px;
+  }
+
+  .reading-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+  }
+
+  .reading-action:not([hidden]) {
+    display: inline-grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    color: var(--color-body);
+    text-decoration: none;
+    cursor: pointer;
+    transition: none;
+  }
+
+  .reading-action__mark {
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 12px;
+    background: var(--color-divider);
+    opacity: 0.83;
+  }
+
+  .reading-action__mark :global(svg) {
+    width: 18px;
+    height: 18px;
+  }
+
+  .reading-action:focus-visible .reading-action__mark {
+    opacity: 1;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .reading-action:hover .reading-action__mark {
+      opacity: 1;
+    }
+  }
+
+  @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    .reading-action:not(:focus-visible) .reading-action__mark {
+      transition: opacity 125ms ease-out, transform 125ms ease-out;
+    }
+
+    .reading-action:active:not(:focus-visible) .reading-action__mark {
+      transform: scale(0.94);
+    }
+  }
+
+  .reading-copy-status:not(.sr-only) {
+    position: absolute;
+    inset-block-start: calc(var(--reading-top) + 55px);
+    inset-inline-end: 0;
+    z-index: 1;
+    margin: 0;
+    padding: 3px 7px;
+    border-radius: 4px;
+    background: var(--color-surface);
+    color: var(--color-body);
+    font-size: var(--text-meta);
+    text-align: end;
+  }
+
+  .reading-article {
+    min-width: 0;
+    padding-block-start: clamp(78px, 6.55vw, 94px);
+  }
+
+  .reading-heading {
+    margin-block-end: 30px;
+  }
+
+  .reading-heading h1 {
+    margin: 0;
+    color: var(--color-ink);
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.45;
+    overflow-wrap: anywhere;
+  }
+
+  .reading-description {
+    margin: 0;
+    color: var(--color-muted);
+    line-height: 1.75;
+    overflow-wrap: anywhere;
+  }
+
+  .reading-heading .reading-description {
+    margin-block-start: 10px;
+  }
+
+  .prose :global(:is(h1, h2, h3)[id]) {
+    scroll-margin-top: 24px;
+  }
+
+  .prose-body > :global(:first-child) {
+    margin-block-start: 0;
+  }
+
+  .reading-end {
+    margin-block-start: 48px;
+    padding-block-start: 7px;
+    border-top: var(--line-hairline);
+  }
+
+  .prose :global(.code-copy-status) {
+    min-inline-size: 0;
+    margin-inline: auto 6px;
+    color: var(--color-body);
+    font: 400 var(--text-meta)/1.5 var(--font-sans);
+    text-align: end;
+  }
+</style>
+
+  <script>
+    document.querySelectorAll(".prose-body > h2").forEach((heading) => {
+      const title = document.createElement("span");
+      title.className = "reading-section-title";
+      title.append(...heading.childNodes);
+      heading.append(title);
+    });
+
+    document.querySelectorAll(".prose-body table").forEach((table) => {
+      const block = document.createElement("div");
+      block.className = "table-block";
+      const scroll = document.createElement("div");
+      scroll.className = "table-scroll";
+      const hint = document.createElement("p");
+      hint.className = "table-scroll-hint";
+      hint.textContent = "横向滚动查看完整表格";
+      hint.hidden = true;
+      hint.setAttribute("aria-hidden", "true");
+      table.before(block);
+      block.append(hint, scroll);
+      scroll.append(table);
+
+      const updateOverflow = () => {
+        const overflowing = scroll.scrollWidth > scroll.clientWidth;
+        hint.hidden = !overflowing;
+        if (overflowing) {
+          scroll.tabIndex = 0;
+          scroll.setAttribute("role", "region");
+          scroll.setAttribute("aria-label", "可横向滚动的表格");
+        } else {
+          scroll.removeAttribute("tabindex");
+          scroll.removeAttribute("role");
+          scroll.removeAttribute("aria-label");
+        }
+      };
+      updateOverflow();
+      const tableSize = new ResizeObserver(updateOverflow);
+      tableSize.observe(scroll);
+      tableSize.observe(table);
+    });
+
   document.addEventListener("DOMContentLoaded", () => {
+    const permalinkMark = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m10 14 4-4M8.25 17.5l-1 1a3.36 3.36 0 0 1-4.75-4.75l3.75-3.75a3.36 3.36 0 0 1 4.75 0m4.75-3.5 1-1a3.36 3.36 0 0 1 4.75 4.75l-3.75 3.75a3.36 3.36 0 0 1-4.75 0"/></svg>`;
+    const copyIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>`;
+    const copiedIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><polyline points="20 6 9 17 4 12"/></svg>`;
+    const copyFailedIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M12 6v7m0 5h.01"/></svg>`;
+    const permalinkButton = document.querySelector<HTMLButtonElement>("[data-copy-permalink]");
+    const permalinkIcon = permalinkButton?.querySelector("[data-permalink-icon]");
+    const permalinkStatus = document.querySelector<HTMLElement>("[data-permalink-status]");
+    if (permalinkButton && permalinkIcon && permalinkStatus) {
+      const permalink = document.querySelector<HTMLLinkElement>('link[rel="canonical"]')?.href
+        ?? new URL(location.pathname, location.origin).href;
+      let statusTimeout: number | undefined;
+      let copying = false;
+      permalinkIcon.innerHTML = permalinkMark;
+      permalinkButton.hidden = false;
+      permalinkButton.addEventListener("click", async (event) => {
+        if (copying) return;
+        const pointerClick = event.detail > 0;
+        copying = true;
+        window.clearTimeout(statusTimeout);
+        permalinkStatus.classList.add("sr-only");
+        permalinkStatus.textContent = "";
+        let copied = false;
+        try {
+          await navigator.clipboard.writeText(permalink);
+          copied = true;
+        } catch {
+          // 反馈失败状态，仍允许从地址栏手动复制。
+        }
+        copying = false;
+        const message = copied ? "链接已复制" : "复制失败，请从地址栏复制链接";
+        permalinkIcon.innerHTML = copied ? copiedIcon : copyFailedIcon;
+        permalinkButton.setAttribute("aria-label", copied ? message : "复制永久链接");
+        permalinkButton.title = copied ? "" : message;
+        permalinkStatus.textContent = copied && document.activeElement === permalinkButton ? "" : message;
+        permalinkStatus.classList.toggle("sr-only", copied);
+        if (copied && pointerClick && !permalinkButton.matches(":focus-visible") &&
+          window.matchMedia("(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)").matches) {
+          permalinkIcon.querySelector("svg")?.animate([
+            { opacity: 0.65, transform: "scale(0.94)" },
+            { opacity: 1, transform: "none" },
+          ], { duration: 125, easing: "ease-out" });
+        }
+        statusTimeout = window.setTimeout(() => {
+          permalinkIcon.innerHTML = permalinkMark;
+          permalinkButton.setAttribute("aria-label", "复制永久链接");
+          permalinkButton.title = "复制永久链接";
+          permalinkStatus.classList.add("sr-only");
+          permalinkStatus.textContent = "";
+        }, 3800);
+      });
+    }
+
+    // 代码块：语言、复制和状态反馈
     document.querySelectorAll<HTMLPreElement>(".prose .astro-code").forEach((pre) => {
       if (pre.parentElement?.classList.contains("code-block-wrap")) return;
       const lang = (pre.getAttribute("data-language") || "text").toUpperCase();
@@ -118,131 +308,144 @@ const hasToc = tocItems.length > 0;
       langSpan.className = "code-lang";
       langSpan.textContent = lang;
 
+      const status = document.createElement("span");
+      status.className = "code-copy-status";
+      status.setAttribute("role", "status");
+
       const copyBtn = document.createElement("button");
       copyBtn.type = "button";
       copyBtn.className = "copy-btn";
       copyBtn.setAttribute("aria-label", "复制代码");
-      copyBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>`;
+      copyBtn.innerHTML = copyIcon;
 
+      let copying = false;
+      let statusTimeout: number | undefined;
       copyBtn.addEventListener("click", async () => {
+        if (copying) return;
+
+        copying = true;
+        window.clearTimeout(statusTimeout);
+        status.textContent = "";
+        copyBtn.classList.remove("copied");
+        copyBtn.innerHTML = copyIcon;
+
         const code = pre.querySelector("code")?.innerText || pre.innerText;
+        let copied = false;
         try {
           await navigator.clipboard.writeText(code);
-          copyBtn.classList.add("copied");
-          copyBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>`;
-          setTimeout(() => {
-            copyBtn.classList.remove("copied");
-            copyBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>`;
-          }, 1600);
-        } catch (err) {
-          console.error("复制失败", err);
+          copied = true;
+        } catch {
+          // Clipboard restrictions can prevent writing even when the API exists.
         }
+        copying = false;
+
+        copyBtn.classList.toggle("copied", copied);
+        copyBtn.innerHTML = copied ? copiedIcon : copyFailedIcon;
+        status.textContent = copied ? "代码已复制" : "复制失败，请手动复制";
+        statusTimeout = window.setTimeout(() => {
+          copyBtn.classList.remove("copied");
+          copyBtn.innerHTML = copyIcon;
+          status.textContent = "";
+        }, 3800);
       });
 
-      header.append(langSpan, copyBtn);
+      header.append(langSpan, status, copyBtn);
       wrap.append(header);
       pre.before(wrap);
       wrap.appendChild(pre);
     });
 
     // Mermaid
-    const mermaidBlocks = document.querySelectorAll<HTMLPreElement>(
-      '.prose pre[data-language="mermaid"], .prose .astro-code[data-language="mermaid"]'
-    );
+    const mermaidBlocks = document.querySelectorAll<HTMLPreElement>('.prose pre[data-language="mermaid"]');
     if (mermaidBlocks.length > 0) {
-      void import("mermaid").then(async ({ default: mermaid }) => {
-        const isDark = document.documentElement.getAttribute("data-theme") === "dark";
-        mermaid.initialize({
-          startOnLoad: false,
-          theme: isDark ? "dark" : "neutral",
-          securityLevel: "loose",
-        });
-        let i = 0;
-        for (const pre of mermaidBlocks) {
-          const src = pre.querySelector("code")?.textContent || pre.textContent || "";
+      void import("mermaid").then(({ default: mermaid }) => {
+        const root = document.documentElement;
+        const diagrams = Array.from(mermaidBlocks, (pre) => {
           const host = document.createElement("div");
           host.className = "mermaid";
-          host.textContent = src.trim();
-          pre.replaceWith(host);
-          try {
-            const id = `mermaid-${i++}`;
-            const { svg } = await mermaid.render(id, src.trim());
-            host.innerHTML = svg;
-          } catch (e) {
-            host.textContent = src.trim();
-            console.error("Mermaid 渲染失败", e);
-          }
-        }
-      });
-    }
-
-    // TOC 当前节
-    const tocLinks = [...document.querySelectorAll<HTMLAnchorElement>(".prose-toc .toc-list a")];
-    const ids = tocLinks
-      .map((a) => decodeURIComponent(a.getAttribute("href")?.slice(1) || ""))
-      .filter(Boolean);
-    const sections = ids
-      .map((id) => document.getElementById(id))
-      .filter((el): el is HTMLElement => !!el);
-    if (sections.length) {
-      let pending = false;
-      const syncCurrentSection = () => {
-        const offset = (document.querySelector(".nav-bar")?.getBoundingClientRect().bottom || 0) + 25;
-        let current = sections[0];
-        for (const section of sections) {
-          if (section.getBoundingClientRect().top > offset) break;
-          current = section;
-        }
-        tocLinks.forEach((link) => {
-          link.setAttribute("aria-current", String(link.getAttribute("href") === `#${current.id}`));
+          return { pre, host, source: (pre.querySelector("code")?.textContent ?? pre.textContent ?? "").trim() };
         });
-      };
-      // 与锚点的导航偏移一致，避免跳转后把下一节误标为当前节。
-      window.addEventListener("scroll", () => {
-        if (pending) return;
-        pending = true;
-        requestAnimationFrame(() => {
-          pending = false;
-          syncCurrentSection();
-        });
-      }, { passive: true });
-      window.addEventListener("resize", syncCurrentSection);
-      syncCurrentSection();
-    }
+        let renderId = 0;
+        let renderedDark: boolean | undefined;
+        let rendering = Promise.resolve();
 
-    document.querySelectorAll<HTMLDetailsElement>(".prose-toc").forEach((details) => {
-      const summary = details.querySelector("summary");
+        const refresh = () => {
+          rendering = rendering.then(async () => {
+            const dark = root.dataset.theme === "dark";
+            if (renderedDark === dark) return;
 
-      details.addEventListener("toggle", () => {
-        if (
-          !details.open &&
-          details.contains(document.activeElement) &&
-          document.activeElement !== summary
-        ) {
-          summary?.focus({ preventScroll: true });
-        }
-      });
+            const styles = getComputedStyle(root);
+            const token = (name: string) => styles.getPropertyValue(name).trim();
+            const canvas = token("--color-canvas");
+            const surface = token("--color-surface");
+            const ink = token("--color-ink");
+            const muted = token("--color-muted");
+            const border = token("--color-hairline");
+            const accent = token("--color-teal");
+            const fontFamily = token("--font-sans");
 
-      details.querySelectorAll<HTMLAnchorElement>(".toc-list a").forEach((link) => {
-        link.addEventListener("click", (event) => {
-          if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+            mermaid.initialize({
+              startOnLoad: false,
+              suppressErrorRendering: true,
+              theme: "base",
+              securityLevel: "loose",
+              fontFamily,
+              xyChart: {
+                width: 600,
+                height: 360,
+                xAxis: { labelFontSize: 15 },
+                yAxis: { labelFontSize: 15 },
+              },
+              themeVariables: {
+                darkMode: dark,
+                background: canvas,
+                primaryColor: surface,
+                primaryTextColor: ink,
+                primaryBorderColor: border,
+                secondaryColor: canvas,
+                tertiaryColor: surface,
+                lineColor: muted,
+                textColor: ink,
+                noteBkgColor: canvas,
+                noteTextColor: ink,
+                noteBorderColor: border,
+                edgeLabelBackground: canvas,
+                xyChart: {
+                  backgroundColor: surface,
+                  titleColor: ink,
+                  xAxisTitleColor: ink,
+                  xAxisLabelColor: ink,
+                  xAxisLineColor: muted,
+                  xAxisTickColor: muted,
+                  yAxisTitleColor: ink,
+                  yAxisLabelColor: ink,
+                  yAxisLineColor: muted,
+                  yAxisTickColor: muted,
+                  plotColorPalette: `${accent}, ${ink}, ${muted}`,
+                },
+              },
+            });
+            renderedDark = dark;
 
-          tocLinks.forEach((item) => item.setAttribute("aria-current", String(item === link)));
-          const id = decodeURIComponent(link.hash.slice(1));
-          const target = document.getElementById(id);
-          if (target) {
-            // 折叠前把焦点移出目录，让键盘从目标章节继续阅读。
-            if (!target.hasAttribute("tabindex")) {
-              target.setAttribute("tabindex", "-1");
-              target.addEventListener("blur", () => target.removeAttribute("tabindex"), { once: true });
+            for (const { pre, host, source } of diagrams) {
+              try {
+                const { svg } = await mermaid.render(`site-mermaid-${renderId++}`, source);
+                host.innerHTML = svg;
+                if (pre.isConnected) pre.replaceWith(host);
+              } catch (error) {
+                if (host.isConnected) host.replaceWith(pre);
+                console.error("Mermaid 渲染失败", error);
+              }
             }
-            target.focus({ preventScroll: true });
-          } else {
-            summary?.focus({ preventScroll: true });
-          }
-          details.open = false;
-        });
+          }).catch((error) => console.error("Mermaid 初始化失败", error));
+        };
+
+        refresh();
+        new MutationObserver(refresh).observe(root, { attributeFilter: ["data-theme"] });
+      }).catch((error) => {
+        console.error("Mermaid 加载失败", error);
       });
-    });
+    }
+
   });
 </script>

@@ -4,79 +4,90 @@ export interface Props {
   summary: string;
   href: string;
   cover?: string;
+  icon?: string;
   date: Date;
   topic?: string;
+  compact?: boolean;
 }
 
-const { title, summary, href, cover, date, topic } = Astro.props;
+const { title, summary, href, cover, icon, date, topic, compact = false } = Astro.props;
+const Title = compact ? "h3" : "h2";
 const isoDate = date.toISOString().slice(0, 10);
+const media = compact ? icon ?? cover : cover;
 ---
 
-<a href={href} class:list={["work-card", cover && "work-card--with-cover"]}>
+<a href={href} class:list={["work-card", media && "work-card--with-cover", compact && "work-card--compact"]}>
+  {media && (
+    <span class="work-card__art" aria-hidden="true">
+      <img
+        class="work-card__media"
+        src={media}
+        alt=""
+        width={compact && icon ? 256 : 320}
+        height={compact && icon ? 256 : 200}
+        loading="lazy"
+        decoding="async"
+      />
+    </span>
+  )}
   <div class="work-card__body">
-    <h2 class="work-card__title">{title}</h2>
+    <Title class="work-card__title">{title}<span class="row-arrow" aria-hidden="true"></span></Title>
     <p class="work-card__summary">{summary}</p>
-    <p class="work-card__meta">
-      <time datetime={isoDate}>{isoDate.replace(/-/g, ".")}</time>{topic ? ` · ${topic}` : ""}
-    </p>
+    {!compact && (
+      <p class="work-card__meta">
+        <time datetime={isoDate}>{isoDate.replace(/-/g, ".")}</time>{topic ? ` · ${topic}` : ""}
+      </p>
+    )}
   </div>
-  {
-    cover && (
-      <div class="work-card__media">
-        <img
-          src={cover}
-          alt=""
-          width="320"
-          height="200"
-          loading="lazy"
-          decoding="async"
-        />
-      </div>
-    )
-  }
 </a>
 
 <style>
   .work-card {
+    --work-cover-width: 96px;
     display: grid;
     grid-template-columns: minmax(0, 1fr);
-    align-items: center;
-    gap: 20px;
-    padding-block: 16px;
+    align-items: start;
+    gap: 14px;
+    padding-block: 15px;
     text-decoration: none;
     color: inherit;
   }
 
   .work-card--with-cover {
-    grid-template-columns: minmax(0, 1fr) 160px;
+    grid-template-columns: var(--work-cover-width) minmax(0, 1fr);
+  }
+
+  .work-card--compact {
+    --work-cover-width: 50px;
+    align-items: center;
+    min-height: 83px;
+    padding-block: 12px;
   }
 
   .work-card__title {
     margin: 0;
     font-size: var(--text-body);
     font-weight: 500;
-    line-height: 1.55;
+    line-height: 1.45;
     color: var(--color-ink);
     overflow-wrap: anywhere;
     text-wrap: pretty;
   }
 
-  .work-card:is(:hover, :focus-visible) .work-card__title {
-    color: var(--color-primary-text);
-    text-decoration: underline;
-    text-decoration-thickness: 1px;
-  }
-
   .work-card__summary {
-    margin: 4px 0 0;
-    color: var(--color-body);
+    margin: 2px 0 0;
+    color: var(--color-muted);
     font-size: var(--text-subheading);
     line-height: 1.55;
     overflow-wrap: anywhere;
   }
 
+  .work-card--compact .work-card__summary {
+    text-wrap: pretty;
+  }
+
   .work-card__meta {
-    margin: 4px 0 0;
+    margin: 3px 0 0;
     font: 400 var(--text-meta)/1.6 var(--font-mono);
     color: var(--color-muted);
     overflow-wrap: anywhere;
@@ -87,25 +98,47 @@ const isoDate = date.toISOString().slice(0, 10);
   }
 
   .work-card__media {
+    display: block;
+    width: 100%;
+    height: auto;
     aspect-ratio: 16 / 10;
+    border-radius: 4px;
+    object-fit: cover;
     background: var(--color-surface);
   }
 
-  .work-card__media img {
-    display: block;
-    width: 100%;
+  .work-card--compact .work-card__art {
+    display: grid;
+    place-items: center;
+    height: 46px;
+    padding: 4px;
+    border: var(--line-hairline);
+    border-radius: 8px;
+    background: var(--color-surface);
+    box-shadow: var(--shadow-edge);
+  }
+
+  .work-card--compact .work-card__media {
     height: 100%;
-    object-fit: contain;
+    min-height: 0;
+    aspect-ratio: auto;
+    filter: saturate(0.7);
   }
 
   @media (max-width: 640px) {
     .work-card {
+      --work-cover-width: 64px;
       gap: 12px;
-      align-items: start;
     }
 
-    .work-card--with-cover {
-      grid-template-columns: minmax(0, 1fr) 88px;
+    .work-card--compact {
+      --work-cover-width: 44px;
+      min-height: 70px;
+      padding-block: 10px;
+    }
+
+    .work-card--compact .work-card__art {
+      height: 42px;
     }
   }
 </style>

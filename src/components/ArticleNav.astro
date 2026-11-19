@@ -13,24 +13,19 @@ const { prev, next } = Astro.props;
 ---
 
 {(prev || next) && (
-  <nav
-    class="article-nav"
-    aria-label="文章导航"
-  >
+  <nav class="article-nav" aria-label="文章导航">
     {prev && (
       <a href={prev.href} class="article-nav-link" data-direction="prev">
-        <span class="article-nav-label">← 上一篇</span>
+        <span class="article-nav-label">上一篇</span>
         <span class="article-nav-title">{prev.title}</span>
+        <span class="article-nav-arrow" aria-hidden="true">←</span>
       </a>
     )}
     {next && (
-      <a
-        href={next.href}
-        class="article-nav-link"
-        data-direction="next"
-      >
-        <span class="article-nav-label">下一篇 →</span>
+      <a href={next.href} class="article-nav-link" data-direction="next">
+        <span class="article-nav-label">下一篇</span>
         <span class="article-nav-title">{next.title}</span>
+        <span class="article-nav-arrow" aria-hidden="true">→</span>
       </a>
     )}
   </nav>
@@ -38,50 +33,42 @@ const { prev, next } = Astro.props;
 
 <style>
   .article-nav {
+    margin-bottom: 8px;
+  }
+
+  .article-nav-link {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1.5rem;
-    margin-top: 2.5rem;
-    padding-top: 2rem;
+    grid-template-columns: 3em minmax(0, 1fr) 1em;
+    align-items: baseline;
+    gap: 12px;
+    min-height: 44px;
+    padding-block: 12px;
+    color: var(--color-ink);
+    font-size: var(--text-subheading);
+    line-height: 1.6;
+    text-decoration: none;
+  }
+
+  .article-nav-link + .article-nav-link {
     border-top: var(--line-hairline);
   }
-  .article-nav-link {
-    text-decoration: none;
-    color: inherit;
-    display: flex;
-    flex-direction: column;
-    min-width: 0;
-    gap: 0.5rem;
-    padding-block: 0.25rem;
+
+  .article-nav-label {
+    color: var(--color-muted);
+    font-size: var(--text-meta);
+    white-space: nowrap;
   }
-  .article-nav-link[data-direction="next"] {
-    grid-column: 2;
+
+  .article-nav-title {
+    overflow-wrap: anywhere;
+  }
+
+  .article-nav-arrow {
+    color: var(--color-muted);
     text-align: right;
   }
-  .article-nav-label {
-    font: 400 var(--text-meta)/1.5 var(--font-mono);
-    color: var(--color-muted);
-  }
-  .article-nav-title {
-    font-size: var(--text-subheading);
-    font-weight: 500;
-    line-height: 1.6;
-    overflow-wrap: anywhere;
-    color: var(--color-ink);
-    transition: color var(--dur-fast) ease;
-  }
-  .article-nav-link:is(:hover, :focus-visible) .article-nav-title {
+
+  .article-nav-link:is(:hover, :focus-visible) .article-nav-arrow {
     color: var(--color-primary-text);
-    text-decoration: underline;
-    text-decoration-thickness: 1px;
-  }
-  @media (max-width: 640px) {
-    .article-nav {
-      grid-template-columns: minmax(0, 1fr);
-    }
-    .article-nav-link[data-direction="next"] {
-      grid-column: auto;
-      text-align: left;
-    }
   }
 </style>

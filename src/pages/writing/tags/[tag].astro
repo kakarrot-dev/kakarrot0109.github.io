@@ -29,24 +29,42 @@ const canonical = `/writing/tags/${encodeURIComponent(tag)}/`;
   description={`${tag} 相关文章 — Kakarrot 的思考与实践`}
   canonical={canonical}
 >
-  <div class="container section page-shell">
-    <header class="page-header">
-      <p class="page-back">
-        <a href="/writing/" class="section-link">← Writing</a>
-      </p>
-      <h1 class="page-title">{tag}</h1>
-      <p class="page-lead">{articles.length} articles</p>
+  <div class="container section page-shell editorial-page">
+    <header class="editorial-header">
+      <a href="/writing/" class="section-link tag-back">← Writing</a>
+      <h1 class="editorial-title">{tag}</h1>
+      <p class="editorial-count">{articles.length} {articles.length === 1 ? "article" : "articles"}</p>
     </header>
-    <div class="article-list">
+    <ul class="article-list" role="list">
       {
         articles.map((a) => (
-          <ArticleRow
-            title={a.data.title}
-            href={`/writing/${a.id}/`}
-            date={a.data.publishedAt}
-          />
+          <li>
+            <ArticleRow
+              title={a.data.title}
+              href={`/writing/${a.id}/`}
+              date={a.data.publishedAt}
+            />
+          </li>
         ))
       }
-    </div>
+    </ul>
   </div>
 </BaseLayout>
+
+<style>
+  .tag-back {
+    margin-block-end: 8px;
+    color: var(--color-muted);
+    font-size: var(--text-meta);
+  }
+
+  .article-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .article-list li + li {
+    border-top: var(--line-divider);
+  }
+</style>

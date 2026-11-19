@@ -14,7 +14,7 @@ export async function getStaticPaths() {
 }
 
 const { article } = Astro.props;
-const { Content, headings } = await render(article);
+const { Content } = await render(article);
 
 const allArticles = (await getCollection("writing"))
   .filter((a) => !a.data.draft)
@@ -33,14 +33,12 @@ const canonical = `/writing/${article.id}/`;
   publishedAt={article.data.publishedAt}
   updatedAt={article.data.updatedAt}
   tags={article.data.tags}
-  tagBase="/writing/tags/"
-  headings={headings}
+  backHref="/writing/"
+  backLabel="写作"
 >
   <Content />
-  <p style="margin-top:2.5rem">
-    <a href="/writing/" class="section-link">← Writing</a>
-  </p>
   <ArticleNav
+    slot="end"
     prev={
       prevArticle
         ? {

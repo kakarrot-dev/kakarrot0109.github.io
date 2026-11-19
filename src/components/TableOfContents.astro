@@ -10,19 +10,47 @@ export interface Props {
 }
 
 const { headings } = Astro.props;
-const items = headings.filter((h) => h.depth >= 2 && h.depth <= 3);
 ---
 
-{
-  items.length > 0 && (
-    <nav class="toc" aria-label="目录">
-      <ul class="toc-list">
-        {items.map((h) => (
-          <li class={`toc-depth-${h.depth}`}>
-            <a href={`#${h.slug}`}>{h.text}</a>
-          </li>
-        ))}
-      </ul>
-    </nav>
-  )
-}
+<nav aria-label="目录">
+  <ul class="toc-list" role="list">
+    {headings.map(({ depth, slug, text }) => (
+      <li class:list={[depth === 3 && "toc-subsection"]}>
+        <a href={`#${encodeURIComponent(slug)}`}>{text}</a>
+      </li>
+    ))}
+  </ul>
+</nav>
+
+<style>
+  .toc-list {
+    list-style: none;
+    margin: 3px 0 0;
+    padding: 0;
+  }
+
+  .toc-list a {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 7px 10px;
+    border-inline-start: 2px solid transparent;
+    color: var(--color-body);
+    font-size: var(--text-small);
+    line-height: 1.5;
+    text-decoration: none;
+    overflow-wrap: anywhere;
+  }
+
+  .toc-list a:is(:hover, :focus-visible, [aria-current="location"]) {
+    color: var(--color-primary-text);
+  }
+
+  .toc-list a[aria-current="location"] {
+    border-inline-start-color: currentColor;
+  }
+
+  .toc-subsection a {
+    padding-inline-start: 25px;
+  }
+</style>
