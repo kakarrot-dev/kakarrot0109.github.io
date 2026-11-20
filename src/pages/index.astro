@@ -2,6 +2,7 @@
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import ArticleRow from "@/components/ArticleRow.astro";
 import Footer from "@/components/Footer.astro";
+import SocialIcon from "@/components/SocialIcon.astro";
 import WorkCard from "@/components/WorkCard.astro";
 import { socialLinks } from "@/data/social";
 import { getCollection } from "astro:content";
@@ -36,7 +37,10 @@ const email = socialLinks.find(({ id }) => id === "email");
 >
   <div class="shell home-page">
     <section aria-labelledby="home-introduction">
-      <h1 class="home-title" id="home-introduction">Kakarrot</h1>
+      <h1 class="home-title" id="home-introduction">
+        <img class="home-avatar border-overlay" src="/avatar.png" alt="" width="24" height="24" decoding="async" />
+        <span>Kakarrot</span>
+      </h1>
       <div class="home-bio">
         <p>
           我在郑州做 AI 产品，有 <strong>10 年以上的产品经理经验</strong>。做过互联网、To B、To C 和 To G 产品，覆盖 Web、移动端和桌面端。我熟悉从 0 到 1 的创业，也做过上线后的持续迭代。
@@ -44,9 +48,21 @@ const email = socialLinks.find(({ id }) => id === "email");
         <p>
           我擅长从第一性原理拆解业务问题，用 AI 原生方式重新设计产品与增长系统。最近也在整理自己的工作流，试着把 AI 和产品直觉结合起来，让开发和协作更顺畅。
           {github && email && (
-            <>可以在 <a href={github.href} class="inline-link interactive" target="_blank" rel="noopener noreferrer">GitHub</a> 看我的项目，或<a href={email.href} class="inline-link interactive">发邮件</a>联系我。</>
+            <>
+              可以在 <a href={github.href} class="inline-icon-link interactive" target="_blank" rel="noopener noreferrer">
+                <SocialIcon id={github.id} class="inline-glyph" />GitHub<span class="sr-only">（在新标签页打开）</span>
+              </a> 看我的项目，或<a href={email.href} class="inline-icon-link interactive">
+                <svg class="inline-glyph" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M4.5 5h15A2.5 2.5 0 0 1 22 7.5v9a2.5 2.5 0 0 1-2.5 2.5h-15A2.5 2.5 0 0 1 2 16.5v-9A2.5 2.5 0 0 1 4.5 5Zm.08 3.33a.9.9 0 0 0 .25 1.25l6.68 4.45a.9.9 0 0 0 1 0l6.66-4.45a.9.9 0 1 0-1-1.5L12 12.2 5.83 8.08a.9.9 0 0 0-1.25.25Z" />
+                </svg>发邮件
+              </a>联系我。
+            </>
           )}
-          也可以看看<a href="/about/" class="inline-link interactive">我的经历与做事原则</a>。
+          也可以看看<a href="/about/" class="inline-icon-link interactive">
+            <svg class="inline-glyph" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M12 12a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Zm0 2c-4.76 0-8.5 2.47-8.5 5.5v.75c0 .41.34.75.75.75h15.5c.41 0 .75-.34.75-.75v-.75c0-3.03-3.74-5.5-8.5-5.5Z" />
+            </svg>我的经历与做事原则
+          </a>。
           <button
             type="button"
             class="inline-search interactive"
@@ -54,7 +70,14 @@ const email = socialLinks.find(({ id }) => id === "email");
             aria-haspopup="dialog"
             aria-controls="site-search"
             aria-keyshortcuts="Meta+K Control+K"
-          >搜索 <kbd data-site-search-shortcut aria-hidden="true">Ctrl K</kbd></button>
+          >
+            <span class="inline-keycaps" aria-hidden="true" title="Ctrl + K">
+              <kbd class="inline-kbd" data-site-search-modifier>⌃</kbd>
+              <kbd class="inline-kbd">K</kbd>
+            </span><svg class="inline-glyph inline-search-touch-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd" d="M10.5 3a7.5 7.5 0 1 0 4.56 13.45l4.36 4.37a1.25 1.25 0 0 0 1.77-1.77l-4.37-4.36A7.5 7.5 0 0 0 10.5 3Zm0 2.5a5 5 0 1 0 0 10 5 5 0 0 0 0-10Z" />
+            </svg>搜索
+          </button>
         </p>
       </div>
     </section>
@@ -114,10 +137,19 @@ const email = socialLinks.find(({ id }) => id === "email");
   }
 
   .home-title {
+    display: flex;
+    align-items: center;
+    gap: calc(var(--spacing) * 2);
     margin: 0 0 16px;
     color: var(--color-gray-1200);
     font-size: var(--text-body);
     font-weight: var(--weight-home-heading);
+  }
+
+  .home-avatar {
+    flex: none;
+    border-radius: var(--radius-full);
+    object-fit: cover;
   }
 
   .home-bio {
@@ -138,41 +170,85 @@ const email = socialLinks.find(({ id }) => id === "email");
     margin-block-start: 16px;
   }
 
-  .inline-link, .inline-search {
+  .inline-icon-link, .inline-search {
     color: var(--color-gray-1200);
     font-weight: var(--weight-link);
+    white-space: nowrap;
     text-decoration: underline transparent;
     text-underline-offset: 3px;
     transition: text-decoration-color 0.2s ease;
   }
 
   .inline-search {
-    display: inline-block;
+    display: inline;
     padding: 0;
     border: 0;
     background: transparent;
     font-size: var(--text-body);
     line-height: 20px;
-    white-space: nowrap;
     cursor: pointer;
   }
 
-  .inline-search kbd {
+  .home-bio :global(.inline-glyph) {
+    display: inline-block;
+    inline-size: 16px;
+    block-size: 16px;
+    margin-inline-end: 4px;
+    margin-block-end: 2px;
+    vertical-align: middle;
+  }
+
+  .inline-keycaps {
     display: none;
-    padding-inline: 3px;
-    border: 1px solid var(--color-gray-400);
-    border-radius: var(--radius-sm);
+    align-items: center;
+    gap: 4px;
+    margin-inline-end: 4px;
+    vertical-align: middle;
+  }
+
+  .inline-kbd {
+    display: inline-flex;
+    flex: none;
+    inline-size: 18px;
+    block-size: 18px;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+    border: 1px solid var(--color-preview-bg);
+    border-radius: 5px;
+    background-color: var(--color-gray-200);
+    background-clip: padding-box;
     color: var(--color-gray-1100);
-    font: 400 var(--text-xs)/1 var(--font-mono);
+    font: var(--weight-link) var(--text-xs)/1 var(--font-sans);
+    box-shadow: var(--shadow-custom), inset 0 0 0 1px rgba(0, 0, 0, 0.06);
+    transition-property: color, background-color, border-color, box-shadow, scale;
+    transition-duration: 0.1s;
+    transition-timing-function: ease-out;
+  }
+
+  :global(.dark) .inline-kbd {
+    box-shadow: var(--shadow-custom), inset 0 0 0 1px rgba(255, 255, 255, 0.08);
   }
 
   @media (hover: hover) and (pointer: fine) {
-    :is(.inline-link, .inline-search):hover {
+    :is(.inline-icon-link, .inline-search):hover {
       text-decoration-color: var(--color-gray-1100);
     }
+  }
 
-    .inline-search kbd {
-      display: inline-block;
+  @media (pointer: fine) {
+    .inline-keycaps {
+      display: inline-flex;
+    }
+
+    .home-bio .inline-search-touch-icon {
+      display: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .inline-kbd {
+      transition: none;
     }
   }
 

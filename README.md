@@ -21,7 +21,7 @@
 
 <p align="center">
   <a href="https://astro.build"><img src="https://img.shields.io/badge/Astro-7-BC52EE?logo=astro&logoColor=white" alt="Astro 7" /></a>
-  <a href="https://nodejs.org"><img src="https://img.shields.io/badge/node-%3E%3D22.12-339933?logo=node.js&logoColor=white" alt="Node >= 22.12" /></a>
+  <a href="https://nodejs.org"><img src="https://img.shields.io/badge/node-%3E%3D22.23.4-339933?logo=node.js&logoColor=white" alt="Node >= 22.23.4" /></a>
   <a href="https://pages.github.com"><img src="https://img.shields.io/badge/deploy-GitHub%20Pages-222?logo=github" alt="GitHub Pages" /></a>
 </p>
 
@@ -29,10 +29,10 @@
 
 ## Features
 
-- 首页简介提供 About、GitHub、邮件和搜索入口。**Projects** 展示五项精选作品，**Writing** 展示最近十一篇文章，点击栏目标题可进入完整归档。
+- 首页标题旁展示站点头像。简介中的 About、GitHub 和邮件链接带有前置图标，搜索在桌面显示快捷键、在触屏上显示搜索图标。**Projects** 展示五项精选作品，**Writing** 展示最近十一篇文章，点击栏目标题可进入完整归档。
 - **Vibe Coding** 归档展示作品标题、简介、日期、主题和封面缩图。旧 `/projects/*` 地址会跳转到 `/vibe-coding/`。
 - **Writing** 归档按年份排列文章，日期位于标题下方。展开「标签」可以浏览各主题的文章。
-- **About** 收录时间线、做事原则和可折叠的设备清单。首页订阅区提供可复制的 RSS 地址。
+- **About** 收录时间线、做事原则和可折叠的设备清单。首页订阅区提供可复制的 RSS 地址，页脚展示版权与签名。
 - **站内搜索**覆盖已发布的文章和作品。点搜索或按 `⌘ K`、`Ctrl+K` 打开，用 `↑`、`↓` 选择，按 `Enter` 跳转，按 `Esc` 关闭。同一栏目内，标题和章节匹配排在仅命中简介、标签或主题的结果前，章节结果可直接跳到正文。
 - 文章和作品详情顶部可返回栏目或复制永久链接。Markdown 正文支持行内代码、代码高亮与复制、局部横向滚动表格，以及按需加载的 Mermaid 图表。图表随主题切换重绘，语法有误时保留原始代码。
 - 全站使用中性灰明暗主题，首次访问跟随系统，之后记住手动选择。
@@ -41,7 +41,7 @@
 
 | Layer | Choice |
 |---|---|
-| Framework | [Astro 7](https://astro.build) |
+| Framework | [Astro 7.4](https://astro.build) |
 | Styling | Tailwind CSS 4 + `src/styles/global.css` design tokens |
 | Content | Astro Content Collections (Markdown) |
 | Fonts | Inter Variable · IBM Plex Mono · Libre Baskerville · Noto Sans SC（自托管） |
@@ -51,7 +51,7 @@
 
 ## Requirements
 
-- **Node.js** `>= 22.12.0`（CI 使用 Node 24）
+- **Node.js** `>= 22.23.4`（CI 使用 Node 24）
 - **npm**（仓库包管理器）
 
 ## Getting started
@@ -114,7 +114,7 @@ Writing 常用字段有 `title`、`description`、`publishedAt`、`tags`、`feat
 
 ## Design system
 
-Quiet Column 3.0 的规范见 [`DESIGN.md`](./DESIGN.md)，视觉令牌和共用样式见 [`src/styles/global.css`](./src/styles/global.css)。
+Quiet Column 3.1 的规范见 [`DESIGN.md`](./DESIGN.md)，视觉令牌和共用样式见 [`src/styles/global.css`](./src/styles/global.css)。
 
 - 全站以中性灰和留白建立层级，使用 1px 细线区分分区与列表条目
 - 栏目页和长文共用最大宽度 692px 的外壳，包含两侧各 24px 内边距。垂直内边距为 64px，在 640px 起为 128px。长文正文为 17px、行高 1.625
@@ -155,6 +155,8 @@ git push origin master
 | [`CLAUDE.md`](./CLAUDE.md) | Claude Code 入口 |
 
 中大型改动建议：先 Spec → Plan → 实现 → `check` / `build`。
+
+每次提交前同步更新 README，记录本次改动涉及的功能、运行要求或使用方式。
 
 ## Limitations
 

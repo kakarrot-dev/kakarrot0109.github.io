@@ -249,9 +249,11 @@
   });
 
   if (/Mac|iPhone|iPad/.test(navigator.userAgent)) {
-    document.querySelectorAll<HTMLElement>("[data-site-search-shortcut]").forEach((key) => {
-      key.textContent = "⌘ K";
-    });
+    const modifier = document.querySelector<HTMLElement>("[data-site-search-modifier]");
+    if (modifier) {
+      modifier.textContent = "⌘";
+      modifier.parentElement?.setAttribute("title", "⌘ + K");
+    }
   }
 
   document.addEventListener("keydown", (event) => {

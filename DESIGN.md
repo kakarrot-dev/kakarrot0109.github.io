@@ -1,5 +1,5 @@
 ---
-version: 3.0.0
+version: 3.1.0
 name: Quiet Column
 principle: One column. Exact roles. Quiet interactions.
 colors:
@@ -420,6 +420,30 @@ components:
     control-icon-px: 16
     seek-track-height-px: 4
     seek-input-height-px: 24
+  inline-icon-link:
+    icon-px: 16
+    icon-margin-right-px: 4
+    icon-margin-bottom-px: 2
+    graphic-badge-px:
+    - 64
+    - 12
+    graphic-badge-margin-right-px: 4
+    underline-offset-px: 3
+    font-weight: 450
+    color: gray-1200
+    hover-underline-color: gray-1100
+  inline-keycap:
+    size-px: 18
+    radius-px: 5
+    font-size-px: 12
+    font-weight: 450
+    gap-px: 4
+    group-margin-right-px: 4
+    bg: gray-200
+    border: preview-bg
+    inset-ring-light: rgba(0, 0, 0, 0.06)
+    inset-ring-dark: rgba(255, 255, 255, 0.08)
+    touch-fallback-icon-px: 16
   qa:
     textarea-size-px: 16
     textarea-line-height-px: 26
@@ -456,7 +480,7 @@ syntax-additional:
 4. MUST 首页简介和列表说明用gray-1100；文章正文用text-paragraph。深色仍沿用语义。MUST NOT 把首页简介染成正文深灰，或把文章正文一起变浅。
 5. MUST 首页项目与文章目录都保留“左小图框＋右标题/说明或日期”。MUST NOT 删除文章目录图框，或将日期移到最右侧形成单行紧凑表。
 6. MUST 保留li上下6px和a四边8px两层padding。MUST NOT 把`py-1.5`当作整个目录行全部间距。
-7. MUST 首页搜索嵌在简介段落内：透明背景、无边、padding0、450字重、行高20px。MUST NOT 独立成行或套用灰色胶囊。
+7. MUST 首页简介内的实体与动作链接嵌于文字流（`450`字重、`gray-1200`、`whitespace-nowrap`、默认透明下划线 hover 显 `gray-1100`），前置 `16×16px` 实心同色小图标（`mr-1 mb-0.5 inline-block`）；搜索触发器透明无 padding，精细指针端把两枚独立 `18×18px` `rounded-[5px]` 键帽排在文字前面，粗指针/触屏端自动降级为前置 `16×16px` 搜索图标。MUST NOT 把首页搜索独立成行或套用灰色胶囊、把双键帽合并成单个胶囊或放到文字后面、或省略行内链接前置图标与防拆行约束。
 8. MUST 目录小图框外46×54px、内40×48px、外padding3px、文字gap16px；logo24px。MUST NOT 用40px方形封面裁切代替双层装裱结构。
 9. MUST 文章工具头36px高、两端圆形按钮；工具头底至标题96px，标题后20px；H2前96px后20px。MUST NOT 把内容起点改成32px。
 10. MUST 区分首页章节、文章章节和演示卡标题。演示卡h3为14px/500，不是文章三级标题配方；`article-h3:null`禁止自动生成一个没有定义的全局三级变体。
@@ -512,9 +536,9 @@ html { font-family:Inter,"Inter Fallback",system-ui,Arial; font-feature-settings
 
 ### Type 1 · 首页索引
 
-顺序：Identity → Bio（含行内搜索）→ 项目目录 → 文章目录 → 独立短笔记入口 → 订阅区 → 轻页底。没有全宽常驻导航，没有头像栏或主题按钮占位。
+顺序：Identity → Bio（含行内搜索）→ 项目目录 → 文章目录 → 独立短笔记入口 → 订阅区 → 轻页底。没有全宽常驻导航，不设独立头像栏或主题按钮占位。
 
-- Identity是17/500单行标题，底部margin16px；Bio第一段无margin，第二段margin-top16px；Bio17/400/gray-1100，行高27.625px；链接与搜索是行内450/gray-1200。
+- Identity是17/500单行标题，站点自有头像为24×24px圆形，位于标题文字左侧，间距8px并垂直居中。标题底部margin16px；Bio第一段无margin，第二段margin-top16px；Bio17/400/gray-1100，行高27.625px；链接与搜索是行内450/gray-1200。
 - 各section用margin-top64px，在40rem起128px；标题与列表容器gap12px。首页标题不是550。section标题17/500，gap12px接1px gray-400细线。
 - 项目和文章目录复用同一行几何，仅小图框内容与第二行信息不同；目录背景透明，li细线gray-300，末行无线。
 - 订阅区标题后12px到说明；说明后20px到表单外框，表单外框后20px到辅助人数信息。订阅区与前后section仍沿用64/128px。
@@ -654,20 +678,44 @@ html { font-family:Inter,"Inter Fallback",system-ui,Arial; font-feature-settings
 
 两行文字高55.25，加a上下16为71.25；再加li上下12与1px细线，普通步距84.25px，末行83.25px。文字换行时自然增高。项目首字从列左边+62px起；不要只给整行height84px再把内容垂直居中。文档内灰条：padding4、gap4，三条高度3px，宽12/20/16px，圆角full；第一条上margin2、第二条上margin4。**反例：无图标＋标题左／日期右grid，即使颜色全部正确也不属于这个组件。**
 
-### InlineSearchTrigger / InlineLink
+### InlineIconLink / InlineSearchTrigger / InlineLink
+
+首页简介段落中的实体链接、入口徽标与快捷键搜索触发器共同构成「文字流内嵌图标」体系，图标始终位于词组左侧并绑定防拆行。
 
 ```html
-<p class="home-bio">简介文字与<button class="inline-search" aria-haspopup="dialog" aria-keyshortcuts="Meta+K">搜索</button>一起流动。</p>
+<p class="home-bio">
+  简介文字中的<a class="inline-icon-link" href="/profile" rel="noopener" target="_blank"><svg class="inline-glyph" aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"></svg>外部实体<span class="sr-only"> (在新标签页打开)</span></a>，
+  以及专属入口<a class="inline-icon-link" href="/qa"><svg class="inline-dither-badge" aria-hidden="true" viewBox="0 0 64 12" fill="currentColor" shape-rendering="crispEdges"></svg>提问</a>或<button class="inline-search" type="button" aria-haspopup="dialog" aria-keyshortcuts="Meta+K"><span class="inline-keycaps" aria-hidden="true"><kbd class="inline-kbd">⌘</kbd><kbd class="inline-kbd">K</kbd></span><svg class="inline-glyph inline-search-touch-icon" aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"></svg>搜索</button>。
+</p>
 ```
 
 ```css
-.inline-search { display:inline-block; cursor:pointer; white-space:nowrap; padding:0; border:0; background:transparent; font:450 17px/20px Inter,system-ui; color:var(--color-gray-1200); text-decoration:underline transparent; text-underline-offset:3px; transition:text-decoration-color .2s ease; }
-@media(hover:hover) and (pointer:fine) { .inline-search:hover { text-decoration-color:var(--color-gray-1100); } }
+.inline-icon-link,
+.inline-search { font-weight:450; color:var(--color-gray-1200); white-space:nowrap; text-decoration:underline transparent; text-underline-offset:3px; transition:text-decoration-color .2s ease; }
+.inline-search { display:inline; cursor:pointer; padding:0; border:0; background:transparent; font-size:17px; line-height:20px; }
+@media(hover:hover) and (pointer:fine) {
+  .inline-icon-link:hover,
+  .inline-search:hover { text-decoration-color:var(--color-gray-1100); }
+}
+.inline-glyph { display:inline-block; width:16px; height:16px; margin-right:4px; margin-bottom:2px; vertical-align:middle; }
+.inline-dither-badge { display:inline-block; flex-shrink:0; width:64px; height:12px; margin-right:4px; margin-bottom:0; vertical-align:middle; shape-rendering:crispEdges; }
+.inline-keycaps { display:none; align-items:center; gap:4px; margin-right:4px; vertical-align:middle; }
+.inline-kbd { display:inline-flex; flex:none; min-width:18px; height:18px; align-items:center; justify-content:center; user-select:none; border-radius:5px; border:1px solid var(--color-preview-bg); background-color:var(--color-gray-200); background-clip:padding-box; font-size:12px; font-weight:450; color:var(--color-gray-1100); box-shadow:var(--shadow-custom), inset 0 0 0 1px rgba(0,0,0,.06); transition:color .1s ease-out,background-color .1s ease-out,border-color .1s ease-out,box-shadow .1s ease-out,scale .1s ease-out; }
+.dark .inline-kbd { box-shadow:var(--shadow-custom), inset 0 0 0 1px rgba(255,255,255,.08); }
+@media(pointer:fine) {
+  .inline-keycaps { display:inline-flex; }
+  .inline-search-touch-icon { display:none; }
+}
+@media(prefers-reduced-motion:reduce) { .inline-kbd { transition:none; } }
 .article-underline { text-decoration:underline var(--color-gray-600); text-underline-offset:3px; transition:color .2s ease,text-decoration-color .2s ease; }
 .article-underline:hover { color:var(--color-gray-1200); text-decoration-color:var(--color-gray-1100); }
 ```
 
-首页内链默认下划线透明、hover变gray-1100；正文链接默认gray-600下划线。这两个默认态不混用。行内快捷键键帽独立小框，不把搜索包在底色胶囊里。
+- **行内小图标（`inline-glyph`）**：`16×16px`、右边距 `4px`、底部抬升 `2px` 对齐中轴，继承链接 `gray-1200`（`fill="currentColor"`），采用 24×24 实心或圆角厚面图形以匹配 `450` 字重墨量；`aria-hidden="true"`，外链末尾附 `.sr-only` 新标签提示。
+- **宽幅点阵徽标（`inline-dither-badge`）**：用于需要特殊视觉辨识的独立入口（如对话入口，首页与短笔记正文均可用），`64×12px` 单色渐密点阵 SVG、`mr-1 mb-0`、`crispEdges`、`fill="currentColor"` 同步适配浅深主题。
+- **前置双键帽与触屏回退**：精细指针端把**两枚独立 `18×18px` 键帽**（间距 `4px`、圆角 `5px`、字号 `12px`、立体边+阴影+内微描边）排在触发文字**前面**，与文字间距 `4px`；触屏/粗指针端隐藏双键帽，自动切换为前置 `16×16px` 搜索图标，确保移动端与其余行内图标链接视觉一致。
+- **下划线角色隔离**：首页简介内链默认下划线透明、hover 变 `gray-1100`；正文链接 `.article-underline` 默认 `gray-600` 下划线、hover 变 `gray-1200` 与 `gray-1100`。两者默认态绝不混用。
+- **显式反例**：禁止把行内链接做成无图标的纯加粗文字；禁止把 `⌘` 与 `K` 合并成一个宽胶囊；禁止把键帽放到「搜索」文字右侧；禁止给搜索触发器套用灰色 pill 背景或从段落中拆出独立成行。
 
 ### ReadingToolbar / CircularIconButton
 
@@ -916,7 +964,7 @@ function chooseTheme(theme) {
 - [ ] 首页标题500、文章标题550、产品hero600；首页Bio始终gray1100。
 - [ ] 项目与文章目录均有46×54装裱框；日期在标题下；li6+a8双层padding完整。
 - [ ] 普通目录内a自然高71.25，li步距84.25；文本换行后自动增高。
-- [ ] 首页搜索属于段落流，没有pill背景、独立行margin或额外头像导航。
+- [ ] 首页简介内链带前置16×16实心同色小图标（mr-1/mb-0.5/whitespace-nowrap）；搜索属于段落流、无pill背景，精细指针双18×18独立键帽位于文字前，触屏回退为前置16×16图标。
 - [ ] 工具头36、到H1间隔96；H2前96后20；notes p+p24与长文br换段不混用。
 - [ ] 命令面板720最大宽、18%顶部、16px角、选中项40高、移动输入原始16px。
 - [ ] Quote出处栏是内缩浅底12px圆角，不是普通顶线；代码栏40高、复制28、代码13。

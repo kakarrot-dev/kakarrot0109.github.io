@@ -44,6 +44,9 @@ Instead of...	Transform to...
 "Add validation"	"Write tests for invalid inputs, then make them pass"
 "Fix the bug"	"Write a test that reproduces it, then make it pass"
 "Refactor X"	"Ensure tests pass before and after"
+
+Before every commit, update README.md to reflect the changes included in that commit.
+
 For multi-step tasks, state a brief plan:
 
 1. [Step] → verify: [check]
