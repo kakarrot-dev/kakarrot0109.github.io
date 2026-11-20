@@ -44,7 +44,9 @@ draft: false
 
 入门篇从机会识别推进到规模化经营，覆盖用户研究与任务建模、MVP 与自主等级、交互信任、能力方案、评估体系、可靠性与安全、上线运营和组织协作。书稿用客户服务与事务办理 Agent、企业知识与办公 Agent 两条案例线，持续比较权限、证据和人工介入的差异。
 
-进阶篇覆盖 Prompt 与 Context Engineering、Retrieval / Knowledge Engineering、Memory Engineering、Tool Loop Engineering、Graph Engineering、Agent Experience Engineering、Harness + Eval Engineering、Reliability Engineering、Safety Engineering 和 Production Engineering。
+进阶篇覆盖 Prompt 与 Context Engineering、Retrieval / Knowledge Engineering、Memory Engineering、Tool Loop Engineering、Graph Engineering、Agent Experience Engineering、Harness + Eval Engineering、Reliability Engineering、Safety Engineering、Production Engineering 和 Multi-Agent Engineering。
+
+第 11 章从单 Agent 的能力和成本出发，讨论什么时候值得拆分职责，怎样让交接证据可验证，以及什么时候需要人工接管。 [阅读多 Agent 协作章节](https://github.com/kakarrot-dev/pm-ai-agent-book/blob/main/book2/11-multi-agent-engineering.md)
 
 两篇共同围绕三个坐标展开：
 
@@ -63,5 +65,7 @@ draft: false
 ## 当前状态
 
 入门篇与进阶篇正文均已完整收录，内容仍在持续校订。仓库优先维护 Markdown 书稿和可编辑图示，暂不维护网站、PDF 或配套工程脚手架。
+
+两篇书稿基于李博杰的《深入理解 AI Agent：设计原理与工程实践》，面向 AI 产品经理重新组织和改写。 [阅读原书](https://github.com/bojieli/ai-agent-book) · [查看来源与致谢](https://github.com/kakarrot-dev/pm-ai-agent-book#来源与致谢)
 
 [阅读入门篇](https://github.com/kakarrot-dev/pm-ai-agent-book/blob/main/book1/00-introduction.md) · [阅读进阶篇](https://github.com/kakarrot-dev/pm-ai-agent-book/blob/main/book2/00-introduction.md) · [查看 GitHub 仓库](https://github.com/kakarrot-dev/pm-ai-agent-book)

@@ -74,8 +74,10 @@ Claude Cream 减少了不同创作工具之间的视觉切换成本，也把个�
 
 ## 当前状态
 
-项目已提供 Codex、Cursor / VS Code、Zed、Typora、Obsidian、Ghostty、Website 与 Image Generation 八类主题资产。Codex 与 Zed 提供 Light / Dark，Cursor / VS Code 进一步覆盖 Dark Dimmed、Light High Contrast 与 Dark High Contrast，项目以 MIT License 开源。
+2026 年 8 月 3 日发布的首个稳定版 v1.0.0 提供八类主题资产，以 MIT License 开源。Codex 与 Zed 提供 Light / Dark，Cursor / VS Code 进一步覆盖 Dark Dimmed、Light High Contrast 与 Dark High Contrast。默认分支随后细调了 Obsidian 的笔记属性和表格样式。
 
-[查看 GitHub 仓库](https://github.com/kakarrot-dev/claude-cream)
+小红书封面规范和两张概念样图可以在预览分支查看。规范沿用 Claude Cream 的色板，让封面文案参与画面构图，并要求在缩略图里检查文字是否清楚。
+
+[下载 v1.0.0](https://github.com/kakarrot-dev/claude-cream/releases/tag/v1.0.0) · [查看小红书封面预览](https://github.com/kakarrot-dev/claude-cream/tree/codex/xhs-cover-guidelines#xhs-cover-examples) · [查看 GitHub 仓库](https://github.com/kakarrot-dev/claude-cream)
 
 [阅读更新复盘：Claude Cream 从一套配色长成八类主题资产](/writing/claude-cream-从一套配色长成八类主题资产/)
