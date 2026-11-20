@@ -29,13 +29,13 @@ const canonical = `/writing/tags/${encodeURIComponent(tag)}/`;
   description={`${tag} 相关文章 — Kakarrot 的思考与实践`}
   canonical={canonical}
 >
-  <div class="container section page-shell editorial-page">
+  <div class="shell">
     <header class="editorial-header">
-      <a href="/writing/" class="section-link tag-back">← Writing</a>
+      <a href="/writing/" class="section-link tag-back article-underline interactive">← Writing</a>
       <h1 class="editorial-title">{tag}</h1>
       <p class="editorial-count">{articles.length} {articles.length === 1 ? "article" : "articles"}</p>
     </header>
-    <ul class="article-list" role="list">
+    <ul class="index-list" role="list">
       {
         articles.map((a) => (
           <li>
@@ -54,17 +54,7 @@ const canonical = `/writing/tags/${encodeURIComponent(tag)}/`;
 <style>
   .tag-back {
     margin-block-end: 8px;
-    color: var(--color-muted);
-    font-size: var(--text-meta);
-  }
-
-  .article-list {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-
-  .article-list li + li {
-    border-top: var(--line-divider);
+    color: var(--color-gray-1100);
+    font-size: var(--text-sm);
   }
 </style>

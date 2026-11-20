@@ -7,7 +7,7 @@
 <h1 align="center">kakarrot.com</h1>
 
 <p align="center">
-  <strong>静室 Quiet Studio</strong> · AI 产品经理的个人站与作品集<br/>
+  <strong>Quiet Column</strong> · AI 产品经理的个人站与作品集<br/>
   思考、写作与 Vibe Coding 实践 · 明暗双主题
 </p>
 
@@ -31,8 +31,8 @@
 
 - 首页简介提供 About、GitHub、邮件和搜索入口。**Projects** 展示五项精选作品，**Writing** 展示最近十一篇文章，点击栏目标题可进入完整归档。
 - **Vibe Coding** 归档展示作品标题、简介、日期、主题和封面缩图。旧 `/projects/*` 地址会跳转到 `/vibe-coding/`。
-- **Writing** 归档按年份排列文章，日期放在标题下方。展开「标签」可以浏览各主题的文章。
-- **About** 收录时间线、做事原则和可折叠的设备清单。全站页脚集中放置社交链接、版权信息和 Claude Cream 入口。
+- **Writing** 归档按年份排列文章，日期位于标题下方。展开「标签」可以浏览各主题的文章。
+- **About** 收录时间线、做事原则和可折叠的设备清单。首页订阅区提供可复制的 RSS 地址。
 - **站内搜索**覆盖已发布的文章和作品。点搜索或按 `⌘ K`、`Ctrl+K` 打开，用 `↑`、`↓` 选择，按 `Enter` 跳转，按 `Esc` 关闭。同一栏目内，标题和章节匹配排在仅命中简介、标签或主题的结果前，章节结果可直接跳到正文。
 - 文章和作品详情顶部可返回栏目或复制永久链接。Markdown 正文支持行内代码、代码高亮与复制、局部横向滚动表格，以及按需加载的 Mermaid 图表。图表随主题切换重绘，语法有误时保留原始代码。
 - 全站使用中性灰明暗主题，首次访问跟随系统，之后记住手动选择。
@@ -44,8 +44,8 @@
 | Framework | [Astro 7](https://astro.build) |
 | Styling | Tailwind CSS 4 + `src/styles/global.css` design tokens |
 | Content | Astro Content Collections (Markdown) |
-| Fonts | Noto Sans SC · Syne · JetBrains Mono（自托管） |
-| Motion | CSS transitions 与 Web Animations API（支持 `prefers-reduced-motion`） |
+| Fonts | Inter Variable · IBM Plex Mono · Libre Baskerville · Noto Sans SC（自托管） |
+| Motion | CSS transitions（支持 `prefers-reduced-motion`） |
 | Diagrams | Mermaid（客户端渲染） |
 | Deploy | GitHub Pages + GitHub Actions |
 
@@ -114,12 +114,14 @@ Writing 常用字段有 `title`、`description`、`publishedAt`、`tags`、`feat
 
 ## Design system
 
-视觉令牌和共用样式见 [`src/styles/global.css`](./src/styles/global.css)。
+Quiet Column 3.0 的规范见 [`DESIGN.md`](./DESIGN.md)，视觉令牌和共用样式见 [`src/styles/global.css`](./src/styles/global.css)。
 
 - 全站以中性灰和留白建立层级，使用 1px 细线区分分区与列表条目
-- 内容净宽上限 640px，窄屏两侧各留 24px，长文正文为 17px
-- 首页作品优先使用项目图标，作品归档左侧放封面缩图，详情页展示整列封面
+- 栏目页和长文共用最大宽度 692px 的外壳，包含两侧各 24px 内边距。垂直内边距为 64px，在 640px 起为 128px。长文正文为 17px、行高 1.625
+- 首页与归档的目录行使用双层图框，标题和说明或日期分行。作品详情页展示整列封面
 - 交互反馈集中在链接、按钮和复制状态，尊重系统的减少动效设置
+
+本站使用规范允许的字体替代版。引文使用 Georgia，代码使用 IBM Plex Mono，字形和断行随实际字体变化。中文保留标定字重并禁用合成加粗。macOS 上 550 匹配 PingFang SC Semibold，其他平台按可用真实字重匹配，可变 Noto Sans SC 作为缺字回退。
 
 品牌标识
 

@@ -28,7 +28,7 @@ const items = [...ordered, ...rest];
   description="从想法到上线：用 AI 协作做出来的工具、站点与实验"
   canonical="/vibe-coding/"
 >
-  <div class="container section page-shell editorial-page">
+  <div class="shell">
     <header class="editorial-header">
       <h1 class="editorial-title">Vibe Coding</h1>
       <div class="editorial-header__details">
@@ -37,7 +37,7 @@ const items = [...ordered, ...rest];
       </div>
     </header>
 
-    <ul class="work-list" role="list">
+    <ul class="index-list" role="list">
       {
         items.map((work) => (
           <li>
@@ -55,15 +55,3 @@ const items = [...ordered, ...rest];
     </ul>
   </div>
 </BaseLayout>
-
-<style>
-  .work-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  .work-list li + li {
-    border-top: var(--line-divider);
-  }
-</style>

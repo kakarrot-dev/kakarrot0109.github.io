@@ -11,7 +11,7 @@ export interface Props {
   tags?: string[];
   backHref: string;
   backLabel: string;
-  showDescription?: boolean;
+  product?: boolean;
 }
 
 const {
@@ -24,7 +24,7 @@ const {
   tags = [],
   backHref,
   backLabel,
-  showDescription = false,
+  product = false,
 } = Astro.props;
 ---
 
@@ -37,173 +37,208 @@ const {
   {updatedAt}
   {tags}
   navigation={false}
+  reading
 >
-  <div class="prose-layout reading-layout">
+  <div class="shell main-full">
     <header class="reading-toolbar">
-      <a href={backHref} class="reading-action" aria-label={`返回${backLabel}`} title={`返回${backLabel}`} data-site-search-fallback>
-        <span class="reading-action__mark" aria-hidden="true">
-          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" focusable="false">
-            <path d="m8.75 5.25-4.5 4.5 4.5 4.5M4.75 9.75h6.5a4.5 4.5 0 0 1 4.5 4.5" />
-          </svg>
-        </span>
+      <a href={backHref} class="icon-button interactive pressable" aria-label={`返回${backLabel}`} data-tooltip={`返回${backLabel}`} data-site-search-fallback>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+          <path d="m10.5 6.3-5.4 5.4 5.4 5.4m-5.4-5.4h7.8a5.4 5.4 0 0 1 5.4 5.4" />
+        </svg>
       </a>
-      <button type="button" class="reading-action" title="复制永久链接" aria-label="复制永久链接" data-copy-permalink hidden>
-        <span class="reading-action__mark" data-permalink-icon aria-hidden="true"></span>
+      <button type="button" class="icon-button interactive pressable" aria-label="复制永久链接" data-tooltip="复制永久链接" data-copy-permalink hidden>
+        <span class="copy-mark" data-permalink-icon aria-hidden="true"></span>
       </button>
-      <p class="reading-copy-status sr-only" role="status" data-permalink-status></p>
+      <p class="reading-copy-status sr-only" role="status" aria-live="polite" data-permalink-status></p>
     </header>
 
-    <article class="reading-article">
-      <header class="reading-heading">
-        <h1>{title}</h1>
-        {showDescription && description && <p class="reading-description">{description}</p>}
-      </header>
+    <main class="reading-main article-body">
+      {product ? (
+        <header class="product-hero">
+          <h1><span aria-hidden="true">/</span> {title}</h1>
+          {description && <p>{description}</p>}
+        </header>
+      ) : <h1 class="article-title">{title}</h1>}
       <div class="prose prose-body">
         <slot name="hero" />
         <slot />
       </div>
-      {Astro.slots.has("end") && (
-        <footer class="reading-end">
-          <slot name="end" />
-        </footer>
-      )}
-    </article>
+      <slot name="end" />
+    </main>
   </div>
 </BaseLayout>
 
 <style>
-  .reading-layout {
-    --reading-top: clamp(44px, 5vw, 72px);
-    position: relative;
-    padding-block: var(--reading-top) 80px;
-  }
-
   .reading-toolbar {
+    position: relative;
     display: flex;
+    min-block-size: calc(var(--spacing) * 9);
     align-items: center;
     justify-content: space-between;
-    gap: 6px;
+    gap: calc(var(--spacing) * 2);
+    user-select: none;
   }
 
-  .reading-action:not([hidden]) {
-    display: inline-grid;
-    place-items: center;
-    width: 44px;
-    height: 44px;
-    padding: 0;
-    color: var(--color-body);
-    text-decoration: none;
-    cursor: pointer;
-    transition: none;
+  .reading-toolbar :global(svg) {
+    display: block;
+    inline-size: 18px;
+    block-size: 18px;
   }
 
-  .reading-action__mark {
-    display: grid;
-    place-items: center;
-    width: 36px;
-    height: 36px;
-    border-radius: 12px;
-    background: var(--color-divider);
-    opacity: 0.83;
+  .reading-toolbar .copy-mark {
+    display: block;
   }
 
-  .reading-action__mark :global(svg) {
-    width: 18px;
-    height: 18px;
+  .reading-toolbar .icon-button {
+    position: relative;
   }
 
-  .reading-action:focus-visible .reading-action__mark {
+  .reading-toolbar [data-tooltip]::after {
+    position: absolute;
+    inset-block-start: calc(100% + var(--spacing) * 2);
+    inset-inline-start: 0;
+    z-index: 50;
+    padding: calc(var(--spacing) * 1.5) calc(var(--spacing) * 2.5);
+    border-radius: var(--radius-lg);
+    background: var(--color-preview-bg);
+    color: var(--color-gray-1200);
+    box-shadow: var(--shadow-custom);
+    content: attr(data-tooltip);
+    font-size: var(--text-sm);
+    line-height: calc(var(--spacing) * 5);
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .reading-toolbar button[data-tooltip]::after {
+    inset-inline: auto 0;
+  }
+
+  .reading-toolbar [data-tooltip]:focus-visible::after {
     opacity: 1;
   }
 
   @media (hover: hover) and (pointer: fine) {
-    .reading-action:hover .reading-action__mark {
+    .reading-toolbar [data-tooltip]:hover::after {
       opacity: 1;
-    }
-  }
-
-  @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
-    .reading-action:not(:focus-visible) .reading-action__mark {
-      transition: opacity 125ms ease-out, transform 125ms ease-out;
-    }
-
-    .reading-action:active:not(:focus-visible) .reading-action__mark {
-      transform: scale(0.94);
     }
   }
 
   .reading-copy-status:not(.sr-only) {
     position: absolute;
-    inset-block-start: calc(var(--reading-top) + 55px);
+    inset-block-start: calc(100% + var(--spacing) * 2);
     inset-inline-end: 0;
-    z-index: 1;
+    z-index: 50;
     margin: 0;
-    padding: 3px 7px;
-    border-radius: 4px;
-    background: var(--color-surface);
-    color: var(--color-body);
-    font-size: var(--text-meta);
+    padding: calc(var(--spacing) * 1.5) calc(var(--spacing) * 2.5);
+    border-radius: var(--radius-lg);
+    background: var(--color-preview-bg);
+    color: var(--color-danger-text);
+    box-shadow: var(--shadow-custom);
+    font-size: var(--text-sm);
+    line-height: calc(var(--spacing) * 5);
     text-align: end;
   }
 
-  .reading-article {
-    min-width: 0;
-    padding-block-start: clamp(78px, 6.55vw, 94px);
+  .reading-main {
+    min-inline-size: 0;
+    margin-block-start: calc(var(--spacing) * 24);
   }
 
-  .reading-heading {
-    margin-block-end: 30px;
-  }
-
-  .reading-heading h1 {
-    margin: 0;
-    color: var(--color-ink);
-    font-size: 18px;
-    font-weight: 500;
-    line-height: 1.45;
+  .article-title {
+    width: fit-content;
+    margin: 0 0 calc(var(--spacing) * 5);
+    scroll-margin-block-start: calc(var(--spacing) * 20);
+    color: var(--color-gray-1200);
+    font-size: var(--text-body);
+    font-weight: 550;
     overflow-wrap: anywhere;
   }
 
-  .reading-description {
-    margin: 0;
-    color: var(--color-muted);
-    line-height: 1.75;
+  .product-hero {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing);
+  }
+
+  .product-hero h1 {
+    margin: 0 0 calc(var(--spacing) * 4);
+    color: var(--color-gray-1200);
+    font-size: var(--text-2xl);
+    font-weight: 600;
+    line-height: calc(var(--spacing) * 8);
     overflow-wrap: anywhere;
   }
 
-  .reading-heading .reading-description {
-    margin-block-start: 10px;
+  .product-hero h1 span {
+    color: var(--color-gray-900);
+  }
+
+  .product-hero p {
+    margin: 0;
+    color: var(--color-text-paragraph);
+    overflow-wrap: anywhere;
   }
 
   .prose :global(:is(h1, h2, h3)[id]) {
-    scroll-margin-top: 24px;
-  }
-
-  .prose-body > :global(:first-child) {
-    margin-block-start: 0;
-  }
-
-  .reading-end {
-    margin-block-start: 48px;
-    padding-block-start: 7px;
-    border-top: var(--line-hairline);
-  }
-
-  .prose :global(.code-copy-status) {
-    min-inline-size: 0;
-    margin-inline: auto 6px;
-    color: var(--color-body);
-    font: 400 var(--text-meta)/1.5 var(--font-sans);
-    text-align: end;
+    scroll-margin-block-start: calc(var(--spacing) * 20);
   }
 </style>
 
-  <script>
-    document.querySelectorAll(".prose-body > h2").forEach((heading) => {
+<script>
+    document.querySelectorAll<HTMLHeadingElement>(".prose-body > h2").forEach((heading) => {
       const title = document.createElement("span");
-      title.className = "reading-section-title";
+      title.className = "anchor-label";
       title.append(...heading.childNodes);
-      heading.append(title);
+      if (heading.id) {
+        const link = document.createElement("a");
+        link.className = "heading-anchor interactive";
+        link.href = `#${encodeURIComponent(heading.id)}`;
+        link.ariaLabel = `章节链接：${title.textContent?.trim() ?? ""}`;
+        link.textContent = "#";
+        title.prepend(link);
+      }
+      const hairline = document.createElement("span");
+      hairline.className = "hairline";
+      hairline.ariaHidden = "true";
+      heading.append(title, hairline);
+      heading.classList.add("article-heading");
+    });
+
+    document.querySelectorAll(".prose-body > p:not(:has(img)) + p:not(:has(img))").forEach((paragraph) => {
+      const gap = document.createElement("div");
+      gap.className = "paragraph-break";
+      gap.ariaHidden = "true";
+      gap.append(document.createElement("br"));
+      paragraph.before(gap);
+    });
+
+    document.querySelectorAll(".prose-body > blockquote").forEach((quote) => {
+      const figure = document.createElement("figure");
+      figure.className = "quote-card interactive";
+      quote.before(figure);
+      figure.append(quote);
+
+      const footer = quote.querySelector(":scope > footer");
+      if (footer) {
+        const caption = document.createElement("figcaption");
+        const credit = document.createElement("div");
+        credit.append(...footer.childNodes);
+        caption.append(credit);
+        figure.append(caption);
+        footer.remove();
+      }
+
+      const mark = (text: string) => {
+        const span = document.createElement("span");
+        span.className = "quote-mark";
+        span.ariaHidden = "true";
+        span.textContent = text;
+        return span;
+      };
+      (quote.querySelector(":scope > p:first-child") ?? quote).prepend(mark("“"));
+      (quote.querySelector(":scope > p:last-child") ?? quote).append(mark("”"));
     });
 
     document.querySelectorAll(".prose-body table").forEach((table) => {
@@ -256,7 +291,6 @@ const {
       permalinkButton.hidden = false;
       permalinkButton.addEventListener("click", async (event) => {
         if (copying) return;
-        const pointerClick = event.detail > 0;
         copying = true;
         window.clearTimeout(statusTimeout);
         permalinkStatus.classList.add("sr-only");
@@ -271,63 +305,67 @@ const {
         copying = false;
         const message = copied ? "链接已复制" : "复制失败，请从地址栏复制链接";
         permalinkIcon.innerHTML = copied ? copiedIcon : copyFailedIcon;
-        permalinkButton.setAttribute("aria-label", copied ? message : "复制永久链接");
-        permalinkButton.title = copied ? "" : message;
-        permalinkStatus.textContent = copied && document.activeElement === permalinkButton ? "" : message;
+        if (copied) animateCopyMark(permalinkIcon, event);
+        if (copied) permalinkButton.dataset.tooltip = message;
+        else delete permalinkButton.dataset.tooltip;
+        permalinkStatus.textContent = message;
         permalinkStatus.classList.toggle("sr-only", copied);
-        if (copied && pointerClick && !permalinkButton.matches(":focus-visible") &&
-          window.matchMedia("(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)").matches) {
-          permalinkIcon.querySelector("svg")?.animate([
-            { opacity: 0.65, transform: "scale(0.94)" },
-            { opacity: 1, transform: "none" },
-          ], { duration: 125, easing: "ease-out" });
-        }
         statusTimeout = window.setTimeout(() => {
           permalinkIcon.innerHTML = permalinkMark;
-          permalinkButton.setAttribute("aria-label", "复制永久链接");
-          permalinkButton.title = "复制永久链接";
+          permalinkButton.dataset.tooltip = "复制永久链接";
           permalinkStatus.classList.add("sr-only");
           permalinkStatus.textContent = "";
         }, 3800);
       });
     }
 
-    // 代码块：语言、复制和状态反馈
+    // 代码块：文件名、复制和状态反馈
     document.querySelectorAll<HTMLPreElement>(".prose .astro-code").forEach((pre) => {
       if (pre.parentElement?.classList.contains("code-block-wrap")) return;
       const lang = (pre.getAttribute("data-language") || "text").toUpperCase();
       if (lang === "MERMAID") return;
 
-      const wrap = document.createElement("div");
-      wrap.className = "code-block-wrap";
+      const wrap = document.createElement("figure");
+      wrap.className = "code-block-wrap preview-code";
+      pre.tabIndex = 0;
 
       const header = document.createElement("div");
       header.className = "code-block-header";
 
-      const langSpan = document.createElement("span");
-      langSpan.className = "code-lang";
-      langSpan.textContent = lang;
+      const file = document.createElement("span");
+      file.className = "code-file";
+      file.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M13 3H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9m-6-6 6 6h-6V3"/></svg>`;
+      const fileName = document.createElement("span");
+      fileName.textContent = pre.dataset.filename || lang;
+      fileName.title = fileName.textContent;
+      file.append(fileName);
 
       const status = document.createElement("span");
-      status.className = "code-copy-status";
+      status.className = "code-copy-status sr-only";
       status.setAttribute("role", "status");
+      status.setAttribute("aria-live", "polite");
 
       const copyBtn = document.createElement("button");
       copyBtn.type = "button";
-      copyBtn.className = "copy-btn";
+      copyBtn.className = "copy-btn interactive pressable";
       copyBtn.setAttribute("aria-label", "复制代码");
-      copyBtn.innerHTML = copyIcon;
+      copyBtn.title = "复制代码";
+      const copyMark = document.createElement("span");
+      copyMark.className = "copy-mark";
+      copyMark.ariaHidden = "true";
+      copyMark.innerHTML = copyIcon;
+      copyBtn.append(copyMark);
 
       let copying = false;
       let statusTimeout: number | undefined;
-      copyBtn.addEventListener("click", async () => {
+      copyBtn.addEventListener("click", async (event) => {
         if (copying) return;
 
         copying = true;
         window.clearTimeout(statusTimeout);
+        status.classList.add("sr-only");
         status.textContent = "";
-        copyBtn.classList.remove("copied");
-        copyBtn.innerHTML = copyIcon;
+        copyMark.innerHTML = copyIcon;
 
         const code = pre.querySelector("code")?.innerText || pre.innerText;
         let copied = false;
@@ -339,17 +377,20 @@ const {
         }
         copying = false;
 
-        copyBtn.classList.toggle("copied", copied);
-        copyBtn.innerHTML = copied ? copiedIcon : copyFailedIcon;
+        copyMark.innerHTML = copied ? copiedIcon : copyFailedIcon;
+        if (copied) animateCopyMark(copyMark, event);
         status.textContent = copied ? "代码已复制" : "复制失败，请手动复制";
+        status.classList.toggle("sr-only", copied);
+        copyBtn.title = status.textContent;
         statusTimeout = window.setTimeout(() => {
-          copyBtn.classList.remove("copied");
-          copyBtn.innerHTML = copyIcon;
+          copyMark.innerHTML = copyIcon;
+          copyBtn.title = "复制代码";
+          status.classList.add("sr-only");
           status.textContent = "";
         }, 3800);
       });
 
-      header.append(langSpan, status, copyBtn);
+      header.append(file, status, copyBtn);
       wrap.append(header);
       pre.before(wrap);
       wrap.appendChild(pre);
@@ -368,6 +409,9 @@ const {
         let renderId = 0;
         let renderedDark: boolean | undefined;
         let rendering = Promise.resolve();
+        const canvas = document.createElement("canvas");
+        canvas.width = canvas.height = 1;
+        const pixel = canvas.getContext("2d", { willReadFrequently: true });
 
         const refresh = () => {
           rendering = rendering.then(async () => {
@@ -376,12 +420,21 @@ const {
 
             const styles = getComputedStyle(root);
             const token = (name: string) => styles.getPropertyValue(name).trim();
-            const canvas = token("--color-canvas");
-            const surface = token("--color-surface");
-            const ink = token("--color-ink");
-            const muted = token("--color-muted");
-            const border = token("--color-hairline");
-            const accent = token("--color-teal");
+            const color = (name: string) => {
+              const value = token(name);
+              // Mermaid 的颜色解析器只接受 sRGB 表示。
+              if (!pixel || !value.startsWith("lab(")) return value;
+              pixel.fillStyle = value;
+              pixel.fillRect(0, 0, 1, 1);
+              const [red, green, blue] = pixel.getImageData(0, 0, 1, 1).data;
+              return `rgb(${red}, ${green}, ${blue})`;
+            };
+            const canvasColor = color("--color-canvas");
+            const surface = color("--color-surface");
+            const ink = color("--color-ink");
+            const muted = color("--color-muted");
+            const border = color("--color-hairline");
+            const accent = color("--color-gray-800");
             const fontFamily = token("--font-sans");
 
             mermaid.initialize({
@@ -398,18 +451,18 @@ const {
               },
               themeVariables: {
                 darkMode: dark,
-                background: canvas,
+                background: canvasColor,
                 primaryColor: surface,
                 primaryTextColor: ink,
                 primaryBorderColor: border,
-                secondaryColor: canvas,
+                secondaryColor: canvasColor,
                 tertiaryColor: surface,
                 lineColor: muted,
                 textColor: ink,
-                noteBkgColor: canvas,
+                noteBkgColor: canvasColor,
                 noteTextColor: ink,
                 noteBorderColor: border,
-                edgeLabelBackground: canvas,
+                edgeLabelBackground: canvasColor,
                 xyChart: {
                   backgroundColor: surface,
                   titleColor: ink,
@@ -448,4 +501,12 @@ const {
     }
 
   });
+
+  function animateCopyMark(mark: Element, event: MouseEvent) {
+    if (event.detail === 0 || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    mark.animate([
+      { opacity: 0, filter: "blur(4px)", transform: "translateY(2px)" },
+      { opacity: 1, filter: "blur(0)", transform: "translateY(0)" },
+    ], { duration: 200, easing: "ease-out" });
+  }
 </script>

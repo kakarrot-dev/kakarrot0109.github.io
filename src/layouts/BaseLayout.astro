@@ -15,6 +15,7 @@ export interface Props {
   updatedAt?: Date;
   tags?: string[];
   navigation?: boolean;
+  reading?: boolean;
 }
 
 const {
@@ -27,6 +28,7 @@ const {
   updatedAt,
   tags,
   navigation = true,
+  reading = false,
 } = Astro.props;
 ---
 
@@ -35,20 +37,54 @@ const {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#fcfcfc" />
     <script is:inline>
       (function () {
-        // 导航只在支持脚本时折叠；主题在首帧前初始化。
-        document.documentElement.classList.add("js");
-        var theme = window.matchMedia("(prefers-color-scheme: dark)").matches
-          ? "dark"
-          : "light";
+        const root = document.documentElement;
+        const colorScheme = window.matchMedia("(prefers-color-scheme: dark)");
+        const themeColor = document.querySelector('meta[name="theme-color"]');
+        let buttons = [];
+        let preference;
+
+        root.classList.add("js");
         try {
-          var stored = localStorage.getItem("theme");
-          if (stored === "light" || stored === "dark") theme = stored;
+          const stored = localStorage.getItem("theme");
+          if (stored === "light" || stored === "dark") preference = stored;
         } catch {
           /* Storage may be disabled. */
         }
-        document.documentElement.setAttribute("data-theme", theme);
+
+        function applyTheme(theme) {
+          const isDark = theme === "dark";
+          root.dataset.theme = theme;
+          root.classList.toggle("dark", isDark);
+          root.classList.toggle("light", !isDark);
+          themeColor.content = isDark ? "#101010" : "#fcfcfc";
+          for (const button of buttons) {
+            button.setAttribute("aria-pressed", String(isDark));
+            button.title = isDark ? "切换到浅色模式" : "切换到深色模式";
+          }
+        }
+
+        applyTheme(preference ?? (colorScheme.matches ? "dark" : "light"));
+        colorScheme.addEventListener("change", ({ matches }) => {
+          if (!preference) applyTheme(matches ? "dark" : "light");
+        });
+        document.addEventListener("DOMContentLoaded", () => {
+          buttons = document.querySelectorAll("[data-theme-toggle]");
+          applyTheme(root.dataset.theme);
+          for (const button of buttons) {
+            button.addEventListener("click", () => {
+              preference = root.dataset.theme === "dark" ? "light" : "dark";
+              applyTheme(preference);
+              try {
+                localStorage.setItem("theme", preference);
+              } catch {
+                /* Storage may be disabled. */
+              }
+            });
+          }
+        });
       })();
     </script>
     <SeoHead
@@ -81,10 +117,8 @@ const {
   </head>
   <body>
     {navigation && <Nav />}
-    <main class="main-full">
-      <slot />
-    </main>
-    <Footer />
+    {reading ? <slot /> : <main class="main-full"><slot /></main>}
+    {!reading && Astro.url.pathname !== "/" && <Footer />}
     <SiteSearch />
   </body>
 </html>

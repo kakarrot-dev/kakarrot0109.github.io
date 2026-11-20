@@ -23,7 +23,7 @@ for (const article of articles) {
   description="关于 AI 产品、方法论与实践的笔记与长文"
   canonical="/writing/"
 >
-  <div class="container section page-shell editorial-page">
+  <div class="shell">
     <header class="editorial-header">
       <h1 class="editorial-title">Writing</h1>
       <div class="editorial-header__details">
@@ -32,10 +32,10 @@ for (const article of articles) {
       </div>
       {tags.length > 0 && (
         <details class="writing-tags">
-          <summary>标签</summary>
+          <summary class="interactive pressable">标签</summary>
           <ul role="list" aria-label="文章标签">
             {tags.map((tag) => (
-              <li><a href={`/writing/tags/${encodeURIComponent(tag)}/`}>{tag}</a></li>
+              <li><a class="article-underline interactive" href={`/writing/tags/${encodeURIComponent(tag)}/`}>{tag}</a></li>
             ))}
           </ul>
         </details>
@@ -46,7 +46,7 @@ for (const article of articles) {
       [...years].map(([year, entries]) => (
         <section class="writing-year">
           <h2>{year}</h2>
-          <ul class="article-list" role="list">
+          <ul class="index-list" role="list">
             {entries.map((article) => (
               <li>
                 <ArticleRow
@@ -73,8 +73,8 @@ for (const article of articles) {
     width: fit-content;
     min-height: var(--nav-h);
     align-content: center;
-    color: var(--color-muted);
-    font-size: var(--text-small);
+    color: var(--color-gray-1100);
+    font-size: var(--text-sm);
     cursor: pointer;
   }
 
@@ -92,15 +92,13 @@ for (const article of articles) {
     display: inline-flex;
     align-items: center;
     min-height: var(--nav-h);
-    color: var(--color-muted);
-    font-size: var(--text-small);
-    text-decoration: underline;
-    text-decoration-color: var(--color-border-strong);
+    color: var(--color-gray-1100);
+    font-size: var(--text-sm);
     overflow-wrap: anywhere;
   }
 
-  .writing-tags :is(summary, a):is(:hover, :focus-visible) {
-    color: var(--color-ink);
+  .writing-tags summary:is(:hover, :focus-visible) {
+    color: var(--color-gray-1200);
   }
 
   .writing-year + .writing-year {
@@ -112,7 +110,7 @@ for (const article of articles) {
     align-items: center;
     gap: 16px;
     margin: 0 0 12px;
-    color: var(--color-muted);
+    color: var(--color-gray-1100);
     font: 400 var(--text-meta)/1.6 var(--font-mono);
     font-variant-numeric: tabular-nums;
   }
@@ -121,15 +119,5 @@ for (const article of articles) {
     flex: 1;
     border-top: var(--line-hairline);
     content: "";
-  }
-
-  .article-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  .article-list li + li {
-    border-top: var(--line-divider);
   }
 </style>

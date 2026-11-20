@@ -39,7 +39,7 @@ const deskGroups = [
   description="Kakarrot 的经历、做事原则与常用设备"
   canonical="/about/"
 >
-  <div class="container section page-shell editorial-page">
+  <div class="shell">
     <header class="editorial-header">
       <h1 class="editorial-title">About</h1>
       <p class="editorial-lead">
@@ -49,23 +49,23 @@ const deskGroups = [
     </header>
 
     <section class="about-section">
-      <h2>Timeline</h2>
+      <h2 class="section-heading">Timeline</h2>
       <dl class="about-timeline">
         <dt>2012 起</dt>
         <dd>开始入门产品经理。</dd>
         <dt>2022 起</dt>
         <dd>开始学习和研究 AI。</dd>
         <dt><time datetime="2026-05">2026.05</time></dt>
-        <dd>做出<a href="/vibe-coding/wukong/">悟空</a>，一个在 Mac 上运行的个人智能体。</dd>
+        <dd>做出<a href="/vibe-coding/wukong/" class="article-underline interactive">悟空</a>，一个在 Mac 上运行的个人智能体。</dd>
         <dt><time datetime="2026-07">2026.07</time></dt>
-        <dd>把个人站<a href="/writing/从hexo迁移到astro的心路历程/">从 Hexo 迁到 Astro</a>。</dd>
+        <dd>把个人站<a href="/writing/从hexo迁移到astro的心路历程/" class="article-underline interactive">从 Hexo 迁到 Astro</a>。</dd>
         <dt><time datetime="2026-07">2026.07</time></dt>
-        <dd>发布 <a href="/vibe-coding/claude-cream/">Claude Cream</a>，给编辑器、写作工具和个人站统一配色。</dd>
+        <dd>发布 <a href="/vibe-coding/claude-cream/" class="article-underline interactive">Claude Cream</a>，给编辑器、写作工具和个人站统一配色。</dd>
       </dl>
     </section>
 
     <section class="about-section">
-      <h2>Principles</h2>
+      <h2 class="section-heading">Principles</h2>
       <ul class="about-principles">
         <li>先理解问题，再设计方案。</li>
         <li>技术是手段，不是目的。</li>
@@ -74,7 +74,7 @@ const deskGroups = [
     </section>
 
     <details class="about-section about-kit">
-      <summary>Desk &amp; kit</summary>
+      <summary class="interactive pressable">Desk &amp; kit</summary>
       <div class="about-desk">
         {
           deskGroups.map(({ title, items }) => (
@@ -95,32 +95,20 @@ const deskGroups = [
 
 <style>
   .about-section + .about-section {
-    margin-top: clamp(40px, 7vw, 72px);
+    margin-block-start: calc(var(--spacing) * 16);
   }
 
   .about-section {
-    color: var(--color-body);
-    line-height: var(--lh-reading);
+    color: var(--color-text-paragraph);
   }
 
   .about-section :is(h2, h3, strong, summary) {
-    color: var(--color-ink);
-    font-weight: 500;
+    color: var(--color-gray-1200);
+    font-weight: var(--weight-heading);
   }
 
   .about-section h2 {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    margin: 0 0 18px;
-    font-size: var(--text-prose-subheading);
-    line-height: 1.6;
-  }
-
-  .about-section h2::after {
-    flex: 1;
-    border-top: var(--line-hairline);
-    content: "";
+    margin: 0 0 calc(var(--spacing) * 4);
   }
 
   .about-timeline {
@@ -132,16 +120,12 @@ const deskGroups = [
   }
 
   .about-timeline dt {
-    color: var(--color-muted);
+    color: var(--color-gray-1100);
     font: 400 var(--text-meta)/1.6 var(--font-mono);
   }
 
   .about-timeline dd {
     margin: 0;
-  }
-
-  .about-timeline a {
-    text-decoration-line: underline;
   }
 
   .about-principles {
@@ -155,7 +139,7 @@ const deskGroups = [
   }
 
   .about-principles li::marker {
-    color: var(--color-muted);
+    color: var(--color-gray-1100);
   }
 
   .about-kit {
@@ -163,22 +147,19 @@ const deskGroups = [
   }
 
   .about-kit summary {
-    min-height: 44px;
+    min-height: calc(var(--spacing) * 11);
     align-content: center;
     cursor: pointer;
-    font-size: var(--text-body);
-    line-height: 1.6;
   }
 
   .about-kit summary::marker {
-    color: var(--color-muted);
+    color: var(--color-gray-1100);
     font-size: var(--text-meta);
   }
 
   .about-desk {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 32px;
+    gap: calc(var(--spacing) * 6);
     margin-top: 12px;
     padding-bottom: 20px;
   }
@@ -201,12 +182,5 @@ const deskGroups = [
 
   .about-desk li + li {
     margin-top: 6px;
-  }
-
-  @media (max-width: 640px) {
-    .about-desk {
-      grid-template-columns: minmax(0, 1fr);
-      gap: 24px;
-    }
   }
 </style>

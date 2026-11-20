@@ -1,0 +1,166 @@
+---
+interface Props {
+  title: string;
+  href: string;
+  summary?: string;
+  date?: { iso: string; label: string; topic?: string };
+  icon?: string;
+  titlePrefix?: string;
+  heading?: boolean;
+}
+
+const { title, href, summary, date, icon, titlePrefix, heading = false } = Astro.props;
+const Title = heading ? "h2" : "span";
+const Wrapper = heading ? "div" : "span";
+---
+
+<a class="index-row interactive" href={href}>
+  <Wrapper class="index-row-inner">
+    <span class="folio-outer" aria-hidden="true">
+      <span class="folio-inner">
+        {icon ? (
+          <img class="project-logo" src={icon} alt="" width="24" height="24" decoding="async" loading="lazy" />
+        ) : (
+          <span class="document-lines"><span></span><span></span><span></span></span>
+        )}
+      </span>
+    </span>
+    <Wrapper class="index-copy">
+      <Title class="index-title">
+        {titlePrefix && <span class="sr-only">{titlePrefix}{" "}</span>}{title}<span class="row-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6" /></svg></span>
+      </Title>
+      {summary && <span class="index-meta">{summary}</span>}
+      {date && (date.topic ? (
+        <span class="index-meta"><time datetime={date.iso}>{date.label}</time> · {date.topic}</span>
+      ) : (
+        <time class="index-meta" datetime={date.iso}>{date.label}</time>
+      ))}
+    </Wrapper>
+  </Wrapper>
+</a>
+
+<style>
+  .index-row {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-inline: -8px;
+    padding: 8px;
+    border-radius: var(--radius-2xl);
+    text-decoration: none;
+  }
+
+  .index-row::before {
+    position: absolute;
+    inset: -4px 0;
+    content: "";
+  }
+
+  .index-row:focus-visible {
+    border-radius: var(--radius-sm);
+  }
+
+  .index-row-inner {
+    display: flex;
+    align-items: flex-start;
+    min-width: 0;
+    gap: 16px;
+  }
+
+  .folio-outer, .folio-inner {
+    display: flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-custom);
+  }
+
+  .folio-outer {
+    padding: 3px;
+    border-radius: var(--radius-lg);
+    background: var(--color-gray-background);
+  }
+
+  .folio-inner {
+    width: 40px;
+    height: 48px;
+    overflow: hidden;
+    border-radius: 5px;
+    background: var(--color-preview-bg);
+  }
+
+  .project-logo {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+  }
+
+  .document-lines {
+    display: flex;
+    align-self: flex-start;
+    flex-direction: column;
+    gap: 4px;
+    width: 100%;
+    padding: 4px;
+  }
+
+  .document-lines span {
+    height: 3px;
+    border-radius: var(--radius-full);
+    background: var(--color-gray-400);
+  }
+
+  .document-lines span:nth-child(1) { width: 12px; margin-top: 2px; }
+  .document-lines span:nth-child(2) { width: 20px; margin-top: 4px; }
+  .document-lines span:nth-child(3) { width: 16px; }
+
+  .index-copy {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  .index-title, .index-meta {
+    font-size: var(--text-body);
+    line-height: var(--lh-body);
+    overflow-wrap: anywhere;
+    text-wrap: pretty;
+  }
+
+  .index-title {
+    margin: 0;
+    color: var(--color-gray-1200);
+    font-weight: var(--weight-link);
+  }
+
+  .index-meta {
+    color: var(--color-gray-1100);
+    font-weight: 400;
+  }
+
+  .row-chevron {
+    display: inline-flex;
+    width: 0;
+    vertical-align: -0.2em;
+    color: var(--color-gray-1000);
+    opacity: 0;
+    translate: -2px 0;
+    scale: 0.75;
+    transition: opacity 0.2s ease-out, translate 0.2s ease-out, scale 0.2s ease-out;
+  }
+
+  .row-chevron svg {
+    flex: none;
+    width: 18px;
+    height: 18px;
+    margin-inline-start: 2px;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .index-row:hover .row-chevron {
+      opacity: 1;
+      translate: 0;
+      scale: 1;
+    }
+  }
+</style>

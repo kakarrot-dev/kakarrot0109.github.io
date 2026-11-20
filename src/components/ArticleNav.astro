@@ -13,19 +13,27 @@ const { prev, next } = Astro.props;
 ---
 
 {(prev || next) && (
-  <nav class="article-nav" aria-label="文章导航">
+  <nav class="article-nav" aria-label="相邻文章">
     {prev && (
-      <a href={prev.href} class="article-nav-link" data-direction="prev">
-        <span class="article-nav-label">上一篇</span>
+      <a href={prev.href} class="article-nav-link interactive" rel="prev" data-direction="prev">
+        <span class="article-nav-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="m12 5-7 7 7 7M5 12h14" />
+          </svg>
+          上一篇
+        </span>
         <span class="article-nav-title">{prev.title}</span>
-        <span class="article-nav-arrow" aria-hidden="true">←</span>
       </a>
     )}
     {next && (
-      <a href={next.href} class="article-nav-link" data-direction="next">
-        <span class="article-nav-label">下一篇</span>
+      <a href={next.href} class="article-nav-link interactive" rel="next" data-direction="next">
+        <span class="article-nav-label">
+          下一篇
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="m12 5 7 7-7 7M5 12h14" />
+          </svg>
+        </span>
         <span class="article-nav-title">{next.title}</span>
-        <span class="article-nav-arrow" aria-hidden="true">→</span>
       </a>
     )}
   </nav>
@@ -33,42 +41,69 @@ const { prev, next } = Astro.props;
 
 <style>
   .article-nav {
-    margin-bottom: 8px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: calc(var(--spacing) * 6);
+    margin-block-start: calc(var(--spacing) * 16);
+    padding-block-start: calc(var(--spacing) * 12);
+    border-block-start: var(--line-divider);
   }
 
   .article-nav-link {
     display: grid;
-    grid-template-columns: 3em minmax(0, 1fr) 1em;
-    align-items: baseline;
-    gap: 12px;
-    min-height: 44px;
-    padding-block: 12px;
-    color: var(--color-ink);
-    font-size: var(--text-subheading);
-    line-height: 1.6;
+    grid-column: 1;
+    grid-row: 1;
+    align-content: start;
+    gap: calc(var(--spacing) / 2);
+    inline-size: 100%;
+    max-inline-size: calc(var(--spacing) * 40);
+    color: var(--color-gray-1100);
+    font-size: 0.9375rem;
+    font-weight: 500;
     text-decoration: none;
   }
 
-  .article-nav-link + .article-nav-link {
-    border-top: var(--line-hairline);
+  .article-nav-link[data-direction="next"] {
+    grid-column: 2;
+    justify-self: end;
+    text-align: end;
+    justify-items: end;
   }
 
   .article-nav-label {
-    color: var(--color-muted);
-    font-size: var(--text-meta);
-    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing);
+    color: var(--color-gray-900);
+    transition: color var(--dur-fast) ease-out;
+  }
+
+  .article-nav-label svg {
+    inline-size: calc(var(--spacing) * 4);
+    block-size: calc(var(--spacing) * 4);
   }
 
   .article-nav-title {
     overflow-wrap: anywhere;
   }
 
-  .article-nav-arrow {
-    color: var(--color-muted);
-    text-align: right;
+  .article-nav-link:is(:hover, :focus-visible) {
+    color: var(--color-gray-1200);
   }
 
-  .article-nav-link:is(:hover, :focus-visible) .article-nav-arrow {
-    color: var(--color-primary-text);
+  .article-nav-link:is(:hover, :focus-visible) .article-nav-label {
+    color: var(--color-gray-1100);
+  }
+
+  @media (min-width: 40rem) {
+    .article-nav-link {
+      max-inline-size: calc(var(--spacing) * 80);
+    }
+  }
+
+  @media (prefers-contrast: more) {
+    .article-nav-label {
+      color: var(--color-gray-1100);
+    }
   }
 </style>

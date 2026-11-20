@@ -1,9 +1,8 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import ArticleRow from "@/components/ArticleRow.astro";
-import SocialIcon from "@/components/SocialIcon.astro";
+import Footer from "@/components/Footer.astro";
 import WorkCard from "@/components/WorkCard.astro";
-import ThemeToggle from "@/components/ThemeToggle.astro";
 import { socialLinks } from "@/data/social";
 import { getCollection } from "astro:content";
 
@@ -16,7 +15,7 @@ const featuredWorks = ([
   ["wukong", "悟空"],
   ["ai-pm-workbench", "AI PM Workbench", "/images/vibe-coding/ai-pm-workbench/logo.webp"],
   ["ai-employee-os", "AI Employee OS", "/images/vibe-coding/ai-employee-os/logo.webp"],
-  ["claude-cream", "Claude Cream"],
+  ["claude-cream", "Claude Cream", "/images/vibe-coding/claude-cream/logo.png"],
   ["obsidian-wiki", "Obsidian Wiki"],
 ] as const).flatMap(([id, title, icon]) => {
   const work = publishedWorks.find((entry) => entry.id === id);
@@ -35,13 +34,9 @@ const email = socialLinks.find(({ id }) => id === "email");
   canonical="/"
   navigation={false}
 >
-  <div class="container home-page">
+  <div class="shell home-page">
     <section aria-labelledby="home-introduction">
-      <header class="home-identity">
-        <img src="/avatar.png" alt="" width="24" height="24" decoding="async" />
-        <h1 id="home-introduction">Kakarrot</h1>
-        <ThemeToggle />
-      </header>
+      <h1 class="home-title" id="home-introduction">Kakarrot</h1>
       <div class="home-bio">
         <p>
           我在郑州做 AI 产品，有 <strong>10 年以上的产品经理经验</strong>。做过互联网、To B、To C 和 To G 产品，覆盖 Web、移动端和桌面端。我熟悉从 0 到 1 的创业，也做过上线后的持续迭代。
@@ -49,27 +44,25 @@ const email = socialLinks.find(({ id }) => id === "email");
         <p>
           我擅长从第一性原理拆解业务问题，用 AI 原生方式重新设计产品与增长系统。最近也在整理自己的工作流，试着把 AI 和产品直觉结合起来，让开发和协作更顺畅。
           {github && email && (
-            <>可以在 <a href={github.href} target="_blank" rel="noopener noreferrer"><SocialIcon id={github.id} />GitHub</a> 看我的项目，或<a href={email.href}><SocialIcon id={email.id} />发邮件</a>联系我。</>
+            <>可以在 <a href={github.href} class="inline-link interactive" target="_blank" rel="noopener noreferrer">GitHub</a> 看我的项目，或<a href={email.href} class="inline-link interactive">发邮件</a>联系我。</>
           )}
-          也可以看看<a href="/about/">我的经历与做事原则</a>。
+          也可以看看<a href="/about/" class="inline-link interactive">我的经历与做事原则</a>。
           <button
             type="button"
-            class="home-search"
+            class="inline-search interactive"
             data-site-search-open
             aria-haspopup="dialog"
             aria-controls="site-search"
-            aria-keyshortcuts="Control+K Meta+K"
-          >
-            搜索 <kbd data-site-search-shortcut aria-hidden="true">Ctrl K</kbd>
-          </button>
+            aria-keyshortcuts="Meta+K Control+K"
+          >搜索 <kbd data-site-search-shortcut aria-hidden="true">Ctrl K</kbd></button>
         </p>
       </div>
     </section>
 
     <section aria-labelledby="home-work">
-      <header class="home-section-header">
-        <h2 id="home-work"><a href="/vibe-coding/">Projects</a></h2>
-      </header>
+      <h2 class="home-section-heading section-heading" id="home-work">
+        <a href="/vibe-coding/" class="interactive">Projects</a>
+      </h2>
       <ul class="home-list" role="list">
         {
           featuredWorks.map(({ work, title, icon }) => (
@@ -90,9 +83,9 @@ const email = socialLinks.find(({ id }) => id === "email");
     </section>
 
     <section aria-labelledby="home-writing">
-      <header class="home-section-header">
-        <h2 id="home-writing"><a href="/writing/">Writing</a></h2>
-      </header>
+      <h2 class="home-section-heading section-heading" id="home-writing">
+        <a href="/writing/" class="interactive">Writing</a>
+      </h2>
       <ul class="home-list" role="list">
         {
           recentArticles.map((article) => (
@@ -108,45 +101,32 @@ const email = socialLinks.find(({ id }) => id === "email");
         }
       </ul>
     </section>
+
+    <Footer home />
   </div>
 </BaseLayout>
 
 <style>
   .home-page {
     display: grid;
-    gap: 92px;
-    padding-block: 108px 88px;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--section-gap);
   }
 
-  .home-identity {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 12px;
-  }
-
-  .home-identity img {
-    flex: none;
-    border-radius: 50%;
-    object-fit: cover;
-  }
-
-  .home-identity h1 {
-    margin: 0;
-    font-size: 18px;
-    font-weight: 500;
-    line-height: 1.2;
-    letter-spacing: -0.01em;
+  .home-title {
+    margin: 0 0 16px;
+    color: var(--color-gray-1200);
+    font-size: var(--text-body);
+    font-weight: var(--weight-home-heading);
   }
 
   .home-bio {
-    color: var(--color-muted);
-    line-height: 1.75;
+    color: var(--color-gray-1100);
+    font-weight: 400;
   }
 
   .home-bio strong {
-    color: var(--color-ink);
-    font-weight: 500;
+    font-weight: var(--weight-home-heading);
   }
 
   .home-bio p {
@@ -155,113 +135,59 @@ const email = socialLinks.find(({ id }) => id === "email");
   }
 
   .home-bio p + p {
-    margin-top: 12px;
+    margin-block-start: 16px;
   }
 
-  .home-identity > :global(.theme-toggle) {
-    flex: none;
-    margin-inline: auto -6px;
-  }
-
-  .home-bio a,
-  .home-search {
-    text-decoration: underline var(--color-hairline);
+  .inline-link, .inline-search {
+    color: var(--color-gray-1200);
+    font-weight: var(--weight-link);
+    text-decoration: underline transparent;
     text-underline-offset: 3px;
+    transition: text-decoration-color 0.2s ease;
   }
 
-  .home-bio a {
-    white-space: nowrap;
-  }
-
-  .home-bio a :global(svg) {
+  .inline-search {
     display: inline-block;
-    width: 0.82em;
-    height: 0.82em;
-    margin-inline-end: 0.26em;
-    vertical-align: -0.08em;
-  }
-
-  .home-bio a:is(:hover, :focus-visible),
-  .home-search:is(:hover, :focus-visible) {
-    text-decoration-color: currentColor;
-  }
-
-  .home-search {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 5px;
-    min-width: var(--nav-h);
-    min-height: var(--nav-h);
     padding: 0;
     border: 0;
     background: transparent;
-    color: var(--color-ink);
-    font: inherit;
+    font-size: var(--text-body);
+    line-height: 20px;
+    white-space: nowrap;
     cursor: pointer;
   }
 
-  .home-search kbd {
+  .inline-search kbd {
     display: none;
-    padding: 0 4px;
-    border: var(--line-hairline);
-    border-radius: 3px;
-    color: var(--color-muted);
-    font: 400 11px/1.5 var(--font-mono);
+    padding-inline: 3px;
+    border: 1px solid var(--color-gray-400);
+    border-radius: var(--radius-sm);
+    color: var(--color-gray-1100);
+    font: 400 var(--text-xs)/1 var(--font-mono);
   }
 
   @media (hover: hover) and (pointer: fine) {
-    .home-search kbd {
+    :is(.inline-link, .inline-search):hover {
+      text-decoration-color: var(--color-gray-1100);
+    }
+
+    .inline-search kbd {
       display: inline-block;
     }
   }
 
-  .home-section-header {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    min-height: var(--nav-h);
+  .home-section-heading {
+    margin: 0 0 12px;
+    font-weight: var(--weight-home-heading);
   }
 
-  .home-section-header::after {
-    flex: 1;
-    border-top: var(--line-hairline);
-    content: "";
-  }
-
-  .home-section-header h2 {
-    margin: 0;
-    font-size: var(--text-body);
-    font-weight: 500;
-    line-height: 1.4;
-  }
-
-  .home-section-header a {
-    display: inline-flex;
-    align-items: center;
-    min-height: var(--nav-h);
+  .home-section-heading a {
     color: inherit;
     text-decoration: underline transparent;
   }
 
-  .home-section-header a:is(:hover, :focus-visible) {
-    text-decoration-color: currentColor;
+  .home-section-heading a:is(:hover, :focus-visible) {
+    text-decoration-color: var(--color-gray-1100);
   }
 
-  .home-list {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-
-  .home-list li + li {
-    border-top: var(--line-divider);
-  }
-
-  @media (max-width: 640px) {
-    .home-page {
-      gap: 58px;
-      padding-block: 60px;
-    }
-  }
 </style>

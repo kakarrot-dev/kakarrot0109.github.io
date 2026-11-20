@@ -11,22 +11,21 @@ const links = [
 
 <nav class="nav-bar" aria-label="主导航">
   <div class="nav-inner">
-    <a href="/" class="nav-brand" aria-label="Kakarrot 首页">
-      <img class="nav-avatar" src="/avatar.png" alt="" width="24" height="24" decoding="async" />
+    <a href="/" class="nav-brand interactive" aria-label="Kakarrot 首页">
+      <img class="nav-avatar border-overlay" src="/avatar.png" alt="" width="40" height="40" decoding="async" />
       <span class="nav-name">Kakarrot</span>
     </a>
     <button
-      class="nav-toggle-btn"
+      class="nav-toggle-btn icon-button interactive pressable"
       type="button"
       aria-label="菜单"
       aria-expanded="false"
       aria-controls="site-nav-links"
       data-nav-toggle
     >
-      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
-        <line class="nav-toggle-line nav-toggle-line--top" x1="4" y1="7" x2="20" y2="7" />
-        <line class="nav-toggle-line nav-toggle-line--middle" x1="4" y1="12" x2="20" y2="12" />
-        <line class="nav-toggle-line nav-toggle-line--bottom" x1="4" y1="17" x2="20" y2="17" />
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path class="nav-menu-mark" d="M4 7h16M4 12h16M4 17h16" />
+        <path class="nav-close-mark" d="m6 6 12 12M18 6 6 18" />
       </svg>
     </button>
     <ul id="site-nav-links" class="nav-links" data-nav-links>
@@ -36,8 +35,8 @@ const links = [
           <li>
             <a
               href={href}
-              class:list={["nav-link", isActive && "nav-link--active"]}
-              aria-current={isActive ? "page" : undefined}
+              class:list={["nav-link interactive", isActive && "nav-link--active"]}
+              aria-current={currentPath === href ? "page" : isActive ? "location" : undefined}
             >
               {label}
             </a>
@@ -47,7 +46,7 @@ const links = [
     </ul>
     <div class="nav-actions">
       <button
-        class="nav-search"
+        class="nav-search interactive"
         type="button"
         data-site-search-open
         aria-haspopup="dialog"

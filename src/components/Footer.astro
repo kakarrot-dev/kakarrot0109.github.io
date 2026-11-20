@@ -2,17 +2,39 @@
 import { socialLinks } from "@/data/social";
 import SocialIcon from "@/components/SocialIcon.astro";
 
+interface Props {
+  home?: boolean;
+}
+
+const { home = false } = Astro.props;
 const year = new Date().getFullYear();
+const feedUrl = new URL("/rss.xml", Astro.site ?? Astro.url).href;
 ---
 
-<footer class="site-footer">
+{home && (
+  <section aria-labelledby="newsletter-heading">
+    <h2 id="newsletter-heading" class="section-heading newsletter-heading">RSS 订阅</h2>
+    <p class="newsletter-description">将订阅地址添加到 RSS 阅读器，接收新文章和项目更新。</p>
+    <div class="newsletter-shell">
+      <form class="newsletter-form" action="/rss.xml" method="get">
+        <label class="sr-only" for="site-feed-url">RSS 订阅地址</label>
+        <input id="site-feed-url" type="url" value={feedUrl} readonly />
+        <div class="newsletter-action">
+          <button class="primary-submit interactive pressable" type="submit">打开 RSS</button>
+        </div>
+      </form>
+    </div>
+  </section>
+)}
+<footer class:list={["site-footer", { "site-footer--home": home }]}>
   <div class="site-footer-inner">
     <div class="site-footer-details">
-      <nav class="site-footer-social" aria-label="社交链接">
+      {!home && <nav class="site-footer-social" aria-label="社交链接">
         {
           socialLinks.map(({ id, label, href, external }) => (
             <a
               href={href}
+              class="interactive pressable"
               aria-label={label}
               title={label}
               {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
@@ -21,11 +43,11 @@ const year = new Date().getFullYear();
             </a>
           ))
         }
-      </nav>
+      </nav>}
       <p class="site-footer-copy">
         2016–{year} Kakarrot ·{" "}
         <a
-          class="site-footer-project"
+          class="article-underline interactive"
           href="https://github.com/kakarrot-dev/claude-cream"
           target="_blank"
           rel="noopener noreferrer"
@@ -38,3 +60,108 @@ const year = new Date().getFullYear();
     <span class="site-footer-wordmark" aria-hidden="true">Kakarrot</span>
   </div>
 </footer>
+
+<style>
+  .newsletter-heading {
+    margin: 0;
+    font-weight: 500;
+  }
+
+  .newsletter-description {
+    margin-block: 12px 20px;
+    color: var(--color-gray-1100);
+  }
+
+  .newsletter-shell {
+    width: 100%;
+    padding: 4px;
+    border-radius: var(--radius-full);
+    background: var(--color-gray-background);
+    box-shadow: var(--shadow-custom);
+  }
+
+  .newsletter-form {
+    display: flex;
+    align-items: stretch;
+    width: 100%;
+    overflow: hidden;
+    border-radius: var(--radius-full);
+    background: var(--color-preview-bg);
+    box-shadow: var(--shadow-custom);
+  }
+
+  .newsletter-form input {
+    flex: 1;
+    min-width: 0;
+    height: 56px;
+    padding-inline: 20px;
+    border: 0;
+    background: transparent;
+    color: var(--color-gray-1200);
+    font: 400 var(--text-body)/1 var(--font-sans);
+    text-overflow: ellipsis;
+  }
+
+  .newsletter-form:has(input:focus-visible) {
+    outline: 2px solid var(--color-gray-1100);
+    outline-offset: 2px;
+  }
+
+  .newsletter-form input:focus-visible {
+    outline: none;
+  }
+
+  .newsletter-action {
+    flex: none;
+    padding: 4px;
+  }
+
+  .primary-submit {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 48px;
+    min-width: 112px;
+    padding-inline: 16px;
+    overflow: hidden;
+    border: 0;
+    border-radius: var(--radius-full);
+    background: var(--color-gray-1200);
+    color: var(--color-gray-100);
+    font: 500 var(--text-body)/var(--lh-body) var(--font-sans);
+    white-space: nowrap;
+    cursor: pointer;
+  }
+
+  .primary-submit:focus-visible {
+    outline-color: var(--color-gray-100);
+    outline-offset: -4px;
+    border-radius: var(--radius-full);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .primary-submit:hover {
+      background: var(--color-text-paragraph);
+    }
+  }
+
+  .site-footer--home {
+    padding: 0;
+  }
+
+  .site-footer--home .site-footer-inner {
+    width: 100%;
+    min-height: 80px;
+    flex-wrap: nowrap;
+    margin: 0;
+  }
+
+  .site-footer--home .site-footer-wordmark {
+    display: grid;
+    flex: 0 0 80px;
+    place-items: center;
+    width: 80px;
+    height: 80px;
+    font-size: var(--text-body);
+  }
+</style>
