@@ -29,8 +29,12 @@
     </button>
   </form>
 
-  <div class="site-search__scroll">
+  <div class="site-search__summary">
     <p class="site-search__message" data-search-status role="status"></p>
+    <button type="button" class="site-search__action interactive" data-search-more aria-controls="site-search-results" hidden>查看全部结果</button>
+  </div>
+
+  <div class="site-search__scroll">
     <button type="button" class="site-search__action interactive" data-search-retry hidden>重试</button>
     <button type="button" class="site-search__action interactive" data-search-clear hidden>清除关键词</button>
     <div id="site-search-results" role="listbox" aria-label="搜索结果" hidden></div>
@@ -53,6 +57,7 @@
   const close = dialog.querySelector<HTMLButtonElement>(".site-search__close")!;
   const retry = dialog.querySelector<HTMLButtonElement>("[data-search-retry]")!;
   const clear = dialog.querySelector<HTMLButtonElement>("[data-search-clear]")!;
+  const more = dialog.querySelector<HTMLButtonElement>("[data-search-more]")!;
   const scrollArea = dialog.querySelector<HTMLElement>(".site-search__scroll")!;
   const groups = { "vibe-coding": "Vibe Coding", writing: "Writing" } as const;
 
@@ -101,6 +106,8 @@
   let restoreFocus: HTMLElement | undefined;
   let options: HTMLElement[] = [];
   let active = -1;
+  let lastQuery = "";
+  let showAll = false;
 
   function setActive(index: number, scroll = false) {
     const previous = options[active];
@@ -124,6 +131,10 @@
     if (!entries) return;
 
     const query = normalize(input.value);
+    if (query !== lastQuery) {
+      lastQuery = query;
+      showAll = false;
+    }
     const matches = findResults(entries, query);
     const groupOrder = query
       ? new Set(matches.map(({ group }) => group))
@@ -131,8 +142,10 @@
     const fragment = document.createDocumentFragment();
     options = [];
     active = -1;
+    const groupLimit = query ? 6 : 3;
     for (const group of groupOrder) {
-      const items = matches.filter((item) => item.group === group).slice(0, query ? 6 : 3);
+      const groupMatches = matches.filter((item) => item.group === group);
+      const items = showAll ? groupMatches : groupMatches.slice(0, groupLimit);
       if (!items.length) continue;
 
       const container = document.createElement("div");
@@ -178,9 +191,18 @@
     results.parentElement?.scrollTo(0, 0);
     results.hidden = !options.length;
     clear.hidden = !query || !results.hidden;
+    more.hidden = !query || options.length === matches.length;
     input.setAttribute("aria-expanded", String(!results.hidden));
-    status.classList.toggle("sr-only", !results.hidden);
-    status.textContent = results.hidden ? "没有匹配的结果，试试更短的关键词。" : `显示 ${options.length} 条结果。`;
+    status.classList.toggle("sr-only", !query && !results.hidden);
+    if (results.hidden) {
+      status.textContent = "没有匹配的结果，试试更短的关键词。";
+    } else if (!query) {
+      status.textContent = `显示 ${options.length} 条建议结果`;
+    } else if (more.hidden) {
+      status.textContent = `共 ${options.length} 条结果`;
+    } else {
+      status.textContent = `共 ${matches.length} 条，显示 ${options.length} 条`;
+    }
     setActive(results.hidden ? -1 : 0);
   }
 
@@ -269,7 +291,7 @@
 
   dialog.addEventListener("keydown", (event) => {
     if (event.key !== "Tab") return;
-    const lastControl = [clear, retry].find((button) => !button.hidden) ?? close;
+    const lastControl = [clear, retry, more].find((button) => !button.hidden) ?? close;
     if (event.shiftKey && document.activeElement === input) {
       event.preventDefault();
       lastControl.focus();
@@ -310,6 +332,12 @@
   clear.addEventListener("click", () => {
     input.value = "";
     input.focus();
+    renderResults();
+  });
+
+  more.addEventListener("click", () => {
+    showAll = true;
+    input.focus({ preventScroll: true });
     renderResults();
   });
 
@@ -464,6 +492,14 @@
     }
   }
 
+  .site-search__summary {
+    display: flex;
+    flex: none;
+    align-items: center;
+    justify-content: space-between;
+    padding-inline: 6px;
+  }
+
   .site-search__message {
     margin: 10px;
     color: var(--color-gray-1100);
@@ -482,10 +518,16 @@
     cursor: pointer;
   }
 
+  .site-search__summary .site-search__action {
+    min-block-size: 36px;
+    margin: 0 10px 0 0;
+    white-space: nowrap;
+  }
+
   .site-search :global(.site-search__label) {
     margin: 0;
     padding: 10px;
-    color: var(--color-gray-900);
+    color: var(--color-gray-1100);
     font-size: 14px;
     font-weight: 500;
     line-height: 20px;
@@ -569,7 +611,7 @@
     padding-inline: 14px;
     border-top: 1px solid var(--color-gray-300);
     background: var(--color-command-footer);
-    color: var(--color-gray-900);
+    color: var(--color-gray-1100);
     font-size: 14px;
     line-height: 20px;
   }
@@ -602,6 +644,35 @@
       padding-inline-end: 42px;
     }
 
+    .site-search :global(.site-search__option) {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 0 10px;
+      align-content: center;
+      height: auto;
+      min-height: 40px;
+      padding-block: 8px;
+    }
+
+    .site-search :global(.site-search__result-title) {
+      display: -webkit-box;
+      grid-column: 1;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      white-space: normal;
+      overflow-wrap: anywhere;
+    }
+
+    .site-search :global(.site-search__detail) {
+      grid-column: 1;
+      max-width: none;
+    }
+
+    .site-search :global(.site-search__option)::after {
+      grid-area: 1 / 2;
+      margin-inline-start: 0;
+    }
+
     .site-search :global(.site-search__default-topic) {
       display: none;
     }
@@ -621,13 +692,6 @@
 
     .site-search__keys {
       display: flex;
-    }
-  }
-
-  @media (prefers-contrast: more) {
-    .site-search :global(.site-search__label),
-    .site-search__keys {
-      color: var(--color-gray-1100);
     }
   }
 </style>

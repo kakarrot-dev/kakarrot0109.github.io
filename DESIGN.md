@@ -283,7 +283,7 @@ typography:
       size-px: 14
       weight: 500
       line-height-px: 20
-      color: gray-900
+      color: gray-1100
     breadcrumb:
       size-px: 14
       weight: 500
@@ -773,6 +773,7 @@ html { font-family:Inter,"Inter Fallback",system-ui,Arial; font-feature-settings
 <div class="command-backdrop" hidden></div>
 <div class="command" role="dialog" aria-modal="true" aria-label="搜索" hidden>
  <div class="command-input-pad"><div class="command-input-box"><div class="command-input-scale"><input role="combobox" aria-expanded="true" aria-controls="command-results" aria-autocomplete="list"></div></div></div>
+ <div class="command-summary"><p role="status"></p><button type="button" aria-controls="command-results" hidden>查看全部结果</button></div>
  <div class="command-scroll"><div id="command-results" role="listbox"><section><div class="command-group">分类</div><div class="command-option" role="option" data-selected="true"><span>结果</span><span class="command-detail">说明</span></div></section></div></div>
  <footer class="command-keys"><span aria-hidden="true"></span><div><kbd>↑</kbd><kbd>↓</kbd><span>选择</span><kbd>↵</kbd><span>确认</span><kbd>esc</kbd><span>关闭</span></div></footer>
 </div>
@@ -790,9 +791,9 @@ html { font-family:Inter,"Inter Fallback",system-ui,Arial; font-feature-settings
 .command-scroll { max-height:372px; padding-inline:6px; scroll-padding-block:6px; transition:height .15s ease-out; overflow:auto; }
 .command-option { display:flex; align-items:center; height:40px; gap:10px; padding-inline:10px; border-radius:10px; cursor:pointer; font-size:14px; line-height:20px; color:var(--color-gray-1200); }
 .command-option[data-selected=true] { background:var(--color-gray-300); }
-.command-group { padding:10px; color:var(--color-gray-900); font-size:14px; font-weight:500; line-height:20px; }
+.command-group { padding:10px; color:var(--color-gray-1100); font-size:14px; font-weight:500; line-height:20px; }
 .command-group:first-child { padding-top:4px; }
-.command-keys { display:none; align-items:center; justify-content:space-between; border-top:1px solid var(--color-gray-300); padding:12px 14px; background:var(--color-gray-100); color:var(--color-gray-900); font-size:14px; line-height:20px; }
+.command-keys { display:none; align-items:center; justify-content:space-between; border-top:1px solid var(--color-gray-300); padding:12px 14px; background:var(--color-gray-100); color:var(--color-gray-1100); font-size:14px; line-height:20px; }
 .dark .command-keys { background:var(--color-gray-200); }
 @media(min-width:40rem) { .command input { width:100%; transform:none; font-size:14px; line-height:20px; } .command-keys { display:flex; } }
 ```
@@ -800,6 +801,8 @@ html { font-family:Inter,"Inter Fallback",system-ui,Arial; font-feature-settings
 桌面面板x360/y162/w720；输入外壳708×40、内容686×38；结果区372px上限，整体高度随内容变化，不锁定463px。结果内容上/下padding6；首组标签padding4px 10px 10px，后组10px。底栏45px含顶边；键帽20px高、最小宽20px、6px圆角、1px gray400边、preview底、14/450/gray1100；Esc字帽padding-inline6且12px字。
 
 移动输入16px原始字号乘.875获得14px视觉，宽除.875抵消缩放；不得直接把原始字号改14导致自动缩放。底栏小于40rem隐藏。滚动条6px宽，gray800 thumb、圆角，默认透明，hover/scroll时100ms显现。
+
+输入关键词后，在结果滚动区上方显示命中总数。每组预览最多6条，超过时提供「查看全部结果」，改词后恢复预览。小于40rem时结果行最小高40px，标题最多两行，来源另起一行。
 
 键盘流程：Meta+K打开；输入框接管焦点；输入改变结果与分组；上下选择并把选中项滚入视口；Enter确认当前项；Escape关闭并还原触发前焦点；Tab不能落回背景。输入为空显示默认分类，不为空可出现问答兜底；没有匹配时仍可保留一条“询问当前词”的可执行项、显示空结果说明与清除入口；**不得未确认就请求问答服务**。`aria-activedescendant`、option id、aria-selected与视觉data-selected保持一致。遮罩平坦背景在浅色为226灰、深色为12灰；不能使用正文深灰40%那种过重遮罩。
 
@@ -970,7 +973,7 @@ function chooseTheme(theme) {
 - [ ] 普通目录内a自然高71.25，li步距84.25；文本换行后自动增高。
 - [ ] 首页简介内链带前置16×16实心同色小图标（mr-1/mb-0.5/whitespace-nowrap）；搜索属于段落流、无pill背景，精细指针双18×18独立键帽位于文字前，触屏回退为前置16×16图标。
 - [ ] 工具头36、到H1间隔96；H2前96后20；notes p+p24与长文br换段不混用。
-- [ ] 命令面板720最大宽、18%顶部、16px角、选中项40高、移动输入原始16px。
+- [ ] 命令面板720最大宽、18%顶部、16px角，桌面结果行高40px，手机最小40px，移动输入原始16px。
 - [ ] Quote出处栏是内缩浅底12px圆角，不是普通顶线；代码栏40高、复制28、代码13。
 - [ ] 视频控条36、中心64、渐变80、键盘聚焦可见；真实资源比例不被覆盖。
 - [ ] 问答初始输入在底部，不在页面中间；建议自动折行，输入16px，提交36px。
