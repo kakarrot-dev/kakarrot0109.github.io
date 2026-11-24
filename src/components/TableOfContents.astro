@@ -12,28 +12,45 @@ export interface Props {
 const { headings } = Astro.props;
 ---
 
-<nav aria-label="目录">
-  <ul class="toc-list" role="list">
-    {headings.map(({ depth, slug, text }) => (
-      <li class:list={[depth === 3 && "toc-subsection"]}>
-        <a href={`#${encodeURIComponent(slug)}`}>{text}</a>
-      </li>
-    ))}
-  </ul>
-</nav>
+<details class="article-toc">
+  <summary class="interactive">文章目录</summary>
+  <nav aria-label="文章目录">
+    <ul class="toc-list" role="list">
+      {headings.map(({ depth, slug, text }) => (
+        <li class:list={[depth === 3 && "toc-subsection"]}>
+          <a href={`#${encodeURIComponent(slug)}`}>{text}</a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+</details>
 
 <style>
+  .article-toc {
+    margin-block-end: 20px;
+    border-block-end: var(--line-divider);
+  }
+
+  .article-toc summary {
+    width: fit-content;
+    min-block-size: var(--nav-h);
+    align-content: center;
+    color: var(--color-muted);
+    font-size: var(--text-small);
+    cursor: pointer;
+  }
+
   .toc-list {
     list-style: none;
-    margin: 3px 0 0;
-    padding: 0;
+    margin: 0;
+    padding: 0 0 8px;
   }
 
   .toc-list a {
     display: flex;
     align-items: center;
     min-height: 44px;
-    padding: 7px 10px;
+    padding: 8px 12px;
     border-inline-start: 2px solid transparent;
     color: var(--color-body);
     font-size: var(--text-small);
@@ -51,6 +68,6 @@ const { headings } = Astro.props;
   }
 
   .toc-subsection a {
-    padding-inline-start: 25px;
+    padding-inline-start: 24px;
   }
 </style>

@@ -225,9 +225,9 @@ typography:
       line-height-px: 27.625
       color: gray-1100
     article-h1:
-      size-px: 17
+      size-px: 24
       weight: 550
-      line-height-px: 27.625
+      line-height-px: 32
       color: gray-1200
     article-h2:
       size-px: 17
@@ -476,13 +476,13 @@ syntax-additional:
 
 1. MUST 使用 `box-sizing:border-box`。外壳最大692px，左右padding各24px，文字最大净宽644px。MUST NOT 把692px用作净文字宽。
 2. MUST 保持小于40rem时上下64px、大于等于40rem时上下128px；首页分区间距分别64/128px。MUST NOT 为凑一个标题的绝对y而任意压缩分区。
-3. MUST 首页H1/H2为17px/500；文章H1/H2为17px/550；产品主标题24px/600。MUST NOT 用一个heading-weight覆盖全部角色。
+3. MUST 首页H1/H2为17px/500，文章H1为24px/550，文章H2为17px/550，产品主标题为24px/600。MUST NOT 用一个heading-weight覆盖全部角色。
 4. MUST 首页简介和列表说明用gray-1100；文章正文用text-paragraph。深色仍沿用语义。MUST NOT 把首页简介染成正文深灰，或把文章正文一起变浅。
 5. MUST 首页项目与文章目录都保留“左小图框＋右标题/说明或日期”。MUST NOT 删除文章目录图框，或将日期移到最右侧形成单行紧凑表。
 6. MUST 保留li上下6px和a四边8px两层padding。MUST NOT 把`py-1.5`当作整个目录行全部间距。
 7. MUST 首页简介内的实体与动作链接嵌于文字流（`450`字重、`gray-1200`、`whitespace-nowrap`、默认透明下划线 hover 显 `gray-1100`），前置 `16×16px` 实心同色小图标（`mr-1 mb-0.5 inline-block`）；搜索触发器透明无 padding，精细指针端把两枚独立 `18×18px` `rounded-[5px]` 键帽排在文字前面，粗指针/触屏端自动降级为前置 `16×16px` 搜索图标。MUST NOT 把首页搜索独立成行或套用灰色胶囊、把双键帽合并成单个胶囊或放到文字后面、或省略行内链接前置图标与防拆行约束。
 8. MUST 目录小图框外46×54px、内40×48px、外padding3px、文字gap16px；logo24px。MUST NOT 用40px方形封面裁切代替双层装裱结构。
-9. MUST 文章工具头36px高、两端圆形按钮；工具头底至标题96px，标题后20px；H2前96px后20px。MUST NOT 把内容起点改成32px。
+9. MUST 文章工具头36px高、两端圆形按钮。工具头底至标题96px，文章标题组后留20px，H2前96px后20px。MUST NOT 把内容起点改成32px。
 10. MUST 区分首页章节、文章章节和演示卡标题。演示卡h3为14px/500，不是文章三级标题配方；`article-h3:null`禁止自动生成一个没有定义的全局三级变体。
 11. MUST 命令面板固定在视口18%高度、最大720px、左右保留20px，16px圆角。MUST NOT 垂直居中或收窄成文章列644px。
 12. MUST 代码正文13px等宽、文件栏40px高、复制按钮28px；引文正文30px展示衬线。MUST NOT 把演示插画里的文字当正文代码或引文。
@@ -519,7 +519,8 @@ html { font-family:Inter,"Inter Fallback",system-ui,Arial; font-feature-settings
 .home-title,.home-heading { font-size:17px; font-weight:500; }
 .home-bio { font-size:17px; line-height:1.625; color:var(--color-gray-1100); }
 .article-body { font-size:17px; line-height:1.625; color:var(--color-text-paragraph); }
-.article-title,.article-heading { font-size:17px; font-weight:550; line-height:1.625; }
+.article-title { font-size:24px; font-weight:550; line-height:32px; }
+.article-heading { font-size:17px; font-weight:550; line-height:1.625; }
 ```
 
 ### 1.3 基础外壳
@@ -553,9 +554,10 @@ html { font-family:Inter,"Inter Fallback",system-ui,Arial; font-feature-settings
 <div class="shell">
   <header class="reading-toolbar"><a class="circle" aria-label="返回"></a><button class="circle" aria-label="复制链接"></button></header>
   <main class="reading-main article-body">
-    <h1 class="article-title">文章标题</h1>
+    <header class="article-header"><h1 class="article-title">文章标题</h1><p class="article-dates">发布 <time datetime="2026-01-01">2026.01.01</time></p></header>
+    <details class="article-toc"><summary>文章目录</summary><nav aria-label="文章目录"><ul><li><a href="#section-a">章节</a></li></ul></nav></details>
     <p>正文内容</p><br><p>后续内容</p>
-    <h2 class="article-heading"><span class="anchor-label">章节</span><span class="hairline"></span></h2>
+    <h2 class="article-heading" id="section-a"><span class="anchor-label">章节</span><span class="hairline"></span></h2>
     <section class="content-components"></section>
     <section class="article-more"></section>
     <nav class="article-nav" aria-label="相邻文章"></nav>
@@ -564,7 +566,8 @@ html { font-family:Inter,"Inter Fallback",system-ui,Arial; font-feature-settings
 ```
 
 - 工具头`min-height:36px;display:flex;justify-content:space-between;gap:8px`。阅读main `margin-top:96px`，**桌面与移动相同**。因此标题桌面y260、移动y196。
-- H1 `margin-bottom:20px;width:fit-content;scroll-margin-top:80px`；其余正文同17/27.625px，文章标题不放大。
+- H1为24/550/32px，`width:fit-content;scroll-margin-top:80px`。标题下方用13px灰1100显示发布日期，有更新日期时一并显示。标题组后留20px，正文为17/27.625px。
+- 二、三级章节合计达4个时，在正文前提供默认折叠的「文章目录」，目录项链接到对应章节。
 - 连续自然段由内容中的`br`承载换段，当前27.625px行高环境里段落可见底→下一段顶约26px；不要同时保留br又给p加26px margin而翻倍。
 - H2 `margin-top:96px;margin-bottom:20px;display:flex;align-items:center;gap:12px`；后接1px gray-400延伸线，heading wrapper处理左侧锚点；所有视口仍96/20。
 - 文章没有独立三级标题视觉变体；演示内h3不等于文章h3。需要新的层级必须先扩展本文角色定义，不从产品演示卡挪用14px。
@@ -954,7 +957,7 @@ function chooseTheme(theme) {
 }
 ```
 
-键盘顺序必须跟视觉：返回→复制→正文链接→页底导航；对话打开后输入接管焦点、关闭后还原；所有图标按钮有action aria-label、复制有live状态；列表用li、日期用time、引用用blockquote/figcaption、代码用pre/code。不能仅用颜色表达选中、错误和禁用；输入label不能只靠placeholder。
+键盘顺序必须跟视觉：返回→复制→文章目录（如果有）→正文链接→页底导航；对话打开后输入接管焦点、关闭后还原；所有图标按钮有action aria-label、复制有live状态；列表用li、日期用time、引用用blockquote/figcaption、代码用pre/code。不能仅用颜色表达选中、错误和禁用；输入label不能只靠placeholder。
 
 ## 6. 开发自检门禁
 

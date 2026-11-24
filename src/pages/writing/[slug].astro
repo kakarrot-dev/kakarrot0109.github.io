@@ -1,6 +1,7 @@
 ---
 import ProseLayout from "@/layouts/ProseLayout.astro";
 import ArticleNav from "@/components/ArticleNav.astro";
+import TableOfContents from "@/components/TableOfContents.astro";
 import { getCollection, render } from "astro:content";
 
 export async function getStaticPaths() {
@@ -14,7 +15,8 @@ export async function getStaticPaths() {
 }
 
 const { article } = Astro.props;
-const { Content } = await render(article);
+const { Content, headings } = await render(article);
+const sections = headings.filter(({ depth }) => depth === 2 || depth === 3);
 
 const allArticles = (await getCollection("writing"))
   .filter((a) => !a.data.draft)
@@ -36,6 +38,7 @@ const canonical = `/writing/${article.id}/`;
   backHref="/writing/"
   backLabel="写作"
 >
+  {sections.length >= 4 && <TableOfContents slot="contents" headings={sections} />}
   <Content />
   <ArticleNav
     slot="end"

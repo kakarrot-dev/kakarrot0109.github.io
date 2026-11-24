@@ -26,6 +26,8 @@ const {
   backLabel,
   product = false,
 } = Astro.props;
+const publishedDate = publishedAt?.toISOString().slice(0, 10);
+const updatedDate = updatedAt?.toISOString().slice(0, 10);
 ---
 
 <BaseLayout
@@ -58,7 +60,18 @@ const {
           <h1><span aria-hidden="true">/</span> {title}</h1>
           {description && <p>{description}</p>}
         </header>
-      ) : <h1 class="article-title">{title}</h1>}
+      ) : (
+        <header class="article-header">
+          <h1 class="article-title">{title}</h1>
+          {(publishedDate || updatedDate) && (
+            <p class="article-dates">
+              {publishedDate && <span>发布 <time datetime={publishedDate}>{publishedDate.replace(/-/g, ".")}</time></span>}
+              {updatedDate && <span>更新 <time datetime={updatedDate}>{updatedDate.replace(/-/g, ".")}</time></span>}
+            </p>
+          )}
+        </header>
+      )}
+      <slot name="contents" />
       <div class="prose prose-body">
         <slot name="hero" />
         <slot />
@@ -146,14 +159,30 @@ const {
     margin-block-start: calc(var(--spacing) * 24);
   }
 
+  .article-header {
+    margin-block-end: calc(var(--spacing) * 5);
+  }
+
   .article-title {
     width: fit-content;
-    margin: 0 0 calc(var(--spacing) * 5);
+    margin: 0;
     scroll-margin-block-start: calc(var(--spacing) * 20);
     color: var(--color-gray-1200);
-    font-size: var(--text-body);
-    font-weight: 550;
+    font-size: var(--text-2xl);
+    font-weight: var(--weight-heading);
+    line-height: calc(var(--spacing) * 8);
     overflow-wrap: anywhere;
+    text-wrap: pretty;
+  }
+
+  .article-dates {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 16px;
+    margin: 8px 0 0;
+    color: var(--color-muted);
+    font-size: var(--text-meta);
+    font-variant-numeric: tabular-nums;
   }
 
   .product-hero {
