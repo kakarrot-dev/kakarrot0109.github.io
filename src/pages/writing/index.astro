@@ -6,7 +6,16 @@ import { getCollection } from "astro:content";
 const articles = (await getCollection("writing"))
   .filter((a) => !a.data.draft)
   .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
-const tags = [...new Set(articles.flatMap(({ data }) => data.tags))]
+const tagCounts = new Map<string, number>();
+for (const { data } of articles) {
+  for (const tag of new Set(data.tags)) {
+    tagCounts.set(tag, (tagCounts.get(tag) ?? 0) + 1);
+  }
+}
+const rankedTags = [...tagCounts]
+  .sort(([a, aCount], [b, bCount]) => bCount - aCount || a.localeCompare(b, "zh-CN"));
+const popularTags = rankedTags.slice(0, 6).map(([tag]) => tag);
+const moreTags = rankedTags.slice(6).map(([tag]) => tag)
   .sort((a, b) => a.localeCompare(b, "zh-CN"));
 
 const years = new Map<number, typeof articles>();
@@ -30,15 +39,24 @@ for (const article of articles) {
         <p class="editorial-lead">关于 AI 产品、方法论与实践的笔记与长文</p>
         <p class="editorial-count">{articles.length} articles</p>
       </div>
-      {tags.length > 0 && (
-        <details class="writing-tags">
-          <summary class="interactive pressable">标签</summary>
-          <ul role="list" aria-label="文章标签">
-            {tags.map((tag) => (
+      {popularTags.length > 0 && (
+        <div class="writing-tags">
+          <ul role="list" aria-label="常用文章标签">
+            {popularTags.map((tag) => (
               <li><a class="article-underline interactive" href={`/writing/tags/${encodeURIComponent(tag)}/`}>{tag}</a></li>
             ))}
           </ul>
-        </details>
+          {moreTags.length > 0 && (
+            <details>
+              <summary class="interactive pressable">更多标签</summary>
+              <ul role="list" aria-label="更多文章标签">
+                {moreTags.map((tag) => (
+                  <li><a class="article-underline interactive" href={`/writing/tags/${encodeURIComponent(tag)}/`}>{tag}</a></li>
+                ))}
+              </ul>
+            </details>
+          )}
+        </div>
       )}
     </header>
 
@@ -81,11 +99,15 @@ for (const article of articles) {
   .writing-tags ul {
     display: flex;
     flex-wrap: wrap;
-    gap: 0 18px;
+    gap: 0 16px;
     margin: 0;
-    padding: 8px 0 0;
-    border-top: var(--line-divider);
+    padding: 0;
     list-style: none;
+  }
+
+  .writing-tags details ul {
+    padding-block-start: 8px;
+    border-block-start: var(--line-divider);
   }
 
   .writing-tags a {
