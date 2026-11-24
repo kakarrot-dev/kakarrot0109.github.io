@@ -536,9 +536,10 @@ html { font-family:Inter,"Inter Fallback",system-ui,Arial; font-feature-settings
 
 ### Type 1 · 首页索引
 
-顺序：Identity → Bio（含行内搜索）→ 项目目录 → 文章目录 → 独立短笔记入口 → 订阅区 → 轻页底。没有全宽常驻导航，不设独立头像栏或主题按钮占位。
+顺序：Identity → Bio（含行内搜索）→ 归档链接 → 项目目录 → 文章目录 → 独立短笔记入口 → 订阅区 → 轻页底。没有全宽常驻导航，不设独立头像栏或主题按钮占位。
 
 - Identity是17/500单行标题，站点自有头像为24×24px圆形，位于标题文字左侧，间距8px并垂直居中。标题底部margin16px；Bio第一段无margin，第二段margin-top16px；Bio17/400/gray-1100，行高27.625px；链接与搜索是行内450/gray-1200。
+- 简介下方提供带下划线的「全部文章」「全部作品」，各有至少44px高的触区。作品分区标题沿用归档名称 Vibe Coding。
 - 各section用margin-top64px，在40rem起128px；标题与列表容器gap12px。首页标题不是550。section标题17/500，gap12px接1px gray-400细线。
 - 项目和文章目录复用同一行几何，仅小图框内容与第二行信息不同；目录背景透明，li细线gray-300，末行无线。
 - 订阅区标题后12px到说明；说明后20px到表单外框，表单外框后20px到辅助人数信息。订阅区与前后section仍沿用64/128px。

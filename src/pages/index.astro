@@ -80,11 +80,15 @@ const email = socialLinks.find(({ id }) => id === "email");
           </button>
         </p>
       </div>
+      <nav class="home-archives" aria-label="归档">
+        <a href="/writing/" class="section-link article-underline interactive">全部文章</a>
+        <a href="/vibe-coding/" class="section-link article-underline interactive">全部作品</a>
+      </nav>
     </section>
 
     <section aria-labelledby="home-work">
       <h2 class="home-section-heading section-heading" id="home-work">
-        <a href="/vibe-coding/" class="interactive">Projects</a>
+        <a href="/vibe-coding/" class="interactive">Vibe Coding</a>
       </h2>
       <ul class="home-list" role="list">
         {
@@ -168,6 +172,17 @@ const email = socialLinks.find(({ id }) => id === "email");
 
   .home-bio p + p {
     margin-block-start: 16px;
+  }
+
+  .home-archives {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 16px;
+    margin-block-start: 8px;
+  }
+
+  .home-archives a {
+    text-decoration-color: var(--color-gray-1100);
   }
 
   .inline-icon-link, .inline-search {
