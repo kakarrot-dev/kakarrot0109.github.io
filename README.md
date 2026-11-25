@@ -98,6 +98,8 @@ CLAUDE.md               Claude Code 入口
 
 ## Content
 
+2026-11-25 发布第 36 篇文章，记录 Quiet Column 改版和 Grok Bot 整理网站审查方法的过程。 [《我又把「全部文章」放回了首页》](https://kakarrot.com/writing/我又把全部文章放回了首页/)
+
 | Collection | Path | Route |
 |---|---|---|
 | Writing | `src/content/writing/` | `/writing/[slug]/` |
